@@ -1,0 +1,881 @@
+THC_v2: FRESH HELD-OUT RESULTS
+========================================================================================
+Comparison: BANANA2_SQHMC_PERIODIC_THC_V2_HELDOUT_20261012_v1
+Protocol SHA256: 4e72052d86f08b0a3dca10b858488f39a744c8f53cb7c96fbca4a9b611de3717
+Script SHA256: 6b0fff2793824628569cde035bb1d8d82d2e7f4a9592439e9e7fa0b59959ff48
+Completed UTC: 2026-10-12T18:17:39.230591+00:00
+Runtime: {"llvmlite": "0.47.0", "numba": "0.65.1", "numpy": "2.2.2", "python": "3.12.4"}
+Fixed settings: {"L": 60, "Q": 4.0, "a": 0.5, "coupling_code": 0.025, "epsilon": 0.05}
+10 paired blocks; 4 chains/block; 1000 warmup + 10000 retained draws/chain.
+Target: U=x^2/(2*sigma_x^2)+(y-b*(x^2-sigma_x^2))^2/(2*sigma_y^2); beta=1, sigma_x=2, sigma_y=0.2, b=0.25; base mass diag(0.25,1/2.04).
+Observables: x, y, x^2, x*y, y^2.
+IAT: unchanged multi-chain Geyer IPS/IMS, biased denominator N, no floor.
+R-hat: max(rank-normalized split, folded rank-normalized split); descriptive.
+Gradient cost: actual retained target-gradient calls; warmup excluded; cached gradients not counted twice.
+Scoring rule: Unchanged expanded tuning rule for this pair: rejected nonfinite proposals are counted, but finite retained states (including rejection repeats) are scored. A nonfinite retained state, undefined required IAT, or invalid actual gradient denominator makes the block and full method score undefined. No omitted or replacement blocks. This differs from the earlier HMC/bounded/v4 zero-event rule.
+No blocks omitted. Numerical rejection repeats the previous state.
+No adaptation, tuning or selection has been performed using these final blocks.
+h(s)=1+0.025*cos(s/0.5), alpha=0.025, phi=0, a=0.5, Q=4, rho(s)=N(0,1). s persists, starting at (-1,1,1,-1). Only p|s~N(0,h(s)^2*M0/beta) and p_s~N(0,Q/beta) refresh each trajectory. Rejection restores q and s.
+Original SeedSequence/PCG64 child 0 physical normals, child 1 auxiliary normals (S-QHMC mass or THC p_s), child 2 MH uniforms. All three raw stream hashes must match in each paired block.
+Auxiliary moments are descriptive, never score observables.
+
+METHOD SUMMARY
+status: ok
+geometric_mean_efficiency: 0.00381625992342
+minimum_block_efficiency: 0.000486164670139
+median_block_efficiency: 0.00506486330721
+maximum_block_efficiency: 0.00586530676699
+mean_acceptance: 0.97453
+maximum_rhat: 1.00035670718
+maximum_standardized_moment_error: 0.0405243075824
+total_nonfinite_trajectories: 26
+maximum_blockwise_worst_IAT: 34.2872945406
+geometric_mean_worst_IAT: 4.36735153485
+blocks_completed: 10
+blocks_score_defined: 10
+retained_draws_per_method: 400000
+total_retained_gradient_calls: 23999594
+mean_gradient_calls_per_draw: 59.998985
+warmup_nonfinite_trajectories: 0
+retained_nonfinite_trajectories: 26
+
+BLOCK RESULTS (one-based block numbers)
+block status g worst_IAT worst_observable efficiency acceptance max_Rhat max_moment_SD nonfinite_warmup nonfinite_retained
+1 ok 60 3.12769856032 y^2 0.00532873176402 0.97515 1.00014055719 0.00967346989612 0 0
+2 ok 60 3.32742211895 y^2 0.00500888257362 0.9749 1.00017764433 0.00555227658477 0 0
+3 ok 59.9996 6.82616077025 y^2 0.00244160346342 0.9721 1.00026536515 0.028445570554 0 1
+4 ok 59.999625 2.8415855293 x^2 0.00586530676699 0.9747 1.00020794941 0.00140042698171 0 1
+5 ok 60 3.15589671669 y^2 0.00528111917558 0.9755 1.00023193793 0.0082407388835 0 0
+6 ok 60 3.28392009569 y^2 0.00507523514003 0.974575 1.00035670718 0.0122531394167 0 0
+7 ok 60 3.67341124833 y^2 0.00453710884515 0.975325 1.00019990194 0.0112889553068 0 0
+8 ok 60 2.9055078637 y^2 0.00573623182194 0.97535 1.00034734414 0.00736572873511 0 0
+9 ok 60 3.29739732495 y^2 0.0050544914744 0.9749 1.00019498911 0.0159111055845 0 0
+10 ok 59.990625 34.2872945406 y^2 0.000486164670139 0.9728 1.00035479639 0.0405243075824 0 24
+
+EXACT AND POOLED ESTIMATED PHYSICAL MOMENTS
+Equal chain/block lengths: estimates average all retained draws, including rejection repeats.
+observable exact_mean estimated_mean raw_error
+x                         0  -0.00289504943526  -0.00289504943526
+y                         0   0.00181238785221   0.00181238785221
+x^2                       4      4.00480938477   0.00480938477229
+x*y                       0  -0.00271801476281  -0.00271801476281
+y^2                    2.04      2.06736664132    0.0273666413211
+
+ALL PHYSICAL OBSERVABLES IN ALL BLOCKS
+block observable IAT IAT_status pairs last_lag first_excluded_lag ESS efficiency rank_Rhat folded_Rhat max_Rhat empirical_mean exact_mean raw_error moment_SD
+1 x 1.17125848654 ok_truncated_nonpositive 3 5 6 34151.3000414 0.0142297083506 0.99994328408 1.00005178164 1.00005178164 0.00406449884974 0 0.00406449884974 0.00203224942487
+1 y 2.88397595438 ok_truncated_nonpositive 6 11 12 13869.7411604 0.00577905881682 1.00004093145 0.999955795828 1.00004093145 -0.0138164785838 0 -0.0138164785838 0.00967346989612
+1 x^2 2.93874850325 ok_truncated_nonpositive 6 11 12 13611.2361966 0.00567134841524 1.00005147324 1.00003912161 1.00005147324 3.95018781272 4 -0.0498121872826 0.00880563385332
+1 x*y 2.84840060275 ok_truncated_nonpositive 6 11 12 14042.9685211 0.00585123688381 0.999983869493 1.00001058744 1.00001058744 0.0337944832212 0 0.0337944832212 0.0053327221662
+1 y^2 3.12769856032 ok_truncated_nonpositive 4 7 8 12788.9562337 0.00532873176402 1.00002989235 1.00014055719 1.00014055719 1.99076080135 2.04 -0.0492391986465 0.0065609588769
+2 x 1.20887989042 ok_truncated_nonpositive 4 7 8 33088.481591 0.0137868673296 0.999930668558 1.00017651215 1.00017651215 0.00781580187161 0 0.00781580187161 0.00390790093581
+2 y 3.01967145468 ok_truncated_nonpositive 5 9 10 13246.4741944 0.00551936424768 1.00017027718 1.00008763846 1.00017027718 -0.00174633884497 0 -0.00174633884497 0.00122268175229
+2 x^2 3.08251107777 ok_truncated_nonpositive 5 9 10 12976.4334956 0.00540684728982 1.00017764433 1.00013092877 1.00017764433 3.99068740419 4 -0.00931259580927 0.0016462499118
+2 x*y 3.03429431275 ok_truncated_nonpositive 4 7 8 13182.6368431 0.00549276535128 0.999945418049 1.00008844328 1.00008844328 -0.00448705582988 0 -0.00448705582988 0.000708051131552
+2 y^2 3.32742211895 ok_truncated_nonpositive 4 7 8 12021.3181767 0.00500888257362 0.999926355524 1.00009078127 1.00009078127 1.99833083931 2.04 -0.0416691606863 0.00555227658477
+3 x 1.43281596804 ok_truncated_nonpositive 8 15 16 27917.0534752 0.0116321831625 1.00008549383 1.00026297148 1.00026297148 -0.0198135594963 0 -0.0198135594963 0.00990677974816
+3 y 3.76195126104 ok_truncated_nonpositive 9 17 18 10632.7799656 0.00443035452137 1.00022665563 1.00017780581 1.00022665563 0.0180533333963 0 0.0180533333963 0.0126398616026
+3 x^2 3.80628664225 ok_truncated_nonpositive 9 17 18 10508.9300306 0.00437875003777 1.00026536515 1.00007351206 1.00026536515 4.06792206113 4 0.0679220611335 0.0120070375049
+3 x*y 4.93155204332 ok_truncated_nonpositive 9 17 18 8111.03677882 0.00337962118865 1.00003001427 1.00016717997 1.00016717997 -0.158577085175 0 -0.158577085175 0.0250232421555
+3 y^2 6.82616077025 ok_truncated_nonpositive 9 17 18 5859.80924656 0.00244160346342 1.00021902245 1.00006819878 1.00021902245 2.25348054841 2.04 0.213480548407 0.028445570554
+4 x 1.17556978641 ok_truncated_nonpositive 4 7 8 34026.053121 0.0141776107438 1.00000365233 1.00020794941 1.00020794941 0.000849457070542 0 0.000849457070542 0.000424728535271
+4 y 2.79345697814 ok_truncated_nonpositive 4 7 8 14319.1752416 0.0059663603071 1.00013565638 1.0000708584 1.00013565638 -0.00137966619251 0 -0.00137966619251 0.000965959545989
+4 x^2 2.8415855293 ok_truncated_nonpositive 4 7 8 14076.6482612 0.00586530676699 1.00020685824 1.00005557932 1.00020685824 3.99599045537 4 -0.00400954462715 0.000708794048831
+4 x*y 2.66955668842 ok_truncated_nonpositive 4 7 8 14983.7612265 0.00624327286484 1.00008878244 1.0001176994 1.0001176994 0.00585616169904 0 0.00585616169904 0.000924094122018
+4 y^2 2.76140663014 ok_truncated_nonpositive 6 11 12 14485.371174 0.00603560904507 0.999995972798 1.00002187998 1.00002187998 2.02948996578 2.04 -0.0105100342246 0.00140042698171
+5 x 1.20311561528 ok_truncated_nonpositive 6 11 12 33247.0125831 0.0138529219096 0.999931232481 1.00006882939 1.00006882939 -0.0120132013497 0 -0.0120132013497 0.00600660067485
+5 y 2.85852265648 ok_truncated_nonpositive 4 7 8 13993.2422468 0.00583051760283 0.999997144746 1.00023193793 1.00023193793 -0.00756315088101 0 -0.00756315088101 0.00529526477559
+5 x^2 2.92345538113 ok_truncated_nonpositive 4 7 8 13682.4390268 0.00570101626118 1.00006744204 1.0001178526 1.0001178526 3.96949475029 4 -0.030505249707 0.0053926172324
+5 x*y 3.03997430108 ok_truncated_nonpositive 7 13 14 13158.0059692 0.00548250248718 0.99995766729 1.00018016139 1.00018016139 -0.052223142937 0 -0.052223142937 0.0082407388835
+5 y^2 3.15589671669 ok_truncated_nonpositive 6 11 12 12674.6860214 0.00528111917558 1.00016216078 1.0000641017 1.00016216078 2.03731915485 2.04 -0.00268084514946 0.000357213668468
+6 x 1.25943884605 ok_truncated_nonpositive 6 11 12 31760.1764671 0.0132334068613 0.999979387237 1.00001158618 1.00001158618 -0.012000690627 0 -0.012000690627 0.0060003453135
+6 y 3.10693201991 ok_truncated_nonpositive 9 17 18 12874.4368218 0.00536434867576 1.00006361132 1.0001736767 1.0001736767 0.000204895342683 0 0.000204895342683 0.000143455433835
+6 x^2 3.17419845731 ok_truncated_nonpositive 9 17 18 12601.6065278 0.00525066938657 1.00001044916 1.00035670718 1.00035670718 3.99517552636 4 -0.00482447364237 0.000852854507043
+6 x*y 3.12519250037 ok_truncated_nonpositive 10 19 20 12799.211567 0.0053330048196 0.999964330675 1.00004861721 1.00004861721 -0.0776504947225 0 -0.0776504947225 0.0122531394167
+6 y^2 3.28392009569 ok_truncated_nonpositive 6 11 12 12180.5643361 0.00507523514003 1.00011227141 1.00005135126 1.00011227141 2.03708941359 2.04 -0.00291058640624 0.000387825924141
+7 x 1.25278473973 ok_truncated_nonpositive 6 11 12 31928.8691276 0.0133036954698 1.00009390903 1.00012643803 1.00012643803 0.00152860853883 0 0.00152860853883 0.000764304269415
+7 y 3.16018268252 ok_truncated_nonpositive 11 21 22 12657.4961066 0.00527395671107 1.00014406308 1.00019711865 1.00019711865 0.0161238532713 0 0.0161238532713 0.0112889553068
+7 x^2 3.22513560559 ok_truncated_nonpositive 10 19 20 12402.5792685 0.00516774136188 1.00012844375 1.00016861352 1.00016861352 4.05953095335 4 0.0595309533514 0.0105236852013
+7 x*y 3.0713573667 ok_truncated_nonpositive 5 9 10 13023.5577382 0.00542648239094 1.00019990194 1.00002934673 1.00019990194 0.0234503682748 0 0.0234503682748 0.0037004353014
+7 y^2 3.67341124833 ok_truncated_nonpositive 10 19 20 10889.0612284 0.00453710884515 0.999994565513 1.00017472096 1.00017472096 2.09001260655 2.04 0.0500126065489 0.00666401289854
+8 x 1.12746800828 ok_truncated_nonpositive 4 7 8 35477.7250496 0.0147823854373 1.00001168968 1.00034734414 1.00034734414 1.66196819833e-05 0 1.66196819833e-05 8.30984099163e-06
+8 y 2.80469777913 ok_truncated_nonpositive 15 29 30 14261.7861709 0.00594241090455 1.00014500143 1.00006008626 1.00014500143 -0.00150801274326 0 -0.00150801274326 0.00105582010542
+8 x^2 2.85088964736 ok_truncated_nonpositive 12 23 24 14030.7079361 0.00584612830669 1.00034380837 1.00007549569 1.00034380837 3.99404461651 4 -0.00595538348893 0.0010527730124
+8 x*y 2.67394610765 ok_truncated_nonpositive 4 7 8 14959.1646165 0.00623298525688 1.00002473728 1.00010880815 1.00010880815 0.0466780357935 0 0.0466780357935 0.00736572873511
+8 y^2 2.9055078637 ok_truncated_nonpositive 11 21 22 13766.9563727 0.00573623182194 1.00014245741 1.00014420577 1.00014420577 1.99739535575 2.04 -0.0426046442473 0.00567692664697
+9 x 1.1142611908 ok_truncated_nonpositive 4 7 8 35898.2259548 0.0149575941478 0.999983919443 1.00009195618 1.00009195618 -0.0304588050857 0 -0.0304588050857 0.0152294025429
+9 y 2.89087840553 ok_truncated_nonpositive 14 27 28 13836.6248554 0.00576526035643 1.00007234962 1.00011472308 1.00011472308 -0.0124009216086 0 -0.0124009216086 0.00868238177607
+9 x^2 2.93349253074 ok_truncated_nonpositive 14 27 28 13635.6236059 0.0056815098358 1.00008924676 1.00019498911 1.00019498911 3.94004497123 4 -0.059955028768 0.010598651852
+9 x*y 2.85233223233 ok_truncated_nonpositive 5 9 10 14023.6118173 0.00584317159053 1.00002104739 0.999995185783 1.00002104739 -0.100831727952 0 -0.100831727952 0.0159111055845
+9 y^2 3.29739732495 ok_truncated_nonpositive 4 7 8 12130.7795386 0.0050544914744 1.00010807774 1.00001944593 1.00010807774 1.93972344142 2.04 -0.100276558578 0.0133615167434
+10 x 2.19135434468 ok_truncated_nonpositive 29 57 58 18253.5517804 0.00760683514317 1.00009081024 1.00033618552 1.00033618552 0.0310607761934 0 0.0310607761934 0.0155303880967
+10 y 9.97890191327 ok_truncated_nonpositive 30 59 60 4008.45707751 0.001670451457 1.0003284993 1.00010958176 1.0003284993 0.0221563653659 0 0.0221563653659 0.0155125585781
+10 x^2 10.2614348043 ok_truncated_nonpositive 30 59 60 3898.09035121 0.00162445813459 1.00035479639 1.00017863776 1.00035479639 4.08501529656 4 0.0850152965634 0.0150287231761
+10 x*y 21.2403213919 ok_truncated_nonpositive 28 55 56 1883.21067568 0.000784793738888 1.00007827378 1.00010075845 1.00010075845 0.25681031 0 0.25681031 0.0405243075824
+10 y^2 34.2872945406 ok_truncated_nonpositive 54 107 108 1166.61289658 0.000486164670139 1.00016555349 1.00031792061 1.00031792061 2.30006428619 2.04 0.260064286193 0.0346526981341
+
+AUXILIARY MOMENTS (descriptive only)
+block variable exact_mean estimated_mean exact_second_moment estimated_second_moment
+1 post_MH_s 0 -0.0036438987884 1 0.993166713287
+2 post_MH_s 0 0.00258564189774 1 1.00206748929
+3 post_MH_s 0 0.00951563649936 1 1.00865926833
+4 post_MH_s 0 -0.000278706358815 1 1.00276479407
+5 post_MH_s 0 0.00486979904142 1 1.00310068867
+6 post_MH_s 0 -0.00249925905061 1 1.01040809474
+7 post_MH_s 0 0.00491786182149 1 1.00558101175
+8 post_MH_s 0 0.00341102171502 1 0.998531751218
+9 post_MH_s 0 0.00105742770379 1 0.996524950937
+10 post_MH_s 0 0.00419803794873 1 0.994438336536
+
+BEGIN COMPARISON_JSON
+{
+  "format": "BANANA2-heldout-comparison-report-v1",
+  "metadata": {
+    "comparison_id": "BANANA2_SQHMC_PERIODIC_THC_V2_HELDOUT_20261012_v1",
+    "method": "THC_v2",
+    "protocol": {
+      "IAT": "Original multi-chain Geyer initial-positive then initial-monotone sequence; biased autocovariance denominator N, no floor or hand-set lag cutoff.",
+      "Rhat": "Maximum of rank-normalized split and folded rank-normalized split R-hat; descriptive, no threshold.",
+      "SQHMC_refresh": "At each trajectory log10(m)~N(0.5,0.0025^2); M=m*M0 and p~N(0,M/beta). This mass stays fixed for that leapfrog trajectory and Metropolis decision.",
+      "THC_refresh": "h(s)=1+0.025*cos(s/0.5), alpha=0.025, phi=0, a=0.5, Q=4, rho(s)=N(0,1). s persists, starting at (-1,1,1,-1). Only p|s~N(0,h(s)^2*M0/beta) and p_s~N(0,Q/beta) refresh each trajectory. Rejection restores q and s.",
+      "comparison_id": "BANANA2_SQHMC_PERIODIC_THC_V2_HELDOUT_20261012_v1",
+      "date_frozen": "2026-10-12",
+      "exact_means": [
+        0.0,
+        0.0,
+        4.0,
+        0.0,
+        2.04
+      ],
+      "failure_rule": "Unchanged expanded tuning rule for this pair: rejected nonfinite proposals are counted, but finite retained states (including rejection repeats) are scored. A nonfinite retained state, undefined required IAT, or invalid actual gradient denominator makes the block and full method score undefined. No omitted or replacement blocks. This differs from the earlier HMC/bounded/v4 zero-event rule.",
+      "gradient_cost": "Actual newly executed physical-target gradients during retained transitions only; warmup and cached reuse excluded. Finite trajectories cost L (S-QHMC 30, THC-v2 60); thermostat derivatives are excluded. Not wall-clock cost.",
+      "input_templates": {
+        "S_QHMC": {
+          "L_values": [
+            30
+          ],
+          "allow_overwrite": false,
+          "banana_b": 0.25,
+          "beta": 1.0,
+          "epsilon_values": [
+            0.12
+          ],
+          "mass_matrix": [
+            [
+              0.25,
+              0.0
+            ],
+            [
+              0.0,
+              0.49019607843137253
+            ]
+          ],
+          "mu_m_values": [
+            0.5
+          ],
+          "n_retained": 10000,
+          "n_warmup": 1000,
+          "n_workers": 4,
+          "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+          "output_directory": null,
+          "output_filename": "S_QHMC_results.txt",
+          "print_progress": false,
+          "print_report": false,
+          "run_label": "CUSTOM: FROZEN HELD-OUT",
+          "run_mode": "CUSTOM",
+          "run_self_tests": true,
+          "seed_blocks": [
+            [
+              1657368863,
+              3792359500,
+              3417096587,
+              1121828610
+            ],
+            [
+              3588632714,
+              1198709160,
+              160716073,
+              3848830813
+            ],
+            [
+              2237602816,
+              2341327334,
+              140246127,
+              368899257
+            ],
+            [
+              423389250,
+              329042214,
+              252825639,
+              4263613775
+            ],
+            [
+              632968939,
+              3143972171,
+              1557189394,
+              1289041858
+            ],
+            [
+              2720520449,
+              161697784,
+              2659971218,
+              690560112
+            ],
+            [
+              1461231770,
+              3322832141,
+              102545162,
+              54283471
+            ],
+            [
+              2321049068,
+              1450827581,
+              4212370027,
+              147843710
+            ],
+            [
+              1226675181,
+              2834445672,
+              2199338227,
+              288850969
+            ],
+            [
+              3797197053,
+              1239296244,
+              1373558472,
+              2298438043
+            ]
+          ],
+          "sigma_m_values": [
+            0.0025
+          ],
+          "sigma_x": 2.0,
+          "sigma_y": 0.2,
+          "standardized_starts": [
+            [
+              -2.0,
+              -2.0
+            ],
+            [
+              -2.0,
+              2.0
+            ],
+            [
+              2.0,
+              -2.0
+            ],
+            [
+              2.0,
+              2.0
+            ]
+          ]
+        },
+        "THC_v2": {
+          "L_values": [
+            60
+          ],
+          "Q_values": [
+            4.0
+          ],
+          "a_values": [
+            0.5
+          ],
+          "allow_overwrite": false,
+          "alpha_values": [
+            0.025
+          ],
+          "automatic_boundary_expansion": false,
+          "banana_b": 0.25,
+          "beta": 1.0,
+          "boundary_Q_lower": 0.003125,
+          "boundary_Q_upper": 16.0,
+          "boundary_a_lower": 0.0625,
+          "boundary_a_upper": 8.0,
+          "boundary_alpha_lower": 0.0125,
+          "boundary_alpha_upper": 0.975,
+          "boundary_keep_fixed_configurations": 1,
+          "coupling_family": "PHASE_PERIODIC_COS_SHIFT",
+          "epsilon_values": [
+            0.05
+          ],
+          "mass_matrix": [
+            [
+              0.25,
+              0.0
+            ],
+            [
+              0.0,
+              0.49019607843137253
+            ]
+          ],
+          "n_retained": 10000,
+          "n_warmup": 1000,
+          "n_workers": 4,
+          "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+          "output_directory": null,
+          "output_filename": "THC_v2_results.txt",
+          "phi_values": [
+            0.0
+          ],
+          "print_progress": false,
+          "print_report": false,
+          "run_label": "CUSTOM: FROZEN HELD-OUT",
+          "run_mode": "CUSTOM",
+          "run_self_tests": true,
+          "seed_blocks": [
+            [
+              1657368863,
+              3792359500,
+              3417096587,
+              1121828610
+            ],
+            [
+              3588632714,
+              1198709160,
+              160716073,
+              3848830813
+            ],
+            [
+              2237602816,
+              2341327334,
+              140246127,
+              368899257
+            ],
+            [
+              423389250,
+              329042214,
+              252825639,
+              4263613775
+            ],
+            [
+              632968939,
+              3143972171,
+              1557189394,
+              1289041858
+            ],
+            [
+              2720520449,
+              161697784,
+              2659971218,
+              690560112
+            ],
+            [
+              1461231770,
+              3322832141,
+              102545162,
+              54283471
+            ],
+            [
+              2321049068,
+              1450827581,
+              4212370027,
+              147843710
+            ],
+            [
+              1226675181,
+              2834445672,
+              2199338227,
+              288850969
+            ],
+            [
+              3797197053,
+              1239296244,
+              1373558472,
+              2298438043
+            ]
+          ],
+          "sigma_x": 2.0,
+          "sigma_y": 0.2,
+          "stage1_anchor_pairs": [
+            [
+              0.05,
+              60
+            ]
+          ],
+          "stage1_block_indices": [
+            1
+          ],
+          "stage1_keep_method_tuples": 1,
+          "stage1_n_retained": 4,
+          "stage1_n_warmup": 1,
+          "stage2_block_indices": [
+            2
+          ],
+          "stage2_keep_fixed_configurations": 1,
+          "stage2_n_retained": 4,
+          "stage2_n_warmup": 1,
+          "standardized_starts": [
+            [
+              -2.0,
+              -2.0
+            ],
+            [
+              -2.0,
+              2.0
+            ],
+            [
+              2.0,
+              -2.0
+            ],
+            [
+              2.0,
+              2.0
+            ]
+          ],
+          "thermostat_sigma": 1.0,
+          "thermostat_starts": [
+            -1.0,
+            1.0,
+            1.0,
+            -1.0
+          ]
+        }
+      },
+      "legacy_stage_fields": "Periodic stage/boundary fields only satisfy original input validation. The held-out driver does not call search or boundary expansion.",
+      "methods": {
+        "S_QHMC": {
+          "L": 30,
+          "epsilon": 0.12,
+          "mu_m": 0.5,
+          "sigma_m": 0.0025
+        },
+        "THC_v2": {
+          "L": 60,
+          "Q": 4.0,
+          "a": 0.5,
+          "coupling_code": 0.025,
+          "epsilon": 0.05
+        }
+      },
+      "n_blocks": 10,
+      "n_chains": 4,
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "no_retuning": true,
+      "paired_comparison": "THC-v2/S-QHMC score ratio, paired efficiency wins and approximate 95% Student-t interval from the ten paired log-efficiency ratios, only if all required scores are defined.",
+      "physical_observables": [
+        "x",
+        "y",
+        "x^2",
+        "x*y",
+        "y^2"
+      ],
+      "physical_starts": [
+        [
+          -4.0,
+          2.6
+        ],
+        [
+          -4.0,
+          3.4
+        ],
+        [
+          4.0,
+          2.6
+        ],
+        [
+          4.0,
+          3.4
+        ]
+      ],
+      "provenance": {
+        "S_QHMC": {
+          "engine_sha256": "d2918d206c1c98d0489693af325239ff52baeecdc74c865dd26912fd345edf61",
+          "source_path": "grex_banana_periodic_sqhmc_expanded_20260925\\code\\banana_sqhmc_EXPANDED_20260925.py",
+          "source_sha256": "faf3832419a10ec16ccea5afd0258222dfa617fce45401ffede1115e7110b2af",
+          "tested_configurations": 16731,
+          "tuning_report": "results\\GREX_tuning_2026-10-07\\Banana\\S_QHMC\\results\\S_QHMC_Banana_expanded_tuning_20260925.txt",
+          "tuning_report_sha256": "383cb9416cd1c8149788dc4c949d56ebeb8c2722e45564d30ceaacc6a4f8afbb",
+          "tuning_score": 0.00532775349272218
+        },
+        "THC_v2": {
+          "engine_sha256": "19a50c6511623e9f26239e208871df09337ba79896cc85433a4a9284214b0814",
+          "source_path": "grex_banana_periodic_sqhmc_expanded_20260925\\code\\banana_periodic_EXPANDED_20260925.py",
+          "source_sha256": "fcaf9b268fdad16818595c3460de4d09c407d37a87e17a183489a996bd752ed9",
+          "tested_configurations": 41533,
+          "tuning_report": "results\\GREX_tuning_2026-10-07\\Banana\\Periodic_THC_v2\\results\\FINAL_TUNING_REPORT.txt",
+          "tuning_report_sha256": "225e1b65614bc9b4a952842532a58019bca89c936d339a28bca48ba049e6a9e0",
+          "tuning_score": 0.0055055523899574625
+        }
+      },
+      "random_stream_pairing": "Original SeedSequence/PCG64 child 0 physical normals, child 1 auxiliary normals (S-QHMC mass or THC p_s), child 2 MH uniforms. All three raw stream hashes must match in each paired block.",
+      "score": "E_b=1/(actual retained gradients per draw * worst physical-observable IAT); S=geometric mean of ALL ten block efficiencies.",
+      "scoring_policy_evidence": "grex_banana_periodic_sqhmc_expanded_20260925/README.txt, SCORING AND NUMERICAL EVENTS; both embedded _analyze_block implementations and native self-tests. Selected tuning winners include 199 S-QHMC and 5 THC-v2 nonfinite proposal events, counted but not dropped.",
+      "secondary_outcomes": "Maximum and descriptive geometric mean of blockwise worst IAT; max R-hat, acceptance, exact/estimated moments, nonfinite counts. No final-data reselection.",
+      "seed_audit": {
+        "derivation": "First four SHA256 bytes (big endian) of DOMAIN|PHASE|block=BB|chain=CC|counter=K; counters change only for recorded collisions, never scores.",
+        "domain": "paper-on-thc|BANANA2|SQHMC-periodic-THC-v2|held-out|20261012|v1",
+        "overlaps_after_audit": 0,
+        "path_size_inventory_sha256": "f3f59287321980ce23adc109c71f239c3ec77c5babeaa4c0857803d8915ad6f9",
+        "rejected_candidate_values": [],
+        "scope": "Recorded integer occurrences in local project sources/reports, including downloaded tuning and previous held-out files; unknown remote-only seeds cannot be audited.",
+        "text_bytes_scanned": 3053982661,
+        "text_files_scanned": 2668
+      },
+      "seed_blocks": [
+        [
+          1657368863,
+          3792359500,
+          3417096587,
+          1121828610
+        ],
+        [
+          3588632714,
+          1198709160,
+          160716073,
+          3848830813
+        ],
+        [
+          2237602816,
+          2341327334,
+          140246127,
+          368899257
+        ],
+        [
+          423389250,
+          329042214,
+          252825639,
+          4263613775
+        ],
+        [
+          632968939,
+          3143972171,
+          1557189394,
+          1289041858
+        ],
+        [
+          2720520449,
+          161697784,
+          2659971218,
+          690560112
+        ],
+        [
+          1461231770,
+          3322832141,
+          102545162,
+          54283471
+        ],
+        [
+          2321049068,
+          1450827581,
+          4212370027,
+          147843710
+        ],
+        [
+          1226675181,
+          2834445672,
+          2199338227,
+          288850969
+        ],
+        [
+          3797197053,
+          1239296244,
+          1373558472,
+          2298438043
+        ]
+      ],
+      "selection": "Best tested geometric-mean gradient-normalized-efficiency setting from each completed expanded tuning search. No secondary-IAT reselection.",
+      "target": "2D centered Banana",
+      "target_definition": "U=x^2/(2*sigma_x^2)+(y-b*(x^2-sigma_x^2))^2/(2*sigma_y^2); beta=1, sigma_x=2, sigma_y=0.2, b=0.25; base mass diag(0.25,1/2.04)."
+    },
+    "protocol_sha256": "4e72052d86f08b0a3dca10b858488f39a744c8f53cb7c96fbca4a9b611de3717",
+    "script_sha256": "6b0fff2793824628569cde035bb1d8d82d2e7f4a9592439e9e7fa0b59959ff48",
+    "runtime": {
+      "python": "3.12.4",
+      "numpy": "2.2.2",
+      "numba": "0.65.1",
+      "llvmlite": "0.47.0"
+    },
+    "platform": "Linux-4.18.0-553.158.1.el8_10.x86_64-x86_64-AMD_EPYC_9654_96-Core_Processor-with-glibc2.37",
+    "started_utc": "2026-10-12T18:17:24.530975+00:00",
+    "testing": false,
+    "workers": 4
+  },
+  "completed_utc": "2026-10-12T18:17:39.230591+00:00",
+  "summary": {
+    "status": "ok",
+    "geometric_mean_efficiency": 0.0038162599234192207,
+    "minimum_block_efficiency": 0.0004861646701390505,
+    "median_block_efficiency": 0.005064863307214163,
+    "maximum_block_efficiency": 0.005865306766985157,
+    "mean_acceptance": 0.97453,
+    "maximum_rhat": 1.0003567071803305,
+    "maximum_standardized_moment_error": 0.04052430758238718,
+    "total_nonfinite_trajectories": 26,
+    "maximum_blockwise_worst_IAT": 34.28729454061377,
+    "geometric_mean_worst_IAT": 4.367351534845157,
+    "blocks_completed": 10,
+    "blocks_score_defined": 10,
+    "retained_draws_per_method": 400000,
+    "total_retained_gradient_calls": 23999594,
+    "mean_gradient_calls_per_draw": 59.998985000000005,
+    "warmup_nonfinite_trajectories": 0,
+    "retained_nonfinite_trajectories": 26
+  },
+  "blocks": [
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 0,
+      "seeds": [
+        1657368863,
+        3792359500,
+        3417096587,
+        1121828610
+      ],
+      "status": "ok",
+      "acceptance": 0.97515,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "y^2",
+      "worst_iat": 3.1276985603204537,
+      "block_efficiency": 0.005328731764022379,
+      "maximum_rhat_observable": "y^2",
+      "maximum_rhat": 1.0001405571864903,
+      "maximum_moment_error_observable": "y",
+      "maximum_standardized_moment_error": 0.00967346989611552,
+      "physical_and_acceptance_stream_sha256": "4a56818b8cbb837f691fb46c0cb2957b222ec0b0504842b900a57d6528e8d5ad",
+      "all_three_streams_sha256": "7015d50a6b2caf4433fd15e68ae7c34f99ac3689b4e191c55d82e9471b720291"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 1,
+      "seeds": [
+        3588632714,
+        1198709160,
+        160716073,
+        3848830813
+      ],
+      "status": "ok",
+      "acceptance": 0.9749,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "y^2",
+      "worst_iat": 3.3274221189485527,
+      "block_efficiency": 0.005008882573616252,
+      "maximum_rhat_observable": "x^2",
+      "maximum_rhat": 1.0001776443301338,
+      "maximum_moment_error_observable": "y^2",
+      "maximum_standardized_moment_error": 0.005552276584765102,
+      "physical_and_acceptance_stream_sha256": "4ab045f295a347122672cd61879171d1af53fca2e7c9ba1f5bc21bdeb964590f",
+      "all_three_streams_sha256": "b6fb4dc710744ce0399c3b9256ed94c06975d4280f02f742afb311e159692222"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 2,
+      "seeds": [
+        2237602816,
+        2341327334,
+        140246127,
+        368899257
+      ],
+      "status": "ok",
+      "acceptance": 0.9721,
+      "retained_gradient_calls": 2399984,
+      "gradients_per_retained_draw": 59.9996,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "y^2",
+      "worst_iat": 6.826160770246154,
+      "block_efficiency": 0.0024416034634234837,
+      "maximum_rhat_observable": "x^2",
+      "maximum_rhat": 1.0002653651491697,
+      "maximum_moment_error_observable": "y^2",
+      "maximum_standardized_moment_error": 0.028445570553968225,
+      "physical_and_acceptance_stream_sha256": "61c3f42188ce53363632e961d2745f6c311f95d06dcc95a27d895464d6554421",
+      "all_three_streams_sha256": "eb4e4f29d35ce1aa4b3c1411ecf45ba3ee21586aabd69d4afa6376be9dee932e"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 3,
+      "seeds": [
+        423389250,
+        329042214,
+        252825639,
+        4263613775
+      ],
+      "status": "ok",
+      "acceptance": 0.9747,
+      "retained_gradient_calls": 2399985,
+      "gradients_per_retained_draw": 59.999625,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "x^2",
+      "worst_iat": 2.8415855293023853,
+      "block_efficiency": 0.005865306766985157,
+      "maximum_rhat_observable": "x",
+      "maximum_rhat": 1.000207949407914,
+      "maximum_moment_error_observable": "y^2",
+      "maximum_standardized_moment_error": 0.0014004269817140024,
+      "physical_and_acceptance_stream_sha256": "4fbb2b1001eb1ce951927ff28b1d38c439798baf7c2248135fbbabcf8868cc7d",
+      "all_three_streams_sha256": "ef21d943bdce0a0abee6682e14fe5795be3288aa010f64165374749f0b2435c4"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 4,
+      "seeds": [
+        632968939,
+        3143972171,
+        1557189394,
+        1289041858
+      ],
+      "status": "ok",
+      "acceptance": 0.9755,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "y^2",
+      "worst_iat": 3.1558967166909087,
+      "block_efficiency": 0.00528111917558011,
+      "maximum_rhat_observable": "y",
+      "maximum_rhat": 1.0002319379277576,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.00824073888350295,
+      "physical_and_acceptance_stream_sha256": "262a40670190b5b825d279af46339d2a0a06f8b83d1c3fffe82a3073d27f78d8",
+      "all_three_streams_sha256": "82cd3a7055a05214a92ff09a0b8b247ebd30a117f53ea60b3814a4730a4ae5a6"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 5,
+      "seeds": [
+        2720520449,
+        161697784,
+        2659971218,
+        690560112
+      ],
+      "status": "ok",
+      "acceptance": 0.974575,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "y^2",
+      "worst_iat": 3.2839200956854775,
+      "block_efficiency": 0.005075235140027883,
+      "maximum_rhat_observable": "x^2",
+      "maximum_rhat": 1.0003567071803305,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.012253139416653328,
+      "physical_and_acceptance_stream_sha256": "ded419a43e341b8b5775d23248da78c68021c2456e4a97e6f956b05d8e79afdd",
+      "all_three_streams_sha256": "303f635a686c26aa36ae3c1b6b58b896936b1be339fa19a5a0457e8862ad40f7"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 6,
+      "seeds": [
+        1461231770,
+        3322832141,
+        102545162,
+        54283471
+      ],
+      "status": "ok",
+      "acceptance": 0.975325,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "y^2",
+      "worst_iat": 3.6734112483320693,
+      "block_efficiency": 0.004537108845146116,
+      "maximum_rhat_observable": "x*y",
+      "maximum_rhat": 1.000199901944565,
+      "maximum_moment_error_observable": "y",
+      "maximum_standardized_moment_error": 0.011288955306816723,
+      "physical_and_acceptance_stream_sha256": "ddd1267ab0af7823d776ee358f978acad8463d12ea278900eb8933c52a77a306",
+      "all_three_streams_sha256": "75d853d768acb07b0579e5f2ac35f716a2d4b69ab48d185edeafd44c684f731d"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 7,
+      "seeds": [
+        2321049068,
+        1450827581,
+        4212370027,
+        147843710
+      ],
+      "status": "ok",
+      "acceptance": 0.97535,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "y^2",
+      "worst_iat": 2.9055078637013922,
+      "block_efficiency": 0.005736231821942008,
+      "maximum_rhat_observable": "x",
+      "maximum_rhat": 1.0003473441419735,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.007365728735110854,
+      "physical_and_acceptance_stream_sha256": "800eb407c88a898bb7ebfdb58024834e18e92bc80274a3fcbaa751e5d0e885e4",
+      "all_three_streams_sha256": "599872df7b7387ea843ffed14bfffaeb010fb8c9d2329d8a92d7a7356c9a6d8c"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 8,
+      "seeds": [
+        1226675181,
+        2834445672,
+        2199338227,
+        288850969
+      ],
+      "status": "ok",
+      "acceptance": 0.9749,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "y^2",
+      "worst_iat": 3.2973973249492223,
+      "block_efficiency": 0.005054491474400442,
+      "maximum_rhat_observable": "x^2",
+      "maximum_rhat": 1.0001949891050448,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.0159111055844842,
+      "physical_and_acceptance_stream_sha256": "0722f395a131a265f41f32d415b7d145f371bd5bd57bba88ed0f6d07ecab1cd0",
+      "all_three_streams_sha256": "8f97d4f3416e1204cdbebe4f6476d112af07dcddc46a79031ef5af342ed7ad27"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 9,
+      "seeds": [
+        3797197053,
+        1239296244,
+        1373558472,
+        2298438043
+      ],
+      "status": "ok",
+      "acceptance": 0.9728,
+      "retained_gradient_calls": 2399625,
+      "gradients_per_retained_draw": 59.990625,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 24,
+      "worst_observable": "y^2",
+      "worst_iat": 34.28729454061377,
+      "block_efficiency": 0.0004861646701390505,
+      "maximum_rhat_observable": "x^2",
+      "maximum_rhat": 1.000354796390272,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.04052430758238718,
+      "physical_and_acceptance_stream_sha256": "b0e19477aec178b5fe2d59d0f1b441cb9cd55311b2b8369b13d23bdb652066bd",
+      "all_three_streams_sha256": "b80d0169cf4ce98778838850187c6819c4d004bcae544eef3d673ac749882143"
+    }
+  ]
+}
+END COMPARISON_JSON
+
+Compare ONLY against the partner with the same protocol SHA256 and all matching block seeds/stream hashes.
+This standalone report does not declare a winner. Keep both full reports, including undefined scores.

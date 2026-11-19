@@ -1,0 +1,1123 @@
+FAIR-PLAYGROUND ORIGINAL SLICE-NUTS TUNING REPORT: 2D CENTERED BANANA
+========================================================================================
+Run label: CUSTOM: BANANA_PERIODIC_NUTS_FULL_GRID_20260925
+Run mode: CUSTOM / EXPANDED TUNING; compare only under the shared expanded protocol
+Canonical scientific inputs match: False
+Canonical mismatches: nuts_method, seed_blocks, run_lengths
+Normalized input fingerprint: e5a8bd1a506f0de9dd8c971a1fed82929800c54d3267aadb232785379fb579c3
+Shared protocol version: BANANA2-fair-playground-NUTS-v1.0.0
+Shared protocol fingerprint: 647ed7a7aef8c8e9364671801459f06deef355e89c34517c2383792d06d94a2f
+NUTS implementation version: hoffman-gelman-2014-slice-NUTS-algorithm6-fixed-general-mass-depth-cap-v1.1.0
+NUTS implementation source fingerprint: a72b6be58a512460688104a35467ba89d07392629b6052d810e6f81bb6bfb248
+Diagnostics version: multichain-geyer-ims-rank-rhat-v1.0.0
+Diagnostics source fingerprint: dc2148c37f893c7fa5c22431760b2c46ac3aed96cce35909b333eb2abce91274
+Source verification mode: exact inspect.getsource attestation
+Whole saved source SHA-256: unavailable_in_pasted_cell
+Random stream version: numba-chain-local-numpy-rng-v1.0.0
+Numba available: True
+Numba cache mode: persistent disk cache disabled; in-process JIT enabled
+Requested worker threads: 4
+Actual chain parallelism: 4
+Output filename: NUTS_Banana_expanded_tuning_20260925.txt
+
+TARGET, GEOMETRY, AND INITIAL CONDITIONS
+----------------------------------------------------------------------------------------
+d=2, beta=1, sigma_x=2, sigma_y=0.2, b=0.25
+mass matrix M=[[0.25          , 0.            ],
+ [0.            , 0.490196078431]]
+marginal target variances=[4.  , 2.04]
+q=(x,y); r=y-b*(x^2-sigma_x^2); x and r are independent centered Gaussians.
+U(q)=x^2/(2*sigma_x^2)+r^2/(2*sigma_y^2).
+grad_x U=x/sigma_x^2-2*b*x*r/sigma_y^2; grad_y U=r/sigma_y^2.
+p~N(0,M/beta); K(p)=0.5*p^T*M^-1*p; mass adaptation is disabled.
+chain 1: entered (z_x,z_r)=[-2., -2.]; physical q=(x,y)=[-4. ,  2.6]
+chain 2: entered (z_x,z_r)=[-2.,  2.]; physical q=(x,y)=[-4. ,  3.4]
+chain 3: entered (z_x,z_r)=[ 2., -2.]; physical q=(x,y)=[4. , 2.6]
+chain 4: entered (z_x,z_r)=[2., 2.]; physical q=(x,y)=[4. , 3.4]
+
+NUTS AND TUNING DESIGN
+----------------------------------------------------------------------------------------
+Sampler core: original Hoffman--Gelman slice-based Algorithm 6; not multinomial NUTS.
+Generalization: the entered fixed SPD mass uses velocities M^-1*p in the U-turn test; a predeclared finite depth cap is imposed.
+There is no final Metropolis accept/reject decision.
+U-turn products use endpoint velocities M^-1*p.
+target acceptance values: [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.96, 0.97, 0.98, 0.99, 0.995, 0.999]
+dual averaging: gamma=0.05, t0=10, kappa=0.75
+Delta_max=1000; maximum tree depth=12
+reasonable-epsilon search limit=100
+blocks=10; chains/block=4
+warmup/chain=1000; retained/chain=10000
+Every delta restarts every chain from the same stated seed and physical start.
+Each chain adapts epsilon during warmup; averaged epsilon is frozen before retained sampling.
+Final-comparison seeds are absent from this tuner.
+
+TUNING SEED BLOCKS
+----------------------------------------------------------------------------------------
+block 1: [123, 456, 789, 101112]
+block 2: [3545294353, 3961674632, 3627514536, 3198582250]
+block 3: [788645248, 3651519711, 1811141324, 1814869264]
+block 4: [3192285063, 2251015777, 396444798, 765150135]
+block 5: [1562880678, 1785952873, 2908883741, 2216662531]
+block 6: [2794023307, 1697034986, 399305664, 3387627557]
+block 7: [3550273020, 4288237438, 1339029542, 2052132074]
+block 8: [773064979, 3889587502, 1349474393, 473085282]
+block 9: [2530799177, 1230540310, 2963309407, 638566109]
+block 10: [1731223290, 2380208349, 2086161373, 1181226484]
+
+DIAGNOSTICS AND SCORE
+----------------------------------------------------------------------------------------
+Required physical observables (5): x, y, x^2, x*y, y^2
+IAT: multi-chain Geyer initial-positive then initial-monotone sequence; no IAT floor.
+Every selected-observable line reports pair count, last included lag, first excluded lag, and cutoff reason.
+R-hat: max(rank-normalized split, folded rank-normalized split); descriptive, no threshold.
+Moment error: |empirical-exact| / exact observable SD; descriptive, no threshold.
+Gradient cost: every executed retained leapfrog leaf, including divergent and discarded leaves.
+The selected-state gradient is cached; no artificial +1 is charged per transition.
+Block score=min_f 1/(actual retained gradients/draw * IAT(f)).
+Configuration score=geometric mean of 10 block scores.
+No IAT/ESS averaging is used. Finite-energy divergences and depth hits are descriptive and are not gates.
+Nonfinite leaves are counted separately from finite-energy divergences.
+Nonfinite proposed leaves are excluded by the original tree rule and counted; finite retained states remain scored. Warmup counts are descriptive.
+Undefined required IAT or a nonfinite retained sample also makes the score undefined.
+Exact-tie rule: larger minimum block score, fewer gradients/draw, then larger delta.
+
+INTERNAL SELF-TESTS
+----------------------------------------------------------------------------------------
+PASS: literal Banana oracle, analytic gradient, latent round trip, mass algebra, exact moments, and five-observable order
+PASS: biased autocovariance, odd split, and rejection-tie ranks
+PASS: inverse-normal approximation and symmetry
+PASS: rank-normalized split/folded R-hat IID, location, and scale checks
+PASS: Geyer IAT positive AR(1)=8.719297, antithetic AR(1)=0.343747, and undefined statuses
+PASS: leapfrog reversibility and identity/general-mass velocity U-turn rule
+PASS: balanced-tree leaf accounting and separate finite-divergence/nonfinite-leaf counters
+PASS: Algorithm 6 dual-averaging recurrence
+PASS: deterministic chain-local RNG, frozen adapted epsilon, retained leaf-gradient accounting, and explicit warmup/retained nonfinite counters
+PASS: 5-observable exact moments, nonfinite-leaf counting with finite-state scoring, nonfinite-state invalidation, and common block GM
+
+CONFIGURATION SUMMARY
+----------------------------------------------------------------------------------------
+delta status                     GM_eff       min_eff    median_eff       max_eff  accept_stat grad/draw finite_div depth_hit max_Rhat max_std_moment_error warm_nf_trans warm_nf_leaves ret_nf_trans ret_nf_leaves ret_nf_samples
+ 0.1000 ok                         5.697295e-04 2.280727e-04 4.621719e-04 1.871379e-03    0.067944    1.4975      95718         0 1.204853         3.302087e-01             0              0            0             0              0
+ 0.1500 ok                         5.537292e-04 1.065248e-04 4.787980e-04 2.154510e-03    0.085493    1.5669      83628         0 1.338732         3.372304e-01             0              0            0             0              0
+ 0.2000 ok                         4.467866e-04 1.308799e-04 5.642695e-04 1.381012e-03    0.108025    1.6726      67567         0 1.349053         3.874305e-01             0              0            0             0              0
+ 0.2500 ok                         3.720477e-04 3.901760e-05 6.031249e-04 1.390733e-03    0.138264    1.8510      62769         0 1.354095         6.987324e-01             0              0            0             0              0
+ 0.3000 ok                         3.360869e-04 4.449442e-05 4.881751e-04 1.472109e-03    0.186265    2.1490      54439         0 1.404380         4.701176e-01             0              0            0             0              0
+ 0.3500 ok                         2.759985e-04 4.350807e-05 4.104607e-04 1.845210e-03    0.226073    2.3741      46822         0 1.388751         1.023020e+00             0              0            0             0              0
+ 0.4000 ok                         2.624018e-04 3.522290e-05 4.185958e-04 7.611056e-04    0.269526    2.6678      33502         0 1.468779         8.901864e-01             0              0            0             0              0
+ 0.4250 ok                         3.165325e-04 8.495671e-05 3.544520e-04 1.367105e-03    0.305947    2.9064      29066         0 1.166045         3.001966e-01             0              0            0             0              0
+ 0.4500 ok                         3.427069e-04 1.138796e-04 2.633268e-04 1.400942e-03    0.310726    2.9551      28790         0 1.197547         4.124768e-01             0              0            0             0              0
+ 0.4750 ok                         1.839160e-04 5.088688e-05 1.742311e-04 1.169306e-03    0.350865    3.2572      22651         0 1.224477         3.499624e-01             0              0            0             0              0
+ 0.5000 ok                         2.296621e-04 7.881407e-05 2.273116e-04 7.362868e-04    0.381094    3.4896      19128         0 1.135087         2.300261e-01             0              0            0             0              0
+ 0.5250 ok                         2.241012e-04 4.018629e-05 2.874899e-04 6.853673e-04    0.398460    3.6668      17469         0 1.556486         5.976644e-01             0              0            0             0              0
+ 0.5500 ok                         2.771507e-04 6.194154e-05 2.861265e-04 6.885331e-04    0.424483    3.8668      14596         0 1.214576         3.255705e-01             0              0            0             0              0
+ 0.5750 ok                         2.885333e-04 1.038383e-04 2.914473e-04 6.277951e-04    0.450346    4.1409      12034         0 1.231509         2.787004e-01             0              0            0             0              0
+ 0.6000 ok                         1.395755e-04 2.091835e-05 1.951514e-04 5.497530e-04    0.450565    4.1845      12716         0 1.504519         8.528461e-01             0              0            0             0              0
+ 0.6250 ok                         2.045546e-04 6.649338e-05 2.191554e-04 3.858167e-04    0.511903    4.7516       8416         0 1.107144         3.849333e-01             0              0            0             0              0
+ 0.6500 ok                         2.497075e-04 3.633556e-05 3.407448e-04 8.806490e-04    0.534684    5.0213       6897         0 1.232875         5.049531e-01             0              0            0             0              0
+ 0.6750 ok                         2.194363e-04 4.260799e-05 2.742652e-04 4.857671e-04    0.554149    5.2934       6131         0 1.229114         5.575028e-01             0              0            0             0              0
+ 0.7000 ok                         2.121570e-04 6.453370e-05 2.222818e-04 4.736452e-04    0.580508    5.5361       4802         0 1.106751         2.107907e-01             0              0            0             0              0
+ 0.7250 ok                         1.579355e-04 1.612926e-05 2.909690e-04 4.377155e-04    0.606143    5.9652       4102         0 1.367335         8.722428e-01             0              0            0             0              0
+ 0.7500 ok                         2.207597e-04 3.449864e-05 2.192840e-04 9.231287e-04    0.653150    6.5827       2453         0 1.149204         3.275588e-01             0              0            0             0              0
+ 0.7750 ok                         9.980907e-05 2.392891e-05 1.120181e-04 4.587928e-04    0.654216    6.8549       3022         0 1.383088         9.801107e-01             0              0            0             0              0
+ 0.8000 ok                         1.635451e-04 2.505953e-05 2.292652e-04 1.037298e-03    0.695024    7.4384       1852         0 1.215739         4.852235e-01             0              0            0             0              0
+ 0.8250 ok                         2.599786e-04 4.743659e-05 3.207181e-04 9.107658e-04    0.747317    8.4000        862         0 1.058988         2.078866e-01             0              0            0             0              0
+ 0.8500 ok                         2.158979e-04 6.448877e-05 1.908321e-04 9.964166e-04    0.791220    9.5416        440         0 1.062865         2.658528e-01             0              0            0             0              0
+ 0.8750 ok                         5.988106e-04 9.681443e-05 6.997318e-04 1.870135e-03    0.839539   10.9997        116         0 1.027259         1.632147e-01             0              0            0             0              0
+ 0.9000 ok                         3.438562e-04 5.891249e-05 4.041220e-04 1.238674e-03    0.854527   11.8646        104         0 1.066465         5.625057e-01             0              0            0             0              0
+ 0.9250 ok                         8.889331e-04 5.320813e-05 1.427263e-03 3.346010e-03    0.905289   14.2326          9         0 1.031655         3.651518e-01             0              0            0             0              0
+ 0.9500 ok                         2.083710e-03 7.155411e-04 2.401725e-03 3.383351e-03    0.942639   17.3349          0         0 1.002526         8.086209e-02             0              0            0             0              0
+ 0.9600 ok                         2.595566e-03 6.352823e-04 3.120280e-03 3.387692e-03    0.952166   18.6115          0         0 1.002603         6.254728e-02             0              0            0             0              0
+ 0.9700 ok                         2.081368e-03 8.701072e-04 2.030623e-03 3.348387e-03    0.965086   21.3412          0         0 1.002811         5.409160e-02             0              0            0             0              0
+ 0.9800 ok                         1.967514e-03 1.546861e-03 1.920307e-03 2.444198e-03    0.976063   25.4106          0         0 1.002748         5.645680e-02             0              0            0             0              0
+ 0.9900 ok                         1.620098e-03 1.330160e-03 1.636205e-03 1.962329e-03    0.987243   34.1930          0         0 1.002852         6.649048e-02             0              0            0             0              0
+ 0.9950 ok                         1.195427e-03 7.468717e-04 1.319691e-03 1.507797e-03    0.991758   42.3256          0         0 1.002642         3.598843e-02             0              0            0             0              0
+ 0.9990 ok                         9.372560e-04 4.554041e-04 1.003358e-03 1.232530e-03    0.995315   56.0161          0         0 1.001914         5.360771e-02             0              0            0             0              0
+
+10-block geometric-mean worst-observable efficiency by delta
+delta          GM_efficiency
+ 0.1000          5.697294959576e-04
+ 0.1500          5.537291807916e-04
+ 0.2000          4.467866236224e-04
+ 0.2500          3.720477343152e-04
+ 0.3000          3.360869146266e-04
+ 0.3500          2.759984960333e-04
+ 0.4000          2.624017810537e-04
+ 0.4250          3.165325023240e-04
+ 0.4500          3.427068541696e-04
+ 0.4750          1.839159563390e-04
+ 0.5000          2.296620690223e-04
+ 0.5250          2.241011662420e-04
+ 0.5500          2.771507142089e-04
+ 0.5750          2.885333155899e-04
+ 0.6000          1.395755377759e-04
+ 0.6250          2.045546066416e-04
+ 0.6500          2.497074877997e-04
+ 0.6750          2.194363130295e-04
+ 0.7000          2.121569532056e-04
+ 0.7250          1.579354798681e-04
+ 0.7500          2.207597266984e-04
+ 0.7750          9.980906626655e-05
+ 0.8000          1.635451308409e-04
+ 0.8250          2.599785652492e-04
+ 0.8500          2.158978715355e-04
+ 0.8750          5.988105609455e-04
+ 0.9000          3.438561703725e-04
+ 0.9250          8.889331375570e-04
+ 0.9500          2.083709850200e-03
+ 0.9600          2.595566071758e-03
+ 0.9700          2.081368262615e-03
+ 0.9800          1.967514407299e-03
+ 0.9900          1.620097531817e-03
+ 0.9950          1.195427439257e-03
+ 0.9990          9.372560391452e-04
+
+ALL CONFIGURATION-BLOCK RESULTS
+----------------------------------------------------------------------------------------
+delta block status                     acc_stat grad/draw mean_steps mean_depth finite_div depth_hit worst_obs worst_IAT block_eff max_Rhat max_std_moment_error warm_nf_trans warm_nf_leaves ret_nf_trans ret_nf_leaves ret_nf_samples
+ 0.1000     1 ok                          0.05643    1.4123     1.4123     1.2254      11155         0 x*y        3104.448 2.280727e-04 1.204853         1.292266e-01             0              0            0             0              0
+      adapted_eps=[0.345788295906, 0.363855836155, 0.328128434813, 0.323936394699]; epsilon_search_gradients=24; warmup_gradients=6835; retained_gradients=56494
+ 0.1000     2 ok                          0.05614    1.4557     1.4557     1.2580       9803         0 x*y        1214.088 5.658195e-04 1.058041         1.988693e-01             0              0            0             0              0
+      adapted_eps=[0.359724306084, 0.342098855559, 0.40757368554 , 0.378667100422]; epsilon_search_gradients=24; warmup_gradients=6755; retained_gradients=58228
+ 0.1000     3 ok                          0.08110    1.5691     1.5691     1.3048       8325         0 x*y        460.8078 1.383024e-03 1.048893         2.158128e-01             0              0            0             0              0
+      adapted_eps=[0.376646038673, 0.349909969809, 0.327551034477, 0.280310421941]; epsilon_search_gradients=23; warmup_gradients=6777; retained_gradients=62764
+ 0.1000     4 ok                          0.06918    1.4936     1.4936     1.2668       8885         0 x*y        1231.764 5.435301e-04 1.054988         1.571352e-01             0              0            0             0              0
+      adapted_eps=[0.379204340504, 0.375616711259, 0.31396060005 , 0.305713582579]; epsilon_search_gradients=23; warmup_gradients=6964; retained_gradients=59746
+ 0.1000     5 ok                          0.07710    1.5629     1.5629     1.3067       8688         0 x          522.0343 1.225640e-03 1.083073         3.090824e-01             0              0            0             0              0
+      adapted_eps=[0.319231405937, 0.384050618429, 0.291024443135, 0.382377007857]; epsilon_search_gradients=25; warmup_gradients=6768; retained_gradients=62517
+ 0.1000     6 ok                          0.04758    1.3844     1.3845     1.2194      11809         0 x*y        2154.385 3.352736e-04 1.122675         1.905244e-01             0              0            0             0              0
+      adapted_eps=[0.368865449777, 0.3594649753  , 0.400507590137, 0.371527807796]; epsilon_search_gradients=24; warmup_gradients=6828; retained_gradients=55378
+ 0.1000     7 ok                          0.08001    1.5404     1.5404     1.2805       8208         0 x*y        1704.779 3.808137e-04 1.115577         1.625356e-01             0              0            0             0              0
+      adapted_eps=[0.304626212011, 0.345463583838, 0.372204930795, 0.261821523826]; epsilon_search_gradients=24; warmup_gradients=6787; retained_gradients=61614
+ 0.1000     8 ok                          0.05666    1.4335     1.4335     1.2394      12034         0 y^2        1835.565 3.800361e-04 1.138408         2.596875e-01             0              0            0             0              0
+      adapted_eps=[0.358010222056, 0.395906346833, 0.320198156257, 0.398707337435]; epsilon_search_gradients=24; warmup_gradients=6571; retained_gradients=57341
+ 0.1000     9 ok                          0.09433    1.6369     1.6369     1.3254       7257         0 x*y        1830.416 3.337501e-04 1.119901         3.095780e-01             0              0            0             0              0
+      adapted_eps=[0.243472603354, 0.358353446182, 0.293651473269, 0.35719208429 ]; epsilon_search_gradients=25; warmup_gradients=6652; retained_gradients=65477
+ 0.1000    10 ok                          0.06092    1.4863     1.4863     1.2755       9554         0 x*y        359.5393 1.871379e-03 1.026957         3.302087e-01             0              0            0             0              0
+      adapted_eps=[0.404383588943, 0.358121313684, 0.354203912381, 0.356221752626]; epsilon_search_gradients=23; warmup_gradients=6865; retained_gradients=59450
+ 0.1500     1 ok                          0.10187    1.6540     1.6540     1.3427       7184         0 x*y        754.6273 8.012077e-04 1.050811         2.238987e-01             0              0            0             0              0
+      adapted_eps=[0.289102599785, 0.292917947177, 0.315022455706, 0.32372263721 ]; epsilon_search_gradients=24; warmup_gradients=8304; retained_gradients=66158
+ 0.1500     2 ok                          0.10311    1.6653     1.6653     1.3451       7348         0 x          278.7141 2.154510e-03 1.039306         3.267992e-01             0              0            0             0              0
+      adapted_eps=[0.340102056334, 0.27068950971 , 0.338723712021, 0.301232844052]; epsilon_search_gradients=24; warmup_gradients=7926; retained_gradients=66612
+ 0.1500     3 ok                          0.09663    1.6100     1.6100     1.3236       7666         0 x*y        458.1187 1.355759e-03 1.041887         3.372304e-01             0              0            0             0              0
+      adapted_eps=[0.317212670261, 0.30644543954 , 0.33234764943 , 0.321247529448]; epsilon_search_gradients=23; warmup_gradients=8100; retained_gradients=64402
+ 0.1500     4 ok                          0.06481    1.4486     1.4486     1.2429      10375         0 x*y        6480.611 1.065248e-04 1.338732         2.069422e-01             0              0            0             0              0
+      adapted_eps=[0.325223484281, 0.329926420912, 0.329623503763, 0.327426583455]; epsilon_search_gradients=23; warmup_gradients=7963; retained_gradients=57942
+ 0.1500     5 ok                          0.08751    1.5993     1.5993     1.3229       8176         0 y^2        1448.771 4.315958e-04 1.056908         1.353726e-01             0              0            0             0              0
+      adapted_eps=[0.327507704197, 0.302577205396, 0.296209216365, 0.326195085636]; epsilon_search_gradients=25; warmup_gradients=8212; retained_gradients=63971
+ 0.1500     6 ok                          0.08259    1.5573     1.5573     1.2957       8420         0 x          545.7304 1.176656e-03 1.049104         2.027233e-01             0              0            0             0              0
+      adapted_eps=[0.311676377313, 0.333759607308, 0.300670514157, 0.311666894763]; epsilon_search_gradients=24; warmup_gradients=8232; retained_gradients=62292
+ 0.1500     7 ok                          0.07833    1.5044     1.5044     1.2714       8583         0 y          2388.088 2.783422e-04 1.120541         1.894154e-01             0              0            0             0              0
+      adapted_eps=[0.328583466386, 0.333962136843, 0.344469548674, 0.310310924088]; epsilon_search_gradients=24; warmup_gradients=8533; retained_gradients=60177
+ 0.1500     8 ok                          0.07352    1.5185     1.5185     1.2803       7940         0 x*y        1454.559 4.527378e-04 1.062940         2.032354e-01             0              0            0             0              0
+      adapted_eps=[0.346020179701, 0.308517008348, 0.362088155943, 0.340920201384]; epsilon_search_gradients=24; warmup_gradients=8055; retained_gradients=60741
+ 0.1500     9 ok                          0.08646    1.5568     1.5568     1.2957       8884         0 x*y        1272.304 5.048581e-04 1.105176         2.091844e-01             0              0            0             0              0
+      adapted_eps=[0.30073647606 , 0.301897613565, 0.338209753028, 0.328258002156]; epsilon_search_gradients=25; warmup_gradients=8629; retained_gradients=62273
+ 0.1500    10 ok                          0.08010    1.5550     1.5550     1.2989       9052         0 x*y        1911.429 3.364537e-04 1.169782         1.876773e-01             0              0            0             0              0
+      adapted_eps=[0.307199382894, 0.331403923565, 0.333378216772, 0.317840503954]; epsilon_search_gradients=23; warmup_gradients=7913; retained_gradients=62198
+ 0.2000     1 ok                          0.11375    1.7001     1.7001     1.3558       7122         0 x*y        874.8167 6.723702e-04 1.077810         1.165767e-01             0              0            0             0              0
+      adapted_eps=[0.289812140839, 0.293077438079, 0.296653454579, 0.270044270598]; epsilon_search_gradients=24; warmup_gradients=9407; retained_gradients=68004
+ 0.2000     2 ok                          0.12431    1.7668     1.7668     1.3821       6415         0 x*y         3175.54 1.782333e-04 1.117324         2.168976e-01             0              0            0             0              0
+      adapted_eps=[0.307492863436, 0.302610301776, 0.242577601184, 0.290515854523]; epsilon_search_gradients=24; warmup_gradients=9449; retained_gradients=70673
+ 0.2000     3 ok                          0.11504    1.6979     1.6979     1.3541       6195         0 x*y        630.1035 9.347357e-04 1.068672         1.490715e-01             0              0            0             0              0
+      adapted_eps=[0.293207282153, 0.278391333297, 0.295641135003, 0.27530404963 ]; epsilon_search_gradients=23; warmup_gradients=9872; retained_gradients=67914
+ 0.2000     4 ok                          0.10842    1.6901     1.6901     1.3573       7196         0 x*y        428.4527 1.381012e-03 1.052512         2.592205e-01             0              0            0             0              0
+      adapted_eps=[0.296798846602, 0.308527830974, 0.28184209566 , 0.31097385433 ]; epsilon_search_gradients=23; warmup_gradients=9523; retained_gradients=67602
+ 0.2000     5 ok                          0.12282    1.7652     1.7652     1.3806       5851         0 x*y        3611.377 1.568698e-04 1.095258         1.570654e-01             0              0            0             0              0
+      adapted_eps=[0.280111001339, 0.258952013255, 0.294550451072, 0.296339071761]; epsilon_search_gradients=25; warmup_gradients=9827; retained_gradients=70607
+ 0.2000     6 ok                          0.10961    1.6877     1.6877     1.3518       7087         0 y^2        1098.554 5.393576e-04 1.043133         1.471903e-01             0              0            0             0              0
+      adapted_eps=[0.269532120434, 0.307519257438, 0.2901744959  , 0.29452440313 ]; epsilon_search_gradients=24; warmup_gradients=9636; retained_gradients=67509
+ 0.2000     7 ok                          0.08181    1.5135     1.5135     1.2687       7967         0 x*y        5048.377 1.308799e-04 1.349053         3.874305e-01             0              0            0             0              0
+      adapted_eps=[0.300029932058, 0.290127928273, 0.301132721905, 0.294808576932]; epsilon_search_gradients=24; warmup_gradients=9589; retained_gradients=60539
+ 0.2000     8 ok                          0.11064    1.6825     1.6825     1.3475       5986         0 x*y        1008.809 5.891814e-04 1.092894         1.544283e-01             0              0            0             0              0
+      adapted_eps=[0.289134859857, 0.272931903419, 0.292566634462, 0.296055050515]; epsilon_search_gradients=24; warmup_gradients=9727; retained_gradients=67298
+ 0.2000     9 ok                          0.10026    1.6325     1.6326     1.3268       6860         0 x*y        741.4744 8.261090e-04 1.035064         1.441852e-01             0              0            0             0              0
+      adapted_eps=[0.303799762559, 0.304276167706, 0.280265226323, 0.296531128081]; epsilon_search_gradients=25; warmup_gradients=9620; retained_gradients=65302
+ 0.2000    10 ok                          0.09359    1.5897     1.5897     1.3059       6888         0 x*y        1654.814 3.801390e-04 1.153021         6.462242e-02             0              0            0             0              0
+      adapted_eps=[0.302797008385, 0.296966537996, 0.294512647225, 0.287918082871]; epsilon_search_gradients=23; warmup_gradients=9511; retained_gradients=63587
+ 0.2500     1 ok                          0.11830    1.7314     1.7314     1.3670       7220         0 x*y        6004.959 9.618034e-05 1.224678         9.206282e-02             0              0            0             0              0
+      adapted_eps=[0.293104530497, 0.284143898562, 0.267196837119, 0.272944411897]; epsilon_search_gradients=24; warmup_gradients=10833; retained_gradients=69257
+ 0.2500     2 ok                          0.14893    1.9289     1.9289     1.4497       5320         0 x^2        522.1305 9.929130e-04 1.039458         2.476801e-01             0              0            0             0              0
+      adapted_eps=[0.28119731981 , 0.280120008964, 0.253686690354, 0.262009767924]; epsilon_search_gradients=24; warmup_gradients=11156; retained_gradients=77156
+ 0.2500     3 ok                          0.13861    1.8562     1.8563     1.4206       5950         0 x*y        4202.824 1.281806e-04 1.137571         1.931633e-01             0              0            0             0              0
+      adapted_eps=[0.277033305586, 0.261724212254, 0.27453595557 , 0.274435360383]; epsilon_search_gradients=23; warmup_gradients=11075; retained_gradients=74250
+ 0.2500     4 ok                          0.15530    1.9561     1.9561     1.4612       5610         0 x^2         380.583 1.343258e-03 1.019443         2.149179e-01             0              0            0             0              0
+      adapted_eps=[0.273583385023, 0.253258414583, 0.269755703983, 0.268289491314]; epsilon_search_gradients=23; warmup_gradients=11363; retained_gradients=78244
+ 0.2500     5 ok                          0.13977    1.8530     1.8530     1.4187       5582         0 x*y        388.0491 1.390733e-03 1.033436         1.766490e-01             0              0            0             0              0
+      adapted_eps=[0.27320150394 , 0.258161954704, 0.272119956386, 0.278254452826]; epsilon_search_gradients=25; warmup_gradients=11065; retained_gradients=74119
+ 0.2500     6 ok                          0.12765    1.8216     1.8216     1.4060       5945         0 x*y         2573.21 2.133368e-04 1.065197         2.654858e-01             0              0            0             0              0
+      adapted_eps=[0.265116250154, 0.279078811483, 0.269448155761, 0.271222729864]; epsilon_search_gradients=24; warmup_gradients=11265; retained_gradients=72865
+ 0.2500     7 ok                          0.14105    1.8530     1.8530     1.4203       5596         0 x*y        516.9362 1.043969e-03 1.055768         1.821591e-01             0              0            0             0              0
+      adapted_eps=[0.273948090813, 0.267522963939, 0.277828812805, 0.265034654989]; epsilon_search_gradients=24; warmup_gradients=10781; retained_gradients=74120
+ 0.2500     8 ok                          0.15313    1.9180     1.9180     1.4442       5569         0 x*y        2496.333 2.088569e-04 1.079817         1.777993e-01             0              0            0             0              0
+      adapted_eps=[0.271174217638, 0.269669117992, 0.264930055782, 0.26146093705 ]; epsilon_search_gradients=24; warmup_gradients=10952; retained_gradients=76720
+ 0.2500     9 ok                          0.13059    1.7984     1.7984     1.3905      10051         0 x*y        14251.46 3.901760e-05 1.354095         6.987324e-01             0              0            0             0              0
+      adapted_eps=[0.25818909498 , 0.278167503869, 0.274296621705, 0.27805461199 ]; epsilon_search_gradients=25; warmup_gradients=11263; retained_gradients=71935
+ 0.2500    10 ok                          0.12931    1.7931     1.7931     1.3974       5926         0 x^2        455.5193 1.224336e-03 1.038766         2.370656e-01             0              0            0             0              0
+      adapted_eps=[0.271852553643, 0.277562135633, 0.286210709571, 0.279075813917]; epsilon_search_gradients=23; warmup_gradients=10720; retained_gradients=71722
+ 0.3000     1 ok                          0.15580    2.0285     2.0285     1.4846       8411         0 x          7325.084 6.730042e-05 1.404380         3.651132e-01             0              0            0             0              0
+      adapted_eps=[0.258185685319, 0.262406261206, 0.249708129781, 0.24632064858 ]; epsilon_search_gradients=24; warmup_gradients=12778; retained_gradients=81139
+ 0.3000     2 ok                          0.20271    2.2410     2.2410     1.5605       4520         0 x^2        635.2865 7.023986e-04 1.047011         1.414183e-01             0              0            0             0              0
+      adapted_eps=[0.231230207446, 0.24508407963 , 0.253222388568, 0.255851216788]; epsilon_search_gradients=24; warmup_gradients=12899; retained_gradients=89641
+ 0.3000     3 ok                          0.16042    1.9993     1.9993     1.4759       5279         0 x*y        433.5055 1.153792e-03 1.033078         1.770347e-01             0              0            0             0              0
+      adapted_eps=[0.258189534024, 0.257498232777, 0.259826806621, 0.26876423318 ]; epsilon_search_gradients=23; warmup_gradients=13253; retained_gradients=79972
+ 0.3000     4 ok                          0.17140    2.0274     2.0274     1.4874       5232         0 x*y        2946.223 1.674111e-04 1.087891         1.678875e-01             0              0            0             0              0
+      adapted_eps=[0.254823565426, 0.259911176986, 0.271947651954, 0.257278178336]; epsilon_search_gradients=23; warmup_gradients=12861; retained_gradients=81098
+ 0.3000     5 ok                          0.18987    2.1771     2.1771     1.5422       4963         0 y^2        937.4334 4.899776e-04 1.038052         2.090708e-01             0              0            0             0              0
+      adapted_eps=[0.255926621218, 0.257678937209, 0.247503728632, 0.255201756547]; epsilon_search_gradients=25; warmup_gradients=13212; retained_gradients=87085
+ 0.3000     6 ok                          0.21150    2.2929     2.2929     1.5928       4514         0 x*y        296.2646 1.472109e-03 1.037243         3.097221e-01             0              0            0             0              0
+      adapted_eps=[0.25021492107 , 0.253270903124, 0.251237393615, 0.247271238441]; epsilon_search_gradients=24; warmup_gradients=12284; retained_gradients=91715
+ 0.3000     7 ok                          0.15254    1.9458     1.9458     1.4397       7835         0 x^2        11550.23 4.449442e-05 1.331336         4.701176e-01             0              0            0             0              0
+      adapted_eps=[0.243291504146, 0.255570340704, 0.265175575565, 0.262110155072]; epsilon_search_gradients=24; warmup_gradients=12393; retained_gradients=77833
+ 0.3000     8 ok                          0.21351    2.3032     2.3032     1.5765       4232         0 y          4295.724 1.010734e-04 1.164231         8.658884e-02             0              0            0             0              0
+      adapted_eps=[0.25248501996 , 0.220784801267, 0.249763975473, 0.246581855854]; epsilon_search_gradients=24; warmup_gradients=12939; retained_gradients=92127
+ 0.3000     9 ok                          0.20426    2.2580     2.2580     1.5720       4690         0 x*y        910.5567 4.863726e-04 1.039149         2.044922e-01             0              0            0             0              0
+      adapted_eps=[0.253728548566, 0.255336723651, 0.247395084368, 0.239311515676]; epsilon_search_gradients=25; warmup_gradients=12732; retained_gradients=90320
+ 0.3000    10 ok                          0.20064    2.2167     2.2167     1.5605       4763         0 x*y        353.4456 1.276367e-03 1.018213         2.881260e-01             0              0            0             0              0
+      adapted_eps=[0.254575827651, 0.25067889721 , 0.261895989865, 0.245108188003]; epsilon_search_gradients=23; warmup_gradients=12491; retained_gradients=88667
+ 0.3500     1 ok                          0.24264    2.4689     2.4689     1.6465       3762         0 x*y        219.5104 1.845210e-03 1.019943         2.470694e-01             0              0            0             0              0
+      adapted_eps=[0.239959879186, 0.235422890177, 0.238870708886, 0.23451266914 ]; epsilon_search_gradients=24; warmup_gradients=14288; retained_gradients=98755
+ 0.3500     2 ok                          0.22631    2.3697     2.3698     1.6031       4048         0 x*y        3932.901 1.072962e-04 1.137605         8.643585e-02             0              0            0             0              0
+      adapted_eps=[0.23322640675 , 0.228920605342, 0.234966755736, 0.244806827823]; epsilon_search_gradients=24; warmup_gradients=14480; retained_gradients=94790
+ 0.3500     3 ok                          0.22734    2.3844     2.3844     1.6151       4176         0 x*y        526.4725 7.966006e-04 1.050291         1.750290e-01             0              0            0             0              0
+      adapted_eps=[0.246813878482, 0.234815591575, 0.237121357732, 0.237013687421]; epsilon_search_gradients=23; warmup_gradients=14637; retained_gradients=95377
+ 0.3500     4 ok                          0.25727    2.5638     2.5639     1.6808       3635         0 x*y        622.0415 6.270296e-04 1.043002         1.890829e-01             0              0            0             0              0
+      adapted_eps=[0.235224533088, 0.226694542683, 0.239398264418, 0.231102362948]; epsilon_search_gradients=23; warmup_gradients=14274; retained_gradients=102554
+ 0.3500     5 ok                          0.23345    2.4050     2.4050     1.6185       3995         0 x*y        2144.475 1.938917e-04 1.058101         1.076513e-01             0              0            0             0              0
+      adapted_eps=[0.240859898245, 0.233452485914, 0.233459342898, 0.237335490503]; epsilon_search_gradients=25; warmup_gradients=14384; retained_gradients=96201
+ 0.3500     6 ok                          0.23058    2.3964     2.3964     1.6237       4129         0 x*y        443.4295 9.410573e-04 1.024171         2.742555e-01             0              0            0             0              0
+      adapted_eps=[0.247576001299, 0.241122104405, 0.241358228461, 0.245790722096]; epsilon_search_gradients=24; warmup_gradients=14601; retained_gradients=95856
+ 0.3500     7 ok                          0.20747    2.2685     2.2685     1.5504       8349         0 x*y        10132.14 4.350807e-05 1.285223         1.946723e-01             0              0            0             0              0
+      adapted_eps=[0.239546386145, 0.221463798556, 0.248396564328, 0.23655820044 ]; epsilon_search_gradients=24; warmup_gradients=14445; retained_gradients=90738
+ 0.3500     8 ok                          0.25161    2.5324     2.5324     1.6656       3645         0 x*y        500.7759 7.885487e-04 1.048497         2.199984e-01             0              0            0             0              0
+      adapted_eps=[0.242079229351, 0.223447020935, 0.236363934455, 0.237268840454]; epsilon_search_gradients=24; warmup_gradients=14858; retained_gradients=101295
+ 0.3500     9 ok                          0.21149    2.2853     2.2853     1.5665       4726         0 x^2        6311.701 6.932827e-05 1.207547         4.160147e-01             0              0            0             0              0
+      adapted_eps=[0.246890291445, 0.235696921534, 0.238707752936, 0.219228990068]; epsilon_search_gradients=25; warmup_gradients=14474; retained_gradients=91412
+ 0.3500    10 ok                          0.17258    2.0668     2.0668     1.4705       6357         0 x           8096.13 5.976186e-05 1.388751         1.023020e+00             0              0            0             0              0
+      adapted_eps=[0.228278894901, 0.247227611954, 0.239491670445, 0.234676033501]; epsilon_search_gradients=23; warmup_gradients=13926; retained_gradients=82672
+ 0.4000     1 ok                          0.26091    2.5729     2.5729     1.6712       3427         0 x          510.6654 7.611056e-04 1.054540         1.941762e-01             0              0            0             0              0
+      adapted_eps=[0.236217865653, 0.237958257204, 0.210011704644, 0.233229583353]; epsilon_search_gradients=24; warmup_gradients=15979; retained_gradients=102915
+ 0.4000     2 ok                          0.26894    2.6597     2.6597     1.7023       3360         0 x*y        1043.385 3.603520e-04 1.065532         1.146659e-01             0              0            0             0              0
+      adapted_eps=[0.225593517793, 0.227070675117, 0.229449601557, 0.21334216855 ]; epsilon_search_gradients=24; warmup_gradients=16541; retained_gradients=106387
+ 0.4000     3 ok                          0.24039    2.4893     2.4893     1.6256       4634         0 x*y        8553.976 4.696335e-05 1.468779         6.663989e-01             0              0            0             0              0
+      adapted_eps=[0.235636619607, 0.221445101372, 0.215355971099, 0.208263154402]; epsilon_search_gradients=23; warmup_gradients=16078; retained_gradients=99571
+ 0.4000     4 ok                          0.28939    2.7761     2.7761     1.7354       2911         0 y^2        988.1181 3.645557e-04 1.047985         9.761911e-02             0              0            0             0              0
+      adapted_eps=[0.22863828561 , 0.218525765813, 0.212776297365, 0.214726839557]; epsilon_search_gradients=23; warmup_gradients=16374; retained_gradients=111042
+ 0.4000     5 ok                          0.26210    2.6104     2.6104     1.6853       3365         0 x^2        810.5245 4.726360e-04 1.064235         1.414613e-01             0              0            0             0              0
+      adapted_eps=[0.214777071479, 0.231118330405, 0.228356327737, 0.239758105821]; epsilon_search_gradients=25; warmup_gradients=15945; retained_gradients=104416
+ 0.4000     6 ok                          0.32309    3.0203     3.0203     1.8105       2539         0 x*y        480.0215 6.897461e-04 1.052493         1.839132e-01             0              0            0             0              0
+      adapted_eps=[0.214244672838, 0.197649688307, 0.215705080908, 0.215618287039]; epsilon_search_gradients=24; warmup_gradients=16781; retained_gradients=120812
+ 0.4000     7 ok                          0.31829    2.9673     2.9673     1.7956       2748         0 y          461.4014 7.304043e-04 1.037907         2.203395e-01             0              0            0             0              0
+      adapted_eps=[0.198455361281, 0.223064532366, 0.217589800867, 0.219996257598]; epsilon_search_gradients=24; warmup_gradients=16385; retained_gradients=118691
+ 0.4000     8 ok                          0.21879    2.3655     2.3655     1.5893       4036         0 y          5728.839 7.379298e-05 1.237266         5.831717e-01             0              0            0             0              0
+      adapted_eps=[0.215312704257, 0.232528015216, 0.231583987587, 0.240960656559]; epsilon_search_gradients=24; warmup_gradients=15473; retained_gradients=94619
+ 0.4000     9 ok                          0.23616    2.4792     2.4792     1.6199       3442         0 x*y        11451.41 3.522290e-05 1.454757         8.901864e-01             0              0            0             0              0
+      adapted_eps=[0.237084689839, 0.216265813456, 0.208411911669, 0.222823926415]; epsilon_search_gradients=25; warmup_gradients=16499; retained_gradients=99169
+ 0.4000    10 ok                          0.27720    2.7371     2.7371     1.7243       3040         0 x*y        686.0565 5.325415e-04 1.039717         2.670577e-01             0              0            0             0              0
+      adapted_eps=[0.230293339665, 0.211450072413, 0.22110238084 , 0.224563220509]; epsilon_search_gradients=23; warmup_gradients=15945; retained_gradients=109483
+ 0.4250     1 ok                          0.28003    2.7287     2.7287     1.7103       2905         0 x*y        826.3753 4.434727e-04 1.047596         9.427589e-02             0              0            0             0              0
+      adapted_eps=[0.211113303285, 0.214937178007, 0.236205884538, 0.211234757897]; epsilon_search_gradients=24; warmup_gradients=16955; retained_gradients=109148
+ 0.4250     2 ok                          0.29508    2.8234     2.8234     1.7491       2923         0 y^2         1962.82 1.804443e-04 1.067707         1.323589e-01             0              0            0             0              0
+      adapted_eps=[0.209914357887, 0.218592511179, 0.213792125985, 0.222077660658]; epsilon_search_gradients=24; warmup_gradients=17095; retained_gradients=112937
+ 0.4250     3 ok                          0.34461    3.1561     3.1561     1.8674       2449         0 x*y        231.7665 1.367105e-03 1.028192         2.685834e-01             0              0            0             0              0
+      adapted_eps=[0.215842408373, 0.20404271003 , 0.215062646868, 0.215478959262]; epsilon_search_gradients=23; warmup_gradients=16944; retained_gradients=126243
+ 0.4250     4 ok                          0.30964    2.9209     2.9209     1.7890       2828         0 y^2        486.8961 7.031545e-04 1.028982         2.228319e-01             0              0            0             0              0
+      adapted_eps=[0.223199093961, 0.221954021584, 0.216057798184, 0.206721481639]; epsilon_search_gradients=23; warmup_gradients=17281; retained_gradients=116835
+ 0.4250     5 ok                          0.32151    3.0015     3.0015     1.8155       2646         0 y^2        1255.211 2.654314e-04 1.075181         2.127602e-01             0              0            0             0              0
+      adapted_eps=[0.217355889617, 0.218148256288, 0.211655154675, 0.212306866802]; epsilon_search_gradients=25; warmup_gradients=17648; retained_gradients=120058
+ 0.4250     6 ok                          0.29882    2.8466     2.8466     1.7535       3632         0 x*y        4099.337 8.569737e-05 1.152141         3.001966e-01             0              0            0             0              0
+      adapted_eps=[0.224545954346, 0.208320850443, 0.211241213316, 0.213924296475]; epsilon_search_gradients=24; warmup_gradients=17467; retained_gradients=113862
+ 0.4250     7 ok                          0.33391    3.1237     3.1237     1.8439       2474         0 y^2        654.1919 4.893527e-04 1.020098         1.725475e-01             0              0            0             0              0
+      adapted_eps=[0.209639361386, 0.212212142705, 0.198197242787, 0.220713316785]; epsilon_search_gradients=24; warmup_gradients=17951; retained_gradients=124949
+ 0.4250     8 ok                          0.28151    2.7580     2.7580     1.7284       2979         0 x          636.9476 5.692539e-04 1.073269         1.230154e-01             0              0            0             0              0
+      adapted_eps=[0.213595471405, 0.220215432994, 0.215614467497, 0.229235148632]; epsilon_search_gradients=24; warmup_gradients=17576; retained_gradients=110319
+ 0.4250     9 ok                          0.30996    2.9478     2.9478     1.7799       2755         0 x*y        1391.344 2.438231e-04 1.095772         1.896706e-01             0              0            0             0              0
+      adapted_eps=[0.223014651311, 0.203420228981, 0.210687225184, 0.209561129628]; epsilon_search_gradients=25; warmup_gradients=17549; retained_gradients=117910
+ 0.4250    10 ok                          0.28441    2.7573     2.7573     1.7270       3475         0 x*y        4268.923 8.495671e-05 1.166045         1.717380e-01             0              0            0             0              0
+      adapted_eps=[0.221715191704, 0.215432366353, 0.213057225725, 0.221948112524]; epsilon_search_gradients=23; warmup_gradients=16794; retained_gradients=110292
+ 0.4500     1 ok                          0.30882    2.9662     2.9662     1.7826       2704         0 x*y        1295.203 2.602925e-04 1.108854         1.465409e-01             0              0            0             0              0
+      adapted_eps=[0.196662636004, 0.207774468274, 0.210562763801, 0.225547081518]; epsilon_search_gradients=24; warmup_gradients=17988; retained_gradients=118648
+ 0.4500     2 ok                          0.27015    2.7016     2.7016     1.6941       4026         0 x*y        3250.371 1.138796e-04 1.197547         9.859724e-02             0              0            0             0              0
+      adapted_eps=[0.218410137019, 0.210835535073, 0.211634042857, 0.219143587215]; epsilon_search_gradients=24; warmup_gradients=17856; retained_gradients=108064
+ 0.4500     3 ok                          0.31319    2.9783     2.9783     1.7975       2726         0 x*y         1055.26 3.181849e-04 1.049000         8.150935e-02             0              0            0             0              0
+      adapted_eps=[0.211172572582, 0.21039653944 , 0.210375776389, 0.217085494765]; epsilon_search_gradients=23; warmup_gradients=18911; retained_gradients=119130
+ 0.4500     4 ok                          0.31787    3.0156     3.0155     1.8017       2488         0 x*y        1277.348 2.596117e-04 1.097602         1.027206e-01             0              0            0             0              0
+      adapted_eps=[0.207662234513, 0.214932776335, 0.217222952529, 0.199736842515]; epsilon_search_gradients=23; warmup_gradients=18499; retained_gradients=120622
+ 0.4500     5 ok                          0.25987    2.6043     2.6043     1.6561       3070         0 y^2        1680.294 2.285219e-04 1.095397         4.124768e-01             0              0            0             0              0
+      adapted_eps=[0.20639471647 , 0.222762800075, 0.213974932532, 0.206309768763]; epsilon_search_gradients=25; warmup_gradients=17415; retained_gradients=104171
+ 0.4500     6 ok                          0.32566    3.0532     3.0532     1.8073       2586         0 x*y        1229.649 2.663610e-04 1.103433         1.614414e-01             0              0            0             0              0
+      adapted_eps=[0.221403001342, 0.205866995724, 0.19290871682 , 0.211388336872]; epsilon_search_gradients=24; warmup_gradients=18763; retained_gradients=122126
+ 0.4500     7 ok                          0.31249    2.9400     2.9400     1.7992       2751         0 x*y        390.8581 8.702437e-04 1.026037         2.329728e-01             0              0            0             0              0
+      adapted_eps=[0.229116970739, 0.212077086142, 0.213814193933, 0.21998914578 ]; epsilon_search_gradients=24; warmup_gradients=18520; retained_gradients=117598
+ 0.4500     8 ok                          0.31972    3.0074     3.0074     1.7990       3204         0 y^2        2036.915 1.632421e-04 1.097458         3.226030e-01             0              0            0             0              0
+      adapted_eps=[0.205601379364, 0.214103408109, 0.210437531895, 0.209932136522]; epsilon_search_gradients=24; warmup_gradients=18299; retained_gradients=120297
+ 0.4500     9 ok                          0.33890    3.1450     3.1450     1.8673       2718         0 x*y        226.9688 1.400942e-03 1.012050         2.903314e-01             0              0            0             0              0
+      adapted_eps=[0.222947001301, 0.195698561295, 0.215954962761, 0.223159310939]; epsilon_search_gradients=25; warmup_gradients=18187; retained_gradients=125798
+ 0.4500    10 ok                          0.34058    3.1396     3.1396     1.8599       2517         0 x*y        422.7702 7.533985e-04 1.039708         2.371655e-01             0              0            0             0              0
+      adapted_eps=[0.20751340189 , 0.208457390111, 0.210471327543, 0.219684380127]; epsilon_search_gradients=23; warmup_gradients=18889; retained_gradients=125583
+ 0.4750     1 ok                          0.34044    3.2255     3.2255     1.8438       2250         0 x*y        3693.591 8.393649e-05 1.154214         1.354236e-01             0              0            0             0              0
+      adapted_eps=[0.202740976883, 0.207242407976, 0.181832739666, 0.201208669496]; epsilon_search_gradients=24; warmup_gradients=19949; retained_gradients=129021
+ 0.4750     2 ok                          0.37300    3.4495     3.4496     1.9307       1950         0 y          554.2528 5.230337e-04 1.050533         1.745993e-01             0              0            0             0              0
+      adapted_eps=[0.198126388464, 0.181477452398, 0.209234406827, 0.204806155951]; epsilon_search_gradients=24; warmup_gradients=20202; retained_gradients=137982
+ 0.4750     3 ok                          0.40188    3.6336     3.6337     1.9897       1746         0 x*y        1231.163 2.235329e-04 1.057474         2.103741e-01             0              0            0             0              0
+      adapted_eps=[0.192996282039, 0.187998627075, 0.208456385655, 0.20183014173 ]; epsilon_search_gradients=23; warmup_gradients=20328; retained_gradients=145346
+ 0.4750     4 ok                          0.31350    2.9572     2.9572     1.7823       2490         0 x*y        1220.148 2.771473e-04 1.076208         1.912611e-01             0              0            0             0              0
+      adapted_eps=[0.20766391791 , 0.210725208113, 0.212406238123, 0.205127945688]; epsilon_search_gradients=23; warmup_gradients=19139; retained_gradients=118287
+ 0.4750     5 ok                          0.34432    3.1693     3.1693     1.8493       2386         0 x*y        4653.084 6.780978e-05 1.136474         2.178594e-01             0              0            0             0              0
+      adapted_eps=[0.198378276372, 0.208443662247, 0.211233352426, 0.1991481392  ]; epsilon_search_gradients=25; warmup_gradients=19768; retained_gradients=126773
+ 0.4750     6 ok                          0.30493    2.9394     2.9395     1.7568       2636         0 x*y        2723.139 1.249292e-04 1.181605         3.124394e-01             0              0            0             0              0
+      adapted_eps=[0.211081391202, 0.20133180667 , 0.214632625693, 0.193325296137]; epsilon_search_gradients=24; warmup_gradients=19876; retained_gradients=117578
+ 0.4750     7 ok                          0.36045    3.3394     3.3394     1.9035       2502         0 x*y        5884.763 5.088688e-05 1.224477         3.499624e-01             0              0            0             0              0
+      adapted_eps=[0.214686066928, 0.189677486978, 0.209993288494, 0.201717432419]; epsilon_search_gradients=24; warmup_gradients=19865; retained_gradients=133575
+ 0.4750     8 ok                          0.38993    3.5314     3.5314     1.9655       1971         0 x*y        242.1726 1.169306e-03 1.017776         2.570919e-01             0              0            0             0              0
+      adapted_eps=[0.205228196935, 0.193549339429, 0.193512801504, 0.206695221074]; epsilon_search_gradients=24; warmup_gradients=19018; retained_gradients=141256
+ 0.4750     9 ok                          0.37801    3.4155     3.4155     1.9374       2040         0 x*y        672.6891 4.352393e-04 1.046096         2.195796e-01             0              0            0             0              0
+      adapted_eps=[0.196569718626, 0.199608765713, 0.210355473428, 0.204601347948]; epsilon_search_gradients=25; warmup_gradients=20017; retained_gradients=136621
+ 0.4750    10 ok                          0.30218    2.9107     2.9107     1.7529       2680         0 x*y        4629.731 7.420668e-05 1.195608         2.089425e-01             0              0            0             0              0
+      adapted_eps=[0.20288369934 , 0.20615117405 , 0.210464359702, 0.20126586044 ]; epsilon_search_gradients=23; warmup_gradients=19249; retained_gradients=116429
+ 0.5000     1 ok                          0.40210    3.6287     3.6287     1.9862       1772         0 x*y        374.2845 7.362868e-04 1.017433         2.300261e-01             0              0            0             0              0
+      adapted_eps=[0.196396720173, 0.208794369276, 0.182875106669, 0.201676015247]; epsilon_search_gradients=24; warmup_gradients=20065; retained_gradients=145148
+ 0.5000     2 ok                          0.40301    3.7144     3.7144     1.9863       1496         0 x*y        2167.826 1.241901e-04 1.103473         1.213485e-01             0              0            0             0              0
+      adapted_eps=[0.187146310198, 0.195475892651, 0.173478410858, 0.198564028265]; epsilon_search_gradients=24; warmup_gradients=21422; retained_gradients=148576
+ 0.5000     3 ok                          0.39578    3.5833     3.5833     1.9685       1716         0 x*y        1263.559 2.208607e-04 1.091429         2.110554e-01             0              0            0             0              0
+      adapted_eps=[0.199568152046, 0.185774261867, 0.19561333173 , 0.196498473021]; epsilon_search_gradients=23; warmup_gradients=20945; retained_gradients=143333
+ 0.5000     4 ok                          0.35481    3.2711     3.2711     1.8828       2177         0 y^2         1307.77 2.337625e-04 1.044115         1.444237e-01             0              0            0             0              0
+      adapted_eps=[0.205706926361, 0.201254294988, 0.205912080444, 0.198156376748]; epsilon_search_gradients=23; warmup_gradients=20515; retained_gradients=130844
+ 0.5000     5 ok                          0.40844    3.6903     3.6903     1.9998       1788         0 x*y        829.3957 3.267184e-04 1.052121         1.538312e-01             0              0            0             0              0
+      adapted_eps=[0.197565628249, 0.187769837045, 0.192392848341, 0.193398279115]; epsilon_search_gradients=25; warmup_gradients=20460; retained_gradients=147613
+ 0.5000     6 ok                          0.39506    3.5967     3.5967     1.9664       1892         0 x*y        3527.727 7.881407e-05 1.127603         7.401995e-02             0              0            0             0              0
+      adapted_eps=[0.195642055891, 0.183894492996, 0.195604044426, 0.197144913703]; epsilon_search_gradients=24; warmup_gradients=20962; retained_gradients=143867
+ 0.5000     7 ok                          0.35656    3.2843     3.2843     1.8818       2205         0 x*y        691.7141 4.401869e-04 1.063674         1.370543e-01             0              0            0             0              0
+      adapted_eps=[0.200705830192, 0.194700637727, 0.2025754843  , 0.208429144884]; epsilon_search_gradients=24; warmup_gradients=20213; retained_gradients=131370
+ 0.5000     8 ok                          0.36403    3.4001     3.4001     1.9036       2123         0 x*y        2099.665 1.400742e-04 1.102483         1.751276e-01             0              0            0             0              0
+      adapted_eps=[0.200284976108, 0.193529129642, 0.181527026459, 0.206141423866]; epsilon_search_gradients=24; warmup_gradients=21220; retained_gradients=136004
+ 0.5000     9 ok                          0.38937    3.5440     3.5440     1.9571       1834         0 x*y        561.0286 5.029495e-04 1.037144         1.755549e-01             0              0            0             0              0
+      adapted_eps=[0.197548269245, 0.186331090777, 0.201838625716, 0.193423270849]; epsilon_search_gradients=25; warmup_gradients=20659; retained_gradients=141759
+ 0.5000    10 ok                          0.34179    3.1831     3.1831     1.8398       2125         0 x*y         2901.27 1.082850e-04 1.135087         1.314370e-01             0              0            0             0              0
+      adapted_eps=[0.191662215993, 0.203431785538, 0.203757983131, 0.204638010543]; epsilon_search_gradients=23; warmup_gradients=20759; retained_gradients=127322
+ 0.5250     1 ok                          0.38908    3.5888     3.5888     1.9593       1784         0 x*y        688.3798 4.047805e-04 1.045407         1.355767e-01             0              0            0             0              0
+      adapted_eps=[0.198773118229, 0.177946229875, 0.197802610006, 0.196664396533]; epsilon_search_gradients=24; warmup_gradients=21859; retained_gradients=143553
+ 0.5250     2 ok                          0.43242    3.9372     3.9372     2.0621       1482         0 x*y        920.8387 2.758203e-04 1.066539         1.366024e-01             0              0            0             0              0
+      adapted_eps=[0.186317544556, 0.191778736775, 0.187281678195, 0.181174089387]; epsilon_search_gradients=24; warmup_gradients=21807; retained_gradients=157489
+ 0.5250     3 ok                          0.41148    3.7342     3.7342     2.0025       1538         0 x*y        1223.204 2.189292e-04 1.065571         1.370987e-01             0              0            0             0              0
+      adapted_eps=[0.18711254687 , 0.189814445163, 0.190930770105, 0.186586835741]; epsilon_search_gradients=23; warmup_gradients=22619; retained_gradients=149368
+ 0.5250     4 ok                          0.36737    3.4070     3.4070     1.9043       1909         0 x*y        5791.155 5.068304e-05 1.195545         1.907778e-01             0              0            0             0              0
+      adapted_eps=[0.188806447104, 0.197079080748, 0.204310666336, 0.188008847797]; epsilon_search_gradients=23; warmup_gradients=21526; retained_gradients=136280
+ 0.5250     5 ok                          0.41946    3.8002     3.8002     2.0315       1659         0 x*y        495.1939 5.313925e-04 1.032614         1.911223e-01             0              0            0             0              0
+      adapted_eps=[0.185553470055, 0.193624703054, 0.180346523326, 0.199696148532]; epsilon_search_gradients=25; warmup_gradients=22251; retained_gradients=152009
+ 0.5250     6 ok                          0.42495    3.8527     3.8527     2.0478       1607         0 x*y         378.719 6.853673e-04 1.021925         1.911182e-01             0              0            0             0              0
+      adapted_eps=[0.184556881672, 0.194097092776, 0.194279904781, 0.182438658527]; epsilon_search_gradients=24; warmup_gradients=23470; retained_gradients=154106
+ 0.5250     7 ok                          0.39146    3.6249     3.6249     1.9646       1752         0 x*y        2089.045 1.320563e-04 1.107993         2.076081e-01             0              0            0             0              0
+      adapted_eps=[0.19138975144 , 0.200772397766, 0.178914234956, 0.189600564917]; epsilon_search_gradients=24; warmup_gradients=22369; retained_gradients=144995
+ 0.5250     8 ok                          0.45772    4.1580     4.1580     2.1257       1352         0 y^2        539.2155 4.460161e-04 1.034407         2.189076e-01             0              0            0             0              0
+      adapted_eps=[0.1929388286  , 0.170025820207, 0.183839621157, 0.192980247206]; epsilon_search_gradients=24; warmup_gradients=22200; retained_gradients=166321
+ 0.5250     9 ok                          0.32282    3.1616     3.1616     1.8073       2373         0 x*y        7870.609 4.018629e-05 1.556486         5.976644e-01             0              0            0             0              0
+      adapted_eps=[0.186763374806, 0.198776127496, 0.193183148534, 0.195677963918]; epsilon_search_gradients=25; warmup_gradients=23745; retained_gradients=126466
+ 0.5250    10 ok                          0.36783    3.4038     3.4038     1.9117       2013         0 x*y        982.0492 2.991595e-04 1.047932         1.302763e-01             0              0            0             0              0
+      adapted_eps=[0.202252329176, 0.193428069953, 0.194538284287, 0.195972602568]; epsilon_search_gradients=23; warmup_gradients=22396; retained_gradients=136152
+ 0.5500     1 ok                          0.39950    3.7220     3.7220     1.9773       1619         0 x*y        1747.917 1.537102e-04 1.042220         3.255705e-01             0              0            0             0              0
+      adapted_eps=[0.2010225257  , 0.190394812425, 0.18174934826 , 0.171536512407]; epsilon_search_gradients=24; warmup_gradients=23279; retained_gradients=148880
+ 0.5500     2 ok                          0.43623    3.9493     3.9493     2.0648       1389         0 x*y        505.1918 5.012208e-04 1.030149         1.688113e-01             0              0            0             0              0
+      adapted_eps=[0.183309604053, 0.18352329507 , 0.192939361719, 0.186791048042]; epsilon_search_gradients=24; warmup_gradients=23814; retained_gradients=157970
+ 0.5500     3 ok                          0.40274    3.6368     3.6368     1.9834       1732         0 x*y        1256.678 2.188047e-04 1.040719         1.288224e-01             0              0            0             0              0
+      adapted_eps=[0.197360144259, 0.192801259778, 0.195806443927, 0.191626476824]; epsilon_search_gradients=23; warmup_gradients=23138; retained_gradients=145472
+ 0.5500     4 ok                          0.47324    4.2587     4.2586     2.1465       1099         0 y^2         966.317 2.430012e-04 1.043328         1.562393e-01             0              0            0             0              0
+      adapted_eps=[0.175975633755, 0.178054258229, 0.185976828422, 0.179775774936]; epsilon_search_gradients=23; warmup_gradients=23995; retained_gradients=170346
+ 0.5500     5 ok                          0.41997    3.7628     3.7628     2.0150       1526         0 x*y        616.0323 4.314081e-04 1.053916         1.809240e-01             0              0            0             0              0
+      adapted_eps=[0.189767466163, 0.198110919903, 0.190807025212, 0.186770005982]; epsilon_search_gradients=25; warmup_gradients=22356; retained_gradients=150511
+ 0.5500     6 ok                          0.37664    3.5375     3.5374     1.9142       1654         0 x*y        4563.811 6.194154e-05 1.214576         1.958934e-01             0              0            0             0              0
+      adapted_eps=[0.188853357035, 0.170337842683, 0.185063343094, 0.191877856353]; epsilon_search_gradients=24; warmup_gradients=23658; retained_gradients=141498
+ 0.5500     7 ok                          0.46615    4.1927     4.1927     2.1292       1143         0 x^2        346.4069 6.885331e-04 1.028858         2.187877e-01             0              0            0             0              0
+      adapted_eps=[0.18847470026 , 0.176570054327, 0.188167353876, 0.174660861264]; epsilon_search_gradients=24; warmup_gradients=24120; retained_gradients=167706
+ 0.5500     8 ok                          0.42322    3.8625     3.8625     2.0317       1391         0 x*y        544.3421 4.756225e-04 1.037783         1.540389e-01             0              0            0             0              0
+      adapted_eps=[0.197695654605, 0.179352727373, 0.17807605431 , 0.185095118184]; epsilon_search_gradients=24; warmup_gradients=23515; retained_gradients=154499
+ 0.5500     9 ok                          0.43837    4.0376     4.0376     2.0724       1394         0 x*y        1093.213 2.265569e-04 1.066902         1.431311e-01             0              0            0             0              0
+      adapted_eps=[0.184068315937, 0.188644133167, 0.165354566352, 0.186579859417]; epsilon_search_gradients=25; warmup_gradients=23094; retained_gradients=161502
+ 0.5500    10 ok                          0.40878    3.7081     3.7081     1.9953       1649         0 x*y        819.0687 3.292519e-04 1.051218         1.386287e-01             0              0            0             0              0
+      adapted_eps=[0.190413607825, 0.184810680277, 0.193329921027, 0.195768211744]; epsilon_search_gradients=23; warmup_gradients=22639; retained_gradients=148324
+ 0.5750     1 ok                          0.46219    4.2813     4.2813     2.1134       1095         0 x*y          2249.4 1.038383e-04 1.101028         2.010879e-01             0              0            0             0              0
+      adapted_eps=[0.163595744617, 0.177248189792, 0.175936634577, 0.16668255938 ]; epsilon_search_gradients=24; warmup_gradients=24272; retained_gradients=171252
+ 0.5750     2 ok                          0.46870    4.2402     4.2402     2.1413       1137         0 x*y        801.4328 2.942721e-04 1.052226         1.492436e-01             0              0            0             0              0
+      adapted_eps=[0.178389927609, 0.190024270115, 0.180315762116, 0.171834253627]; epsilon_search_gradients=24; warmup_gradients=25947; retained_gradients=169607
+ 0.5750     3 ok                          0.44844    4.1147     4.1147     2.0934       1224         0 x*y        387.1232 6.277951e-04 1.018688         1.513092e-01             0              0            0             0              0
+      adapted_eps=[0.181288807697, 0.181104254924, 0.183085621868, 0.169011626957]; epsilon_search_gradients=23; warmup_gradients=24167; retained_gradients=164586
+ 0.5750     4 ok                          0.50587    4.6252     4.6252     2.2318        872         0 x*y        499.8517 4.325443e-04 1.032790         1.786689e-01             0              0            0             0              0
+      adapted_eps=[0.16568369152 , 0.17740191527 , 0.167300900041, 0.179010132522]; epsilon_search_gradients=23; warmup_gradients=25092; retained_gradients=185007
+ 0.5750     5 ok                          0.48710    4.3865     4.3865     2.1896       1042         0 x*y         750.386 3.038065e-04 1.031963         2.508321e-01             0              0            0             0              0
+      adapted_eps=[0.182759493961, 0.190379164692, 0.169712545197, 0.18086282301 ]; epsilon_search_gradients=25; warmup_gradients=25599; retained_gradients=175460
+ 0.5750     6 ok                          0.41413    3.8379     3.8379     2.0059       1405         0 x*y        902.7741 2.886224e-04 1.054933         2.787004e-01             0              0            0             0              0
+      adapted_eps=[0.181052930594, 0.175649617813, 0.186454372805, 0.179504758829]; epsilon_search_gradients=24; warmup_gradients=24208; retained_gradients=153515
+ 0.5750     7 ok                          0.42974    3.8811     3.8811     2.0390       1447         0 x*y        959.0081 2.686740e-04 1.046148         1.350149e-01             0              0            0             0              0
+      adapted_eps=[0.173505498758, 0.191775046307, 0.18284778491 , 0.193318974033]; epsilon_search_gradients=24; warmup_gradients=24026; retained_gradients=155243
+ 0.5750     8 ok                          0.41869    3.9214     3.9214     2.0270       1372         0 x^2        945.9407 2.695845e-04 1.045903         9.688050e-02             0              0            0             0              0
+      adapted_eps=[0.183998657649, 0.178403521896, 0.169583535011, 0.178618666213]; epsilon_search_gradients=24; warmup_gradients=25534; retained_gradients=156856
+ 0.5750     9 ok                          0.40844    3.8689     3.8689     1.9947       1422         0 y          1805.581 1.431523e-04 1.231509         2.485488e-01             0              0            0             0              0
+      adapted_eps=[0.182011412482, 0.187003788408, 0.159407845609, 0.174704873039]; epsilon_search_gradients=25; warmup_gradients=24638; retained_gradients=154755
+ 0.5750    10 ok                          0.46016    4.2518     4.2518     2.1179       1018         0 x*y        443.6818 5.301004e-04 1.023779         1.152855e-01             0              0            0             0              0
+      adapted_eps=[0.174304530184, 0.170121824813, 0.168453577451, 0.180787375755]; epsilon_search_gradients=23; warmup_gradients=25261; retained_gradients=170071
+ 0.6000     1 ok                          0.47495    4.3608     4.3608     2.1555       1088         0 x*y        1145.896 2.001215e-04 1.084078         1.298966e-01             0              0            0             0              0
+      adapted_eps=[0.173524845926, 0.173840640984, 0.170736318811, 0.172997166601]; epsilon_search_gradients=24; warmup_gradients=26664; retained_gradients=174430
+ 0.6000     2 ok                          0.47170    4.3151     4.3151     2.1433       1004         0 x*y        554.4024 4.180051e-04 1.034131         1.520012e-01             0              0            0             0              0
+      adapted_eps=[0.1716110491  , 0.175766864642, 0.169221107256, 0.177239808179]; epsilon_search_gradients=24; warmup_gradients=26294; retained_gradients=172605
+ 0.6000     3 ok                          0.45143    4.1425     4.1425     2.1034       1241         0 y^2        439.1092 5.497530e-04 1.014065         1.568966e-01             0              0            0             0              0
+      adapted_eps=[0.169324442642, 0.180566264513, 0.182519983633, 0.184380337043]; epsilon_search_gradients=23; warmup_gradients=26566; retained_gradients=165699
+ 0.6000     4 ok                          0.51397    4.7058     4.7058     2.2500        844         0 x*y        793.8196 2.676963e-04 1.032880         1.490352e-01             0              0            0             0              0
+      adapted_eps=[0.161043967489, 0.181005594933, 0.174523183658, 0.163907453977]; epsilon_search_gradients=23; warmup_gradients=25081; retained_gradients=188233
+ 0.6000     5 ok                          0.46362    4.2335     4.2335     2.1319       1198         0 y^2        635.1052 3.719245e-04 1.048963         1.622659e-01             0              0            0             0              0
+      adapted_eps=[0.179267591773, 0.168695471948, 0.183658758955, 0.186477669149]; epsilon_search_gradients=25; warmup_gradients=25840; retained_gradients=169340
+ 0.6000     6 ok                          0.38965    3.8088     3.8088     1.9638       1618         0 x*y        2778.309 9.449927e-05 1.152334         6.023549e-01             0              0            0             0              0
+      adapted_eps=[0.16534410317 , 0.181293358129, 0.178010293494, 0.168502838063]; epsilon_search_gradients=24; warmup_gradients=25870; retained_gradients=152353
+ 0.6000     7 ok                          0.40936    3.8697     3.8697     1.9868       1700         0 x*y        8753.143 2.952269e-05 1.504519         4.500322e-01             0              0            0             0              0
+      adapted_eps=[0.171303718892, 0.171787069527, 0.174178512758, 0.17414353216 ]; epsilon_search_gradients=24; warmup_gradients=25600; retained_gradients=154789
+ 0.6000     8 ok                          0.47095    4.3220     4.3220     2.1442       1139         0 x*y        1216.605 1.901814e-04 1.080303         1.096709e-01             0              0            0             0              0
+      adapted_eps=[0.170365725621, 0.18362221241 , 0.172127648874, 0.176307086191]; epsilon_search_gradients=24; warmup_gradients=25574; retained_gradients=172879
+ 0.6000     9 ok                          0.43741    4.1038     4.1038     2.0721       1328         0 x^2        4413.095 5.521705e-05 1.139154         3.660966e-01             0              0            0             0              0
+      adapted_eps=[0.181626106635, 0.162165755851, 0.180296022942, 0.183103070197]; epsilon_search_gradients=25; warmup_gradients=25459; retained_gradients=164151
+ 0.6000    10 ok                          0.42261    3.9833     3.9833     2.0164       1556         0 x^2        12001.33 2.091835e-05 1.382753         8.528461e-01             0              0            0             0              0
+      adapted_eps=[0.171650894918, 0.172573461271, 0.178833070782, 0.164301049612]; epsilon_search_gradients=23; warmup_gradients=24736; retained_gradients=159332
+ 0.6250     1 ok                          0.56115    5.3085     5.3085     2.3531        605         0 x*y        1033.773 1.822238e-04 1.048993         2.243495e-01             0              0            0             0              0
+      adapted_eps=[0.144167346439, 0.162114784031, 0.147635349478, 0.167985967851]; epsilon_search_gradients=24; warmup_gradients=27780; retained_gradients=212339
+ 0.6250     2 ok                          0.49652    4.5873     4.5873     2.2063        939         0 y^2        1356.588 1.606940e-04 1.049454         8.871943e-02             0              0            0             0              0
+      adapted_eps=[0.166747327175, 0.170028196667, 0.165982665132, 0.169079578022]; epsilon_search_gradients=24; warmup_gradients=26583; retained_gradients=183490
+ 0.6250     3 ok                          0.45925    4.2443     4.2443     2.1174       1114         0 x*y        610.6716 3.858167e-04 1.039091         1.158379e-01             0              0            0             0              0
+      adapted_eps=[0.175064042124, 0.178317914265, 0.163877167065, 0.175779614235]; epsilon_search_gradients=23; warmup_gradients=27220; retained_gradients=169774
+ 0.6250     4 ok                          0.53514    4.9597     4.9597     2.2970        738         0 x*y        883.8994 2.281075e-04 1.038023         1.009559e-01             0              0            0             0              0
+      adapted_eps=[0.163714662757, 0.165829289572, 0.16354085652 , 0.158349981144]; epsilon_search_gradients=23; warmup_gradients=27533; retained_gradients=198389
+ 0.6250     5 ok                          0.53539    4.9649     4.9649     2.3047        758         0 x*y        1886.976 1.067385e-04 1.046367         1.555487e-01             0              0            0             0              0
+      adapted_eps=[0.160669563101, 0.164505158974, 0.169313636417, 0.163458778018]; epsilon_search_gradients=25; warmup_gradients=27414; retained_gradients=198597
+ 0.6250     6 ok                          0.52629    4.8583     4.8583     2.2717        773         0 x*y        746.9805 2.755538e-04 1.038408         1.638349e-01             0              0            0             0              0
+      adapted_eps=[0.155698449583, 0.165421044827, 0.172315903046, 0.165680161869]; epsilon_search_gradients=24; warmup_gradients=27387; retained_gradients=194332
+ 0.6250     7 ok                          0.52945    4.8241     4.8241     2.2742        719         0 x*y         658.254 3.149127e-04 1.056168         1.756041e-01             0              0            0             0              0
+      adapted_eps=[0.17009773895 , 0.158767737086, 0.164032735928, 0.174841445337]; epsilon_search_gradients=24; warmup_gradients=27165; retained_gradients=192964
+ 0.6250     8 ok                          0.51185    4.7596     4.7596     2.2386        844         0 y^2        3159.755 6.649338e-05 1.107144         1.124722e-01             0              0            0             0              0
+      adapted_eps=[0.16448462333 , 0.165385132985, 0.173876192047, 0.155140171455]; epsilon_search_gradients=24; warmup_gradients=27506; retained_gradients=190383
+ 0.6250     9 ok                          0.54118    4.9784     4.9784     2.3119        719         0 x*y        522.4902 3.844431e-04 1.033226         1.949015e-01             0              0            0             0              0
+      adapted_eps=[0.154333773933, 0.164367332459, 0.17034474792 , 0.17348171516 ]; epsilon_search_gradients=25; warmup_gradients=27439; retained_gradients=199136
+ 0.6250    10 ok                          0.42279    4.0314     4.0314     2.0245       1207         0 x*y        1180.062 2.102032e-04 1.091744         3.849333e-01             0              0            0             0              0
+      adapted_eps=[0.167713393731, 0.168892745019, 0.176058125639, 0.157194900123]; epsilon_search_gradients=23; warmup_gradients=26980; retained_gradients=161256
+ 0.6500     1 ok                          0.53344    4.9111     4.9111     2.2901        724         0 x*y        240.1651 8.478436e-04 1.016225         1.939485e-01             0              0            0             0              0
+      adapted_eps=[0.165596864677, 0.171931275692, 0.170612534063, 0.152754943358]; epsilon_search_gradients=24; warmup_gradients=28882; retained_gradients=196442
+ 0.6500     2 ok                          0.52272    5.0106     5.0106     2.2792        744         0 x*y        1846.617 1.080776e-04 1.112328         3.406721e-01             0              0            0             0              0
+      adapted_eps=[0.151005749163, 0.166178895678, 0.168616707885, 0.148467129231]; epsilon_search_gradients=24; warmup_gradients=28636; retained_gradients=200423
+ 0.6500     3 ok                          0.55864    5.1787     5.1786     2.3600        552         0 y^2        515.7499 3.744073e-04 1.020651         1.980807e-01             0              0            0             0              0
+      adapted_eps=[0.160555235964, 0.165857226071, 0.160530876162, 0.164381332435]; epsilon_search_gradients=23; warmup_gradients=29164; retained_gradients=207146
+ 0.6500     4 ok                          0.53459    5.1148     5.1148     2.3083        607         0 y^2        2072.922 9.431668e-05 1.071984         8.327826e-02             0              0            0             0              0
+      adapted_eps=[0.15726535667 , 0.156018647889, 0.151426850028, 0.165591713276]; epsilon_search_gradients=23; warmup_gradients=30244; retained_gradients=204592
+ 0.6500     5 ok                          0.55421    5.1592     5.1592     2.3411        590         0 x*y        220.0984 8.806490e-04 1.012932         1.685242e-01             0              0            0             0              0
+      adapted_eps=[0.157609695245, 0.156647096869, 0.162005604849, 0.162451131654]; epsilon_search_gradients=25; warmup_gradients=29192; retained_gradients=206367
+ 0.6500     6 ok                          0.53201    5.0096     5.0096     2.2927        694         0 x*y        510.6402 3.909146e-04 1.027796         1.216950e-01             0              0            0             0              0
+      adapted_eps=[0.161394320044, 0.151515021393, 0.156693933507, 0.167362616124]; epsilon_search_gradients=24; warmup_gradients=29823; retained_gradients=200384
+ 0.6500     7 ok                          0.58611    5.4765     5.4765     2.4240        519         0 x*y        431.3935 4.232756e-04 1.025206         2.191812e-01             0              0            0             0              0
+      adapted_eps=[0.160960865069, 0.152997182112, 0.148962080354, 0.172992399521]; epsilon_search_gradients=24; warmup_gradients=28278; retained_gradients=219060
+ 0.6500     8 ok                          0.53784    4.9993     4.9993     2.3044        649         0 x*y        651.3792 3.070823e-04 1.032564         1.495623e-01             0              0            0             0              0
+      adapted_eps=[0.157817268808, 0.169480821686, 0.15604663203 , 0.168903463127]; epsilon_search_gradients=24; warmup_gradients=29656; retained_gradients=199973
+ 0.6500     9 ok                          0.47598    4.5455     4.5455     2.1577       1023         0 x          6054.648 3.633556e-05 1.232875         5.049531e-01             0              0            0             0              0
+      adapted_eps=[0.159071931373, 0.159186575808, 0.163560249751, 0.168699011609]; epsilon_search_gradients=25; warmup_gradients=29403; retained_gradients=181819
+ 0.6500    10 ok                          0.51131    4.8076     4.8077     2.2467        795         0 y^2        1160.994 1.791584e-04 1.050484         1.084450e-01             0              0            0             0              0
+      adapted_eps=[0.162144749585, 0.158504011041, 0.16984417193 , 0.160726930344]; epsilon_search_gradients=23; warmup_gradients=28818; retained_gradients=192306
+ 0.6750     1 ok                          0.56658    5.3860     5.3860     2.3799        569         0 y          861.4858 2.155210e-04 1.048571         8.883037e-02             0              0            0             0              0
+      adapted_eps=[0.165702080792, 0.156502645191, 0.143662602728, 0.152838243118]; epsilon_search_gradients=24; warmup_gradients=30364; retained_gradients=215438
+ 0.6750     2 ok                          0.54811    5.1790     5.1790     2.3263        619         0 x*y        587.3954 3.287181e-04 1.080586         1.076919e-01             0              0            0             0              0
+      adapted_eps=[0.159648881607, 0.158938154214, 0.145433141267, 0.160626352518]; epsilon_search_gradients=24; warmup_gradients=29870; retained_gradients=207160
+ 0.6750     3 ok                          0.56437    5.4885     5.4885     2.3670        537         0 y^2        1432.323 1.272048e-04 1.066151         2.723467e-01             0              0            0             0              0
+      adapted_eps=[0.145849334424, 0.14633383307 , 0.15204156514 , 0.146642126939]; epsilon_search_gradients=23; warmup_gradients=30357; retained_gradients=219541
+ 0.6750     4 ok                          0.52088    5.0019     5.0019     2.2683        715         0 x*y        909.5258 2.198124e-04 1.050348         6.407034e-02             0              0            0             0              0
+      adapted_eps=[0.157040716207, 0.153205822979, 0.15890811682 , 0.154366600349]; epsilon_search_gradients=23; warmup_gradients=30591; retained_gradients=200075
+ 0.6750     5 ok                          0.61975    5.9090     5.9090     2.5076        356         0 x*y         436.825 3.874153e-04 1.014874         2.101827e-01             0              0            0             0              0
+      adapted_eps=[0.154306527307, 0.15094315598 , 0.1564102796  , 0.14378166939 ]; epsilon_search_gradients=25; warmup_gradients=32094; retained_gradients=236361
+ 0.6750     6 ok                          0.50448    4.8103     4.8103     2.2287        905         0 x*y         2578.23 8.063177e-05 1.161030         2.580876e-01             0              0            0             0              0
+      adapted_eps=[0.148893433833, 0.164185285955, 0.164027382794, 0.165063866333]; epsilon_search_gradients=24; warmup_gradients=30924; retained_gradients=192412
+ 0.6750     7 ok                          0.56598    5.3854     5.3855     2.3864        540         0 x*y        382.2521 4.857671e-04 1.013188         1.366135e-01             0              0            0             0              0
+      adapted_eps=[0.153706946827, 0.159804602742, 0.153053388324, 0.156929571621]; epsilon_search_gradients=24; warmup_gradients=30486; retained_gradients=215418
+ 0.6750     8 ok                          0.46782    4.5018     4.5018     2.1284       1042         0 y^2        5213.391 4.260799e-05 1.229114         5.575028e-01             0              0            0             0              0
+      adapted_eps=[0.15547106691 , 0.163461754626, 0.157741916351, 0.153994295682]; epsilon_search_gradients=24; warmup_gradients=29194; retained_gradients=180073
+ 0.6750     9 ok                          0.59725    5.7553     5.7553     2.4627        408         0 x*y         409.381 4.244247e-04 1.016067         1.585132e-01             0              0            0             0              0
+      adapted_eps=[0.15304838339 , 0.153847857865, 0.142415113036, 0.155037975684]; epsilon_search_gradients=25; warmup_gradients=30656; retained_gradients=230214
+ 0.6750    10 ok                          0.58627    5.5171     5.5171     2.4263        440         0 x*y        380.6078 4.762264e-04 1.031996         1.992485e-01             0              0            0             0              0
+      adapted_eps=[0.158955075253, 0.152012891996, 0.15291060359 , 0.158293350566]; epsilon_search_gradients=23; warmup_gradients=29943; retained_gradients=220683
+ 0.7000     1 ok                          0.60465    5.6605     5.6605     2.4627        383         0 x*y        418.8443 4.217883e-04 1.011962         2.107907e-01             0              0            0             0              0
+      adapted_eps=[0.153067759012, 0.151283262007, 0.15145502757 , 0.159679560846]; epsilon_search_gradients=24; warmup_gradients=31544; retained_gradients=226419
+ 0.7000     2 ok                          0.60046    5.6368     5.6368     2.4542        445         0 y^2        1379.472 1.286034e-04 1.039397         1.830751e-01             0              0            0             0              0
+      adapted_eps=[0.163529606798, 0.147706031331, 0.152990671436, 0.152624261334]; epsilon_search_gradients=24; warmup_gradients=32048; retained_gradients=225473
+ 0.7000     3 ok                          0.51429    4.8624     4.8625     2.2465        785         0 x*y        1400.249 1.468721e-04 1.106751         1.336834e-01             0              0            0             0              0
+      adapted_eps=[0.160858379245, 0.157658986692, 0.163265083107, 0.153181420651]; epsilon_search_gradients=23; warmup_gradients=32313; retained_gradients=194498
+ 0.7000     4 ok                          0.57850    5.5881     5.5881     2.3972        486         0 x*y        877.3293 2.039714e-04 1.045424         6.841839e-02             0              0            0             0              0
+      adapted_eps=[0.140376345431, 0.156823001566, 0.148765872202, 0.143689782196]; epsilon_search_gradients=23; warmup_gradients=33210; retained_gradients=223526
+ 0.7000     5 ok                          0.60193    5.7772     5.7772     2.4541        380         0 x*y        365.4496 4.736452e-04 1.027431         1.231683e-01             0              0            0             0              0
+      adapted_eps=[0.146796991218, 0.148185526356, 0.148107542185, 0.148643365101]; epsilon_search_gradients=25; warmup_gradients=33571; retained_gradients=231089
+ 0.7000     6 ok                          0.55989    5.3518     5.3518     2.3566        553         0 x*y        776.6379 2.405922e-04 1.057106         6.286427e-02             0              0            0             0              0
+      adapted_eps=[0.153985498968, 0.151162921622, 0.156927862383, 0.147967886642]; epsilon_search_gradients=24; warmup_gradients=31890; retained_gradients=214072
+ 0.7000     7 ok                          0.62883    6.1273     6.1273     2.5430        288         0 x*y        395.0912 4.130810e-04 1.027695         2.045658e-01             0              0            0             0              0
+      adapted_eps=[0.151512277065, 0.153809610201, 0.138595391844, 0.147709281434]; epsilon_search_gradients=24; warmup_gradients=32513; retained_gradients=245091
+ 0.7000     8 ok                          0.58293    5.4894     5.4894     2.4080        416         0 x*y        419.0669 4.347022e-04 1.023230         1.668559e-01             0              0            0             0              0
+      adapted_eps=[0.152296817774, 0.149376357456, 0.158213292072, 0.153628102347]; epsilon_search_gradients=24; warmup_gradients=32889; retained_gradients=219576
+ 0.7000     9 ok                          0.55090    5.2934     5.2934     2.3353        581         0 y          2194.313 8.609317e-05 1.097422         9.677277e-02             0              0            0             0              0
+      adapted_eps=[0.150513540476, 0.154901971586, 0.135062800543, 0.166234137914]; epsilon_search_gradients=25; warmup_gradients=31104; retained_gradients=211735
+ 0.7000    10 ok                          0.58271    5.5744     5.5744     2.4111        485         0 x*y        2779.824 6.453370e-05 1.060260         1.274238e-01             0              0            0             0              0
+      adapted_eps=[0.153673074916, 0.159825986518, 0.143961148621, 0.147618723651]; epsilon_search_gradients=23; warmup_gradients=32404; retained_gradients=222975
+ 0.7250     1 ok                          0.48206    4.8306     4.8306     2.1692        914         0 x*y        12834.73 1.612926e-05 1.367335         8.722428e-01             0              0            0             0              0
+      adapted_eps=[0.158196518481, 0.144044699223, 0.139646052198, 0.139412115839]; epsilon_search_gradients=24; warmup_gradients=32700; retained_gradients=193223
+ 0.7250     2 ok                          0.62668    6.1001     6.1001     2.5291        357         0 y^2        633.6696 2.587012e-04 1.029893         1.458878e-01             0              0            0             0              0
+      adapted_eps=[0.148936007424, 0.143066914375, 0.151588031257, 0.141611522039]; epsilon_search_gradients=24; warmup_gradients=34005; retained_gradients=244005
+ 0.7250     3 ok                          0.62315    6.1267     6.1267     2.5325        288         0 x*y        383.4844 4.256219e-04 1.021783         1.629156e-01             0              0            0             0              0
+      adapted_eps=[0.147277924925, 0.141622851142, 0.156723069757, 0.137990246031]; epsilon_search_gradients=23; warmup_gradients=35477; retained_gradients=245069
+ 0.7250     4 ok                          0.61926    6.0624     6.0624     2.5016        339         0 y^2        587.6564 2.806956e-04 1.013067         1.141665e-01             0              0            0             0              0
+      adapted_eps=[0.139390834699, 0.154301863191, 0.140263656212, 0.137779148386]; epsilon_search_gradients=23; warmup_gradients=32936; retained_gradients=242494
+ 0.7250     5 ok                          0.56942    5.7488     5.7488     2.3874        623         0 x^2        7767.695 2.239414e-05 1.223640         4.341349e-01             0              0            0             0              0
+      adapted_eps=[0.139077306867, 0.136787531369, 0.142690245773, 0.142192650175]; epsilon_search_gradients=25; warmup_gradients=33306; retained_gradients=229950
+ 0.7250     6 ok                          0.66740    6.7787     6.7787     2.6283        220         0 y^2        489.7101 3.012424e-04 1.018995         1.061715e-01             0              0            0             0              0
+      adapted_eps=[0.139361004637, 0.122964201132, 0.137005219047, 0.139295881133]; epsilon_search_gradients=24; warmup_gradients=34642; retained_gradients=271147
+ 0.7250     7 ok                          0.61705    5.9360     5.9360     2.5050        328         0 x*y         480.077 3.509096e-04 1.019279         1.917508e-01             0              0            0             0              0
+      adapted_eps=[0.152783396803, 0.157231033986, 0.151008117795, 0.138373604708]; epsilon_search_gradients=24; warmup_gradients=33607; retained_gradients=237440
+ 0.7250     8 ok                          0.61924    6.0164     6.0164     2.5169        334         0 x*y        412.9138 4.025369e-04 1.019249         1.497862e-01             0              0            0             0              0
+      adapted_eps=[0.140818811645, 0.144801679954, 0.146597439284, 0.153837770608]; epsilon_search_gradients=24; warmup_gradients=32708; retained_gradients=240655
+ 0.7250     9 ok                          0.62122    6.1108     6.1108     2.5181        400         0 x*y         3523.86 4.643885e-05 1.129260         3.260881e-01             0              0            0             0              0
+      adapted_eps=[0.143992366919, 0.141879076986, 0.14775489742 , 0.142494577625]; epsilon_search_gradients=25; warmup_gradients=32633; retained_gradients=244433
+ 0.7250    10 ok                          0.61595    5.9412     5.9412     2.4986        299         0 x*y        384.5349 4.377155e-04 1.019657         1.694074e-01             0              0            0             0              0
+      adapted_eps=[0.147972975287, 0.144134927414, 0.15446078441 , 0.144437393683]; epsilon_search_gradients=23; warmup_gradients=34842; retained_gradients=237647
+ 0.7500     1 ok                          0.65010    6.5311     6.5311     2.5965        208         0 x*y        225.5232 6.789260e-04 1.012850         1.444218e-01             0              0            0             0              0
+      adapted_eps=[0.143095867169, 0.136391083865, 0.135735983414, 0.137767334329]; epsilon_search_gradients=24; warmup_gradients=34690; retained_gradients=261244
+ 0.7500     2 ok                          0.67610    7.0404     7.0405     2.6660        192         0 x*y        1421.317 9.993291e-05 1.036006         8.451253e-02             0              0            0             0              0
+      adapted_eps=[0.141514978828, 0.124962672899, 0.125657368296, 0.130417830751]; epsilon_search_gradients=24; warmup_gradients=37304; retained_gradients=281618
+ 0.7500     3 ok                          0.68529    6.7740     6.7740     2.6754        166         0 x*y        190.7906 7.737506e-04 1.006264         2.461869e-01             0              0            0             0              0
+      adapted_eps=[0.13748117401 , 0.135131251   , 0.148789164476, 0.140744693064]; epsilon_search_gradients=23; warmup_gradients=36953; retained_gradients=270958
+ 0.7500     4 ok                          0.64625    6.6760     6.6760     2.5971        284         0 x*y        4341.951 3.449864e-05 1.149204         1.772613e-01             0              0            0             0              0
+      adapted_eps=[0.142343448834, 0.127860594546, 0.131206164383, 0.139869632946]; epsilon_search_gradients=23; warmup_gradients=34865; retained_gradients=267038
+ 0.7500     5 ok                          0.68792    6.9209     6.9209     2.6847        129         0 x*y        190.9408 7.567287e-04 1.016591         1.908026e-01             0              0            0             0              0
+      adapted_eps=[0.137558397174, 0.130861346033, 0.141299478412, 0.135224576685]; epsilon_search_gradients=25; warmup_gradients=36113; retained_gradients=276835
+ 0.7500     6 ok                          0.66910    6.6931     6.6931     2.6377        166         0 x*y        161.8498 9.231287e-04 1.010796         1.755217e-01             0              0            0             0              0
+      adapted_eps=[0.132456086345, 0.144894170969, 0.132823312826, 0.141979534087]; epsilon_search_gradients=24; warmup_gradients=36412; retained_gradients=267723
+ 0.7500     7 ok                          0.60077    6.0745     6.0745     2.4672        469         0 x*y        4656.526 3.535309e-05 1.141676         3.275588e-01             0              0            0             0              0
+      adapted_eps=[0.145105226614, 0.131533333959, 0.144844547966, 0.133640847773]; epsilon_search_gradients=24; warmup_gradients=35697; retained_gradients=242980
+ 0.7500     8 ok                          0.64754    6.4145     6.4145     2.5806        235         0 x*y        805.3172 1.935851e-04 1.041508         1.361301e-01             0              0            0             0              0
+      adapted_eps=[0.144896965125, 0.14459145768 , 0.129394135736, 0.145633002698]; epsilon_search_gradients=24; warmup_gradients=36847; retained_gradients=256579
+ 0.7500     9 ok                          0.63278    6.3587     6.3587     2.5417        317         0 x*y        1213.398 1.296065e-04 1.078798         7.009068e-02             0              0            0             0              0
+      adapted_eps=[0.131751127198, 0.141631467252, 0.14589017053 , 0.133435971266]; epsilon_search_gradients=25; warmup_gradients=35907; retained_gradients=254349
+ 0.7500    10 ok                          0.63565    6.3434     6.3434     2.5558        287         0 x*y        643.4853 2.449829e-04 1.036645         1.014649e-01             0              0            0             0              0
+      adapted_eps=[0.139848866176, 0.149181449876, 0.13619283091 , 0.135952334665]; epsilon_search_gradients=23; warmup_gradients=35738; retained_gradients=253738
+ 0.7750     1 ok                          0.65405    6.8671     6.8671     2.6043        258         0 x*y        1986.843 7.329337e-05 1.108407         9.418225e-02             0              0            0             0              0
+      adapted_eps=[0.129796078234, 0.121712603235, 0.135210757008, 0.127456326177]; epsilon_search_gradients=24; warmup_gradients=40598; retained_gradients=274683
+ 0.7750     2 ok                          0.64993    7.0927     7.0927     2.6185        373         0 x*y        5892.037 2.392891e-05 1.178786         2.816959e-01             0              0            0             0              0
+      adapted_eps=[0.117482347416, 0.122067289401, 0.133268127826, 0.127645950406]; epsilon_search_gradients=24; warmup_gradients=38936; retained_gradients=283708
+ 0.7750     3 ok                          0.69870    7.1356     7.1356     2.7151        146         0 y^2        525.1845 2.668432e-04 1.023941         1.616544e-01             0              0            0             0              0
+      adapted_eps=[0.130469247005, 0.131232521374, 0.12587559982 , 0.147019581386]; epsilon_search_gradients=23; warmup_gradients=37324; retained_gradients=285425
+ 0.7750     4 ok                          0.53805    5.6760     5.6760     2.3215        798         0 x*y        7010.647 2.513030e-05 1.383088         9.801107e-01             0              0            0             0              0
+      adapted_eps=[0.141242372578, 0.133382729446, 0.133272873589, 0.131333295745]; epsilon_search_gradients=23; warmup_gradients=37010; retained_gradients=227041
+ 0.7750     5 ok                          0.66507    6.9535     6.9535     2.6448        279         0 x*y        1447.695 9.933823e-05 1.046102         7.459957e-02             0              0            0             0              0
+      adapted_eps=[0.134145663516, 0.130317658052, 0.138700701974, 0.123793175023]; epsilon_search_gradients=25; warmup_gradients=39903; retained_gradients=278142
+ 0.7750     6 ok                          0.63730    6.6808     6.6808     2.5704        319         0 y^2        1142.621 1.309994e-04 1.051616         2.647620e-01             0              0            0             0              0
+      adapted_eps=[0.137929241402, 0.125375467541, 0.120418987811, 0.137741016002]; epsilon_search_gradients=24; warmup_gradients=38795; retained_gradients=267232
+ 0.7750     7 ok                          0.66308    6.8182     6.8182     2.6302        294         0 x*y        2481.638 5.910038e-05 1.091064         1.826565e-01             0              0            0             0              0
+      adapted_eps=[0.132160489665, 0.140776364393, 0.127497190907, 0.137913905363]; epsilon_search_gradients=24; warmup_gradients=36355; retained_gradients=272729
+ 0.7750     8 ok                          0.65745    6.9200     6.9200     2.6206        258         0 y^2        1158.869 1.246980e-04 1.061417         7.748728e-02             0              0            0             0              0
+      adapted_eps=[0.133498608694, 0.120866001598, 0.133225500907, 0.130023847688]; epsilon_search_gradients=24; warmup_gradients=37533; retained_gradients=276800
+ 0.7750     9 ok                          0.66440    6.7801     6.7801     2.6357        185         0 x*y        321.4739 4.587928e-04 1.017616         1.332904e-01             0              0            0             0              0
+      adapted_eps=[0.1308490072  , 0.140212977337, 0.126772758252, 0.141355277037]; epsilon_search_gradients=25; warmup_gradients=37185; retained_gradients=271205
+ 0.7750    10 ok                          0.71413    7.6252     7.6252     2.7763        112         0 y^2        691.7418 1.895860e-04 1.024102         1.163454e-01             0              0            0             0              0
+      adapted_eps=[0.119407531731, 0.11990274631 , 0.134357781542, 0.13588914543 ]; epsilon_search_gradients=23; warmup_gradients=40375; retained_gradients=305007
+ 0.8000     1 ok                          0.75732    8.3103     8.3103     2.8891         52         0 x*y        116.0062 1.037298e-03 1.006758         1.798969e-01             0              0            0             0              0
+      adapted_eps=[0.112041107752, 0.126151197924, 0.115126940199, 0.134603312665]; epsilon_search_gradients=24; warmup_gradients=40207; retained_gradients=332411
+ 0.8000     2 ok                          0.62227    6.6310     6.6310     2.5261        418         0 x*y        5980.805 2.521523e-05 1.194364         3.583714e-01             0              0            0             0              0
+      adapted_eps=[0.121887189513, 0.121054282076, 0.130777123553, 0.13297845231 ]; epsilon_search_gradients=24; warmup_gradients=41967; retained_gradients=265239
+ 0.8000     3 ok                          0.71991    7.6441     7.6441     2.7985         91         0 x*y        413.5816 3.163086e-04 1.022350         1.690561e-01             0              0            0             0              0
+      adapted_eps=[0.123070311218, 0.124687084269, 0.138564305488, 0.129063797564]; epsilon_search_gradients=23; warmup_gradients=38684; retained_gradients=305765
+ 0.8000     4 ok                          0.69693    7.4161     7.4161     2.7306        113         0 x*y        457.5845 2.946807e-04 1.032079         1.198022e-01             0              0            0             0              0
+      adapted_eps=[0.12235818253 , 0.122150106522, 0.140194956578, 0.126782532174]; epsilon_search_gradients=23; warmup_gradients=40489; retained_gradients=296645
+ 0.8000     5 ok                          0.65010    6.8624     6.8625     2.6138        364         0 x*y        1940.131 7.510860e-05 1.078241         1.635296e-01             0              0            0             0              0
+      adapted_eps=[0.125977364001, 0.125951111793, 0.149394003265, 0.127406596756]; epsilon_search_gradients=25; warmup_gradients=38940; retained_gradients=274498
+ 0.8000     6 ok                          0.72740    7.7669     7.7669     2.8024         67         0 y^2        218.5549 5.891037e-04 1.011032         1.327092e-01             0              0            0             0              0
+      adapted_eps=[0.121871907461, 0.122240959872, 0.128382921778, 0.127549385572]; epsilon_search_gradients=24; warmup_gradients=40981; retained_gradients=310676
+ 0.8000     7 ok                          0.64668    6.9953     6.9953     2.5941        339         0 x*y         5704.52 2.505953e-05 1.215739         4.852235e-01             0              0            0             0              0
+      adapted_eps=[0.128399467747, 0.121871136847, 0.115777718956, 0.127723519554]; epsilon_search_gradients=24; warmup_gradients=41781; retained_gradients=279813
+ 0.8000     8 ok                          0.69408    7.3267     7.3267     2.7070        164         0 x*y        833.0045 1.638497e-04 1.038078         7.369105e-02             0              0            0             0              0
+      adapted_eps=[0.123998140497, 0.124427559829, 0.123408768305, 0.138856797118]; epsilon_search_gradients=24; warmup_gradients=39957; retained_gradients=293067
+ 0.8000     9 ok                          0.70374    7.6832     7.6832     2.7499        176         0 y^2        2228.406 5.840663e-05 1.061560         2.031135e-01             0              0            0             0              0
+      adapted_eps=[0.117585915065, 0.127381767154, 0.117401199327, 0.129829902102]; epsilon_search_gradients=25; warmup_gradients=41854; retained_gradients=307329
+ 0.8000    10 ok                          0.73180    7.7478     7.7478     2.8163         68         0 x*y        243.9132 5.291573e-04 1.006410         1.798810e-01             0              0            0             0              0
+      adapted_eps=[0.128555288144, 0.12852634937 , 0.122614976168, 0.129646879673]; epsilon_search_gradients=23; warmup_gradients=39768; retained_gradients=309913
+ 0.8250     1 ok                          0.71793    7.9765     7.9765     2.7860        174         0 x*y        2287.328 5.481009e-05 1.047359         1.946578e-01             0              0            0             0              0
+      adapted_eps=[0.12363920425 , 0.118316333667, 0.127570984208, 0.111155487432]; epsilon_search_gradients=24; warmup_gradients=43318; retained_gradients=319059
+ 0.8250     2 ok                          0.75486    8.1361     8.1361     2.8788         47         0 y^2        134.9517 9.107658e-04 1.003718         2.078866e-01             0              0            0             0              0
+      adapted_eps=[0.12045543378 , 0.130696010814, 0.121318047861, 0.124074819654]; epsilon_search_gradients=24; warmup_gradients=43233; retained_gradients=325443
+ 0.8250     3 ok                          0.69367    7.6708     7.6708     2.7343        192         0 x*y        898.5312 1.450862e-04 1.042207         2.014810e-01             0              0            0             0              0
+      adapted_eps=[0.119480835173, 0.120969976252, 0.116610002916, 0.130997133065]; epsilon_search_gradients=23; warmup_gradients=43900; retained_gradients=306832
+ 0.8250     4 ok                          0.76248    8.8027     8.8027     2.9280         75         0 y^2        673.1325 1.687655e-04 1.023912         1.110874e-01             0              0            0             0              0
+      adapted_eps=[0.118275595663, 0.107428825179, 0.116067240399, 0.115706457252]; epsilon_search_gradients=23; warmup_gradients=44909; retained_gradients=352108
+ 0.8250     5 ok                          0.78085    8.8583     8.8583     2.9762         38         0 y^2        150.8061 7.485668e-04 1.004761         1.717315e-01             0              0            0             0              0
+      adapted_eps=[0.115641902782, 0.114040746564, 0.124017778716, 0.115725696947]; epsilon_search_gradients=25; warmup_gradients=44396; retained_gradients=354332
+ 0.8250     6 ok                          0.71510    8.0028     8.0027     2.7944        129         0 y^2        2634.191 4.743659e-05 1.058988         1.483638e-01             0              0            0             0              0
+      adapted_eps=[0.120370551386, 0.117886007712, 0.117021614018, 0.118878560868]; epsilon_search_gradients=24; warmup_gradients=42567; retained_gradients=320110
+ 0.8250     7 ok                          0.74584    8.1565     8.1565     2.8547         98         0 x*y        699.9333 1.751618e-04 1.038019         1.246904e-01             0              0            0             0              0
+      adapted_eps=[0.1122450675  , 0.131971664258, 0.121967705914, 0.121355786264]; epsilon_search_gradients=24; warmup_gradients=42936; retained_gradients=326260
+ 0.8250     8 ok                          0.76419    8.6644     8.6644     2.9168         47         0 x*y        242.7573 4.754315e-04 1.026748         1.159527e-01             0              0            0             0              0
+      adapted_eps=[0.110464436219, 0.115234167053, 0.112721291563, 0.124095507589]; epsilon_search_gradients=24; warmup_gradients=44299; retained_gradients=346577
+ 0.8250     9 ok                          0.74609    8.3832     8.3832     2.8875         46         0 x*y        255.8275 4.662744e-04 1.023620         1.333101e-01             0              0            0             0              0
+      adapted_eps=[0.118610248429, 0.120587048925, 0.113918667727, 0.125451456394]; epsilon_search_gradients=25; warmup_gradients=44580; retained_gradients=335329
+ 0.8250    10 ok                          0.79214    9.3484     9.3484     3.0300         16         0 y^2        127.8133 8.369228e-04 1.003302         1.522306e-01             0              0            0             0              0
+      adapted_eps=[0.112574990762, 0.118329551742, 0.120048647612, 0.102022982535]; epsilon_search_gradients=23; warmup_gradients=44141; retained_gradients=373937
+ 0.8500     1 ok                          0.79418    9.5807     9.5807     3.0393         37         0 y^2        698.4384 1.494423e-04 1.015638         1.141902e-01             0              0            0             0              0
+      adapted_eps=[0.109008471073, 0.109883170778, 0.10829495337 , 0.107622505813]; epsilon_search_gradients=24; warmup_gradients=46394; retained_gradients=383229
+ 0.8500     2 ok                          0.80363    9.9343     9.9343     3.0758         34         0 y^2        601.5119 1.673472e-04 1.018558         7.047947e-02             0              0            0             0              0
+      adapted_eps=[0.108543484104, 0.110816827148, 0.097729396699, 0.107785790322]; epsilon_search_gradients=24; warmup_gradients=50236; retained_gradients=397372
+ 0.8500     3 ok                          0.80251    9.7013     9.7013     3.0556         21         0 y^2        480.9636 2.143170e-04 1.014679         8.122110e-02             0              0            0             0              0
+      adapted_eps=[0.108853461037, 0.098349291474, 0.111045093594, 0.111431321571]; epsilon_search_gradients=23; warmup_gradients=49090; retained_gradients=388053
+ 0.8500     4 ok                          0.81158    9.8093     9.8093     3.0768         16         0 y^2        194.8326 5.232420e-04 1.006271         1.194156e-01             0              0            0             0              0
+      adapted_eps=[0.113496710217, 0.102542358246, 0.109330749124, 0.105294215121]; epsilon_search_gradients=23; warmup_gradients=49137; retained_gradients=392370
+ 0.8500     5 ok                          0.79288    9.3871     9.3871     3.0276         19         0 y^2        106.9128 9.964166e-04 1.004273         1.370881e-01             0              0            0             0              0
+      adapted_eps=[0.108958560394, 0.115507288393, 0.109422584326, 0.113728065982]; epsilon_search_gradients=25; warmup_gradients=45391; retained_gradients=375482
+ 0.8500     6 ok                          0.71844    8.2931     8.2931     2.8098        177         0 x*y        1869.817 6.448877e-05 1.062865         2.658528e-01             0              0            0             0              0
+      adapted_eps=[0.106127245874, 0.120571798879, 0.112495430969, 0.118725966032]; epsilon_search_gradients=24; warmup_gradients=44503; retained_gradients=331724
+ 0.8500     7 ok                          0.80288   10.0802    10.0802     3.0770         33         0 y^2        1044.853 9.494551e-05 1.023727         1.822976e-01             0              0            0             0              0
+      adapted_eps=[0.113373786782, 0.122476260877, 0.092999561661, 0.09285801187 ]; epsilon_search_gradients=24; warmup_gradients=47957; retained_gradients=403209
+ 0.8500     8 ok                          0.79717    9.2591     9.2591     3.0267         15         0 y^2        219.9762 4.909692e-04 1.010073         1.657708e-01             0              0            0             0              0
+      adapted_eps=[0.111395919673, 0.104545570169, 0.118091826018, 0.120951126191]; epsilon_search_gradients=24; warmup_gradients=47721; retained_gradients=370365
+ 0.8500     9 ok                          0.77312    9.1901     9.1901     2.9647         72         0 y^2        1074.899 1.012306e-04 1.043078         1.324044e-01             0              0            0             0              0
+      adapted_eps=[0.120024513564, 0.100019744668, 0.114583313366, 0.109683085528]; epsilon_search_gradients=25; warmup_gradients=44899; retained_gradients=367604
+ 0.8500    10 ok                          0.81581   10.1812    10.1812     3.1086         16         0 y^2         379.609 2.587418e-04 1.013288         8.724807e-02             0              0            0             0              0
+      adapted_eps=[0.098379910495, 0.106370019779, 0.103780261365, 0.108648585904]; epsilon_search_gradients=23; warmup_gradients=45771; retained_gradients=407246
+ 0.8750     1 ok                          0.86317   11.3521    11.3522     3.2723          3         0 y^2        61.23816 1.438466e-03 1.002263         1.632147e-01             0              0            0             0              0
+      adapted_eps=[0.101719819359, 0.091905940124, 0.099379615218, 0.104415486135]; epsilon_search_gradients=24; warmup_gradients=52895; retained_gradients=454086
+ 0.8750     2 ok                          0.85440   11.3622    11.3622     3.2660          4         0 y^2         56.6655 1.553170e-03 1.001978         1.256426e-01             0              0            0             0              0
+      adapted_eps=[0.092012173935, 0.096551817906, 0.106964428502, 0.098791834978]; epsilon_search_gradients=24; warmup_gradients=53158; retained_gradients=454488
+ 0.8750     3 ok                          0.79935    9.8332     9.8332     3.0524         27         0 y^2        290.2827 3.503362e-04 1.011309         7.245491e-02             0              0            0             0              0
+      adapted_eps=[0.109065233823, 0.103622742862, 0.099186608637, 0.113052272575]; epsilon_search_gradients=23; warmup_gradients=47749; retained_gradients=393327
+ 0.8750     4 ok                          0.85976   11.6245    11.6245     3.2868          1         0 y^2        226.3763 3.800082e-04 1.006426         1.068433e-01             0              0            0             0              0
+      adapted_eps=[0.092788229173, 0.099497808863, 0.093788298049, 0.099178617628]; epsilon_search_gradients=23; warmup_gradients=49981; retained_gradients=464982
+ 0.8750     5 ok                          0.84179   11.0567    11.0567     3.2187         11         0 y^2        208.4533 4.338741e-04 1.006408         7.789810e-02             0              0            0             0              0
+      adapted_eps=[0.094851483811, 0.103627415553, 0.10215729745 , 0.096087509508]; epsilon_search_gradients=25; warmup_gradients=51698; retained_gradients=442270
+ 0.8750     6 ok                          0.82564   10.4238    10.4238     3.1515         11         0 y^2        99.35309 9.655896e-04 1.005624         1.293894e-01             0              0            0             0              0
+      adapted_eps=[0.110821048879, 0.100531711961, 0.105625295183, 0.099914617523]; epsilon_search_gradients=24; warmup_gradients=48508; retained_gradients=416952
+ 0.8750     7 ok                          0.81081   10.6443    10.6443     3.1297         32         0 x*y        591.8166 1.587427e-04 1.024877         1.150058e-01             0              0            0             0              0
+      adapted_eps=[0.096116709573, 0.107585220748, 0.095376430379, 0.097676447449]; epsilon_search_gradients=24; warmup_gradients=49135; retained_gradients=425774
+ 0.8750     8 ok                          0.85076   11.2010    11.2010     3.2500          1         0 y^2        53.93992 1.655140e-03 1.002197         1.397079e-01             0              0            0             0              0
+      adapted_eps=[0.098803341949, 0.100944206961, 0.094037313555, 0.10677975773 ]; epsilon_search_gradients=24; warmup_gradients=48833; retained_gradients=448038
+ 0.8750     9 ok                          0.81922   10.6610    10.6610     3.1503         25         0 y^2        968.8644 9.681443e-05 1.027259         1.066429e-01             0              0            0             0              0
+      adapted_eps=[0.100426210779, 0.102497326295, 0.106269024659, 0.093839537016]; epsilon_search_gradients=25; warmup_gradients=49737; retained_gradients=426439
+ 0.8750    10 ok                          0.87050   11.8385    11.8385     3.3152          1         0 y^2        45.16776 1.870135e-03 1.003463         1.305259e-01             0              0            0             0              0
+      adapted_eps=[0.095536033532, 0.094150146748, 0.095445293757, 0.095297780559]; epsilon_search_gradients=23; warmup_gradients=50764; retained_gradients=473542
+ 0.9000     1 ok                          0.86475   11.9548    11.9548     3.3162          0         0 y^2        90.01768 9.292442e-04 1.005485         9.728568e-02             0              0            0             0              0
+      adapted_eps=[0.098813616687, 0.097940491947, 0.08736193816 , 0.093311206941]; epsilon_search_gradients=24; warmup_gradients=55461; retained_gradients=478192
+ 0.9000     2 ok                          0.79989   11.1769    11.1769     3.1339         52         0 y^2        1518.697 5.891249e-05 1.066465         5.625057e-01             0              0            0             0              0
+      adapted_eps=[0.084585110835, 0.095416957407, 0.090637433923, 0.097511357312]; epsilon_search_gradients=24; warmup_gradients=56320; retained_gradients=447076
+ 0.9000     3 ok                          0.83060   11.3668    11.3669     3.2128         21         0 y^2        984.3547 8.937339e-05 1.034560         1.632426e-01             0              0            0             0              0
+      adapted_eps=[0.095506399766, 0.097391343223, 0.09422344964 , 0.091384884949]; epsilon_search_gradients=23; warmup_gradients=52504; retained_gradients=454674
+ 0.9000     4 ok                          0.86126   11.5912    11.5912     3.2847          2         0 y^2        69.64895 1.238674e-03 1.003640         1.246562e-01             0              0            0             0              0
+      adapted_eps=[0.105051382076, 0.093707251282, 0.09797410406 , 0.090253852073]; epsilon_search_gradients=23; warmup_gradients=52176; retained_gradients=463648
+ 0.9000     5 ok                          0.86978   12.1450    12.1450     3.3383          3         0 y^2        193.5376 4.254388e-04 1.005289         1.035310e-01             0              0            0             0              0
+      adapted_eps=[0.098406629686, 0.088715452289, 0.099724402774, 0.086576021902]; epsilon_search_gradients=25; warmup_gradients=54275; retained_gradients=485800
+ 0.9000     6 ok                          0.88463   12.8110    12.8110     3.4058          1         0 y^2        260.1776 3.000178e-04 1.005939         7.793930e-02             0              0            0             0              0
+      adapted_eps=[0.089219514067, 0.081833558502, 0.084758228045, 0.098476079743]; epsilon_search_gradients=24; warmup_gradients=56788; retained_gradients=512440
+ 0.9000     7 ok                          0.85401   11.6323    11.6323     3.2804          4         0 y^2        144.8283 5.935850e-04 1.007919         8.508430e-02             0              0            0             0              0
+      adapted_eps=[0.097065756781, 0.0831772298  , 0.095906955964, 0.10731927398 ]; epsilon_search_gradients=24; warmup_gradients=54588; retained_gradients=465290
+ 0.9000     8 ok                          0.87506   12.6530    12.6530     3.3806          0         0 y^2        206.4574 3.828052e-04 1.005369         5.175933e-02             0              0            0             0              0
+      adapted_eps=[0.092002795443, 0.086623286132, 0.091657872547, 0.086012460191]; epsilon_search_gradients=24; warmup_gradients=53720; retained_gradients=506118
+ 0.9000     9 ok                          0.85156   11.6905    11.6905     3.2692         20         0 y^2        598.9259 1.428216e-04 1.017849         7.842524e-02             0              0            0             0              0
+      adapted_eps=[0.103632169893, 0.087819820169, 0.093521124907, 0.094362046814]; epsilon_search_gradients=25; warmup_gradients=53134; retained_gradients=467620
+ 0.9000    10 ok                          0.85372   11.6250    11.6250     3.2811          1         0 y^2        93.45054 9.205070e-04 1.002995         1.005746e-01             0              0            0             0              0
+      adapted_eps=[0.096793431793, 0.096484254424, 0.104435092117, 0.088959965593]; epsilon_search_gradients=23; warmup_gradients=52854; retained_gradients=464998
+ 0.9250     1 ok                          0.91044   14.1717    14.1717     3.5337          0         0 y^2        30.28332 2.330092e-03 1.001591         9.263933e-02             0              0            0             0              0
+      adapted_eps=[0.079821191646, 0.083059326779, 0.084180057738, 0.081176158504]; epsilon_search_gradients=24; warmup_gradients=62606; retained_gradients=566870
+ 0.9250     2 ok                          0.90473   13.8981    13.8981     3.5018          0         0 y^2        74.66992 9.636046e-04 1.002831         7.755007e-02             0              0            0             0              0
+      adapted_eps=[0.083911696409, 0.080503160668, 0.082746329462, 0.083301794017]; epsilon_search_gradients=24; warmup_gradients=61104; retained_gradients=555924
+ 0.9250     3 ok                          0.90252   13.8090    13.8091     3.4961          0         0 y^2        22.17653 3.265447e-03 1.002448         9.395750e-02             0              0            0             0              0
+      adapted_eps=[0.086553885882, 0.076022023586, 0.087048223277, 0.085380070381]; epsilon_search_gradients=23; warmup_gradients=60155; retained_gradients=552362
+ 0.9250     4 ok                          0.90945   14.1536    14.1536     3.5225          0         0 y^2        41.68962 1.694748e-03 1.004037         7.119910e-02             0              0            0             0              0
+      adapted_eps=[0.079711337629, 0.080663578912, 0.086822896788, 0.077718764734]; epsilon_search_gradients=23; warmup_gradients=62465; retained_gradients=566144
+ 0.9250     5 ok                          0.91743   14.7230    14.7230     3.5723          0         0 y^2        20.29909 3.346010e-03 1.002149         8.502630e-02             0              0            0             0              0
+      adapted_eps=[0.077510913463, 0.082974612815, 0.078975108322, 0.075519528141]; epsilon_search_gradients=25; warmup_gradients=61792; retained_gradients=588920
+ 0.9250     6 ok                          0.89009   13.4939    13.4940     3.4564          3         0 y^2        1392.781 5.320813e-05 1.019481         1.209794e-01             0              0            0             0              0
+      adapted_eps=[0.087149650271, 0.082495521479, 0.080716107132, 0.084415525179]; epsilon_search_gradients=24; warmup_gradients=61060; retained_gradients=539758
+ 0.9250     7 ok                          0.88442   14.7194    14.7194     3.5036          5         0 y^2        962.7229 7.056837e-05 1.031655         3.651518e-01             0              0            0             0              0
+      adapted_eps=[0.083429747303, 0.086118276301, 0.06559331534 , 0.07183441472 ]; epsilon_search_gradients=24; warmup_gradients=60716; retained_gradients=588774
+ 0.9250     8 ok                          0.91957   15.0150    15.0150     3.5937          0         0 y^2        85.74093 7.767619e-04 1.002645         5.410486e-02             0              0            0             0              0
+      adapted_eps=[0.071262829848, 0.07605312419 , 0.086780393447, 0.074075062709]; epsilon_search_gradients=24; warmup_gradients=61024; retained_gradients=600598
+ 0.9250     9 ok                          0.90281   13.9131    13.9132     3.5055          1         0 y^2        61.97265 1.159777e-03 1.002894         7.806548e-02             0              0            0             0              0
+      adapted_eps=[0.079445085622, 0.088867223236, 0.076091419638, 0.086688871519]; epsilon_search_gradients=25; warmup_gradients=60914; retained_gradients=556526
+ 0.9250    10 ok                          0.91143   14.4294    14.4294     3.5507          0         0 y^2        31.63419 2.190753e-03 1.000917         6.626087e-02             0              0            0             0              0
+      adapted_eps=[0.075870068779, 0.083843125626, 0.078756558164, 0.080417393823]; epsilon_search_gradients=23; warmup_gradients=61690; retained_gradients=577178
+ 0.9500     1 ok                          0.95246   19.0701    19.0701     3.8946          0         0 y^2        22.83579 2.296313e-03 1.001040         2.011506e-02             0              0            0             0              0
+      adapted_eps=[0.062768514858, 0.065050659039, 0.052720536464, 0.067476032246]; epsilon_search_gradients=24; warmup_gradients=73984; retained_gradients=762804
+ 0.9500     2 ok                          0.93892   16.8571    16.8571     3.7395          0         0 y^2        24.61969 2.409550e-03 1.001048         3.222545e-02             0              0            0             0              0
+      adapted_eps=[0.067121035884, 0.071530011776, 0.067944650511, 0.07057754819 ]; epsilon_search_gradients=24; warmup_gradients=73096; retained_gradients=674282
+ 0.9500     3 ok                          0.94355   17.3769    17.3769     3.7780          0         0 y^2        23.19183 2.481384e-03 1.001354         2.920142e-02             0              0            0             0              0
+      adapted_eps=[0.067110794138, 0.064664056044, 0.06905226555 , 0.067318134842]; epsilon_search_gradients=23; warmup_gradients=75223; retained_gradients=695074
+ 0.9500     4 ok                          0.93995   16.8131    16.8131     3.7472          0         0 y^2        18.06686 3.292074e-03 1.001213         7.111585e-02             0              0            0             0              0
+      adapted_eps=[0.075090296607, 0.06754423394 , 0.07203692167 , 0.067235326921]; epsilon_search_gradients=23; warmup_gradients=74060; retained_gradients=672524
+ 0.9500     5 ok                          0.94475   17.6266    17.6266     3.7916          0         0 y^2        30.28782 1.873111e-03 1.002041         4.287305e-02             0              0            0             0              0
+      adapted_eps=[0.059393951871, 0.066436518434, 0.068957847789, 0.068710351345]; epsilon_search_gradients=25; warmup_gradients=71971; retained_gradients=705064
+ 0.9500     6 ok                          0.94606   18.0507    18.0507     3.8218          0         0 y^2        77.42324 7.155411e-04 1.001731         5.447108e-02             0              0            0             0              0
+      adapted_eps=[0.063469480468, 0.070074381134, 0.065863267115, 0.058582142528]; epsilon_search_gradients=24; warmup_gradients=71832; retained_gradients=722028
+ 0.9500     7 ok                          0.94656   17.7072    17.7073     3.8001          0         0 y^2        18.42954 3.064321e-03 1.001466         4.242055e-02             0              0            0             0              0
+      adapted_eps=[0.057362009103, 0.069410188247, 0.066103937999, 0.070473537317]; epsilon_search_gradients=24; warmup_gradients=70948; retained_gradients=708290
+ 0.9500     8 ok                          0.94155   16.8651    16.8651     3.7419          0         0 y^2        24.76872 2.393901e-03 1.000808         8.086209e-02             0              0            0             0              0
+      adapted_eps=[0.078775904667, 0.065605746665, 0.075233329584, 0.059283528615]; epsilon_search_gradients=24; warmup_gradients=68300; retained_gradients=674606
+ 0.9500     9 ok                          0.92736   15.6475    15.6475     3.6441          0         0 y^2        62.27283 1.026258e-03 1.002526         4.905203e-02             0              0            0             0              0
+      adapted_eps=[0.075823403884, 0.069896691298, 0.073937308002, 0.075233021584]; epsilon_search_gradients=25; warmup_gradients=69348; retained_gradients=625900
+ 0.9500    10 ok                          0.94522   17.3348    17.3348     3.7810          0         0 x*y        17.05038 3.383351e-03 1.002196         4.190401e-02             0              0            0             0              0
+      adapted_eps=[0.066511926027, 0.068957468953, 0.068587922905, 0.064254085947]; epsilon_search_gradients=23; warmup_gradients=72360; retained_gradients=693392
+ 0.9600     1 ok                          0.95297   18.4222    18.4223     3.8563          0         0 x*y        16.68102 3.254129e-03 1.001165         6.254728e-02             0              0            0             0              0
+      adapted_eps=[0.063529254524, 0.059838113612, 0.057077477225, 0.073456738443]; epsilon_search_gradients=24; warmup_gradients=77398; retained_gradients=736890
+ 0.9600     2 ok                          0.95490   18.7495    18.7495     3.8747          0         0 x*y        16.39028 3.254048e-03 1.001751         4.054647e-02             0              0            0             0              0
+      adapted_eps=[0.060222427476, 0.063086958798, 0.062831492654, 0.060577109792]; epsilon_search_gradients=24; warmup_gradients=82406; retained_gradients=749980
+ 0.9600     3 ok                          0.95281   18.5110    18.5110     3.8616          0         0 y^2        21.45308 2.518144e-03 1.001253         2.297177e-02             0              0            0             0              0
+      adapted_eps=[0.059896366458, 0.061951698886, 0.069087299356, 0.059728722669]; epsilon_search_gradients=23; warmup_gradients=83525; retained_gradients=740440
+ 0.9600     4 ok                          0.96005   19.8559    19.8559     3.9465          0         0 x^2        18.70046 2.693143e-03 1.001763         3.580580e-02             0              0            0             0              0
+      adapted_eps=[0.060740478755, 0.053691273476, 0.059878680072, 0.060311756033]; epsilon_search_gradients=23; warmup_gradients=76936; retained_gradients=794234
+ 0.9600     5 ok                          0.95590   19.2565    19.2565     3.8957          0         0 y^2        19.17775 2.707852e-03 1.000959         3.224879e-02             0              0            0             0              0
+      adapted_eps=[0.059505606112, 0.055455170158, 0.063646161534, 0.06054368815 ]; epsilon_search_gradients=25; warmup_gradients=80185; retained_gradients=770260
+ 0.9600     6 ok                          0.95388   18.8825    18.8825     3.8806          0         0 y^2        17.73275 2.986513e-03 1.001337         3.341949e-02             0              0            0             0              0
+      adapted_eps=[0.064520432957, 0.065046117581, 0.063189162417, 0.054903921604]; epsilon_search_gradients=24; warmup_gradients=78252; retained_gradients=755300
+ 0.9600     7 ok                          0.95371   18.9573    18.9573     3.8902          0         0 x*y        15.76807 3.345377e-03 1.000952         4.932282e-02             0              0            0             0              0
+      adapted_eps=[0.069218844036, 0.053583197102, 0.059233663108, 0.068266933181]; epsilon_search_gradients=24; warmup_gradients=77982; retained_gradients=758292
+ 0.9600     8 ok                          0.94539   17.6768    17.6768     3.7939          0         0 x*y        17.04429 3.319077e-03 1.000723         4.178331e-02             0              0            0             0              0
+      adapted_eps=[0.068214676238, 0.059022872583, 0.064271298991, 0.072148443815]; epsilon_search_gradients=24; warmup_gradients=79898; retained_gradients=707072
+ 0.9600     9 ok                          0.95299   18.5084    18.5085     3.8548          0         0 y^2        15.94873 3.387692e-03 1.002327         4.094535e-02             0              0            0             0              0
+      adapted_eps=[0.06675398739 , 0.061638249487, 0.065995131448, 0.057835171129]; epsilon_search_gradients=25; warmup_gradients=75472; retained_gradients=740338
+ 0.9600    10 ok                          0.93908   17.2944    17.2944     3.7730          0         0 y^2        91.01836 6.352823e-04 1.002603         4.389849e-02             0              0            0             0              0
+      adapted_eps=[0.065116867025, 0.065527564409, 0.074535412312, 0.066579765027]; epsilon_search_gradients=23; warmup_gradients=77628; retained_gradients=691774
+ 0.9700     1 ok                          0.96761   22.4175    22.4175     4.0955          0         0 y^2        23.83926 1.871199e-03 1.001324         1.890432e-02             0              0            0             0              0
+      adapted_eps=[0.04457964252 , 0.053790197823, 0.05327739027 , 0.056420668623]; epsilon_search_gradients=24; warmup_gradients=93114; retained_gradients=896700
+ 0.9700     2 ok                          0.96665   21.8663    21.8663     4.0641          0         0 x*y        25.40856 1.799889e-03 1.000975         2.611040e-02             0              0            0             0              0
+      adapted_eps=[0.050487272738, 0.05557796823 , 0.054854357321, 0.049596984541]; epsilon_search_gradients=24; warmup_gradients=89980; retained_gradients=874650
+ 0.9700     3 ok                          0.96882   22.3518    22.3518     4.0943          0         0 y^2        24.51006 1.825338e-03 1.000459         1.442402e-02             0              0            0             0              0
+      adapted_eps=[0.048713411945, 0.05202383324 , 0.054120519856, 0.05284024645 ]; epsilon_search_gradients=23; warmup_gradients=93300; retained_gradients=894072
+ 0.9700     4 ok                          0.96418   20.7203    20.7203     3.9984          0         0 y^2        19.35389 2.493658e-03 1.001014         2.891291e-02             0              0            0             0              0
+      adapted_eps=[0.055181671731, 0.053656808587, 0.06124216228 , 0.055191602333]; epsilon_search_gradients=23; warmup_gradients=90402; retained_gradients=828810
+ 0.9700     5 ok                          0.96690   22.1036    22.1037     4.0864          0         0 x*y        20.65773 2.190047e-03 1.001459         1.549549e-02             0              0            0             0              0
+      adapted_eps=[0.048192195484, 0.060981847132, 0.051088950989, 0.052158468992]; epsilon_search_gradients=25; warmup_gradients=85981; retained_gradients=884146
+ 0.9700     6 ok                          0.96319   20.6628    20.6628     3.9920          0         0 y^2        31.12476 1.554908e-03 1.001482         2.735773e-02             0              0            0             0              0
+      adapted_eps=[0.058834353389, 0.057914088305, 0.054805580526, 0.050913375401]; epsilon_search_gradients=24; warmup_gradients=85080; retained_gradients=826512
+ 0.9700     7 ok                          0.95999   20.3351    20.3351     3.9695          0         0 y^2        56.51724 8.701072e-04 1.002811         2.813140e-02             0              0            0             0              0
+      adapted_eps=[0.049149524172, 0.063498292349, 0.055453168982, 0.061153961564]; epsilon_search_gradients=24; warmup_gradients=88374; retained_gradients=813404
+ 0.9700     8 ok                          0.96348   20.8061    20.8061     4.0074          0         0 x*y        16.02292 2.999629e-03 1.001244         3.308635e-02             0              0            0             0              0
+      adapted_eps=[0.049721758292, 0.057607771985, 0.054537200029, 0.062850626264]; epsilon_search_gradients=24; warmup_gradients=84560; retained_gradients=832244
+ 0.9700     9 ok                          0.96435   20.8870    20.8870     4.0109          0         0 x*y        14.31577 3.344330e-03 1.002355         4.208126e-02             0              0            0             0              0
+      adapted_eps=[0.055664280471, 0.057818956832, 0.052535981603, 0.057874473026]; epsilon_search_gradients=25; warmup_gradients=89924; retained_gradients=835480
+ 0.9700    10 ok                          0.96568   21.2617    21.2617     4.0277          0         0 x*y        14.04644 3.348387e-03 1.001679         5.409160e-02             0              0            0             0              0
+      adapted_eps=[0.055743154264, 0.056658777587, 0.055282484086, 0.050837029402]; epsilon_search_gradients=23; warmup_gradients=92330; retained_gradients=850468
+ 0.9800     1 ok                          0.97738   26.0252    26.0252     4.2965          0         0 y^2        20.22745 1.899608e-03 1.001676         1.117099e-02             0              0            0             0              0
+      adapted_eps=[0.045483794311, 0.0403556384  , 0.045569879373, 0.04725150415 ]; epsilon_search_gradients=24; warmup_gradients=107698; retained_gradients=1041010
+ 0.9800     2 ok                          0.97399   24.5628    24.5628     4.2221          0         0 y^2        20.97473 1.941005e-03 1.001382         1.784222e-02             0              0            0             0              0
+      adapted_eps=[0.04891167092 , 0.050830962152, 0.047552728858, 0.042671443799]; epsilon_search_gradients=24; warmup_gradients=105966; retained_gradients=982510
+ 0.9800     3 ok                          0.97287   23.5135    23.5135     4.1618          0         0 x*y        18.14552 2.343760e-03 1.001013         2.725273e-02             0              0            0             0              0
+      adapted_eps=[0.052853312366, 0.048840422456, 0.049958172767, 0.045619395947]; epsilon_search_gradients=23; warmup_gradients=109218; retained_gradients=940540
+ 0.9800     4 ok                          0.97758   25.6973    25.6973     4.2778          0         0 x*y        18.83945 2.065591e-03 1.002360         3.319363e-02             0              0            0             0              0
+      adapted_eps=[0.04528935897 , 0.043396247538, 0.045326856652, 0.045740485659]; epsilon_search_gradients=23; warmup_gradients=100812; retained_gradients=1027892
+ 0.9800     5 ok                          0.97789   26.3605    26.3605     4.3149          0         0 x*y         20.9326 1.812274e-03 1.000827         2.741170e-02             0              0            0             0              0
+      adapted_eps=[0.040802931668, 0.049170821606, 0.043418375543, 0.04388856856 ]; epsilon_search_gradients=25; warmup_gradients=106603; retained_gradients=1054418
+ 0.9800     6 ok                          0.97846   26.9945    26.9945     4.3421          0         0 x*y        20.63477 1.795250e-03 1.002748         2.229190e-02             0              0            0             0              0
+      adapted_eps=[0.047785488014, 0.042261666181, 0.038679073852, 0.043746859477]; epsilon_search_gradients=24; warmup_gradients=100584; retained_gradients=1079780
+ 0.9800     7 ok                          0.97617   25.5454    25.5455     4.2619          0         0 x*y        21.14551 1.851264e-03 1.001052         1.705036e-02             0              0            0             0              0
+      adapted_eps=[0.045037019014, 0.049026217668, 0.049078056395, 0.039923794529]; epsilon_search_gradients=24; warmup_gradients=101982; retained_gradients=1021818
+ 0.9800     8 ok                          0.97568   24.6135    24.6135     4.2211          0         0 y^2        18.99772 2.138583e-03 1.001264         2.077864e-02             0              0            0             0              0
+      adapted_eps=[0.04854384752 , 0.04563804158 , 0.047106603643, 0.045616810872]; epsilon_search_gradients=24; warmup_gradients=103680; retained_gradients=984538
+ 0.9800     9 ok                          0.97414   25.0065    25.0065     4.2460          0         0 y^2        25.85215 1.546861e-03 1.001091         5.645680e-02             0              0            0             0              0
+      adapted_eps=[0.045712491459, 0.047880615714, 0.046915194592, 0.045714878159]; epsilon_search_gradients=25; warmup_gradients=102174; retained_gradients=1000258
+ 0.9800    10 ok                          0.97647   25.7872    25.7872     4.2756          0         0 x*y        15.86571 2.444198e-03 1.002055         3.438713e-02             0              0            0             0              0
+      adapted_eps=[0.04752542445 , 0.051408575415, 0.035760863291, 0.048192681702]; epsilon_search_gradients=23; warmup_gradients=104874; retained_gradients=1031488
+ 0.9900     1 ok                          0.98666   33.9888    33.9888     4.6527          0         0 x*y        14.99311 1.962329e-03 1.000992         1.020823e-02             0              0            0             0              0
+      adapted_eps=[0.039749756434, 0.030807779643, 0.032657142028, 0.032835135115]; epsilon_search_gradients=24; warmup_gradients=142360; retained_gradients=1359554
+ 0.9900     2 ok                          0.98723   34.6223    34.6223     4.6613          0         0 y^2        17.09281 1.689784e-03 1.001681         2.517246e-02             0              0            0             0              0
+      adapted_eps=[0.033131333795, 0.032291826288, 0.031975319608, 0.034055153721]; epsilon_search_gradients=24; warmup_gradients=140250; retained_gradients=1384890
+ 0.9900     3 ok                          0.98801   35.2814    35.2814     4.6970          0         0 y^2        21.30838 1.330160e-03 1.001762         3.222334e-02             0              0            0             0              0
+      adapted_eps=[0.03418006484 , 0.028895260558, 0.031785163724, 0.034485915886]; epsilon_search_gradients=23; warmup_gradients=137944; retained_gradients=1411256
+ 0.9900     4 ok                          0.98744   34.5669    34.5669     4.6626          0         0 x*y        21.17103 1.366462e-03 1.002852         3.126347e-02             0              0            0             0              0
+      adapted_eps=[0.031943702549, 0.035254464033, 0.028572360601, 0.03700695058 ]; epsilon_search_gradients=23; warmup_gradients=142900; retained_gradients=1382676
+ 0.9900     5 ok                          0.98544   31.8183    31.8183     4.5676          0         0 x*y        17.46413 1.799600e-03 1.001887         1.422897e-02             0              0            0             0              0
+      adapted_eps=[0.037823510492, 0.038174191935, 0.033117219557, 0.036018071001]; epsilon_search_gradients=25; warmup_gradients=131673; retained_gradients=1272732
+ 0.9900     6 ok                          0.98792   34.6534    34.6535     4.6871          0         0 x*y        15.75431 1.831699e-03 1.001476         6.649048e-02             0              0            0             0              0
+      adapted_eps=[0.038619239505, 0.033475342162, 0.028497183619, 0.033680065382]; epsilon_search_gradients=24; warmup_gradients=129146; retained_gradients=1386138
+ 0.9900     7 ok                          0.98930   37.3113    37.3113     4.7636          0         0 x*y        19.07581 1.405003e-03 1.000796         2.547421e-02             0              0            0             0              0
+      adapted_eps=[0.033336066614, 0.027859828614, 0.031408964658, 0.029608706289]; epsilon_search_gradients=24; warmup_gradients=140798; retained_gradients=1492450
+ 0.9900     8 ok                          0.98615   32.8918    32.8918     4.6034          0         0 y^2         21.0729 1.442742e-03 1.001326         2.016077e-02             0              0            0             0              0
+      adapted_eps=[0.037090323896, 0.032830013844, 0.035888986397, 0.033966345292]; epsilon_search_gradients=24; warmup_gradients=132176; retained_gradients=1315670
+ 0.9900     9 ok                          0.98648   32.6257    32.6257     4.6021          0         0 y^2        19.36697 1.582627e-03 1.001549         4.006419e-02             0              0            0             0              0
+      adapted_eps=[0.033317608275, 0.03330153022 , 0.03676587801 , 0.037267226209]; epsilon_search_gradients=25; warmup_gradients=132378; retained_gradients=1305028
+ 0.9900    10 ok                          0.98781   34.1700    34.1700     4.6475          0         0 y^2        14.97347 1.954486e-03 1.001432         3.174410e-02             0              0            0             0              0
+      adapted_eps=[0.03639948778 , 0.033514080297, 0.03327136286 , 0.030782606799]; epsilon_search_gradients=23; warmup_gradients=135834; retained_gradients=1366800
+ 0.9950     1 ok                          0.99199   43.2668    43.2668     4.9698          0         0 x*y        30.94562 7.468717e-04 1.002443         3.598843e-02             0              0            0             0              0
+      adapted_eps=[0.02450316023 , 0.024159802449, 0.026976219305, 0.029222822112]; epsilon_search_gradients=24; warmup_gradients=166290; retained_gradients=1730672
+ 0.9950     2 ok                          0.99234   44.7127    44.7128     5.0057          0         0 y^2        23.33448 9.584521e-04 1.002058         1.135133e-02             0              0            0             0              0
+      adapted_eps=[0.023699084034, 0.021038095927, 0.030706319239, 0.027648432051]; epsilon_search_gradients=24; warmup_gradients=162862; retained_gradients=1788510
+ 0.9950     3 ok                          0.99209   42.4227    42.4227     4.9362          0         0 x*y        17.97402 1.311465e-03 1.001317         1.774349e-02             0              0            0             0              0
+      adapted_eps=[0.025009420658, 0.028431819714, 0.027947634311, 0.025353096402]; epsilon_search_gradients=23; warmup_gradients=162500; retained_gradients=1696908
+ 0.9950     4 ok                          0.99082   39.7917    39.7917     4.8538          0         0 x*y        16.66727 1.507797e-03 1.000894         3.143182e-02             0              0            0             0              0
+      adapted_eps=[0.028710075654, 0.026192895009, 0.029649648934, 0.029495041045]; epsilon_search_gradients=23; warmup_gradients=168684; retained_gradients=1591668
+ 0.9950     5 ok                          0.99168   41.8145    41.8146     4.9198          0         0 x*y        17.45546 1.370066e-03 1.001619         8.461115e-03             0              0            0             0              0
+      adapted_eps=[0.024625588813, 0.029112582825, 0.026610174517, 0.028376739438]; epsilon_search_gradients=25; warmup_gradients=158649; retained_gradients=1672582
+ 0.9950     6 ok                          0.99075   39.6960    39.6960     4.8531          0         0 x*y        18.10618 1.391316e-03 1.001585         3.475803e-02             0              0            0             0              0
+      adapted_eps=[0.024910565058, 0.030279429238, 0.030102355801, 0.029378070506]; epsilon_search_gradients=24; warmup_gradients=154444; retained_gradients=1587842
+ 0.9950     7 ok                          0.99291   46.3162    46.3162     5.0488          0         0 y^2        21.12607 1.021994e-03 1.001190         1.986439e-02             0              0            0             0              0
+      adapted_eps=[0.026655990637, 0.020961542166, 0.02323091202 , 0.027268232126]; epsilon_search_gradients=24; warmup_gradients=167266; retained_gradients=1852648
+ 0.9950     8 ok                          0.99134   41.2494    41.2494     4.9071          0         0 x*y        18.25624 1.327917e-03 1.001077         2.380959e-02             0              0            0             0              0
+      adapted_eps=[0.028287937587, 0.02735711087 , 0.026067428732, 0.027612826128]; epsilon_search_gradients=24; warmup_gradients=160472; retained_gradients=1649976
+ 0.9950     9 ok                          0.99216   42.5656    42.5656     4.9506          0         0 x*y        16.75302 1.402324e-03 1.001502         2.354522e-02             0              0            0             0              0
+      adapted_eps=[0.028377689245, 0.025696840177, 0.028908745846, 0.023555394737]; epsilon_search_gradients=25; warmup_gradients=168618; retained_gradients=1702624
+ 0.9950    10 ok                          0.99149   41.4202    41.4202     4.9010          0         0 x*y        20.80206 1.160597e-03 1.002642         1.398602e-02             0              0            0             0              0
+      adapted_eps=[0.027606990186, 0.028250335658, 0.027676625432, 0.024610894093]; epsilon_search_gradients=23; warmup_gradients=167452; retained_gradients=1656808
+ 0.9990     1 ok                          0.99530   55.9049    55.9049     5.3164          0         0 x*y        17.70166 1.010499e-03 1.001688         3.382612e-02             0              0            0             0              0
+      adapted_eps=[0.017766527886, 0.020381407514, 0.021954479575, 0.020346420061]; epsilon_search_gradients=24; warmup_gradients=209634; retained_gradients=2236196
+ 0.9990     2 ok                          0.99551   57.1028    57.1028     5.3489          0         0 x*y        22.60377 7.747503e-04 1.001914         7.677833e-03             0              0            0             0              0
+      adapted_eps=[0.019656899438, 0.018962959703, 0.020980520015, 0.018551223476]; epsilon_search_gradients=24; warmup_gradients=214374; retained_gradients=2284112
+ 0.9990     3 ok                          0.99529   56.7430    56.7431     5.3307          0         0 y^2        38.69817 4.554041e-04 1.001481         4.526052e-02             0              0            0             0              0
+      adapted_eps=[0.018642443906, 0.022211221719, 0.017632258646, 0.020023817182]; epsilon_search_gradients=23; warmup_gradients=213610; retained_gradients=2269722
+ 0.9990     4 ok                          0.99462   51.7656    51.7656     5.2229          0         0 x*y        15.67333 1.232530e-03 1.001341         3.659658e-02             0              0            0             0              0
+      adapted_eps=[0.021321130836, 0.019848810884, 0.02180971053 , 0.024169938455]; epsilon_search_gradients=23; warmup_gradients=206856; retained_gradients=2070624
+ 0.9990     5 ok                          0.99525   54.9071    54.9071     5.3018          0         0 y^2        16.58047 1.098436e-03 1.001135         5.360771e-02             0              0            0             0              0
+      adapted_eps=[0.018442877446, 0.020334614754, 0.020866271983, 0.022243727915]; epsilon_search_gradients=25; warmup_gradients=203711; retained_gradients=2196284
+ 0.9990     6 ok                          0.99504   54.9430    54.9430     5.3014          0         0 x*y        20.71823 8.784864e-04 1.001099         1.542618e-02             0              0            0             0              0
+      adapted_eps=[0.020802631016, 0.021460691503, 0.020338091175, 0.019387223839]; epsilon_search_gradients=24; warmup_gradients=204094; retained_gradients=2197720
+ 0.9990     7 ok                          0.99576   58.8340    58.8340     5.3903          0         0 x*y        17.06153 9.962170e-04 1.000926         1.517482e-02             0              0            0             0              0
+      adapted_eps=[0.019863313957, 0.018497836367, 0.01774506617 , 0.020093364107]; epsilon_search_gradients=24; warmup_gradients=213324; retained_gradients=2353358
+ 0.9990     8 ok                          0.99540   55.4883    55.4883     5.3190          0         0 x*y        15.35319 1.173816e-03 1.000792         4.713627e-02             0              0            0             0              0
+      adapted_eps=[0.020561175327, 0.019455860755, 0.020738466438, 0.020135088983]; epsilon_search_gradients=24; warmup_gradients=202062; retained_gradients=2219532
+ 0.9990     9 ok                          0.99562   57.8339    57.8339     5.3663          0         0 x*y        15.39571 1.123099e-03 1.001694         3.244185e-02             0              0            0             0              0
+      adapted_eps=[0.019473303056, 0.020813116285, 0.020558372444, 0.017274097784]; epsilon_search_gradients=25; warmup_gradients=219346; retained_gradients=2313356
+ 0.9990    10 ok                          0.99535   56.6387    56.6387     5.3383          0         0 x*y        18.79654 9.393095e-04 1.001700         2.086601e-02             0              0            0             0              0
+      adapted_eps=[0.02069523128 , 0.018044558799, 0.020631122111, 0.01991122145 ]; epsilon_search_gradients=23; warmup_gradients=222326; retained_gradients=2265548
+
+SELECTED FIXED NUTS REPRESENTATIVE
+----------------------------------------------------------------------------------------
+target acceptance delta=0.96
+The representative includes the fixed Algorithm 6 adaptation rule; epsilon remains chain-specific.
+Block efficiencies=[0.003254128919, 0.003254047893, 0.00251814364 , 0.002693142529,
+ 0.002707851917, 0.002986512651, 0.003345377205, 0.003319077022,
+ 0.003387691956, 0.000635282288]
+Geometric mean=2.595566071758e-03
+Minimum=6.352822878807e-04
+Median=3.120280271598e-03
+Maximum=3.387691955502e-03
+Mean retained acceptance statistic=0.952166283023
+Mean actual retained gradients/draw=18.611450000000
+Finite-energy retained divergences across tuning blocks=0
+Maximum-depth hits across tuning blocks=0
+Warmup transitions with nonfinite leaves=0
+Warmup nonfinite leaf count=0
+Retained transitions with nonfinite leaves=0
+Retained nonfinite leaf count=0
+Retained nonfinite selected samples=0
+Maximum R-hat across tuning blocks=1.002603183336
+Maximum standardized moment error across tuning blocks=6.254728378289e-02
+This expanded representative is for the shared expanded protocol only; held-out testing is deferred.
+
+SELECTED REPRESENTATIVE: ALL OBSERVABLES IN ALL BLOCKS
+----------------------------------------------------------------------------------------
+block observable IAT status pairs last_lag first_excl ESS efficiency rank_Rhat fold_Rhat max_Rhat empirical_mean exact_mean raw_error standardized_moment_error cutoff_reason
+    1 x          11.009159 ok_truncated_nonpositive          18       35         36   3633.338 4.9306389e-03 1.0006000 1.0007900 1.0007900 -1.4309597e-02  0.0000000e+00 -1.430960e-02 7.154799e-03 first_nonpositive_pair
+    1 y          13.658288 ok_truncated_nonpositive          15       29         30   2928.625 3.9743037e-03 1.0006797 1.0011631 1.0011631 -8.9335390e-02  0.0000000e+00 -8.933539e-02 6.254728e-02 first_nonpositive_pair
+    1 x^2        13.858105 ok_truncated_nonpositive          15       29         30   2886.398 3.9169992e-03 1.0007880 1.0011647 1.0011647  3.6504202e+00  4.0000000e+00 -3.495798e-01 6.179756e-02 first_nonpositive_pair
+    1 x*y        16.681019 ok_truncated_nonpositive          17       33         34   2397.935 3.2541289e-03 1.0009888 1.0008018 1.0009888 -6.6714581e-02  0.0000000e+00 -6.671458e-02 1.052747e-02 first_nonpositive_pair
+    1 y^2        16.573249 ok_truncated_nonpositive          16       31         32   2413.528 3.2752893e-03 1.0009537 1.0006095 1.0009537  1.6359080e+00  2.0400000e+00 -4.040920e-01 5.384391e-02 first_nonpositive_pair
+    2 x          11.453725 ok_truncated_nonpositive          16       31         32   3492.314 4.6565422e-03 1.0017507 1.0009564 1.0017507  7.9533633e-03  0.0000000e+00  7.953363e-03 3.976682e-03 first_nonpositive_pair
+    2 y          14.689109 ok_truncated_nonpositive          41       81         82   2723.106 3.6309049e-03 1.0009144 1.0005443 1.0009144 -3.5812762e-02  0.0000000e+00 -3.581276e-02 2.507395e-02 first_nonpositive_pair
+    2 x^2        14.806692 ok_truncated_nonpositive          41       81         82   2701.481 3.6020710e-03 1.0009788 1.0007884 1.0009788  3.8544035e+00  4.0000000e+00 -1.455965e-01 2.573806e-02 first_nonpositive_pair
+    2 x*y         16.39028 ok_truncated_nonpositive          25       49         50   2440.471 3.2540479e-03 1.0010374 1.0007462 1.0010374  1.2143531e-01  0.0000000e+00  1.214353e-01 1.916232e-02 first_nonpositive_pair
+    2 y^2        16.308151 ok_truncated_nonpositive          20       39         40   2452.761 3.2704354e-03 1.0006967 1.0006572 1.0006967  1.7357037e+00  2.0400000e+00 -3.042963e-01 4.054647e-02 first_nonpositive_pair
+    3 x          11.998762 ok_truncated_nonpositive          17       33         34   3333.677 4.5022921e-03 1.0008810 1.0012529 1.0012529 -2.1438124e-02  0.0000000e+00 -2.143812e-02 1.071906e-02 first_nonpositive_pair
+    3 y          15.621065 ok_truncated_nonpositive          16       31         32   2560.645 3.4582747e-03 1.0012472 1.0007110 1.0012472 -2.7582766e-02  0.0000000e+00 -2.758277e-02 1.931180e-02 first_nonpositive_pair
+    3 x^2        15.843658 ok_truncated_nonpositive          16       31         32   2524.669 3.4096881e-03 1.0012523 1.0010217 1.0012523  3.8932687e+00  4.0000000e+00 -1.067313e-01 1.886760e-02 first_nonpositive_pair
+    3 x*y        20.817193 ok_truncated_nonpositive          97      193        194   1921.489 2.5950633e-03 1.0009962 1.0006500 1.0009962 -1.1970717e-01  0.0000000e+00 -1.197072e-01 1.888962e-02 first_nonpositive_pair
+    3 y^2        21.453078 ok_truncated_nonpositive          20       39         40   1864.534 2.5181436e-03 1.0002729 1.0009702 1.0009702  1.8675997e+00  2.0400000e+00 -1.724003e-01 2.297177e-02 first_nonpositive_pair
+    4 x          11.517321 ok_truncated_nonpositive          37       73         74    3473.03 4.3728042e-03 1.0017627 1.0009963 1.0017627 -5.0959261e-02  0.0000000e+00 -5.095926e-02 2.547963e-02 first_nonpositive_pair
+    4 y          18.428781 ok_truncated_nonpositive          61      121        122   2170.518 2.7328445e-03 1.0010929 1.0008977 1.0010929 -4.9198557e-02  0.0000000e+00 -4.919856e-02 3.444588e-02 first_nonpositive_pair
+    4 x^2        18.700455 ok_truncated_nonpositive          61      121        122   2138.985 2.6931425e-03 1.0010241 1.0012096 1.0012096  3.7974518e+00  4.0000000e+00 -2.025482e-01 3.580580e-02 first_nonpositive_pair
+    4 x*y        18.108677 ok_truncated_nonpositive          31       61         62   2208.886 2.7811524e-03 1.0012115 1.0007323 1.0012115 -1.4685210e-01  0.0000000e+00 -1.468521e-01 2.317306e-02 first_nonpositive_pair
+    4 y^2        17.630245 ok_truncated_nonpositive          56      111        112   2268.828 2.8566245e-03 1.0006111 1.0003794 1.0006111  1.7767960e+00  2.0400000e+00 -2.632040e-01 3.507106e-02 first_nonpositive_pair
+    5 x          11.964881 ok_truncated_nonpositive          18       35         36   3343.117 4.3402452e-03 1.0008756 1.0009594 1.0009594 -3.9846701e-02  0.0000000e+00 -3.984670e-02 1.992335e-02 first_nonpositive_pair
+    5 y          14.982134 ok_truncated_nonpositive          18       35         36   2669.847 3.4661630e-03 1.0007273 1.0005844 1.0007273  3.3058931e-02  0.0000000e+00  3.305893e-02 2.314588e-02 first_nonpositive_pair
+    5 x^2        15.178107 ok_truncated_nonpositive          19       37         38   2635.375 3.4214093e-03 1.0009377 1.0005616 1.0009377  4.1223742e+00  4.0000000e+00  1.223742e-01 2.163290e-02 first_nonpositive_pair
+    5 x*y        17.355836 ok_truncated_nonpositive          19       37         38     2304.7 2.9921068e-03 1.0005242 1.0007851 1.0007851 -2.0436675e-01  0.0000000e+00 -2.043668e-01 3.224879e-02 first_nonpositive_pair
+    5 y^2        19.177754 ok_truncated_nonpositive          21       41         42    2085.75 2.7078519e-03 1.0003801 1.0006012 1.0006012  1.9106431e+00  2.0400000e+00 -1.293569e-01 1.723638e-02 first_nonpositive_pair
+    6 x          11.372121 ok_truncated_nonpositive          19       37         38   3517.374 4.6569228e-03 1.0009760 1.0006549 1.0009760  1.5236920e-02  0.0000000e+00  1.523692e-02 7.618460e-03 first_nonpositive_pair
+    6 y          15.197559 ok_truncated_nonpositive          24       47         48   2632.002 3.4847103e-03 1.0006105 1.0002809 1.0006105 -1.1048727e-02  0.0000000e+00 -1.104873e-02 7.735656e-03 first_nonpositive_pair
+    6 x^2        15.319067 ok_truncated_nonpositive          23       45         46   2611.125 3.4570701e-03 1.0006558 1.0003383 1.0006558  3.9538406e+00  4.0000000e+00 -4.615938e-02 8.159903e-03 first_nonpositive_pair
+    6 x*y        17.433426 ok_truncated_nonpositive          43       85         86   2294.443 3.0377901e-03 1.0013370 1.0003613 1.0013370  9.6359323e-02  0.0000000e+00  9.635932e-02 1.520537e-02 first_nonpositive_pair
+    6 y^2        17.732752 ok_truncated_nonpositive          27       53         54   2255.713 2.9865127e-03 1.0000581 1.0005052 1.0005052  1.7891908e+00  2.0400000e+00 -2.508092e-01 3.341949e-02 first_nonpositive_pair
+    7 x          11.223048 ok_truncated_nonpositive          16       31         32   3564.094 4.7001608e-03 1.0005137 1.0009494 1.0009494 -2.5522196e-02  0.0000000e+00 -2.552220e-02 1.276110e-02 first_nonpositive_pair
+    7 y          13.356933 ok_truncated_nonpositive          17       33         34     2994.7 3.9492696e-03 1.0009515 1.0005033 1.0009515 -6.0910921e-02  0.0000000e+00 -6.091092e-02 4.264617e-02 first_nonpositive_pair
+    7 x^2        13.479319 ok_truncated_nonpositive          17       33         34   2967.509 3.9134119e-03 1.0009522 1.0004267 1.0009522  3.7609737e+00  4.0000000e+00 -2.390263e-01 4.225429e-02 first_nonpositive_pair
+    7 x*y        15.768066 ok_truncated_nonpositive          16       31         32   2536.773 3.3453772e-03 1.0004558 1.0009162 1.0009162 -9.8345094e-02  0.0000000e+00 -9.834509e-02 1.551872e-02 first_nonpositive_pair
+    7 y^2        15.483621 ok_truncated_nonpositive          20       39         40   2583.375 3.4068340e-03 1.0005312 1.0006312 1.0006312  1.6698382e+00  2.0400000e+00 -3.701618e-01 4.932282e-02 first_nonpositive_pair
+    8 x          12.527877 ok_truncated_nonpositive          35       69         70   3192.879 4.5156355e-03 1.0003196 1.0006688 1.0006688 -8.8763822e-03  0.0000000e+00 -8.876382e-03 4.438191e-03 first_nonpositive_pair
+    8 y          14.110339 ok_truncated_nonpositive          21       41         42   2834.801 4.0092109e-03 1.0007135 1.0004565 1.0007135 -3.0361934e-02  0.0000000e+00 -3.036193e-02 2.125761e-02 first_nonpositive_pair
+    8 x^2        14.254865 ok_truncated_nonpositive          21       41         42    2806.06 3.9685628e-03 1.0007225 1.0004364 1.0007225  3.8784310e+00  4.0000000e+00 -1.215690e-01 2.149056e-02 first_nonpositive_pair
+    8 x*y        17.044294 ok_truncated_nonpositive          29       57         58   2346.826 3.3190770e-03 1.0000057 1.0004815 1.0004815  1.6741155e-03  0.0000000e+00  1.674115e-03 2.641731e-04 first_nonpositive_pair
+    8 y^2         16.70558 ok_truncated_nonpositive          25       49         50    2394.41 3.3863730e-03 1.0002719 1.0000688 1.0002719  1.7264213e+00  2.0400000e+00 -3.135787e-01 4.178331e-02 first_nonpositive_pair
+    9 x          11.229334 ok_truncated_nonpositive          13       25         26   3562.099 4.8114495e-03 1.0004619 1.0023266 1.0023266 -1.2110214e-02  0.0000000e+00 -1.211021e-02 6.055107e-03 first_nonpositive_pair
+    9 y          13.625867 ok_truncated_nonpositive          14       27         28   2935.593 3.9652065e-03 1.0022565 1.0020252 1.0022565 -3.1615786e-02  0.0000000e+00 -3.161579e-02 2.213548e-02 first_nonpositive_pair
+    9 x^2        13.851086 ok_truncated_nonpositive          14       27         28    2887.86 3.9007322e-03 1.0023269 1.0022626 1.0023269  3.8673671e+00  4.0000000e+00 -1.326329e-01 2.344641e-02 first_nonpositive_pair
+    9 x*y        15.180126 ok_truncated_nonpositive          14       27         28   2635.024 3.5592179e-03 1.0006406 1.0019152 1.0019152  1.6944705e-02  0.0000000e+00  1.694471e-02 2.673851e-03 first_nonpositive_pair
+    9 y^2        15.948727 ok_truncated_nonpositive          16       31         32   2508.037 3.3876920e-03 1.0011985 1.0017377 1.0017377  1.7327101e+00  2.0400000e+00 -3.072899e-01 4.094535e-02 first_nonpositive_pair
+   10 x          20.545863 ok_truncated_nonpositive          69      137        138   1946.864 2.8143064e-03 1.0026032 1.0016385 1.0026032 -5.6875723e-02  0.0000000e+00 -5.687572e-02 2.843786e-02 first_nonpositive_pair
+   10 y          42.851989 ok_truncated_nonpositive          90      179        180   933.4456 1.3493505e-03 1.0015621 1.0012231 1.0015621  1.8413959e-02  0.0000000e+00  1.841396e-02 1.289235e-02 first_nonpositive_pair
+   10 x^2        43.610497 ok_truncated_nonpositive          89      177        178   917.2104 1.3258815e-03 1.0016611 1.0009840 1.0016611  4.0740163e+00  4.0000000e+00  7.401630e-02 1.308436e-02 first_nonpositive_pair
+   10 x*y        68.933561 ok_truncated_nonpositive          74      147        148   580.2689 8.3881279e-04 1.0018987 1.0018735 1.0018987 -2.7819316e-01  0.0000000e+00 -2.781932e-01 4.389849e-02 first_nonpositive_pair
+   10 y^2        91.018361 ok_truncated_nonpositive          87      173        174   439.4718 6.3528229e-04 1.0012522 1.0008543 1.0012522  2.1599232e+00  2.0400000e+00  1.199232e-01 1.597936e-02 first_nonpositive_pair
+
+END OF REPORT
+
+FULL INPUTS AND SOURCE/RUNTIME CHECKSUMS
+{
+  "format": "expanded-Banana-NUTS-full-grid-finite-state-v1",
+  "inputs": {
+    "allow_overwrite": false,
+    "banana_b": 0.25,
+    "beta": 1.0,
+    "delta_max": 1000.0,
+    "dual_averaging_gamma": 0.05,
+    "dual_averaging_kappa": 0.75,
+    "dual_averaging_t0": 10.0,
+    "mass_matrix": [
+      [
+        0.25,
+        0.0
+      ],
+      [
+        0.0,
+        0.49019607843137253
+      ]
+    ],
+    "maximum_tree_depth": 12,
+    "n_retained": 10000,
+    "n_warmup": 1000,
+    "n_workers": 4,
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/Banana/2026-09-25_periodic_vs_NUTS_expanded_01/NUTS/results",
+    "output_filename": "NUTS_Banana_expanded_tuning_20260925.txt",
+    "print_progress": true,
+    "print_report": true,
+    "reasonable_epsilon_max_search_steps": 100,
+    "run_label": "CUSTOM: BANANA_PERIODIC_NUTS_FULL_GRID_20260925",
+    "run_mode": "CUSTOM",
+    "run_self_tests": true,
+    "seed_blocks": [
+      [
+        123,
+        456,
+        789,
+        101112
+      ],
+      [
+        3545294353,
+        3961674632,
+        3627514536,
+        3198582250
+      ],
+      [
+        788645248,
+        3651519711,
+        1811141324,
+        1814869264
+      ],
+      [
+        3192285063,
+        2251015777,
+        396444798,
+        765150135
+      ],
+      [
+        1562880678,
+        1785952873,
+        2908883741,
+        2216662531
+      ],
+      [
+        2794023307,
+        1697034986,
+        399305664,
+        3387627557
+      ],
+      [
+        3550273020,
+        4288237438,
+        1339029542,
+        2052132074
+      ],
+      [
+        773064979,
+        3889587502,
+        1349474393,
+        473085282
+      ],
+      [
+        2530799177,
+        1230540310,
+        2963309407,
+        638566109
+      ],
+      [
+        1731223290,
+        2380208349,
+        2086161373,
+        1181226484
+      ]
+    ],
+    "sigma_x": 2.0,
+    "sigma_y": 0.2,
+    "standardized_starts": [
+      [
+        -2.0,
+        -2.0
+      ],
+      [
+        -2.0,
+        2.0
+      ],
+      [
+        2.0,
+        -2.0
+      ],
+      [
+        2.0,
+        2.0
+      ]
+    ],
+    "target_acceptance_values": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.425,
+      0.45,
+      0.475,
+      0.5,
+      0.525,
+      0.55,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.8,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.925,
+      0.95,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      0.995,
+      0.999
+    ]
+  },
+  "launcher_sha256": "8756a581679b520eda321527cae6962ab05fe84620d3f1b67d6a52e56dbeed86",
+  "llvmlite": "0.47.0+computecanada",
+  "method": "nuts",
+  "numba": "0.65.1+computecanada",
+  "numpy": "2.2.2",
+  "python": "3.12.4",
+  "source_sha256": "c8672091b1d709d2fc4008e6f1ac0f8d35b78ce416965c8a53174cd24a3a37dd"
+}
+
+Defined/tested settings: 35/35
+Equal per-setting run budgets do not imply equal total tuning compute.
+

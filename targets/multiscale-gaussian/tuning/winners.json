@@ -1,0 +1,121 @@
+{
+  "HMC": {
+    "settings": {
+      "epsilon": 0.055,
+      "L": 15
+    },
+    "score": 0.008791180311563,
+    "defined": 273,
+    "tested": 324,
+    "report": "Multiscale_Gaussian/HMC/results/HMC_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "report_sha256": "d3b99c52ed8c5f343134b699831777c611491c4cf6bea9f70f10c84d774ce099",
+    "script": "tuning-code/grex_gaussian_expanded_20260925/HMC/code/multiscale_gaussian_hmc_tuner_EXPANDED_20260925_GREX_RUN.py",
+    "script_sha256": "bbd02b487b0e3fe5082edb140d6553ae841b5e16964b6df2ad9fd5c87a915d29",
+    "manifest": "targets/multiscale-gaussian/tuning/records/HMC/run_manifest.txt",
+    "local_report_or_excerpt": "targets/multiscale-gaussian/tuning/records/HMC/HMC_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "local_report_complete": true
+  },
+  "THC_bounded": {
+    "settings": {
+      "epsilon": 0.04,
+      "L": 25,
+      "lambda_value": 0.22314355131420976,
+      "a": 0.5,
+      "Q": 0.25,
+      "thermostat_sigma": 1.0,
+      "thermostat_starts": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "coupling_family": "EXP_TANH"
+    },
+    "score": 0.010129048248838085,
+    "global_index": 30303,
+    "defined": 17977,
+    "tested": 19522,
+    "report": "Multiscale_Gaussian/Bounded_scale_THC/results/FINAL_TUNING_REPORT.txt",
+    "report_sha256": "0d92d3b4acccca490ebd5087dbb5342432a5784f612227a0ba96aead3dc02fe0",
+    "script": "tuning-code/grex_gaussian_expanded_20260925/THC/code/multiscale_gaussian_thc_tuner_EXPANDED_20260925_GREX_RUN.py",
+    "script_sha256": "9c2e846ccc8c4a939a91937b12de45755c369f3863eea61fe2ba609201e3a708",
+    "manifest": "targets/multiscale-gaussian/tuning/records/THC_bounded/FROZEN.txt",
+    "search_key": "gaussian_bounded",
+    "original_grid": 81648,
+    "part": "part_000",
+    "local_report_or_excerpt": "targets/multiscale-gaussian/tuning/records/THC_bounded/FINAL_TUNING_REPORT.txt",
+    "local_report_complete": true
+  },
+  "THC_v3": {
+    "settings": {
+      "epsilon": 0.06,
+      "L": 30,
+      "delta": 0.03,
+      "Q": 150.0,
+      "inner_r": 8,
+      "mixture_weights": [
+        0.564147,
+        0.1084317,
+        0.3274213
+      ],
+      "mixture_centers": [
+        0.7161277448,
+        0.1776353476,
+        0.0
+      ]
+    },
+    "score": 0.012349636336375558,
+    "global_index": 118080,
+    "defined": 9936,
+    "tested": 11411,
+    "report": "Multiscale_Gaussian/Refreshed_mixture_THC_v3/results/FINAL_TUNING_REPORT.txt",
+    "report_sha256": "dcb01b11c076309cbe9ecc7c7f13fc46bb94716f7cd4e483c45b41aba7df6415",
+    "script": "tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/THC_mixture_v3/code/multiscale_gaussian_thc_v3_mixture_tuner_EXPANDED_20260925.py",
+    "script_sha256": "f21b6cf546d7828205b407e4f5b964443255aaae33ee0e249f4bfa98e62627a4",
+    "manifest": "targets/multiscale-gaussian/tuning/records/THC_v3/FROZEN.txt",
+    "search_key": "gaussian_mixture",
+    "original_grid": 156492,
+    "part": "part_003",
+    "local_report_or_excerpt": "targets/multiscale-gaussian/tuning/records/THC_v3/FINAL_TUNING_REPORT.txt",
+    "local_report_complete": true
+  },
+  "S_QHMC": {
+    "settings": {
+      "L": 20,
+      "epsilon": 0.05,
+      "mu_m": 0.0,
+      "sigma_m": 0.1
+    },
+    "score": 0.0108129739889922,
+    "defined": 23441,
+    "tested": 37908,
+    "report": "Multiscale_Gaussian/S_QHMC/results/S_QHMC_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "report_sha256": "2cdad5589f2cfa50be020a945f1b99e503bf9438476b70b5c7f205b91aba2a3c",
+    "script": "tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/S_QHMC/code/multiscale_gaussian_s_qhmc_tuner_EXPANDED_20260925.py",
+    "script_sha256": "9bf45c3152ab96c080ec9d7b4f870eb0b57f84c3784501f926485d28a263fb9e",
+    "manifest": "targets/multiscale-gaussian/tuning/records/S_QHMC/run_manifest.txt",
+    "local_report_or_excerpt": "targets/multiscale-gaussian/tuning/records/S_QHMC/selected-representative.txt",
+    "local_report_complete": false
+  },
+  "NUTS": {
+    "settings": {
+      "target_acceptance": 0.425,
+      "maximum_tree_depth": 12,
+      "delta_max": 1000.0,
+      "dual_averaging_gamma": 0.05,
+      "dual_averaging_t0": 10.0,
+      "dual_averaging_kappa": 0.75,
+      "reasonable_epsilon_max_search_steps": 100
+    },
+    "score": 0.008799874131004,
+    "defined": 35,
+    "tested": 35,
+    "report": "Multiscale_Gaussian/NUTS/results/NUTS_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "report_sha256": "bb1779f096d927448c59c5f856741a6cf11062de66a1f35f3934a294a8d0425c",
+    "script": "tuning-code/grex_gaussian_nuts_expanded_20260925/NUTS/code/multiscale_gaussian_nuts_tuner_EXPANDED_20260925.py",
+    "script_sha256": "55e2b1c8b2b71f134f133aed14aabe9f3911fcf9a5d68005058ffd5db299cabf",
+    "manifest": "targets/multiscale-gaussian/tuning/records/NUTS/run_manifest.txt",
+    "local_report_or_excerpt": "targets/multiscale-gaussian/tuning/records/NUTS/NUTS_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "local_report_complete": true
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "format": "expanded-NUTS-full-grid-blocks-v1",
+  "inputs": {
+    "allow_overwrite": false,
+    "beta": 1.0,
+    "delta_max": 1000.0,
+    "dual_averaging_gamma": 0.05,
+    "dual_averaging_kappa": 0.75,
+    "dual_averaging_t0": 10.0,
+    "mass_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "maximum_tree_depth": 12,
+    "n_retained": 10000,
+    "n_warmup": 1000,
+    "n_workers": 4,
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "omegas": [
+      1.0,
+      2.340347319320716,
+      5.477225575051661,
+      12.818610191887021,
+      30.0
+    ],
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/multiscale_Gaussian/2026-09-25_mixture_vs_NUTS_expanded_01/NUTS/results",
+    "output_filename": "NUTS_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "print_progress": true,
+    "print_report": true,
+    "reasonable_epsilon_max_search_steps": 100,
+    "run_label": "PRODUCTION TUNING",
+    "run_mode": "CANONICAL",
+    "run_self_tests": true,
+    "seed_blocks": [
+      [
+        567753504,
+        3554327166,
+        2159929848,
+        2183746224
+      ],
+      [
+        3182901450,
+        2500054966,
+        2494512194,
+        1125703007
+      ],
+      [
+        3372379365,
+        3829013153,
+        2779258000,
+        3673553045
+      ],
+      [
+        1042366973,
+        555022780,
+        2234701741,
+        38076647
+      ],
+      [
+        4147003693,
+        637552847,
+        1213094654,
+        3282446157
+      ],
+      [
+        1983886449,
+        1778341926,
+        2298613957,
+        753872443
+      ],
+      [
+        1913436284,
+        580417278,
+        2885056474,
+        2371270245
+      ],
+      [
+        2021755070,
+        2190757929,
+        2004101126,
+        1738982583
+      ],
+      [
+        2993064774,
+        535236755,
+        4082694471,
+        2365720593
+      ],
+      [
+        158278125,
+        3022481575,
+        1887590644,
+        2677325223
+      ]
+    ],
+    "standardized_starts": [
+      [
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      [
+        2.0,
+        -2.0,
+        2.0,
+        -2.0,
+        2.0
+      ],
+      [
+        -2.0,
+        2.0,
+        -2.0,
+        2.0,
+        -2.0
+      ],
+      [
+        -2.0,
+        -2.0,
+        -2.0,
+        -2.0,
+        -2.0
+      ]
+    ],
+    "target_acceptance_values": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.425,
+      0.45,
+      0.475,
+      0.5,
+      0.525,
+      0.55,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.8,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.925,
+      0.95,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      0.995,
+      0.999
+    ]
+  },
+  "launcher_sha256": "96c53ca5942d7ac2267a2acf4857831a4523a16dd9dd7068c1f50cd671bc2d71",
+  "llvmlite": "0.47.0+computecanada",
+  "method": "nuts",
+  "numba": "0.65.1+computecanada",
+  "numpy": "2.2.2",
+  "python": "3.12.4",
+  "source_sha256": "55e2b1c8b2b71f134f133aed14aabe9f3911fcf9a5d68005058ffd5db299cabf"
+}

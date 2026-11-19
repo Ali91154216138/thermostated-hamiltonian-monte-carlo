@@ -1,0 +1,130 @@
+{
+  "format": "gaussian-expanded-block-checkpoints-v1",
+  "method": "hmc",
+  "source_sha256": "bbd02b487b0e3fe5082edb140d6553ae841b5e16964b6df2ad9fd5c87a915d29",
+  "runner_sha256": "d11e8d3cf0485ee8a056e23ecfbcd7c11a616f0554a5b795f8db5c4b45e4749f",
+  "inputs": {
+    "beta": 1.0,
+    "omegas": "[ 1.          2.34034732  5.47722558 12.81861019 30.        ]",
+    "mass_matrix": "[[1. 0. 0. 0. 0.]\n [0. 1. 0. 0. 0.]\n [0. 0. 1. 0. 0.]\n [0. 0. 0. 1. 0.]\n [0. 0. 0. 0. 1.]]",
+    "standardized_starts": "[[ 2.  2.  2.  2.  2.]\n [ 2. -2.  2. -2.  2.]\n [-2.  2. -2.  2. -2.]\n [-2. -2. -2. -2. -2.]]",
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "epsilon_values": [
+      0.0025,
+      0.005,
+      0.0075,
+      0.01,
+      0.015,
+      0.02,
+      0.025,
+      0.03,
+      0.035,
+      0.04,
+      0.045,
+      0.05,
+      0.055,
+      0.06,
+      0.062,
+      0.064,
+      0.065,
+      0.066
+    ],
+    "L_values": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      10,
+      12,
+      15,
+      20,
+      25,
+      30,
+      40,
+      45,
+      60,
+      90,
+      150,
+      225,
+      300
+    ],
+    "seed_blocks": [
+      [
+        567753504,
+        3554327166,
+        2159929848,
+        2183746224
+      ],
+      [
+        3182901450,
+        2500054966,
+        2494512194,
+        1125703007
+      ],
+      [
+        3372379365,
+        3829013153,
+        2779258000,
+        3673553045
+      ],
+      [
+        1042366973,
+        555022780,
+        2234701741,
+        38076647
+      ],
+      [
+        4147003693,
+        637552847,
+        1213094654,
+        3282446157
+      ],
+      [
+        1983886449,
+        1778341926,
+        2298613957,
+        753872443
+      ],
+      [
+        1913436284,
+        580417278,
+        2885056474,
+        2371270245
+      ],
+      [
+        2021755070,
+        2190757929,
+        2004101126,
+        1738982583
+      ],
+      [
+        2993064774,
+        535236755,
+        4082694471,
+        2365720593
+      ],
+      [
+        158278125,
+        3022481575,
+        1887590644,
+        2677325223
+      ]
+    ],
+    "n_warmup": 1000,
+    "n_retained": 10000,
+    "n_workers": 4,
+    "run_mode": "CANONICAL",
+    "run_label": "PRODUCTION TUNING",
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/multiscale_Gaussian/2026-09-25_expanded_01/HMC/results",
+    "output_filename": "HMC_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "allow_overwrite": false,
+    "print_progress": true,
+    "print_report": true,
+    "run_self_tests": true
+  },
+  "python": "3.12.4",
+  "numpy": "2.2.2",
+  "numba": "0.65.1",
+  "llvmlite": "0.47.0+computecanada"
+}

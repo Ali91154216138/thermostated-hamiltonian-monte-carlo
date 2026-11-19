@@ -1,0 +1,587 @@
+FROZEN BANANA HELD-OUT PROTOCOL
+Final seeds have not been simulated at creation. Software checks use separate seeds.
+Protocol SHA256: 2a58f8520c71b0c9172bd7448a4ee1dcc487f6f4c0d61555ecc7774a3d597ead
+
+{
+  "comparison_id": "BANANA2_HMC_BOUNDED_THC_V4_HELDOUT_20261012_v1",
+  "date_frozen": "2026-10-12",
+  "target": "2D centered Banana",
+  "n_blocks": 10,
+  "n_chains": 4,
+  "n_warmup": 1000,
+  "n_retained": 10000,
+  "seed_blocks": [
+    [
+      2880099833,
+      2489486650,
+      2451017942,
+      2880490925
+    ],
+    [
+      129025579,
+      3302271073,
+      1664117088,
+      152623616
+    ],
+    [
+      249633759,
+      3154472917,
+      2530652495,
+      148029082
+    ],
+    [
+      4038453250,
+      698588159,
+      3957987257,
+      3768817257
+    ],
+    [
+      2893569068,
+      137308266,
+      2372641710,
+      3314743546
+    ],
+    [
+      4179363669,
+      2029140000,
+      3971043061,
+      1777623370
+    ],
+    [
+      3209876497,
+      339851714,
+      1427706838,
+      547900704
+    ],
+    [
+      4188427725,
+      3436669780,
+      439669184,
+      1957906058
+    ],
+    [
+      2428438358,
+      161299918,
+      3357008242,
+      1421873829
+    ],
+    [
+      1887429089,
+      2356290723,
+      3781647023,
+      3446686430
+    ]
+  ],
+  "methods": {
+    "HMC": {
+      "L": 80,
+      "epsilon": 0.04
+    },
+    "THC_bounded": {
+      "lambda_value": 0.5596157879354227,
+      "a": 4.0,
+      "Q": 0.5,
+      "epsilon": 0.05,
+      "L": 60
+    },
+    "THC_v4": {
+      "kappa": 0.5,
+      "tau": 0.5,
+      "Q": 0.1,
+      "a": 8.0,
+      "epsilon": 0.1,
+      "L": 20
+    }
+  },
+  "input_templates": {
+    "HMC": {
+      "L_values": [
+        80
+      ],
+      "allow_overwrite": false,
+      "banana_b": 0.25,
+      "beta": 1.0,
+      "epsilon_values": [
+        0.04
+      ],
+      "mass_matrix": [
+        [
+          0.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.49019607843137253
+        ]
+      ],
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "n_workers": 4,
+      "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+      "output_directory": null,
+      "output_filename": "HMC_results.txt",
+      "print_progress": false,
+      "print_report": false,
+      "run_label": "CUSTOM: FROZEN HELD-OUT",
+      "run_mode": "CUSTOM",
+      "run_self_tests": true,
+      "seed_blocks": [
+        [
+          2880099833,
+          2489486650,
+          2451017942,
+          2880490925
+        ],
+        [
+          129025579,
+          3302271073,
+          1664117088,
+          152623616
+        ],
+        [
+          249633759,
+          3154472917,
+          2530652495,
+          148029082
+        ],
+        [
+          4038453250,
+          698588159,
+          3957987257,
+          3768817257
+        ],
+        [
+          2893569068,
+          137308266,
+          2372641710,
+          3314743546
+        ],
+        [
+          4179363669,
+          2029140000,
+          3971043061,
+          1777623370
+        ],
+        [
+          3209876497,
+          339851714,
+          1427706838,
+          547900704
+        ],
+        [
+          4188427725,
+          3436669780,
+          439669184,
+          1957906058
+        ],
+        [
+          2428438358,
+          161299918,
+          3357008242,
+          1421873829
+        ],
+        [
+          1887429089,
+          2356290723,
+          3781647023,
+          3446686430
+        ]
+      ],
+      "sigma_x": 2.0,
+      "sigma_y": 0.2,
+      "standardized_starts": [
+        [
+          -2.0,
+          -2.0
+        ],
+        [
+          -2.0,
+          2.0
+        ],
+        [
+          2.0,
+          -2.0
+        ],
+        [
+          2.0,
+          2.0
+        ]
+      ]
+    },
+    "THC_bounded": {
+      "L_values": [
+        60
+      ],
+      "Q_values": [
+        0.5
+      ],
+      "a_values": [
+        4.0
+      ],
+      "allow_overwrite": false,
+      "banana_b": 0.25,
+      "beta": 1.0,
+      "coupling_family": "EXP_TANH",
+      "epsilon_values": [
+        0.05
+      ],
+      "lambda_values": [
+        0.5596157879354227
+      ],
+      "mass_matrix": [
+        [
+          0.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.49019607843137253
+        ]
+      ],
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "n_workers": 4,
+      "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+      "output_directory": null,
+      "output_filename": "THC_bounded_results.txt",
+      "print_progress": false,
+      "print_report": false,
+      "run_label": "CUSTOM: FROZEN HELD-OUT",
+      "run_mode": "CUSTOM",
+      "run_self_tests": true,
+      "seed_blocks": [
+        [
+          2880099833,
+          2489486650,
+          2451017942,
+          2880490925
+        ],
+        [
+          129025579,
+          3302271073,
+          1664117088,
+          152623616
+        ],
+        [
+          249633759,
+          3154472917,
+          2530652495,
+          148029082
+        ],
+        [
+          4038453250,
+          698588159,
+          3957987257,
+          3768817257
+        ],
+        [
+          2893569068,
+          137308266,
+          2372641710,
+          3314743546
+        ],
+        [
+          4179363669,
+          2029140000,
+          3971043061,
+          1777623370
+        ],
+        [
+          3209876497,
+          339851714,
+          1427706838,
+          547900704
+        ],
+        [
+          4188427725,
+          3436669780,
+          439669184,
+          1957906058
+        ],
+        [
+          2428438358,
+          161299918,
+          3357008242,
+          1421873829
+        ],
+        [
+          1887429089,
+          2356290723,
+          3781647023,
+          3446686430
+        ]
+      ],
+      "sigma_x": 2.0,
+      "sigma_y": 0.2,
+      "standardized_starts": [
+        [
+          -2.0,
+          -2.0
+        ],
+        [
+          -2.0,
+          2.0
+        ],
+        [
+          2.0,
+          -2.0
+        ],
+        [
+          2.0,
+          2.0
+        ]
+      ],
+      "thermostat_sigma": 1.0,
+      "thermostat_starts": [
+        -1.0,
+        1.0,
+        1.0,
+        -1.0
+      ]
+    },
+    "THC_v4": {
+      "L_values": [
+        20
+      ],
+      "Q_values": [
+        0.1
+      ],
+      "a_values": [
+        8.0
+      ],
+      "allow_overwrite": false,
+      "automatic_boundary_expansion": false,
+      "banana_b": 0.25,
+      "beta": 1.0,
+      "boundary_Q_lower": 0.003125,
+      "boundary_Q_upper": 2.0,
+      "boundary_a_lower": 0.5,
+      "boundary_a_upper": 64.0,
+      "boundary_kappa_lower": 0.0625,
+      "boundary_kappa_upper": 1.5,
+      "boundary_keep_fixed_configurations": 1,
+      "boundary_tau_lower": 0.0625,
+      "boundary_tau_upper": 4.0,
+      "conditional_standardized_starts": [
+        -1.0,
+        1.0,
+        1.0,
+        -1.0
+      ],
+      "epsilon_values": [
+        0.1
+      ],
+      "forced_full_configurations": [],
+      "kappa_values": [
+        0.5
+      ],
+      "mass_matrix": [
+        [
+          0.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.49019607843137253
+        ]
+      ],
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "n_workers": 4,
+      "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+      "output_directory": null,
+      "output_filename": "THC_v4_results.txt",
+      "print_progress": false,
+      "print_report": false,
+      "run_label": "CUSTOM: FROZEN HELD-OUT",
+      "run_mode": "CUSTOM",
+      "run_self_tests": true,
+      "seed_blocks": [
+        [
+          2880099833,
+          2489486650,
+          2451017942,
+          2880490925
+        ],
+        [
+          129025579,
+          3302271073,
+          1664117088,
+          152623616
+        ],
+        [
+          249633759,
+          3154472917,
+          2530652495,
+          148029082
+        ],
+        [
+          4038453250,
+          698588159,
+          3957987257,
+          3768817257
+        ],
+        [
+          2893569068,
+          137308266,
+          2372641710,
+          3314743546
+        ],
+        [
+          4179363669,
+          2029140000,
+          3971043061,
+          1777623370
+        ],
+        [
+          3209876497,
+          339851714,
+          1427706838,
+          547900704
+        ],
+        [
+          4188427725,
+          3436669780,
+          439669184,
+          1957906058
+        ],
+        [
+          2428438358,
+          161299918,
+          3357008242,
+          1421873829
+        ],
+        [
+          1887429089,
+          2356290723,
+          3781647023,
+          3446686430
+        ]
+      ],
+      "sigma_x": 2.0,
+      "sigma_y": 0.2,
+      "stage1_anchor_pairs": [
+        [
+          0.1,
+          20
+        ]
+      ],
+      "stage1_block_indices": [
+        1
+      ],
+      "stage1_keep_method_tuples": 1,
+      "stage1_n_retained": 4,
+      "stage1_n_warmup": 0,
+      "stage2_block_indices": [
+        2
+      ],
+      "stage2_keep_fixed_configurations": 1,
+      "stage2_n_retained": 4,
+      "stage2_n_warmup": 0,
+      "standardized_starts": [
+        [
+          -2.0,
+          -2.0
+        ],
+        [
+          -2.0,
+          2.0
+        ],
+        [
+          2.0,
+          -2.0
+        ],
+        [
+          2.0,
+          2.0
+        ]
+      ],
+      "tau_values": [
+        0.5
+      ]
+    }
+  },
+  "provenance": {
+    "HMC": {
+      "source_path": "grex_banana_hmc_bounded_v4_expanded_20260925\\code\\banana_hmc_EXPANDED_20260925.py",
+      "source_sha256": "e72350e0c0ff79621ca8ced7768d9ff1829558d4bd2a04a5f3c0e4c8d6be32fd",
+      "engine_sha256": "fa141378ade96b5985cd93a6e476dad0a981b7e56ad83eecce11f86e358e7583",
+      "tuning_report": "results\\GREX_tuning_2026-10-07\\Banana\\HMC\\results\\HMC_Banana_expanded_tuning_20260925.txt",
+      "tuning_report_sha256": "e48dc23d11c066ec68ec7b97797d71bbe1cfce146644ab7217b9b07349f34c7b",
+      "tested_configurations": 143,
+      "tuning_score": 0.004123623804605706
+    },
+    "THC_bounded": {
+      "source_path": "grex_banana_hmc_bounded_v4_expanded_20260925\\code\\banana_bounded_EXPANDED_20260925.py",
+      "source_sha256": "1f870e92b4b73938aadf3a0f27436802d5d2a1bf56c59f36fd41c96b489a1b43",
+      "engine_sha256": "217890866b49f4b64d2291b98b037b6b950cd17679ff834346a002ee52808f46",
+      "tuning_report": "results\\GREX_tuning_2026-10-07\\Banana\\Bounded_scale_THC\\results\\FINAL_TUNING_REPORT.txt",
+      "tuning_report_sha256": "83809b680ce61fbfc1a069aacb5f53b1902bed6fb838260706f507c56e58c4e1",
+      "tested_configurations": 81081,
+      "tuning_score": 0.004989031260354801
+    },
+    "THC_v4": {
+      "source_path": "grex_banana_hmc_bounded_v4_expanded_20260925\\code\\banana_v4_EXPANDED_20260925.py",
+      "source_sha256": "cd4aeca59e2bfaa460907b75d290bcafd1c38a3cba6b8694a7347811a930e22c",
+      "engine_sha256": "8337b4a7f0fb269f8debb519c381f7cc95aa346703db33a8a117981c74f2927c",
+      "tuning_report": "results\\GREX_tuning_2026-10-07\\Banana\\Conditional_shear_THC_v4\\results\\FINAL_TUNING_REPORT.txt",
+      "tuning_report_sha256": "691e2fef7b747d3f90dadacf3a89aef0f0c0610b74d1a0a106c35a9d423381b0",
+      "tested_configurations": 45278,
+      "tuning_score": 0.041179178669632575
+    }
+  },
+  "physical_starts": [
+    [
+      -4.0,
+      2.6
+    ],
+    [
+      -4.0,
+      3.4
+    ],
+    [
+      4.0,
+      2.6
+    ],
+    [
+      4.0,
+      3.4
+    ]
+  ],
+  "physical_observables": [
+    "x",
+    "y",
+    "x^2",
+    "x*y",
+    "y^2"
+  ],
+  "exact_means": [
+    0.0,
+    0.0,
+    4.0,
+    0.0,
+    2.04
+  ],
+  "target_definition": "U=x^2/(2*sigma_x^2)+(y-b*(x^2-sigma_x^2))^2/(2*sigma_y^2); beta=1, sigma_x=2, sigma_y=0.2, b=0.25.",
+  "selection": "One best tested gradient-normalized-efficiency representative per method, chosen only from the completed expanded tuning reports. No secondary-IAT reselection.",
+  "score": "Block E=1/(actual retained target-gradient calls per draw * max physical-observable IAT); S=geometric mean of ALL ten block efficiencies.",
+  "IAT": "Original multi-chain Geyer initial-positive then initial-monotone sequence; biased autocovariance denominator N, no floor or hand-set lag cutoff.",
+  "Rhat": "Maximum of rank-normalized split and folded rank-normalized split R-hat; descriptive, no threshold.",
+  "failure_rule": "Unchanged in all three tuning engines: any warmup or retained nonfinite trajectory, or undefined required IAT, makes block efficiency and full method score undefined; all blocks remain in the report.",
+  "gradient_cost": "Actual newly executed physical-target gradients in retained transitions only, excluding warmup and cached reuse. Finite trajectories cost L per draw (HMC 80; bounded THC 60; THC-v4 20). Thermostat/coupling derivatives are not physical-target calls; this is not wall-clock cost.",
+  "thermostat_refresh": "Both THC coordinates s persist. Only physical and thermostat momenta refresh. Rejection restores both old q and s.",
+  "secondary_outcomes": "Maximum and descriptive geometric mean of blockwise worst IAT, max R-hat, acceptance, exact/estimated moments, nonfinite event counts. No reselection after inspection.",
+  "paired_comparison": "THC_bounded/HMC and THC_v4/HMC using shared fresh starts/seeds and raw PCG64 substreams. A shared HMC run serves both comparisons. Approximate pointwise 95% Student-t intervals on ten paired log-efficiency ratios; no claim of simultaneous family-wise coverage.",
+  "no_retuning": true,
+  "seed_audit": {
+    "domain": "paper-on-thc|BANANA2|HMC-bounded-v4|held-out|20261012|v1",
+    "overlaps_after_audit": 0,
+    "text_files_scanned": 2654,
+    "text_bytes_scanned": 3053417852,
+    "path_size_inventory_sha256": "25883a26b7aca587a5a8bc3c7d07600a268caaf2147f1903bc93b5f9d2d71c07",
+    "rejected_candidate_values": [],
+    "scope": "Recorded integer occurrences in local project sources/reports, including downloaded tuning and previous held-out files; unknown remote-only seeds cannot be audited.",
+    "derivation": "First four SHA256 bytes (big endian) of DOMAIN|PHASE|block=BB|chain=CC|counter=K; counters change only for recorded collisions, never scores."
+  },
+  "legacy_stage_fields": "THC-v4 stage and boundary fields only satisfy unchanged input validation. The held-out driver never invokes search, ranking or boundary expansion."
+}

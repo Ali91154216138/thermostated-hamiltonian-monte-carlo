@@ -1,0 +1,889 @@
+THC_v2: FRESH HELD-OUT RESULTS
+========================================================================================
+Comparison: BANANA2_NUTS_PERIODIC_THC_V2_HELDOUT_20261012_v1
+Protocol SHA256: d6568ad5e6293355fd4fc50a9c9ceb523961398a076baab74888bc9171279f12
+Script SHA256: 97d5bfbaee0405ea16422413f673ddb85e8030a5e8ae0741bb4d1a39b84bd95e
+Completed UTC: 2026-10-12T18:49:24.826004+00:00
+Runtime: {"llvmlite": "0.47.0", "numba": "0.65.1", "numpy": "2.2.2", "python": "3.12.4"}
+Fixed settings: {"L": 60, "Q": 4.0, "a": 0.5, "coupling_code": 0.025, "epsilon": 0.05}
+10 paired blocks; 4 chains/block; 1000 warmup + 10000 retained draws/chain.
+Target: U=x^2/(2*sigma_x^2)+(y-b*(x^2-sigma_x^2))^2/(2*sigma_y^2); beta=1, sigma_x=2, sigma_y=0.2, b=0.25; base mass diag(0.25,1/2.04).
+Observables: x, y, x^2, x*y, y^2.
+Original multi-chain Geyer initial-positive then initial-monotone sequence; biased autocovariance denominator N, no floor or hand-set lag cutoff.
+Maximum of rank-normalized split and folded rank-normalized split R-hat; descriptive, no threshold.
+Actual newly executed target-gradient calls during retained transitions. For NUTS count every executed leapfrog leaf, including discarded, divergent and nonfinite leaves; exclude cached reuse, initial epsilon search and warmup. For THC complete proposals cost L=60, while an aborted proposal can cost less; exclude thermostat-only operations. This is not wall-clock cost.
+E_b=1/(actual retained gradients per draw * worst physical-observable IAT); S is the geometric mean of ALL ten block efficiencies. Never omit or replace an undefined block.
+Numerical-event rules (unchanged from each completed tuner; not identical counters):
+NUTS: Preserve the completed Banana tuner: nonfinite retained states, undefined required IAT, or invalid gradient cost make the full score undefined. Nonfinite attempted leaves stop their tree expansion and cannot be selected; an earlier valid candidate can still be selected, so the whole transition is not forcibly rejected. Leaf/transition counts, finite-energy divergences and depth hits are reported separately, not score gates.
+THC-v2: Preserve the completed periodic tuner: rejected nonfinite proposals are counted, but finite retained states including rejection repeats are scored. Nonfinite retained states, undefined required IAT or invalid gradient cost make the full score undefined. No dropped or replacement blocks.
+The NUTS mean adaptation statistic is NOT a Metropolis acceptance probability and is reported separately from THC acceptance.
+Same seed identifiers, physical starts and lengths in corresponding blocks. Original RNGs are preserved: NUTS uses Numba thread-local legacy NumPy RNG; THC uses SeedSequence child streams. Individual random draws are NOT claimed to match. Pairing hashes seal seeds, starts and lengths only.
+No final-data parameter selection. NUTS adapts only within the discarded warmup of each chain.
+h(s)=1+0.025*cos(s/0.5), alpha=0.025, phi=0, a=0.5, Q=4, rho(s)=N(0,1). s persists, starting at (-1,1,1,-1). Only p|s~N(0,h(s)^2*M0/beta) and p_s~N(0,Q/beta) refresh each trajectory. Rejection restores q and s.
+
+METHOD SUMMARY
+status: ok
+geometric_mean_efficiency: 0.00497982516473
+minimum_block_efficiency: 0.0025971157299
+median_block_efficiency: 0.00547951358729
+maximum_block_efficiency: 0.00583850521318
+mean_acceptance: 0.9746175
+maximum_rhat: 1.00061324947
+maximum_standardized_moment_error: 0.0170428179996
+total_nonfinite_trajectories: 10
+maximum_blockwise_worst_IAT: 6.41738612284
+geometric_mean_worst_IAT: 3.34685416865
+blocks_completed: 10
+blocks_score_defined: 10
+retained_draws_per_method: 400000
+total_retained_gradient_calls: 23999882
+mean_gradient_calls_per_draw: 59.999705
+warmup_nonfinite_trajectories: 2
+retained_nonfinite_trajectories: 8
+
+BLOCK RESULTS (one-based block numbers)
+block status g worst_IAT worst_observable efficiency max_Rhat max_moment_SD
+1 ok 59.999175 2.95096180507 y^2 0.00564795376471 1.00015855174 0.0143371598656
+2 ok 60 2.85461193544 x^2 0.00583850521318 1.00036040501 0.0132496438156
+3 ok 59.9997 3.37345585352 y^2 0.00494055672405 1.00061324947 0.00957335001726
+4 ok 59.999775 2.86235352098 x^2 0.00582273609628 1.00013843585 0.0109270488953
+5 ok 60 2.89667318221 x^2 0.00575372698896 1.0000562554 0.0170428179996
+6 ok 59.9994 3.13812897108 y^2 0.00531107340986 1.0001832468 0.0146065604354
+7 ok 59.9999 6.41738612284 y^2 0.0025971157299 1.0002882942 0.0139507233767
+8 ok 60 2.87843563925 x^2 0.0057901821529 1.00038022774 0.00529804470871
+9 ok 59.9994 3.80232510066 y^2 0.00438332675239 1.00005634195 0.00554191551126
+10 ok 59.9997 3.3956639076 y^2 0.00490824488345 1.00019496889 0.0161052360039
+
+THC DIAGNOSTICS
+block MH_acceptance nonfinite_warmup_trajectories nonfinite_retained_trajectories retained_gradients
+1 0.974025 2 1 2399967
+2 0.975 0 0 2400000
+3 0.974575 0 2 2399988
+4 0.97565 0 1 2399991
+5 0.976425 0 0 2400000
+6 0.974925 0 1 2399976
+7 0.973125 0 1 2399996
+8 0.974975 0 0 2400000
+9 0.9731 0 1 2399976
+10 0.974375 0 1 2399988
+
+EXACT AND POOLED ESTIMATED PHYSICAL MOMENTS
+Equal chain/block lengths: estimates average all retained draws, including repeated positions.
+observable exact_mean estimated_mean raw_error
+x                         0  -0.00191184356306  -0.00191184356306
+y                         0  -0.00538959444917  -0.00538959444917
+x^2                       4      3.98164796039    -0.018352039612
+x*y                       0   -0.0250512946684   -0.0250512946684
+y^2                    2.04      1.99543768221   -0.0445623177876
+
+ALL PHYSICAL OBSERVABLES IN ALL BLOCKS
+block observable IAT IAT_status pairs last_lag first_excluded_lag ESS efficiency rank_Rhat folded_Rhat max_Rhat empirical_mean exact_mean raw_error moment_SD
+1 x 1.12177017285 ok_truncated_nonpositive 4 7 8 35657.9279499 0.0148576742722 1.00011471068 1.00011288133 1.00011471068 -0.0143029346735 0 -0.0143029346735 0.00715146733677
+1 y 2.77526469801 ok_truncated_nonpositive 5 9 10 14413.0396025 0.00600551574357 1.00015855174 0.999999687539 1.00015855174 -0.00955961700942 0 -0.00955961700942 0.00669307065461
+1 x^2 2.81565048742 ok_truncated_nonpositive 5 9 10 14206.3086944 0.00591937668078 1.00010150633 1.00000358037 1.00010150633 3.96287645139 4 -0.037123548605 0.00656257824008
+1 x*y 2.77251783958 ok_truncated_nonpositive 8 15 16 14427.3192507 0.00601146567879 1.0000576161 1.0000050929 1.0000576161 -0.0289509366089 0 -0.0289509366089 0.00456841728799
+1 y^2 2.95096180507 ok_truncated_nonpositive 5 9 10 13554.9026528 0.00564795376471 1.00006104426 0.999975403023 1.00006104426 1.93240135842 2.04 -0.107598641585 0.0143371598656
+2 x 1.13065436465 ok_truncated_nonpositive 5 9 10 35377.7434117 0.0147407264215 1.00003435344 1.00030118994 1.00030118994 -0.00778124687144 0 -0.00778124687144 0.00389062343572
+2 y 2.79508146557 ok_truncated_nonpositive 5 9 10 14310.8530083 0.00596285542012 1.00036040501 1.00000883384 1.00036040501 -0.0111151783987 0 -0.0111151783987 0.00778218147109
+2 x^2 2.85461193544 ok_truncated_nonpositive 5 9 10 14012.4125116 0.00583850521318 1.00030148184 0.999996056011 1.00030148184 3.95825696432 4 -0.0417430356833 0.00737919589974
+2 x*y 2.58523439791 ok_truncated_nonpositive 4 7 8 15472.4848286 0.00644686867857 1.00004659744 1.00008738578 1.00008738578 -0.0839655342352 0 -0.0839655342352 0.0132496438156
+2 y^2 2.78758555757 ok_truncated_nonpositive 5 9 10 14349.3353563 0.0059788897318 1.00004409968 1.00010782736 1.00010782736 1.95652726808 2.04 -0.0834727319227 0.0111224629267
+3 x 1.22173566072 ok_truncated_nonpositive 6 11 12 32740.306505 0.0136418625864 0.999977699778 1.00061324947 1.00061324947 0.00134794893788 0 0.00134794893788 0.000673974468938
+3 y 3.15863824114 ok_truncated_nonpositive 11 21 22 12663.6850903 0.00527656183711 1.00034476719 0.999968989322 1.00034476719 -0.00274996836458 0 -0.00274996836458 0.00192536296631
+3 x^2 3.22193463289 ok_truncated_nonpositive 11 21 22 12414.9011565 0.00517290134637 1.00061251932 0.999993058147 1.00061251932 3.98958174423 4 -0.0104182557665 0.00184170482516
+3 x*y 3.06823793651 ok_truncated_nonpositive 10 19 20 13036.7985885 0.00543202657202 0.999979097335 1.00033134997 1.00033134997 -0.0606681552959 0 -0.0606681552959 0.00957335001726
+3 y^2 3.37345585352 ok_truncated_nonpositive 10 19 20 11857.276851 0.00494055672405 1.00002310925 1.00001704632 1.00002310925 1.99265141171 2.04 -0.0473485882873 0.00630904135672
+4 x 1.15377819093 ok_truncated_nonpositive 4 7 8 34668.7086949 0.0144453494596 0.999996525844 1.00012611449 1.00012611449 0.0201567321051 0 0.0201567321051 0.0100783660526
+4 y 2.82966722199 ok_truncated_nonpositive 4 7 8 14135.9378549 0.00588999619368 1.00010437733 1.00004494994 1.00010437733 -0.00506744628831 0 -0.00506744628831 0.0035479220572
+4 x^2 2.86235352098 ok_truncated_nonpositive 4 7 8 13974.5142264 0.00582273609628 1.00011489377 1.0000532639 1.00011489377 3.98464366479 4 -0.0153563352065 0.00271464218967
+4 x*y 2.67168270801 ok_truncated_nonpositive 4 7 8 14971.8377411 0.00623828911904 0.999947719842 0.999990569233 0.999990569233 0.0692468047352 0 0.0692468047352 0.0109270488953
+4 y^2 2.83330282215 ok_truncated_nonpositive 3 5 6 14117.7990885 0.00588243834601 1.00013843585 1.00000938804 1.00013843585 2.00216946212 2.04 -0.0378305378819 0.00504079290802
+5 x 1.09663796562 ok_truncated_nonpositive 4 7 8 36475.1187301 0.0151979661375 1.00003931462 1.0000562554 1.0000562554 0.00638864626012 0 0.00638864626012 0.00319432313006
+5 y 2.84165201079 ok_truncated_nonpositive 6 11 12 14076.3189328 0.00586513288867 1.00005350769 1.00001086847 1.00005350769 -0.0154538511017 0 -0.0154538511017 0.0108198599596
+5 x^2 2.89667318221 ok_truncated_nonpositive 7 13 14 13808.9447735 0.00575372698896 1.00005287025 1.00001546387 1.00005287025 3.93617601162 4 -0.0638239883843 0.0112825937472
+5 x*y 2.61382259574 ok_truncated_nonpositive 4 7 8 15303.2574074 0.00637635725309 1.00002282165 0.99996901338 1.00002282165 0.0309028147064 0 0.0309028147064 0.00487642092066
+5 y^2 2.86804994387 ok_truncated_nonpositive 6 11 12 13946.7585233 0.00581114938473 0.999974936254 1.00001715143 1.00001715143 1.91209572309 2.04 -0.127904276909 0.0170428179996
+6 x 1.18632443473 ok_truncated_nonpositive 6 11 12 33717.5892436 0.0140491360095 0.999974228652 1.00005760658 1.00005760658 0.0106572906228 0 0.0106572906228 0.00532864531139
+6 y 2.90303140828 ok_truncated_nonpositive 8 15 16 13778.7003909 0.00574118257468 1.00002756045 1.0001832468 1.0001832468 -0.01396800781 0 -0.01396800781 0.00977956157497
+6 x^2 2.93519883841 ok_truncated_nonpositive 7 13 14 13627.6968621 0.00567826380853 1.00004646134 1.00012660047 1.00012660047 3.9461776596 4 -0.0538223404048 0.00951453546989
+6 x*y 2.86230453125 ok_truncated_nonpositive 6 11 12 13974.753407 0.00582287214832 0.999952096963 1.00000638495 1.00000638495 0.0568642485828 0 0.0568642485828 0.00897309886045
+6 y^2 3.13812897108 ok_truncated_nonpositive 5 9 10 12746.4487179 0.00531107340986 1.00009032875 0.999981875785 1.00009032875 1.93037953989 2.04 -0.109620460106 0.0146065604354
+7 x 1.34070222694 ok_truncated_nonpositive 7 13 14 29835.1111799 0.0124313170438 1.00007540145 1.0000398478 1.00007540145 -0.0149551150971 0 -0.0149551150971 0.00747755754856
+7 y 3.567792765 ok_truncated_nonpositive 8 15 16 11211.4135082 0.0046714300808 1.00001862679 1.00018831497 1.00018831497 -0.00218368018075 0 -0.00218368018075 0.00152888193349
+7 x^2 3.6630906708 ok_truncated_nonpositive 8 15 16 10919.740622 0.00454989950899 1.0000432312 1.00009332847 1.00009332847 3.99376346376 4 -0.00623653623606 0.00110247426591
+7 x*y 4.6851561165 ok_truncated_nonpositive 8 15 16 8537.60237767 0.00355734025293 1.00014156767 1.0000554135 1.00014156767 -0.0884084098863 0 -0.0884084098863 0.0139507233767
+7 y^2 6.41738612284 ok_truncated_nonpositive 9 17 18 6233.06736331 0.0025971157299 1.0002882942 1.00022409946 1.0002882942 2.10638400546 2.04 0.0663840054624 0.00884544716191
+8 x 1.22746492583 ok_truncated_nonpositive 7 13 14 32587.4891887 0.0135781204953 1.00016184104 1.00004446129 1.00016184104 -0.00195292556304 0 -0.00195292556304 0.000976462781521
+8 y 2.81624330902 ok_truncated_nonpositive 5 9 10 14203.3182544 0.00591804927268 1.00007243569 0.999934487725 1.00007243569 -0.00756712141969 0 -0.00756712141969 0.00529804470871
+8 x^2 2.87843563925 ok_truncated_nonpositive 5 9 10 13896.437167 0.0057901821529 1.00004322893 0.999983331095 1.00004322893 3.97523325073 4 -0.0247667492728 0.00437818408968
+8 x*y 2.71663297358 ok_truncated_nonpositive 6 11 12 14724.1089941 0.00613504541421 1.00038022774 1.00006628659 1.00038022774 -0.0331256567933 0 -0.0331256567933 0.00522718229171
+8 y^2 2.69915778481 ok_truncated_nonpositive 5 9 10 14819.437465 0.0061747656104 1.00009387174 0.999952588871 1.00009387174 2.00977487809 2.04 -0.0302251219114 0.0040273966141
+9 x 1.21336309209 ok_truncated_nonpositive 4 7 8 32966.2244226 0.0137360642034 0.999957327045 1.00002784209 1.00002784209 -0.00512754935068 0 -0.00512754935068 0.00256377467534
+9 y 3.15163749138 ok_truncated_nonpositive 6 11 12 12691.8150039 0.00528830913473 0.999982245032 0.999963184428 0.999982245032 0.00545353255477 0 0.00545353255477 0.00381823651202
+9 x^2 3.18515855148 ok_truncated_nonpositive 6 11 12 12558.2445437 0.00523265421975 1.00002624242 0.999944903853 1.00002624242 4.03134980831 4 0.0313498083102 0.00554191551126
+9 x*y 3.1918565453 ok_truncated_nonpositive 7 13 14 12531.8915284 0.00522167368691 0.999942808762 1.00005634195 1.00005634195 -0.0103461522335 0 -0.0103461522335 0.00163260834585
+9 y^2 3.80232510066 ok_truncated_nonpositive 7 13 14 10519.8790059 0.00438332675239 0.999988954939 0.999965222796 0.999988954939 2.06176371312 2.04 0.0217637131179 0.00289994213351
+10 x 1.23597388166 ok_truncated_nonpositive 7 13 14 32363.1434235 0.0134847105167 0.999972535143 1.00012767243 1.00012767243 -0.0135492820006 0 -0.0135492820006 0.00677464100032
+10 y 2.94456919893 ok_truncated_nonpositive 4 7 8 13584.3300998 0.00566016584241 1.00019496889 1.00000160865 1.00019496889 0.0083153935268 0 0.0083153935268 0.00582193997322
+10 x^2 2.99397857601 ok_truncated_nonpositive 4 7 8 13360.1490407 0.00556675660072 1.00012465012 1.00005655229 1.00012465012 4.03842058513 4 0.0384205851284 0.00679186407036
+10 x*y 3.06748602501 ok_truncated_nonpositive 8 15 16 13039.9942083 0.0054333580869 1.00003369523 1.00003993968 1.00003993968 -0.102061969655 0 -0.102061969655 0.0161052360039
+10 y^2 3.3956639076 ok_truncated_nonpositive 4 7 8 11779.7288213 0.00490824488345 1.00009227203 1.0001566043 1.0001566043 2.05022946215 2.04 0.0102294621466 0.00136304168877
+
+AUXILIARY MOMENTS (descriptive only)
+block variable exact_mean estimated_mean exact_second_moment estimated_second_moment
+1 post_MH_s 0 -0.0071936347776 1 1.00220129604
+2 post_MH_s 0 -0.00222743415488 1 0.995600230165
+3 post_MH_s 0 0.00141320974732 1 0.992817654862
+4 post_MH_s 0 -0.00118102330236 1 1.0057555064
+5 post_MH_s 0 -0.00296801903453 1 0.996643928093
+6 post_MH_s 0 0.00205130237225 1 0.996886355384
+7 post_MH_s 0 -0.0049859629029 1 1.00341653494
+8 post_MH_s 0 0.00197320640047 1 0.996479270119
+9 post_MH_s 0 7.40587553669e-05 1 1.00233112115
+10 post_MH_s 0 0.000714932667676 1 1.00326838288
+
+BEGIN COMPARISON_JSON
+{
+  "format": "BANANA2-heldout-comparison-report-v2",
+  "metadata": {
+    "comparison_id": "BANANA2_NUTS_PERIODIC_THC_V2_HELDOUT_20261012_v1",
+    "method": "THC_v2",
+    "protocol": {
+      "IAT": "Original multi-chain Geyer initial-positive then initial-monotone sequence; biased autocovariance denominator N, no floor or hand-set lag cutoff.",
+      "NUTS_adaptation": "Original slice-NUTS Algorithm 6. Algorithm 4 finds an initial epsilon separately for each chain; dual averaging adapts epsilon only during 1000 discarded warmup transitions, then freezes it for retention. No mass adaptation. Maximum tree depth 12.",
+      "Rhat": "Maximum of rank-normalized split and folded rank-normalized split R-hat; descriptive, no threshold.",
+      "THC_refresh": "h(s)=1+0.025*cos(s/0.5), alpha=0.025, phi=0, a=0.5, Q=4, rho(s)=N(0,1). s persists, starting at (-1,1,1,-1). Only p|s~N(0,h(s)^2*M0/beta) and p_s~N(0,Q/beta) refresh each trajectory. Rejection restores q and s.",
+      "acceptance_reporting": "The NUTS mean adaptation statistic is NOT a Metropolis acceptance probability and is reported separately from THC acceptance.",
+      "comparison_id": "BANANA2_NUTS_PERIODIC_THC_V2_HELDOUT_20261012_v1",
+      "date_frozen": "2026-10-12",
+      "exact_means": [
+        0.0,
+        0.0,
+        4.0,
+        0.0,
+        2.04
+      ],
+      "failure_rules": {
+        "NUTS": "Preserve the completed Banana tuner: nonfinite retained states, undefined required IAT, or invalid gradient cost make the full score undefined. Nonfinite attempted leaves stop their tree expansion and cannot be selected; an earlier valid candidate can still be selected, so the whole transition is not forcibly rejected. Leaf/transition counts, finite-energy divergences and depth hits are reported separately, not score gates.",
+        "THC_v2": "Preserve the completed periodic tuner: rejected nonfinite proposals are counted, but finite retained states including rejection repeats are scored. Nonfinite retained states, undefined required IAT or invalid gradient cost make the full score undefined. No dropped or replacement blocks."
+      },
+      "gradient_cost": "Actual newly executed target-gradient calls during retained transitions. For NUTS count every executed leapfrog leaf, including discarded, divergent and nonfinite leaves; exclude cached reuse, initial epsilon search and warmup. For THC complete proposals cost L=60, while an aborted proposal can cost less; exclude thermostat-only operations. This is not wall-clock cost.",
+      "input_templates": {
+        "NUTS": {
+          "allow_overwrite": false,
+          "banana_b": 0.25,
+          "beta": 1.0,
+          "delta_max": 1000.0,
+          "dual_averaging_gamma": 0.05,
+          "dual_averaging_kappa": 0.75,
+          "dual_averaging_t0": 10.0,
+          "mass_matrix": [
+            [
+              0.25,
+              0.0
+            ],
+            [
+              0.0,
+              0.49019607843137253
+            ]
+          ],
+          "maximum_tree_depth": 12,
+          "n_retained": 10000,
+          "n_warmup": 1000,
+          "n_workers": 4,
+          "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+          "output_directory": null,
+          "output_filename": "NUTS_results.txt",
+          "print_progress": false,
+          "print_report": false,
+          "reasonable_epsilon_max_search_steps": 100,
+          "run_label": "CUSTOM: FROZEN HELD-OUT",
+          "run_mode": "CUSTOM",
+          "run_self_tests": true,
+          "seed_blocks": [
+            [
+              643438670,
+              854717319,
+              2774127967,
+              2545194941
+            ],
+            [
+              917268235,
+              3723316457,
+              1505916582,
+              1224709022
+            ],
+            [
+              3963908595,
+              2265365618,
+              4091171824,
+              1691439646
+            ],
+            [
+              2169937467,
+              206082466,
+              1961744135,
+              3807319088
+            ],
+            [
+              1862858497,
+              612454368,
+              3473300478,
+              4112471906
+            ],
+            [
+              1371720443,
+              2175642134,
+              2135335316,
+              2027636776
+            ],
+            [
+              15155228,
+              3542955260,
+              2685544053,
+              3910947546
+            ],
+            [
+              2760536257,
+              3275127738,
+              675635077,
+              763831123
+            ],
+            [
+              3837446131,
+              2621232227,
+              320166949,
+              4026661953
+            ],
+            [
+              3200751904,
+              4191378215,
+              2023365418,
+              166892031
+            ]
+          ],
+          "sigma_x": 2.0,
+          "sigma_y": 0.2,
+          "standardized_starts": [
+            [
+              -2.0,
+              -2.0
+            ],
+            [
+              -2.0,
+              2.0
+            ],
+            [
+              2.0,
+              -2.0
+            ],
+            [
+              2.0,
+              2.0
+            ]
+          ],
+          "target_acceptance_values": [
+            0.96
+          ]
+        },
+        "THC_v2": {
+          "L_values": [
+            60
+          ],
+          "Q_values": [
+            4.0
+          ],
+          "a_values": [
+            0.5
+          ],
+          "allow_overwrite": false,
+          "alpha_values": [
+            0.025
+          ],
+          "automatic_boundary_expansion": false,
+          "banana_b": 0.25,
+          "beta": 1.0,
+          "boundary_Q_lower": 0.003125,
+          "boundary_Q_upper": 16.0,
+          "boundary_a_lower": 0.0625,
+          "boundary_a_upper": 8.0,
+          "boundary_alpha_lower": 0.0125,
+          "boundary_alpha_upper": 0.975,
+          "boundary_keep_fixed_configurations": 1,
+          "coupling_family": "PHASE_PERIODIC_COS_SHIFT",
+          "epsilon_values": [
+            0.05
+          ],
+          "mass_matrix": [
+            [
+              0.25,
+              0.0
+            ],
+            [
+              0.0,
+              0.49019607843137253
+            ]
+          ],
+          "n_retained": 10000,
+          "n_warmup": 1000,
+          "n_workers": 4,
+          "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+          "output_directory": null,
+          "output_filename": "THC_v2_results.txt",
+          "phi_values": [
+            0.0
+          ],
+          "print_progress": false,
+          "print_report": false,
+          "run_label": "CUSTOM: FROZEN HELD-OUT",
+          "run_mode": "CUSTOM",
+          "run_self_tests": true,
+          "seed_blocks": [
+            [
+              643438670,
+              854717319,
+              2774127967,
+              2545194941
+            ],
+            [
+              917268235,
+              3723316457,
+              1505916582,
+              1224709022
+            ],
+            [
+              3963908595,
+              2265365618,
+              4091171824,
+              1691439646
+            ],
+            [
+              2169937467,
+              206082466,
+              1961744135,
+              3807319088
+            ],
+            [
+              1862858497,
+              612454368,
+              3473300478,
+              4112471906
+            ],
+            [
+              1371720443,
+              2175642134,
+              2135335316,
+              2027636776
+            ],
+            [
+              15155228,
+              3542955260,
+              2685544053,
+              3910947546
+            ],
+            [
+              2760536257,
+              3275127738,
+              675635077,
+              763831123
+            ],
+            [
+              3837446131,
+              2621232227,
+              320166949,
+              4026661953
+            ],
+            [
+              3200751904,
+              4191378215,
+              2023365418,
+              166892031
+            ]
+          ],
+          "sigma_x": 2.0,
+          "sigma_y": 0.2,
+          "stage1_anchor_pairs": [
+            [
+              0.05,
+              60
+            ]
+          ],
+          "stage1_block_indices": [
+            1
+          ],
+          "stage1_keep_method_tuples": 1,
+          "stage1_n_retained": 4,
+          "stage1_n_warmup": 1,
+          "stage2_block_indices": [
+            2
+          ],
+          "stage2_keep_fixed_configurations": 1,
+          "stage2_n_retained": 4,
+          "stage2_n_warmup": 1,
+          "standardized_starts": [
+            [
+              -2.0,
+              -2.0
+            ],
+            [
+              -2.0,
+              2.0
+            ],
+            [
+              2.0,
+              -2.0
+            ],
+            [
+              2.0,
+              2.0
+            ]
+          ],
+          "thermostat_sigma": 1.0,
+          "thermostat_starts": [
+            -1.0,
+            1.0,
+            1.0,
+            -1.0
+          ]
+        }
+      },
+      "legacy_stage_fields": "Periodic stage/boundary fields only satisfy original validation; the held-out driver never calls a search.",
+      "methods": {
+        "NUTS": {
+          "delta_max": 1000.0,
+          "dual_averaging_gamma": 0.05,
+          "dual_averaging_kappa": 0.75,
+          "dual_averaging_t0": 10.0,
+          "maximum_tree_depth": 12,
+          "reasonable_epsilon_max_search_steps": 100,
+          "target_acceptance": 0.96
+        },
+        "THC_v2": {
+          "L": 60,
+          "Q": 4.0,
+          "a": 0.5,
+          "coupling_code": 0.025,
+          "epsilon": 0.05
+        }
+      },
+      "n_blocks": 10,
+      "n_chains": 4,
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "no_retuning": true,
+      "paired_comparison": "THC-v2/NUTS score ratio and paired efficiency wins; approximate 95% Student-t interval on the ten paired log-efficiency ratios, exponentiated, only if all required scores are defined.",
+      "physical_observables": [
+        "x",
+        "y",
+        "x^2",
+        "x*y",
+        "y^2"
+      ],
+      "physical_starts": [
+        [
+          -4.0,
+          2.6
+        ],
+        [
+          -4.0,
+          3.4
+        ],
+        [
+          4.0,
+          2.6
+        ],
+        [
+          4.0,
+          3.4
+        ]
+      ],
+      "provenance": {
+        "NUTS": {
+          "engine_sha256": "316c9f3faa4b0c60c6675dd240561eae52af5c252a6f6b64648477b6cc9e3b8b",
+          "source_path": "grex_banana_nuts_expanded_20260925\\NUTS\\code\\banana_nuts_tuner_EXPANDED_20260925.py",
+          "source_sha256": "c8672091b1d709d2fc4008e6f1ac0f8d35b78ce416965c8a53174cd24a3a37dd",
+          "tested_configurations": 35,
+          "tuning_report": "results\\GREX_tuning_2026-10-07\\Banana\\NUTS\\results\\NUTS_Banana_expanded_tuning_20260925.txt",
+          "tuning_report_sha256": "dd427c918246b0d6bd7d3f657e7b4a09b10155e80da9b6c5209ed2ccb3d6e7f0",
+          "tuning_score": 0.0025955660717584535
+        },
+        "THC_v2": {
+          "engine_sha256": "19a50c6511623e9f26239e208871df09337ba79896cc85433a4a9284214b0814",
+          "source_path": "grex_banana_periodic_sqhmc_expanded_20260925\\code\\banana_periodic_EXPANDED_20260925.py",
+          "source_sha256": "fcaf9b268fdad16818595c3460de4d09c407d37a87e17a183489a996bd752ed9",
+          "tested_configurations": 41533,
+          "tuning_report": "results\\GREX_tuning_2026-10-07\\Banana\\Periodic_THC_v2\\results\\FINAL_TUNING_REPORT.txt",
+          "tuning_report_sha256": "225e1b65614bc9b4a952842532a58019bca89c936d339a28bca48ba049e6a9e0",
+          "tuning_score": 0.0055055523899574625
+        }
+      },
+      "random_stream_pairing": "Same seed identifiers, physical starts and lengths in corresponding blocks. Original RNGs are preserved: NUTS uses Numba thread-local legacy NumPy RNG; THC uses SeedSequence child streams. Individual random draws are NOT claimed to match. Pairing hashes seal seeds, starts and lengths only.",
+      "score": "E_b=1/(actual retained gradients per draw * worst physical-observable IAT); S is the geometric mean of ALL ten block efficiencies. Never omit or replace an undefined block.",
+      "secondary_outcomes": "Maximum and descriptive geometric mean of worst IAT; maximum R-hat; exact/estimated moments; numerical-event counts. No final-data reselection.",
+      "seed_audit": {
+        "derivation": "First four SHA256 bytes (big endian) of DOMAIN|PHASE|block=BB|chain=CC|counter=K; counters change only for recorded collisions, never scores.",
+        "domain": "paper-on-thc|BANANA2|NUTS-periodic-THC-v2|held-out|20261012|v1",
+        "overlaps_after_audit": 0,
+        "path_size_inventory_sha256": "d42e8b78075df2cef9c901146869e69446820245672dd03c6b13a5e433014db9",
+        "rejected_candidate_values": [],
+        "scope": "Recorded integer occurrences in local project sources/reports, including downloaded tuning and previous held-out files; unknown remote-only seeds cannot be audited.",
+        "text_bytes_scanned": 3054436641,
+        "text_files_scanned": 2683
+      },
+      "seed_blocks": [
+        [
+          643438670,
+          854717319,
+          2774127967,
+          2545194941
+        ],
+        [
+          917268235,
+          3723316457,
+          1505916582,
+          1224709022
+        ],
+        [
+          3963908595,
+          2265365618,
+          4091171824,
+          1691439646
+        ],
+        [
+          2169937467,
+          206082466,
+          1961744135,
+          3807319088
+        ],
+        [
+          1862858497,
+          612454368,
+          3473300478,
+          4112471906
+        ],
+        [
+          1371720443,
+          2175642134,
+          2135335316,
+          2027636776
+        ],
+        [
+          15155228,
+          3542955260,
+          2685544053,
+          3910947546
+        ],
+        [
+          2760536257,
+          3275127738,
+          675635077,
+          763831123
+        ],
+        [
+          3837446131,
+          2621232227,
+          320166949,
+          4026661953
+        ],
+        [
+          3200751904,
+          4191378215,
+          2023365418,
+          166892031
+        ]
+      ],
+      "selection": "Best-tested geometric-mean gradient-normalized-efficiency setting per method, selected only from completed expanded tuning. No IAT reselection or further tuning.",
+      "target": "2D centered Banana",
+      "target_definition": "U=x^2/(2*sigma_x^2)+(y-b*(x^2-sigma_x^2))^2/(2*sigma_y^2); beta=1, sigma_x=2, sigma_y=0.2, b=0.25; base mass diag(0.25,1/2.04)."
+    },
+    "protocol_sha256": "d6568ad5e6293355fd4fc50a9c9ceb523961398a076baab74888bc9171279f12",
+    "script_sha256": "97d5bfbaee0405ea16422413f673ddb85e8030a5e8ae0741bb4d1a39b84bd95e",
+    "runtime": {
+      "python": "3.12.4",
+      "numpy": "2.2.2",
+      "numba": "0.65.1",
+      "llvmlite": "0.47.0"
+    },
+    "platform": "Linux-4.18.0-553.158.1.el8_10.x86_64-x86_64-AMD_EPYC_9654_96-Core_Processor-with-glibc2.37",
+    "started_utc": "2026-10-12T18:49:10.484972+00:00",
+    "testing": false,
+    "workers": 4
+  },
+  "completed_utc": "2026-10-12T18:49:24.826004+00:00",
+  "summary": {
+    "status": "ok",
+    "geometric_mean_efficiency": 0.004979825164727374,
+    "minimum_block_efficiency": 0.00259711572990455,
+    "median_block_efficiency": 0.0054795135872853,
+    "maximum_block_efficiency": 0.005838505213178681,
+    "mean_acceptance": 0.9746175000000001,
+    "maximum_rhat": 1.000613249472037,
+    "maximum_standardized_moment_error": 0.01704281799964404,
+    "total_nonfinite_trajectories": 10,
+    "maximum_blockwise_worst_IAT": 6.417386122836845,
+    "geometric_mean_worst_IAT": 3.346854168645277,
+    "blocks_completed": 10,
+    "blocks_score_defined": 10,
+    "retained_draws_per_method": 400000,
+    "total_retained_gradient_calls": 23999882,
+    "mean_gradient_calls_per_draw": 59.99970499999999,
+    "warmup_nonfinite_trajectories": 2,
+    "retained_nonfinite_trajectories": 8
+  },
+  "blocks": [
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 0,
+      "seeds": [
+        643438670,
+        854717319,
+        2774127967,
+        2545194941
+      ],
+      "status": "ok",
+      "acceptance": 0.974025,
+      "retained_gradient_calls": 2399967,
+      "gradients_per_retained_draw": 59.999175,
+      "warmup_nonfinite_trajectories": 2,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "y^2",
+      "worst_iat": 2.9509618050737103,
+      "block_efficiency": 0.005647953764710996,
+      "maximum_rhat_observable": "y",
+      "maximum_rhat": 1.0001585517442078,
+      "maximum_moment_error_observable": "y^2",
+      "maximum_standardized_moment_error": 0.014337159865581482,
+      "pairing_sha256": "c4df8d03612f17ec44d1f41b07d5e395ed994dc9e49499bab98eac7d20ccc145"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 1,
+      "seeds": [
+        917268235,
+        3723316457,
+        1505916582,
+        1224709022
+      ],
+      "status": "ok",
+      "acceptance": 0.975,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "x^2",
+      "worst_iat": 2.8546119354396815,
+      "block_efficiency": 0.005838505213178681,
+      "maximum_rhat_observable": "y",
+      "maximum_rhat": 1.0003604050057668,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.013249643815599893,
+      "pairing_sha256": "c708d523e9d4681a6de0322d477f8a95e01a97c290b4a84b229a3749138ee045"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 2,
+      "seeds": [
+        3963908595,
+        2265365618,
+        4091171824,
+        1691439646
+      ],
+      "status": "ok",
+      "acceptance": 0.974575,
+      "retained_gradient_calls": 2399988,
+      "gradients_per_retained_draw": 59.9997,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 2,
+      "worst_observable": "y^2",
+      "worst_iat": 3.373455853522106,
+      "block_efficiency": 0.004940556724053615,
+      "maximum_rhat_observable": "x",
+      "maximum_rhat": 1.000613249472037,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.009573350017262077,
+      "pairing_sha256": "62ae6242715c744400062fdaa9543cd0c20b4addc879c6efc616c8da9eadfaaf"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 3,
+      "seeds": [
+        2169937467,
+        206082466,
+        1961744135,
+        3807319088
+      ],
+      "status": "ok",
+      "acceptance": 0.97565,
+      "retained_gradient_calls": 2399991,
+      "gradients_per_retained_draw": 59.999775,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "x^2",
+      "worst_iat": 2.8623535209757938,
+      "block_efficiency": 0.005822736096280397,
+      "maximum_rhat_observable": "y^2",
+      "maximum_rhat": 1.0001384358477228,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.010927048895322181,
+      "pairing_sha256": "490c37835b0f53705ba5a34cca67a5a1fd714190aa941c009882ce342c16562e"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 4,
+      "seeds": [
+        1862858497,
+        612454368,
+        3473300478,
+        4112471906
+      ],
+      "status": "ok",
+      "acceptance": 0.976425,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "x^2",
+      "worst_iat": 2.8966731822093426,
+      "block_efficiency": 0.005753726988957281,
+      "maximum_rhat_observable": "x",
+      "maximum_rhat": 1.00005625540355,
+      "maximum_moment_error_observable": "y^2",
+      "maximum_standardized_moment_error": 0.01704281799964404,
+      "pairing_sha256": "b4968dc50d25303f280a66653adbce0190550cb5b155eb691124d690d4dd689b"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 5,
+      "seeds": [
+        1371720443,
+        2175642134,
+        2135335316,
+        2027636776
+      ],
+      "status": "ok",
+      "acceptance": 0.974925,
+      "retained_gradient_calls": 2399976,
+      "gradients_per_retained_draw": 59.9994,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "y^2",
+      "worst_iat": 3.138128971077542,
+      "block_efficiency": 0.005311073409859606,
+      "maximum_rhat_observable": "y",
+      "maximum_rhat": 1.0001832468013838,
+      "maximum_moment_error_observable": "y^2",
+      "maximum_standardized_moment_error": 0.01460656043540722,
+      "pairing_sha256": "d3426f3949819e433a74331ef11a14a65e3c9a8046623c72a0fe59c1bde2605d"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 6,
+      "seeds": [
+        15155228,
+        3542955260,
+        2685544053,
+        3910947546
+      ],
+      "status": "ok",
+      "acceptance": 0.973125,
+      "retained_gradient_calls": 2399996,
+      "gradients_per_retained_draw": 59.9999,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "y^2",
+      "worst_iat": 6.417386122836845,
+      "block_efficiency": 0.00259711572990455,
+      "maximum_rhat_observable": "y^2",
+      "maximum_rhat": 1.0002882942000368,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.013950723376749373,
+      "pairing_sha256": "0f0574bbaad73231d63711901cfe013d1110dd3a7bb9ed8f5f32ddc804e24917"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 7,
+      "seeds": [
+        2760536257,
+        3275127738,
+        675635077,
+        763831123
+      ],
+      "status": "ok",
+      "acceptance": 0.974975,
+      "retained_gradient_calls": 2400000,
+      "gradients_per_retained_draw": 60.0,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 0,
+      "worst_observable": "x^2",
+      "worst_iat": 2.8784356392533748,
+      "block_efficiency": 0.005790182152896691,
+      "maximum_rhat_observable": "x*y",
+      "maximum_rhat": 1.0003802277407328,
+      "maximum_moment_error_observable": "y",
+      "maximum_standardized_moment_error": 0.00529804470870987,
+      "pairing_sha256": "6a1c493d21bca7bef025106273704f15d07ce8d268b303ee192ab1e0d18e11bb"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 8,
+      "seeds": [
+        3837446131,
+        2621232227,
+        320166949,
+        4026661953
+      ],
+      "status": "ok",
+      "acceptance": 0.9731,
+      "retained_gradient_calls": 2399976,
+      "gradients_per_retained_draw": 59.9994,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "y^2",
+      "worst_iat": 3.802325100659365,
+      "block_efficiency": 0.004383326752388901,
+      "maximum_rhat_observable": "x*y",
+      "maximum_rhat": 1.0000563419523332,
+      "maximum_moment_error_observable": "x^2",
+      "maximum_standardized_moment_error": 0.005541915511262822,
+      "pairing_sha256": "de6d4fcf3ae71ea64fc82bacb372d779079cc00da1c6522d31576f903852a38f"
+    },
+    {
+      "epsilon": 0.05,
+      "L": 60,
+      "block_index": 9,
+      "seeds": [
+        3200751904,
+        4191378215,
+        2023365418,
+        166892031
+      ],
+      "status": "ok",
+      "acceptance": 0.974375,
+      "retained_gradient_calls": 2399988,
+      "gradients_per_retained_draw": 59.9997,
+      "warmup_nonfinite_trajectories": 0,
+      "retained_nonfinite_trajectories": 1,
+      "worst_observable": "y^2",
+      "worst_iat": 3.3956639076023096,
+      "block_efficiency": 0.004908244883453475,
+      "maximum_rhat_observable": "y",
+      "maximum_rhat": 1.0001949688940992,
+      "maximum_moment_error_observable": "x*y",
+      "maximum_standardized_moment_error": 0.016105236003916043,
+      "pairing_sha256": "258a3587a4ebf206d49e53f495ce7c35fa9556ad07456d6c2f1506747f01f19c"
+    }
+  ]
+}
+END COMPARISON_JSON
+
+Compare ONLY against the partner with this protocol SHA256 and matching block seeds/pairing hashes.
+This report does not declare a winner. Keep both full reports, including undefined scores.

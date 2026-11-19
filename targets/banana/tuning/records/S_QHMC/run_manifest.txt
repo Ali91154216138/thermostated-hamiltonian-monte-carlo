@@ -1,0 +1,173 @@
+{
+  "format": "expanded-banana-periodic-sqhmc-finite-state-score-v1",
+  "inputs": {
+    "L_values": [
+      5,
+      10,
+      15,
+      20,
+      30,
+      40,
+      60,
+      80,
+      120,
+      160,
+      240
+    ],
+    "allow_overwrite": false,
+    "banana_b": 0.25,
+    "beta": 1.0,
+    "epsilon_values": [
+      0.0025,
+      0.005,
+      0.0075,
+      0.01,
+      0.015,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.08,
+      0.1,
+      0.12
+    ],
+    "mass_matrix": [
+      [
+        0.25,
+        0.0
+      ],
+      [
+        0.0,
+        0.49019607843137253
+      ]
+    ],
+    "mu_m_values": [
+      -2.0,
+      -1.5,
+      -1.0,
+      -0.5,
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "n_retained": 10000,
+    "n_warmup": 1000,
+    "n_workers": 4,
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/Banana/2026-09-25_periodic_vs_SQHMC_expanded_01/S_QHMC/results",
+    "output_filename": "S_QHMC_Banana_expanded_tuning_20260925.txt",
+    "print_progress": true,
+    "print_report": true,
+    "run_label": "CUSTOM: BANANA_PERIODIC_SQHMC_FULL_GRID_20260925",
+    "run_mode": "CUSTOM",
+    "run_self_tests": true,
+    "seed_blocks": [
+      [
+        123,
+        456,
+        789,
+        101112
+      ],
+      [
+        3545294353,
+        3961674632,
+        3627514536,
+        3198582250
+      ],
+      [
+        788645248,
+        3651519711,
+        1811141324,
+        1814869264
+      ],
+      [
+        3192285063,
+        2251015777,
+        396444798,
+        765150135
+      ],
+      [
+        1562880678,
+        1785952873,
+        2908883741,
+        2216662531
+      ],
+      [
+        2794023307,
+        1697034986,
+        399305664,
+        3387627557
+      ],
+      [
+        3550273020,
+        4288237438,
+        1339029542,
+        2052132074
+      ],
+      [
+        773064979,
+        3889587502,
+        1349474393,
+        473085282
+      ],
+      [
+        2530799177,
+        1230540310,
+        2963309407,
+        638566109
+      ],
+      [
+        1731223290,
+        2380208349,
+        2086161373,
+        1181226484
+      ]
+    ],
+    "sigma_m_values": [
+      0.001,
+      0.0025,
+      0.005,
+      0.01,
+      0.02,
+      0.03,
+      0.05,
+      0.1,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      3.0
+    ],
+    "sigma_x": 2.0,
+    "sigma_y": 0.2,
+    "standardized_starts": [
+      [
+        -2.0,
+        -2.0
+      ],
+      [
+        -2.0,
+        2.0
+      ],
+      [
+        2.0,
+        -2.0
+      ],
+      [
+        2.0,
+        2.0
+      ]
+    ]
+  },
+  "launcher_sha256": "538ab049ed6ef914840aed1106ec25b3cf8c6da4b28a0bf57643b59fb20b2941",
+  "llvmlite": "0.47.0+computecanada",
+  "method": "sqhmc",
+  "numba": "0.65.1+computecanada",
+  "numpy": "2.2.2",
+  "protocol_sha256": "d26504146a5b6dd78a3b37dec0af310481e103f1bfeff6662ef69039d4a41fa3",
+  "python": "3.12.4",
+  "source_sha256": "faf3832419a10ec16ccea5afd0258222dfa617fce45401ffede1115e7110b2af"
+}

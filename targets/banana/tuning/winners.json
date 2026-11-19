@@ -1,0 +1,129 @@
+{
+  "HMC": {
+    "settings": {
+      "L": 80,
+      "epsilon": 0.04
+    },
+    "score": 0.004123623804605706,
+    "defined": 98,
+    "tested": 143,
+    "report": "Banana/HMC/results/HMC_Banana_expanded_tuning_20260925.txt",
+    "report_sha256": "e48dc23d11c066ec68ec7b97797d71bbe1cfce146644ab7217b9b07349f34c7b",
+    "script": "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_hmc_EXPANDED_20260925.py",
+    "script_sha256": "e72350e0c0ff79621ca8ced7768d9ff1829558d4bd2a04a5f3c0e4c8d6be32fd",
+    "manifest": "targets/banana/tuning/records/HMC/run_manifest.txt",
+    "local_report_or_excerpt": "targets/banana/tuning/records/HMC/HMC_Banana_expanded_tuning_20260925.txt",
+    "local_report_complete": true
+  },
+  "THC_bounded": {
+    "settings": {
+      "lambda_value": 0.5596157879354227,
+      "a": 4.0,
+      "Q": 0.5,
+      "epsilon": 0.05,
+      "L": 60
+    },
+    "score": 0.004989031260354801,
+    "global_index": 62585,
+    "defined": 49518,
+    "tested": 81081,
+    "report": "Banana/Bounded_scale_THC/results/FINAL_TUNING_REPORT.txt",
+    "report_sha256": "83809b680ce61fbfc1a069aacb5f53b1902bed6fb838260706f507c56e58c4e1",
+    "script": "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_bounded_EXPANDED_20260925.py",
+    "script_sha256": "1f870e92b4b73938aadf3a0f27436802d5d2a1bf56c59f36fd41c96b489a1b43",
+    "manifest": "targets/banana/tuning/records/THC_bounded/FROZEN.txt",
+    "search_key": "banana_bounded",
+    "original_grid": 81081,
+    "part": "part_000",
+    "local_report_or_excerpt": "targets/banana/tuning/records/THC_bounded/FINAL_TUNING_REPORT.txt",
+    "local_report_complete": true
+  },
+  "THC_v4": {
+    "settings": {
+      "kappa": 0.5,
+      "tau": 0.5,
+      "Q": 0.1,
+      "a": 8.0,
+      "epsilon": 0.1,
+      "L": 20
+    },
+    "score": 0.041179178669632575,
+    "global_index": 120673,
+    "defined": 31259,
+    "tested": 45278,
+    "report": "Banana/Conditional_shear_THC_v4/results/FINAL_TUNING_REPORT.txt",
+    "report_sha256": "691e2fef7b747d3f90dadacf3a89aef0f0c0610b74d1a0a106c35a9d423381b0",
+    "script": "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_v4_EXPANDED_20260925.py",
+    "script_sha256": "cd4aeca59e2bfaa460907b75d290bcafd1c38a3cba6b8694a7347811a930e22c",
+    "manifest": "targets/banana/tuning/records/THC_v4/FROZEN.txt",
+    "search_key": "banana_v4",
+    "original_grid": 240240,
+    "part": "part_000",
+    "local_report_or_excerpt": "targets/banana/tuning/records/THC_v4/FINAL_TUNING_REPORT.txt",
+    "local_report_complete": true
+  },
+  "THC_v2": {
+    "settings": {
+      "coupling_code": 0.025,
+      "a": 0.5,
+      "Q": 4.0,
+      "epsilon": 0.05,
+      "L": 60,
+      "alpha": 0.025,
+      "phi": 0.0
+    },
+    "score": 0.0055055523899574625,
+    "global_index": 6100,
+    "defined": 39824,
+    "tested": 41533,
+    "report": "Banana/Periodic_THC_v2/results/FINAL_TUNING_REPORT.txt",
+    "report_sha256": "225e1b65614bc9b4a952842532a58019bca89c936d339a28bca48ba049e6a9e0",
+    "script": "tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_periodic_EXPANDED_20260925.py",
+    "script_sha256": "fcaf9b268fdad16818595c3460de4d09c407d37a87e17a183489a996bd752ed9",
+    "manifest": "targets/banana/tuning/records/THC_v2/FROZEN.txt",
+    "search_key": "banana_periodic",
+    "original_grid": 314600,
+    "part": "part_000",
+    "local_report_or_excerpt": "targets/banana/tuning/records/THC_v2/FINAL_TUNING_REPORT.txt",
+    "local_report_complete": true
+  },
+  "S_QHMC": {
+    "settings": {
+      "L": 30,
+      "epsilon": 0.12,
+      "mu_m": 0.5,
+      "sigma_m": 0.0025
+    },
+    "score": 0.00532775349272218,
+    "defined": 14409,
+    "tested": 16731,
+    "report": "Banana/S_QHMC/results/S_QHMC_Banana_expanded_tuning_20260925.txt",
+    "report_sha256": "383cb9416cd1c8149788dc4c949d56ebeb8c2722e45564d30ceaacc6a4f8afbb",
+    "script": "tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_sqhmc_EXPANDED_20260925.py",
+    "script_sha256": "faf3832419a10ec16ccea5afd0258222dfa617fce45401ffede1115e7110b2af",
+    "manifest": "targets/banana/tuning/records/S_QHMC/run_manifest.txt",
+    "local_report_or_excerpt": "targets/banana/tuning/records/S_QHMC/selected-representative.txt",
+    "local_report_complete": false
+  },
+  "NUTS": {
+    "settings": {
+      "target_acceptance": 0.96,
+      "maximum_tree_depth": 12,
+      "delta_max": 1000.0,
+      "dual_averaging_gamma": 0.05,
+      "dual_averaging_t0": 10.0,
+      "dual_averaging_kappa": 0.75,
+      "reasonable_epsilon_max_search_steps": 100
+    },
+    "score": 0.0025955660717584535,
+    "defined": 35,
+    "tested": 35,
+    "report": "Banana/NUTS/results/NUTS_Banana_expanded_tuning_20260925.txt",
+    "report_sha256": "dd427c918246b0d6bd7d3f657e7b4a09b10155e80da9b6c5209ed2ccb3d6e7f0",
+    "script": "tuning-code/grex_banana_nuts_expanded_20260925/NUTS/code/banana_nuts_tuner_EXPANDED_20260925.py",
+    "script_sha256": "c8672091b1d709d2fc4008e6f1ac0f8d35b78ce416965c8a53174cd24a3a37dd",
+    "manifest": "targets/banana/tuning/records/NUTS/run_manifest.txt",
+    "local_report_or_excerpt": "targets/banana/tuning/records/NUTS/NUTS_Banana_expanded_tuning_20260925.txt",
+    "local_report_complete": true
+  }
+}

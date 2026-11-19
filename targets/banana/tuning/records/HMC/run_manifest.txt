@@ -1,0 +1,147 @@
+{
+  "format": "expanded-banana-full-grid-blocks-v1",
+  "inputs": {
+    "L_values": [
+      5,
+      10,
+      15,
+      20,
+      30,
+      40,
+      60,
+      80,
+      120,
+      160,
+      240
+    ],
+    "allow_overwrite": false,
+    "banana_b": 0.25,
+    "beta": 1.0,
+    "epsilon_values": [
+      0.0025,
+      0.005,
+      0.0075,
+      0.01,
+      0.015,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.08,
+      0.1,
+      0.12
+    ],
+    "mass_matrix": [
+      [
+        0.25,
+        0.0
+      ],
+      [
+        0.0,
+        0.49019607843137253
+      ]
+    ],
+    "n_retained": 10000,
+    "n_warmup": 1000,
+    "n_workers": 4,
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/Banana/2026-09-25_hmc_bounded_v4_expanded_01/HMC/results",
+    "output_filename": "HMC_Banana_expanded_tuning_20260925.txt",
+    "print_progress": true,
+    "print_report": true,
+    "run_label": "CUSTOM: EXPANDED_FULL_GRID_20260925_10_BLOCKS",
+    "run_mode": "CUSTOM",
+    "run_self_tests": true,
+    "seed_blocks": [
+      [
+        123,
+        456,
+        789,
+        101112
+      ],
+      [
+        3545294353,
+        3961674632,
+        3627514536,
+        3198582250
+      ],
+      [
+        788645248,
+        3651519711,
+        1811141324,
+        1814869264
+      ],
+      [
+        3192285063,
+        2251015777,
+        396444798,
+        765150135
+      ],
+      [
+        1562880678,
+        1785952873,
+        2908883741,
+        2216662531
+      ],
+      [
+        2794023307,
+        1697034986,
+        399305664,
+        3387627557
+      ],
+      [
+        3550273020,
+        4288237438,
+        1339029542,
+        2052132074
+      ],
+      [
+        773064979,
+        3889587502,
+        1349474393,
+        473085282
+      ],
+      [
+        2530799177,
+        1230540310,
+        2963309407,
+        638566109
+      ],
+      [
+        1731223290,
+        2380208349,
+        2086161373,
+        1181226484
+      ]
+    ],
+    "sigma_x": 2.0,
+    "sigma_y": 0.2,
+    "standardized_starts": [
+      [
+        -2.0,
+        -2.0
+      ],
+      [
+        -2.0,
+        2.0
+      ],
+      [
+        2.0,
+        -2.0
+      ],
+      [
+        2.0,
+        2.0
+      ]
+    ]
+  },
+  "launcher_sha256": "c392c635e8a303973a8047e75db96e9cd80711239719c3f558bc0c4b6677eca4",
+  "llvmlite": "0.47.0+computecanada",
+  "method": "hmc",
+  "numba": "0.65.1+computecanada",
+  "numpy": "2.2.2",
+  "protocol_sha256": "cbfa02ac82e2fcbee1b3ac5c905b9551dfd7680bbb16d705e0267d5197a34421",
+  "python": "3.12.4",
+  "source_sha256": "e72350e0c0ff79621ca8ced7768d9ff1829558d4bd2a04a5f3c0e4c8d6be32fd"
+}

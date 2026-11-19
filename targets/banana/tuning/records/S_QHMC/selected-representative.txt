@@ -1,0 +1,299 @@
+SELECTED FIXED REPRESENTATIVE
+{
+  "blocks": [
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 22,
+        "last_included_lag": 21,
+        "pair_count": 11,
+        "status": "ok_truncated_nonpositive",
+        "tau": 5.048365161882229
+      },
+      "acceptance": 0.944075,
+      "block": 1,
+      "efficiency": 0.0066031772744794826,
+      "gradients_per_draw": 29.998275,
+      "maximum_Rhat": 1.0002969938859438,
+      "maximum_moment_error": 0.043642117292124194,
+      "nonfinite_retained": 11,
+      "nonfinite_warmup": 1,
+      "retained_gradient_calls": 1199931,
+      "seeds": [
+        123,
+        456,
+        789,
+        101112
+      ],
+      "status": "ok",
+      "worst_IAT": 5.048365161882229,
+      "worst_observable": "y^2"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 36,
+        "last_included_lag": 35,
+        "pair_count": 18,
+        "status": "ok_truncated_nonpositive",
+        "tau": 10.574389098131062
+      },
+      "acceptance": 0.945825,
+      "block": 2,
+      "efficiency": 0.0031528746613727816,
+      "gradients_per_draw": 29.99425,
+      "maximum_Rhat": 1.0003264570675734,
+      "maximum_moment_error": 0.03209788881700738,
+      "nonfinite_retained": 27,
+      "nonfinite_warmup": 2,
+      "retained_gradient_calls": 1199770,
+      "seeds": [
+        3545294353,
+        3961674632,
+        3627514536,
+        3198582250
+      ],
+      "status": "ok",
+      "worst_IAT": 10.574389098131062,
+      "worst_observable": "y^2"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 14,
+        "last_included_lag": 13,
+        "pair_count": 7,
+        "status": "ok_truncated_nonpositive",
+        "tau": 5.3109882064555105
+      },
+      "acceptance": 0.946975,
+      "block": 3,
+      "efficiency": 0.006276698622481802,
+      "gradients_per_draw": 29.998075,
+      "maximum_Rhat": 1.000467087110932,
+      "maximum_moment_error": 0.04388075471639116,
+      "nonfinite_retained": 17,
+      "nonfinite_warmup": 2,
+      "retained_gradient_calls": 1199923,
+      "seeds": [
+        788645248,
+        3651519711,
+        1811141324,
+        1814869264
+      ],
+      "status": "ok",
+      "worst_IAT": 5.3109882064555105,
+      "worst_observable": "y^2"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 18,
+        "last_included_lag": 17,
+        "pair_count": 9,
+        "status": "ok_truncated_nonpositive",
+        "tau": 4.73302027958206
+      },
+      "acceptance": 0.94805,
+      "block": 4,
+      "efficiency": 0.007043053858375217,
+      "gradients_per_draw": 29.998575,
+      "maximum_Rhat": 1.0002960148409377,
+      "maximum_moment_error": 0.0510547355025129,
+      "nonfinite_retained": 11,
+      "nonfinite_warmup": 3,
+      "retained_gradient_calls": 1199943,
+      "seeds": [
+        3192285063,
+        2251015777,
+        396444798,
+        765150135
+      ],
+      "status": "ok",
+      "worst_IAT": 4.73302027958206,
+      "worst_observable": "x*y"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 22,
+        "last_included_lag": 21,
+        "pair_count": 11,
+        "status": "ok_truncated_nonpositive",
+        "tau": 5.821812588044185
+      },
+      "acceptance": 0.944475,
+      "block": 5,
+      "efficiency": 0.005725980179038629,
+      "gradients_per_draw": 29.997975,
+      "maximum_Rhat": 1.0002077495460275,
+      "maximum_moment_error": 0.03090140833205541,
+      "nonfinite_retained": 14,
+      "nonfinite_warmup": 0,
+      "retained_gradient_calls": 1199919,
+      "seeds": [
+        1562880678,
+        1785952873,
+        2908883741,
+        2216662531
+      ],
+      "status": "ok",
+      "worst_IAT": 5.821812588044185,
+      "worst_observable": "y^2"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 34,
+        "last_included_lag": 33,
+        "pair_count": 17,
+        "status": "ok_truncated_nonpositive",
+        "tau": 7.972983285404419
+      },
+      "acceptance": 0.946025,
+      "block": 6,
+      "efficiency": 0.004181524288882957,
+      "gradients_per_draw": 29.9947,
+      "maximum_Rhat": 1.0003723058288254,
+      "maximum_moment_error": 0.02548245064681885,
+      "nonfinite_retained": 28,
+      "nonfinite_warmup": 3,
+      "retained_gradient_calls": 1199788,
+      "seeds": [
+        2794023307,
+        1697034986,
+        399305664,
+        3387627557
+      ],
+      "status": "ok",
+      "worst_IAT": 7.972983285404419,
+      "worst_observable": "y^2"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 28,
+        "last_included_lag": 27,
+        "pair_count": 14,
+        "status": "ok_truncated_nonpositive",
+        "tau": 7.376602905100295
+      },
+      "acceptance": 0.94205,
+      "block": 7,
+      "efficiency": 0.004519115753186249,
+      "gradients_per_draw": 29.99785,
+      "maximum_Rhat": 1.0004093902339535,
+      "maximum_moment_error": 0.029860227110726726,
+      "nonfinite_retained": 16,
+      "nonfinite_warmup": 1,
+      "retained_gradient_calls": 1199914,
+      "seeds": [
+        3550273020,
+        4288237438,
+        1339029542,
+        2052132074
+      ],
+      "status": "ok",
+      "worst_IAT": 7.376602905100295,
+      "worst_observable": "y^2"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 24,
+        "last_included_lag": 23,
+        "pair_count": 12,
+        "status": "ok_truncated_nonpositive",
+        "tau": 6.3658336420790675
+      },
+      "acceptance": 0.9481,
+      "block": 8,
+      "efficiency": 0.005236745433445401,
+      "gradients_per_draw": 29.997375,
+      "maximum_Rhat": 1.0003742495134023,
+      "maximum_moment_error": 0.05331622808820558,
+      "nonfinite_retained": 14,
+      "nonfinite_warmup": 3,
+      "retained_gradient_calls": 1199895,
+      "seeds": [
+        773064979,
+        3889587502,
+        1349474393,
+        473085282
+      ],
+      "status": "ok",
+      "worst_IAT": 6.3658336420790675,
+      "worst_observable": "y^2"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 20,
+        "last_included_lag": 19,
+        "pair_count": 10,
+        "status": "ok_truncated_nonpositive",
+        "tau": 5.120997039804096
+      },
+      "acceptance": 0.9467,
+      "block": 9,
+      "efficiency": 0.0065096319095316055,
+      "gradients_per_draw": 29.997775,
+      "maximum_Rhat": 1.0002885853814285,
+      "maximum_moment_error": 0.04228237832714607,
+      "nonfinite_retained": 13,
+      "nonfinite_warmup": 9,
+      "retained_gradient_calls": 1199911,
+      "seeds": [
+        2530799177,
+        1230540310,
+        2963309407,
+        638566109
+      ],
+      "status": "ok",
+      "worst_IAT": 5.120997039804096,
+      "worst_observable": "x*y"
+    },
+    {
+      "Geyer_worst": {
+        "cutoff_reason": "first_nonpositive_pair",
+        "first_excluded_lag": 20,
+        "last_included_lag": 19,
+        "pair_count": 10,
+        "status": "ok_truncated_nonpositive",
+        "tau": 6.141558471797253
+      },
+      "acceptance": 0.94385,
+      "block": 10,
+      "efficiency": 0.005427920166829331,
+      "gradients_per_draw": 29.9977,
+      "maximum_Rhat": 1.0002423046975333,
+      "maximum_moment_error": 0.035333223867450046,
+      "nonfinite_retained": 22,
+      "nonfinite_warmup": 2,
+      "retained_gradient_calls": 1199908,
+      "seeds": [
+        1731223290,
+        2380208349,
+        2086161373,
+        1181226484
+      ],
+      "status": "ok",
+      "worst_IAT": 6.141558471797253,
+      "worst_observable": "x*y"
+    }
+  ],
+  "geometric_mean_efficiency": 0.00532775349272218,
+  "maximum_block_efficiency": 0.007043053858375217,
+  "maximum_rhat": 1.000467087110932,
+  "maximum_standardized_moment_error": 0.05331622808820558,
+  "mean_acceptance": 0.9456125,
+  "minimum_block_efficiency": 0.0031528746613727816,
+  "settings": {
+    "L": 30,
+    "epsilon": 0.12,
+    "mu_m": 0.5,
+    "sigma_m": 0.0025
+  },
+  "status": "ok",
+  "total_nonfinite_trajectories": 199
+}

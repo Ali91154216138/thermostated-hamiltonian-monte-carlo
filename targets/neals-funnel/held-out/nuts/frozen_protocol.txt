@@ -1,0 +1,1012 @@
+FROZEN 6D FUNNEL NUTS/SCALAR/PERIODIC/CONDITIONAL HELD-OUT PROTOCOL
+Final seeds reserved; no simulation at creation.
+Protocol SHA256: f9033a8167e2d0bf2e303cb0f006fc4c9453b4483e7d4cb73aa704c60a369736
+
+{
+  "target": "6D Neal's funnel; q=(y,x1,x2,x3,x4,x5)",
+  "physical_starts": [
+    [
+      -5.0,
+      0.0820849986238988,
+      0.0820849986238988,
+      0.0820849986238988,
+      0.0820849986238988,
+      0.0820849986238988
+    ],
+    [
+      -2.0,
+      0.36787944117144233,
+      -0.36787944117144233,
+      0.36787944117144233,
+      -0.36787944117144233,
+      0.36787944117144233
+    ],
+    [
+      2.0,
+      -2.718281828459045,
+      2.718281828459045,
+      -2.718281828459045,
+      2.718281828459045,
+      -2.718281828459045
+    ],
+    [
+      5.0,
+      -12.182493960703473,
+      -12.182493960703473,
+      -12.182493960703473,
+      -12.182493960703473,
+      -12.182493960703473
+    ]
+  ],
+  "physical_observables": [
+    "y",
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5",
+    "y^2",
+    "y*x1",
+    "y*x2",
+    "y*x3",
+    "y*x4",
+    "y*x5",
+    "x1^2",
+    "x1*x2",
+    "x1*x3",
+    "x1*x4",
+    "x1*x5",
+    "x2^2",
+    "x2*x3",
+    "x2*x4",
+    "x2*x5",
+    "x3^2",
+    "x3*x4",
+    "x3*x5",
+    "x4^2",
+    "x4*x5",
+    "x5^2"
+  ],
+  "exact_means": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    9.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    90.01713130052181,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    90.01713130052181,
+    0.0,
+    0.0,
+    0.0,
+    90.01713130052181,
+    0.0,
+    0.0,
+    90.01713130052181,
+    0.0,
+    90.01713130052181
+  ],
+  "IAT": "Original multi-chain Geyer initial-positive then initial-monotone sequence; biased autocovariance denominator N, no floor or hand-set lag cutoff.",
+  "Rhat": "Maximum of rank-normalized split and folded rank-normalized split R-hat; descriptive, no threshold.",
+  "thermostat_designs": {
+    "Scalar_THC": "h(s)=exp(log(1.005)*tanh(s/0.0625)); rho(s)=N(0,1); Q=0.003125.",
+    "Conditional_THC": "s|y~N(y,0.375^2); G(s)=diag(1,exp(-s)*I5); Q=1. This is target-informed geometry, not the scalar coupling.",
+    "Periodic_THC": "h(s)=1+0.75*cos(s/0.25-pi/2); rho(s)=N(0,1); Q=128. Scalar periodic coupling, not target-informed geometry."
+  },
+  "comparison_id": "FUNNEL6_NUTS_SCALAR_PERIODIC_CONDITIONAL_HELDOUT_20261013_v1",
+  "date_frozen": "2026-10-13",
+  "n_blocks": 10,
+  "n_chains": 4,
+  "n_warmup": 1000,
+  "n_retained": 10000,
+  "seed_blocks": [
+    [
+      3199323214,
+      2503144093,
+      1684848681,
+      3944406987
+    ],
+    [
+      1631257327,
+      744096843,
+      1679514950,
+      6782035
+    ],
+    [
+      3113652587,
+      2942807196,
+      3475111880,
+      1779676740
+    ],
+    [
+      4005395667,
+      4053808775,
+      2228453550,
+      4292582672
+    ],
+    [
+      3531081649,
+      3614980499,
+      2058690528,
+      1348346182
+    ],
+    [
+      4067211774,
+      1954821250,
+      3738051810,
+      3471801156
+    ],
+    [
+      555137978,
+      25682701,
+      2611583384,
+      3886325127
+    ],
+    [
+      1041698820,
+      451512734,
+      2335140419,
+      311826217
+    ],
+    [
+      1046067948,
+      2614246016,
+      3848559311,
+      269934968
+    ],
+    [
+      252890390,
+      1620598246,
+      289923042,
+      2619051750
+    ]
+  ],
+  "methods": {
+    "NUTS": {
+      "target_acceptance": 0.45,
+      "maximum_tree_depth": 12,
+      "delta_max": 1000.0,
+      "dual_averaging_gamma": 0.05,
+      "dual_averaging_t0": 10.0,
+      "dual_averaging_kappa": 0.75,
+      "reasonable_epsilon_max_search_steps": 100
+    },
+    "Scalar_THC": {
+      "lambda_value": 0.004987541511038968,
+      "a": 0.0625,
+      "Q": 0.003125,
+      "epsilon": 0.18,
+      "L": 10
+    },
+    "Periodic_THC": {
+      "alpha": 0.75,
+      "phi": 1.5707963267948966,
+      "a": 0.25,
+      "Q": 128.0,
+      "epsilon": 0.2,
+      "L": 5
+    },
+    "Conditional_THC": {
+      "tau": 0.375,
+      "Q": 1.0,
+      "epsilon": 0.3,
+      "L": 30
+    }
+  },
+  "input_templates": {
+    "NUTS": {
+      "allow_overwrite": false,
+      "beta": 1.0,
+      "delta_max": 1000.0,
+      "dimension_x": 5,
+      "dual_averaging_gamma": 0.05,
+      "dual_averaging_kappa": 0.75,
+      "dual_averaging_t0": 10.0,
+      "funnel_starts": [
+        [
+          -5.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -2.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0
+        ],
+        [
+          2.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        [
+          5.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ]
+      ],
+      "mass_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "maximum_tree_depth": 12,
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "n_workers": 4,
+      "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+      "output_directory": null,
+      "output_filename": "NUTS_results.txt",
+      "print_progress": false,
+      "print_report": false,
+      "reasonable_epsilon_max_search_steps": 100,
+      "run_label": "CUSTOM: FROZEN HELD-OUT",
+      "run_mode": "CUSTOM",
+      "run_self_tests": true,
+      "seed_blocks": [
+        [
+          3199323214,
+          2503144093,
+          1684848681,
+          3944406987
+        ],
+        [
+          1631257327,
+          744096843,
+          1679514950,
+          6782035
+        ],
+        [
+          3113652587,
+          2942807196,
+          3475111880,
+          1779676740
+        ],
+        [
+          4005395667,
+          4053808775,
+          2228453550,
+          4292582672
+        ],
+        [
+          3531081649,
+          3614980499,
+          2058690528,
+          1348346182
+        ],
+        [
+          4067211774,
+          1954821250,
+          3738051810,
+          3471801156
+        ],
+        [
+          555137978,
+          25682701,
+          2611583384,
+          3886325127
+        ],
+        [
+          1041698820,
+          451512734,
+          2335140419,
+          311826217
+        ],
+        [
+          1046067948,
+          2614246016,
+          3848559311,
+          269934968
+        ],
+        [
+          252890390,
+          1620598246,
+          289923042,
+          2619051750
+        ]
+      ],
+      "sigma_y": 3.0,
+      "target_acceptance_values": [
+        0.45
+      ]
+    },
+    "Scalar_THC": {
+      "L_values": [
+        10
+      ],
+      "Q_values": [
+        0.003125
+      ],
+      "a_values": [
+        0.0625
+      ],
+      "allow_overwrite": false,
+      "beta": 1.0,
+      "coupling_family": "EXP_TANH",
+      "dimension_x": 5,
+      "epsilon_values": [
+        0.18
+      ],
+      "funnel_starts": [
+        [
+          -5.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -2.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0
+        ],
+        [
+          2.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        [
+          5.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ]
+      ],
+      "lambda_values": [
+        0.004987541511038968
+      ],
+      "mass_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "n_workers": 4,
+      "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+      "output_directory": null,
+      "output_filename": "Scalar_THC_results.txt",
+      "print_progress": false,
+      "print_report": false,
+      "run_label": "CUSTOM: FROZEN HELD-OUT",
+      "run_mode": "CUSTOM",
+      "run_self_tests": true,
+      "seed_blocks": [
+        [
+          3199323214,
+          2503144093,
+          1684848681,
+          3944406987
+        ],
+        [
+          1631257327,
+          744096843,
+          1679514950,
+          6782035
+        ],
+        [
+          3113652587,
+          2942807196,
+          3475111880,
+          1779676740
+        ],
+        [
+          4005395667,
+          4053808775,
+          2228453550,
+          4292582672
+        ],
+        [
+          3531081649,
+          3614980499,
+          2058690528,
+          1348346182
+        ],
+        [
+          4067211774,
+          1954821250,
+          3738051810,
+          3471801156
+        ],
+        [
+          555137978,
+          25682701,
+          2611583384,
+          3886325127
+        ],
+        [
+          1041698820,
+          451512734,
+          2335140419,
+          311826217
+        ],
+        [
+          1046067948,
+          2614246016,
+          3848559311,
+          269934968
+        ],
+        [
+          252890390,
+          1620598246,
+          289923042,
+          2619051750
+        ]
+      ],
+      "sigma_y": 3.0,
+      "thermostat_sigma": 1.0,
+      "thermostat_starts": [
+        -1.0,
+        1.0,
+        1.0,
+        -1.0
+      ]
+    },
+    "Periodic_THC": {
+      "L_values": [
+        5
+      ],
+      "Q_values": [
+        128.0
+      ],
+      "a_values": [
+        0.25
+      ],
+      "allow_overwrite": false,
+      "alpha_values": [
+        0.75
+      ],
+      "beta": 1.0,
+      "dimension_x": 5,
+      "epsilon_values": [
+        0.2
+      ],
+      "funnel_starts": [
+        [
+          -5.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -2.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0
+        ],
+        [
+          2.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        [
+          5.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ]
+      ],
+      "mass_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "n_workers": 4,
+      "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+      "output_directory": null,
+      "output_filename": "Periodic_THC_results.txt",
+      "phi_values": [
+        1.5707963267948966
+      ],
+      "print_progress": false,
+      "print_report": false,
+      "run_label": "CUSTOM: FROZEN HELD-OUT",
+      "run_mode": "CUSTOM",
+      "run_self_tests": true,
+      "seed_blocks": [
+        [
+          3199323214,
+          2503144093,
+          1684848681,
+          3944406987
+        ],
+        [
+          1631257327,
+          744096843,
+          1679514950,
+          6782035
+        ],
+        [
+          3113652587,
+          2942807196,
+          3475111880,
+          1779676740
+        ],
+        [
+          4005395667,
+          4053808775,
+          2228453550,
+          4292582672
+        ],
+        [
+          3531081649,
+          3614980499,
+          2058690528,
+          1348346182
+        ],
+        [
+          4067211774,
+          1954821250,
+          3738051810,
+          3471801156
+        ],
+        [
+          555137978,
+          25682701,
+          2611583384,
+          3886325127
+        ],
+        [
+          1041698820,
+          451512734,
+          2335140419,
+          311826217
+        ],
+        [
+          1046067948,
+          2614246016,
+          3848559311,
+          269934968
+        ],
+        [
+          252890390,
+          1620598246,
+          289923042,
+          2619051750
+        ]
+      ],
+      "sigma_y": 3.0,
+      "thermostat_sigma": 1.0,
+      "thermostat_starts": [
+        -1.0,
+        1.0,
+        1.0,
+        -1.0
+      ]
+    },
+    "Conditional_THC": {
+      "L_values": [
+        30
+      ],
+      "Q_values": [
+        1.0
+      ],
+      "allow_overwrite": false,
+      "beta": 1.0,
+      "coupling_family": "FUNNEL_CONDITIONAL_EXP_MINUS_HALF_S",
+      "dimension_x": 5,
+      "epsilon_values": [
+        0.3
+      ],
+      "funnel_starts": [
+        [
+          -5.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -2.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0
+        ],
+        [
+          2.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        [
+          5.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ]
+      ],
+      "mass_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "n_retained": 10000,
+      "n_warmup": 1000,
+      "n_workers": 4,
+      "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+      "output_directory": null,
+      "output_filename": "Conditional_THC_results.txt",
+      "print_progress": false,
+      "print_report": false,
+      "run_label": "CUSTOM: FROZEN HELD-OUT",
+      "run_mode": "CUSTOM",
+      "run_self_tests": true,
+      "seed_blocks": [
+        [
+          3199323214,
+          2503144093,
+          1684848681,
+          3944406987
+        ],
+        [
+          1631257327,
+          744096843,
+          1679514950,
+          6782035
+        ],
+        [
+          3113652587,
+          2942807196,
+          3475111880,
+          1779676740
+        ],
+        [
+          4005395667,
+          4053808775,
+          2228453550,
+          4292582672
+        ],
+        [
+          3531081649,
+          3614980499,
+          2058690528,
+          1348346182
+        ],
+        [
+          4067211774,
+          1954821250,
+          3738051810,
+          3471801156
+        ],
+        [
+          555137978,
+          25682701,
+          2611583384,
+          3886325127
+        ],
+        [
+          1041698820,
+          451512734,
+          2335140419,
+          311826217
+        ],
+        [
+          1046067948,
+          2614246016,
+          3848559311,
+          269934968
+        ],
+        [
+          252890390,
+          1620598246,
+          289923042,
+          2619051750
+        ]
+      ],
+      "sigma_y": 3.0,
+      "tau_values": [
+        0.375
+      ],
+      "thermostat_starts": [
+        -6.0,
+        -1.0,
+        1.0,
+        6.0
+      ]
+    }
+  },
+  "provenance": {
+    "NUTS": {
+      "source_path": "grex_funnel_nuts_expanded_20260925\\NUTS\\code\\neals_funnel_nuts_tuner_EXPANDED_20260925.py",
+      "source_sha256": "8fc6631459d7d07a138781770523806dba374bf7fa65a258832f9f0bdfbedc7b",
+      "engine_sha256": "35ef47c2b8bee00a728e44025fd90eb04f0da4caa15bd5b1b04eed154de8a4c4",
+      "tuning_report": "results\\GREX_tuning_2026-10-07\\Neals_funnel\\NUTS\\results\\NUTS_Neals_funnel_expanded_tuning.txt",
+      "tuning_report_sha256": "c8bf00cb0ec6f64c6f24a4c622f31436c3824239a343b3dc5cc149288d20cb9f",
+      "tested_configurations": 35,
+      "tuning_score": 0.0006754152349387334
+    },
+    "Scalar_THC": {
+      "source_path": "grex_funnel_hmc_scalar_conditional_expanded_20260925\\code\\funnel_scalar_EXPANDED_20260925.py",
+      "source_sha256": "c1a77df8474c66cb247cf95b9ee2a143476926a10975ec7c45db20f6a5734be4",
+      "engine_sha256": "9534308e2d62e6bea9fd52878a7a98a8c48a5b92332d82024a3edd9af9e197c1",
+      "dependency_sha256": {},
+      "tuning_report": "results\\GREX_tuning_2026-10-07\\Neals_funnel\\Scalar_bounded_scale_THC\\results\\FINAL_TUNING_REPORT.txt",
+      "tuning_report_sha256": "131d9706490db11d85db86b58599ea5e0c9f5140b510e252b194293b73d44860",
+      "tested_configurations": 86980,
+      "tuning_score": 0.00035029221865283486,
+      "tuning_global_index": 197
+    },
+    "Periodic_THC": {
+      "source_path": "grex_funnel_periodic_sqhmc_expanded_20260925\\code\\funnel_periodic_EXPANDED_20260925.py",
+      "source_sha256": "71b96ce01cee6080abc72c8c68f5b49528b2cdd0479230f729847585c1f715e6",
+      "engine_sha256": "deab138c8f1f7ce892ba9d8728070a465c3f33896c5cde7c7b62e2e2a49a1e7b",
+      "dependency_sha256": {
+        "grex_funnel_periodic_sqhmc_expanded_20260925\\code\\shared_funnel_protocol.py": "1ceb7447d185dd8e34d66194df0fdd2d7a89fa662d2591829df9d3e997e345c8",
+        "grex_funnel_periodic_sqhmc_expanded_20260925\\code\\expanded_protocol.py": "9467973cad92889c17dae8faee8b811e528f9babf539f03d4bb8a63045b24ef3",
+        "grex_funnel_periodic_sqhmc_expanded_20260925\\code\\shared_scalar_base.py": "4cbd4c8128d1cc8561832ad5dde653c295e148b83eede3e30a11d20e37236347",
+        "grex_funnel_periodic_sqhmc_expanded_20260925\\code\\periodic_validation.py": "50348d2516ec0b8d41bfc1c0d5f634e4e00d5fc5192382508498f2389ae9b068",
+        "grex_funnel_periodic_sqhmc_expanded_20260925\\code\\funnel_periodic_EXPANDED_20260925.py": "71b96ce01cee6080abc72c8c68f5b49528b2cdd0479230f729847585c1f715e6"
+      },
+      "tuning_report": "results\\GREX_tuning_2026-10-07\\Neals_funnel\\Periodic_THC\\results\\FINAL_TUNING_REPORT.txt",
+      "tuning_report_sha256": "64202998bd14bab805ae057081d1bf73e66a8b14469761118b5f1be9c243c45e",
+      "tested_configurations": 105792,
+      "tuning_score": 0.00042427280524021235,
+      "tuning_global_index": 976710
+    },
+    "Conditional_THC": {
+      "source_path": "grex_funnel_hmc_scalar_conditional_expanded_20260925\\code\\funnel_conditional_EXPANDED_20260925.py",
+      "source_sha256": "803bba03ad251987ab52f7c0b43b6bc36fda64b28c8d26b05e6f12ef82223d26",
+      "engine_sha256": "21b462cc43e0dda4904cca653881371b2d9b7ee0fe8225b416369bab8776111f",
+      "dependency_sha256": {},
+      "tuning_report": "results\\GREX_tuning_2026-10-07\\Neals_funnel\\Conditional_THC\\results\\Conditional_THC_Neals_funnel_expanded_tuning.txt",
+      "tuning_report_sha256": "ca6fc897a665c9d6ac6d3678b323948afe76414e7b37ea81f90684c403a22dec",
+      "tested_configurations": 59976,
+      "tuning_score": 0.022384030875962236,
+      "tuning_global_index": 15362
+    }
+  },
+  "selection": "Best tested primary geometric-mean gradient-normalized-efficiency representatives from completed tuning only. No minimum-IAT alternative, retuning or reselection.",
+  "target_definition": "U=y^2/18+(5/2)*y+exp(-y)*sum(x_i^2)/2; beta=1; base mass I6; y~N(0,9), x_i|y~N(0,exp(y)).",
+  "THC_refresh": "All three THC coordinates s persist. Only physical and thermostat momenta refresh; rejection restores q and s. Scalar and Periodic initial s=(-1,1,1,-1); Conditional initial s=(-6,-1,1,6).",
+  "NUTS_adaptation": "Original slice-NUTS Algorithm 6. Algorithm 4 finds an initial epsilon separately for each chain. Dual averaging adapts epsilon during 1000 discarded warmup transitions and freezes it before retention. Target acceptance 0.45, maximum tree depth 12; no mass adaptation.",
+  "random_stream_pairing": "Same seed identifiers, physical starts and lengths in corresponding blocks. NUTS preserves its Numba thread-local legacy NumPy RNG; THC preserves its SeedSequence child streams. Random draws are NOT claimed to match between NUTS and THC. The three THC methods share the same raw child streams. Pairing hashes seal seeds, starts and lengths.",
+  "gradient_cost": "Actual new physical-target gradients during retention only. NUTS counts every executed leapfrog leaf, including discarded/divergent/nonfinite leaves; excludes initial epsilon search, warmup and cached reuse. THC complete proposals cost L (scalar 10, periodic 5, conditional 30); aborted proposals can cost less. Thermostat-only operations are excluded. Not wall-clock cost.",
+  "score": "E_b=1/(actual retained gradients per draw * worst physical-observable IAT); S is the geometric mean of ALL ten block efficiencies. Undefined blocks are never dropped or replaced.",
+  "failure_rules": {
+    "NUTS": "Original expanded funnel rule: any nonfinite leaf during warmup or retention, nonfinite selected sample, undefined required IAT or invalid gradient denominator makes the full score undefined. Finite divergences and depth hits are diagnostic, not separate score gates. Invalid leaves cannot be selected; do not force whole-transition rejection when a valid candidate exists.",
+    "THC": "Original expanded funnel rule: any nonfinite trajectory during warmup or retention, undefined required IAT or invalid gradient denominator makes the full score undefined. A rejected proposal retains the previous q and s. Descriptive IAT/R-hat remain reported when estimable."
+  },
+  "acceptance_reporting": "NUTS adaptation statistic is NOT a Metropolis acceptance probability and is reported separately from THC acceptance.",
+  "paired_comparison": "Compare each THC against the one shared NUTS run. Approximate pointwise 95% Student-t intervals on ten paired log-efficiency ratios only when all required scores are defined; these are not simultaneous intervals.",
+  "secondary_outcomes": "Maximum and geometric mean of blockwise worst IAT, maximum R-hat, exact and estimated moments, acceptance and numerical-event counts. No final-data reselection.",
+  "prior_results": "Reuse tuning representatives, not previous final results. All four methods run on new seeds disjoint from locally recorded prior seeds.",
+  "no_retuning": true,
+  "seed_audit": {
+    "domain": "paper-on-thc|FUNNEL6|NUTS-scalar-periodic-conditional|held-out|20261013|v1",
+    "overlaps_after_audit": 0,
+    "text_files_scanned": 2728,
+    "text_bytes_scanned": 3056408611,
+    "path_size_inventory_sha256": "d6152b1e1ac6ac0cf6b3ea0ff6981323022e166075e6f3f2c24602dbc8f3a8c3",
+    "rejected_candidate_values": [],
+    "scope": "Recorded integer occurrences in local project sources/reports, including downloaded tuning and previous held-out files; unknown remote-only seeds cannot be audited.",
+    "derivation": "First four SHA256 bytes (big endian) of DOMAIN|PHASE|block=BB|chain=CC|counter=K; counters change only for recorded collisions, never scores."
+  }
+}

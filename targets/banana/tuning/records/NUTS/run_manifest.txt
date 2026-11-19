@@ -1,0 +1,161 @@
+{
+  "format": "expanded-Banana-NUTS-full-grid-finite-state-v1",
+  "inputs": {
+    "allow_overwrite": false,
+    "banana_b": 0.25,
+    "beta": 1.0,
+    "delta_max": 1000.0,
+    "dual_averaging_gamma": 0.05,
+    "dual_averaging_kappa": 0.75,
+    "dual_averaging_t0": 10.0,
+    "mass_matrix": [
+      [
+        0.25,
+        0.0
+      ],
+      [
+        0.0,
+        0.49019607843137253
+      ]
+    ],
+    "maximum_tree_depth": 12,
+    "n_retained": 10000,
+    "n_warmup": 1000,
+    "n_workers": 4,
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/Banana/2026-09-25_periodic_vs_NUTS_expanded_01/NUTS/results",
+    "output_filename": "NUTS_Banana_expanded_tuning_20260925.txt",
+    "print_progress": true,
+    "print_report": true,
+    "reasonable_epsilon_max_search_steps": 100,
+    "run_label": "CUSTOM: BANANA_PERIODIC_NUTS_FULL_GRID_20260925",
+    "run_mode": "CUSTOM",
+    "run_self_tests": true,
+    "seed_blocks": [
+      [
+        123,
+        456,
+        789,
+        101112
+      ],
+      [
+        3545294353,
+        3961674632,
+        3627514536,
+        3198582250
+      ],
+      [
+        788645248,
+        3651519711,
+        1811141324,
+        1814869264
+      ],
+      [
+        3192285063,
+        2251015777,
+        396444798,
+        765150135
+      ],
+      [
+        1562880678,
+        1785952873,
+        2908883741,
+        2216662531
+      ],
+      [
+        2794023307,
+        1697034986,
+        399305664,
+        3387627557
+      ],
+      [
+        3550273020,
+        4288237438,
+        1339029542,
+        2052132074
+      ],
+      [
+        773064979,
+        3889587502,
+        1349474393,
+        473085282
+      ],
+      [
+        2530799177,
+        1230540310,
+        2963309407,
+        638566109
+      ],
+      [
+        1731223290,
+        2380208349,
+        2086161373,
+        1181226484
+      ]
+    ],
+    "sigma_x": 2.0,
+    "sigma_y": 0.2,
+    "standardized_starts": [
+      [
+        -2.0,
+        -2.0
+      ],
+      [
+        -2.0,
+        2.0
+      ],
+      [
+        2.0,
+        -2.0
+      ],
+      [
+        2.0,
+        2.0
+      ]
+    ],
+    "target_acceptance_values": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.425,
+      0.45,
+      0.475,
+      0.5,
+      0.525,
+      0.55,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.8,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.925,
+      0.95,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      0.995,
+      0.999
+    ]
+  },
+  "launcher_sha256": "8756a581679b520eda321527cae6962ab05fe84620d3f1b67d6a52e56dbeed86",
+  "llvmlite": "0.47.0+computecanada",
+  "method": "nuts",
+  "numba": "0.65.1+computecanada",
+  "numpy": "2.2.2",
+  "python": "3.12.4",
+  "source_sha256": "c8672091b1d709d2fc4008e6f1ac0f8d35b78ce416965c8a53174cd24a3a37dd"
+}

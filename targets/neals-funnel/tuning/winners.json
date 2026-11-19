@@ -1,0 +1,125 @@
+{
+  "HMC": {
+    "settings": {
+      "epsilon": 0.15,
+      "L": 30
+    },
+    "score": 0.000185386898419366,
+    "global_index": 186,
+    "defined": 218,
+    "tested": 252,
+    "report": "Neals_funnel/HMC/results/HMC_Neals_funnel_expanded_tuning.txt",
+    "report_sha256": "04fc0de093891519d0b57f69facd89e0fa298b01d2a788b01de6cb8c8b285051",
+    "script": "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_hmc_EXPANDED_20260925.py",
+    "script_sha256": "2b73a6ec95400e23271b87fdcfa234875be6c441981981bab261ba896f95cbd7",
+    "manifest": "targets/neals-funnel/tuning/records/HMC/run_manifest.txt",
+    "local_report_or_excerpt": "targets/neals-funnel/tuning/records/HMC/HMC_Neals_funnel_expanded_tuning.txt",
+    "local_report_complete": true
+  },
+  "Scalar_THC": {
+    "settings": {
+      "lambda_value": 0.004987541511038968,
+      "a": 0.0625,
+      "Q": 0.003125,
+      "epsilon": 0.18,
+      "L": 10
+    },
+    "score": 0.00035029221865283486,
+    "global_index": 197,
+    "defined": 73179,
+    "tested": 86980,
+    "report": "Neals_funnel/Scalar_bounded_scale_THC/results/FINAL_TUNING_REPORT.txt",
+    "report_sha256": "131d9706490db11d85db86b58599ea5e0c9f5140b510e252b194293b73d44860",
+    "script": "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_scalar_EXPANDED_20260925.py",
+    "script_sha256": "c1a77df8474c66cb247cf95b9ee2a143476926a10975ec7c45db20f6a5734be4",
+    "manifest": "targets/neals-funnel/tuning/records/Scalar_THC/FROZEN.txt",
+    "search_key": "funnel_scalar",
+    "original_grid": 1285200,
+    "part": "part_005",
+    "local_report_or_excerpt": "targets/neals-funnel/tuning/records/Scalar_THC/FINAL_TUNING_REPORT.txt",
+    "local_report_complete": true
+  },
+  "Conditional_THC": {
+    "settings": {
+      "tau": 0.375,
+      "Q": 1.0,
+      "epsilon": 0.3,
+      "L": 30
+    },
+    "score": 0.022384030875962236,
+    "global_index": 15362,
+    "defined": 40432,
+    "tested": 59976,
+    "report": "Neals_funnel/Conditional_THC/results/Conditional_THC_Neals_funnel_expanded_tuning.txt",
+    "report_sha256": "ca6fc897a665c9d6ac6d3678b323948afe76414e7b37ea81f90684c403a22dec",
+    "script": "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_conditional_EXPANDED_20260925.py",
+    "script_sha256": "803bba03ad251987ab52f7c0b43b6bc36fda64b28c8d26b05e6f12ef82223d26",
+    "manifest": "targets/neals-funnel/tuning/records/Conditional_THC/part_000/run_manifest.txt",
+    "local_report_or_excerpt": "targets/neals-funnel/tuning/records/Conditional_THC/Conditional_THC_Neals_funnel_expanded_tuning.txt",
+    "local_report_complete": true
+  },
+  "Periodic_THC": {
+    "settings": {
+      "alpha": 0.75,
+      "phi": 1.5707963267948966,
+      "a": 0.25,
+      "Q": 128.0,
+      "epsilon": 0.2,
+      "L": 5
+    },
+    "score": 0.00042427280524021235,
+    "global_index": 976710,
+    "defined": 87042,
+    "tested": 105792,
+    "report": "Neals_funnel/Periodic_THC/results/FINAL_TUNING_REPORT.txt",
+    "report_sha256": "64202998bd14bab805ae057081d1bf73e66a8b14469761118b5f1be9c243c45e",
+    "script": "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_periodic_EXPANDED_20260925.py",
+    "script_sha256": "71b96ce01cee6080abc72c8c68f5b49528b2cdd0479230f729847585c1f715e6",
+    "manifest": "targets/neals-funnel/tuning/records/Periodic_THC/FROZEN.txt",
+    "search_key": "funnel_periodic",
+    "original_grid": 1285200,
+    "part": "part_006",
+    "local_report_or_excerpt": "targets/neals-funnel/tuning/records/Periodic_THC/FINAL_TUNING_REPORT.txt",
+    "local_report_complete": true
+  },
+  "S_QHMC": {
+    "settings": {
+      "mu_m": -0.5,
+      "sigma_m": 0.25,
+      "epsilon": 0.12,
+      "L": 10
+    },
+    "score": 0.0003215621732516687,
+    "global_index": 13021,
+    "defined": 18465,
+    "tested": 31752,
+    "report": "Neals_funnel/S_QHMC/results/S_QHMC_Neals_funnel_expanded_tuning.txt",
+    "report_sha256": "72d6f1cefc6aa8339404c14a6842ca6687e596e2008362bd9e59c89fd4ea3319",
+    "script": "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_sqhmc_EXPANDED_20260925.py",
+    "script_sha256": "2b89fed7eecce3566d0a9340d5220b52f90e00042d36b5e1331aef5a1a66c938",
+    "manifest": "targets/neals-funnel/tuning/records/S_QHMC/part_000/run_manifest.txt",
+    "local_report_or_excerpt": "targets/neals-funnel/tuning/records/S_QHMC/S_QHMC_Neals_funnel_expanded_tuning.txt",
+    "local_report_complete": true
+  },
+  "NUTS": {
+    "settings": {
+      "target_acceptance": 0.45,
+      "maximum_tree_depth": 12,
+      "delta_max": 1000.0,
+      "dual_averaging_gamma": 0.05,
+      "dual_averaging_t0": 10.0,
+      "dual_averaging_kappa": 0.75,
+      "reasonable_epsilon_max_search_steps": 100
+    },
+    "score": 0.0006754152349387334,
+    "defined": 31,
+    "tested": 35,
+    "report": "Neals_funnel/NUTS/results/NUTS_Neals_funnel_expanded_tuning.txt",
+    "report_sha256": "c8bf00cb0ec6f64c6f24a4c622f31436c3824239a343b3dc5cc149288d20cb9f",
+    "script": "tuning-code/grex_funnel_nuts_expanded_20260925/NUTS/code/neals_funnel_nuts_tuner_EXPANDED_20260925.py",
+    "script_sha256": "8fc6631459d7d07a138781770523806dba374bf7fa65a258832f9f0bdfbedc7b",
+    "manifest": "targets/neals-funnel/tuning/records/NUTS/run_manifest.txt",
+    "local_report_or_excerpt": "targets/neals-funnel/tuning/records/NUTS/NUTS_Neals_funnel_expanded_tuning.txt",
+    "local_report_complete": true
+  }
+}

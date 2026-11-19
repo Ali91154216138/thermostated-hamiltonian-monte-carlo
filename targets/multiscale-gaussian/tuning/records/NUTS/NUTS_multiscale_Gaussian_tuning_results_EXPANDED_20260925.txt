@@ -1,0 +1,1320 @@
+FAIR-PLAYGROUND ORIGINAL SLICE-NUTS TUNING REPORT: 5D MULTISCALE GAUSSIAN
+========================================================================================
+Run label: PRODUCTION TUNING
+Run mode: CANONICAL / COMPARABLE
+Canonical scientific inputs match: True
+Canonical mismatches: none
+Normalized input fingerprint: ec2d3707ec34ece9fc7bd937acaa7fba704c7f16673f7e3c81a3db7f3d6f982f
+Shared protocol version: MSG5-expanded-10blocks-20260925
+Shared protocol fingerprint: fef07c92d64fad6fdf0af9e00f961e6cf1970fc21abc225dacce4c647b34b92a
+NUTS implementation version: hoffman-gelman-2014-slice-NUTS-algorithm6-v1.0.0
+NUTS implementation source fingerprint: caa872e93b7b1d44d31e21205e2f617cdc0429e722544d62bdf9f01d6db33b35
+Diagnostics version: multichain-geyer-ims-rank-rhat-v1.0.0
+Diagnostics source fingerprint: dc2148c37f893c7fa5c22431760b2c46ac3aed96cce35909b333eb2abce91274
+Source verification mode: exact inspect.getsource attestation
+Random stream version: numba-chain-local-numpy-rng-v1.0.0
+Numba available: True
+Numba cache mode: fresh private import cache
+Requested worker threads: 4
+Actual chain parallelism: 4
+Output filename: NUTS_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt
+
+TARGET, GEOMETRY, AND INITIAL CONDITIONS
+----------------------------------------------------------------------------------------
+d=5, beta=1
+omega=[ 1.            ,  2.340347319321,  5.477225575052, 12.818610191887,
+ 30.            ]
+mass matrix M=[[1., 0., 0., 0., 0.],
+ [0., 1., 0., 0., 0.],
+ [0., 0., 1., 0., 0.],
+ [0., 0., 0., 1., 0.],
+ [0., 0., 0., 0., 1.]]
+diag(target covariance)=[1.            , 0.182574185835, 0.033333333333, 0.006085806195,
+ 0.001111111111]
+U(q)=0.5*sum_j omega_j^2*q_j^2; grad U(q)=omega^2*q
+p~N(0,M/beta); K(p)=0.5*p^T*M^-1*p; mass adaptation is disabled.
+chain 1: z=sqrt(beta)*omega*q=[2., 2., 2., 2., 2.]; q=[2.            , 0.854574012792, 0.36514837167 , 0.156023154621,
+ 0.066666666667]
+chain 2: z=sqrt(beta)*omega*q=[ 2., -2.,  2., -2.,  2.]; q=[ 2.            , -0.854574012792,  0.36514837167 , -0.156023154621,
+  0.066666666667]
+chain 3: z=sqrt(beta)*omega*q=[-2.,  2., -2.,  2., -2.]; q=[-2.            ,  0.854574012792, -0.36514837167 ,  0.156023154621,
+ -0.066666666667]
+chain 4: z=sqrt(beta)*omega*q=[-2., -2., -2., -2., -2.]; q=[-2.            , -0.854574012792, -0.36514837167 , -0.156023154621,
+ -0.066666666667]
+
+NUTS AND TUNING DESIGN
+----------------------------------------------------------------------------------------
+Sampler: original Hoffman--Gelman slice-based Algorithm 6; not multinomial NUTS.
+There is no final Metropolis accept/reject decision.
+U-turn products use endpoint velocities M^-1*p.
+target acceptance values: [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.96, 0.97, 0.98, 0.99, 0.995, 0.999]
+dual averaging: gamma=0.05, t0=10, kappa=0.75
+Delta_max=1000; maximum tree depth=12
+reasonable-epsilon search limit=100
+blocks=10; chains/block=4
+warmup/chain=1000; retained/chain=10000
+Every delta restarts every chain from the same stated seed and physical start.
+Each chain adapts epsilon during warmup; averaged epsilon is frozen before retained sampling.
+Same numerical seed labels and starts as the expanded THC study.
+NUTS uses its original chain-local, tree-dependent RNG; random variates are not paired with THC.
+Every declared acceptance value receives full runs; no short screening.
+THC thermostat tuning is reused from the shared refreshed-mixture job, not rerun.
+This is a new tuning study, not a final held-out comparison.
+Final-comparison seeds are absent from this tuner.
+
+TUNING SEED BLOCKS
+----------------------------------------------------------------------------------------
+block 1: [567753504, 3554327166, 2159929848, 2183746224]
+block 2: [3182901450, 2500054966, 2494512194, 1125703007]
+block 3: [3372379365, 3829013153, 2779258000, 3673553045]
+block 4: [1042366973, 555022780, 2234701741, 38076647]
+block 5: [4147003693, 637552847, 1213094654, 3282446157]
+block 6: [1983886449, 1778341926, 2298613957, 753872443]
+block 7: [1913436284, 580417278, 2885056474, 2371270245]
+block 8: [2021755070, 2190757929, 2004101126, 1738982583]
+block 9: [2993064774, 535236755, 4082694471, 2365720593]
+block 10: [158278125, 3022481575, 1887590644, 2677325223]
+
+DIAGNOSTICS AND SCORE
+----------------------------------------------------------------------------------------
+Required physical observables (20): q1, q2, q3, q4, q5, q1^2, q1*q2, q1*q3, q1*q4, q1*q5, q2^2, q2*q3, q2*q4, q2*q5, q3^2, q3*q4, q3*q5, q4^2, q4*q5, q5^2
+IAT: multi-chain Geyer initial-positive then initial-monotone sequence; no IAT floor.
+Every selected-observable line reports pair count, last included lag, first excluded lag, and cutoff reason.
+R-hat: max(rank-normalized split, folded rank-normalized split); descriptive, no threshold.
+Moment error: |empirical-exact| / exact observable SD; descriptive, no threshold.
+Gradient cost: every executed retained leapfrog leaf, including divergent and discarded leaves.
+The selected-state gradient is cached; no artificial +1 is charged per transition.
+Block score=min_f 1/(actual retained gradients/draw * IAT(f)).
+Configuration score=geometric mean of 10 block scores.
+No IAT/ESS averaging is used. Divergences and depth hits are reported but are not gates.
+Undefined required IAT or nonfinite retained samples make the score undefined.
+Exact-tie rule: larger minimum block score, fewer gradients/draw, then larger delta.
+
+INTERNAL SELF-TESTS
+----------------------------------------------------------------------------------------
+PASS: analytic target gradient, standardized starts, and mass algebra
+PASS: biased autocovariance, odd split, and rejection-tie ranks
+PASS: inverse-normal approximation and symmetry
+PASS: rank-normalized split/folded R-hat IID, location, and scale checks
+PASS: Geyer IAT positive AR(1)=8.719297, antithetic AR(1)=0.343747, and undefined statuses
+PASS: leapfrog reversibility and identity/general-mass velocity U-turn rule
+PASS: depth-3 balanced tree has 8 executed/valid leaves and 8 adaptation states
+PASS: Algorithm 6 dual-averaging recurrence
+PASS: deterministic chain-local RNG, frozen adapted epsilon, retained leaf-gradient accounting, and finite smoke chain
+PASS: 20-observable exact moments, nonfinite propagation, and common block GM
+
+CONFIGURATION SUMMARY
+----------------------------------------------------------------------------------------
+delta status                     GM_eff       min_eff    median_eff       max_eff  accept_stat grad/draw  div depth_hit max_Rhat max_moment_SD nonfinite
+ 0.1000 ok                         3.743647e-04 1.821386e-04 4.303614e-04 5.948978e-04    0.044416    2.4198 35300         0 1.187167  3.640191e-01         0
+ 0.1500 ok                         3.628932e-04 1.740397e-04 3.659340e-04 5.275348e-04    0.050944    2.5951 14739         0 1.213196  2.516020e-01         0
+ 0.2000 ok                         3.331522e-04 1.670478e-04 3.700605e-04 4.645544e-04    0.057910    2.8223 2904         0 1.203309  2.334306e-01         0
+ 0.2500 ok                         4.623057e-04 2.478788e-04 4.525369e-04 7.973458e-04    0.064511    3.1017  155         0 1.161974  2.056118e-01         0
+ 0.3000 ok                         4.655146e-04 1.794912e-04 5.117562e-04 6.560786e-04    0.072694    3.5591    1         0 1.098520  1.141188e-01         0
+ 0.3500 ok                         6.570752e-04 2.884482e-04 7.039798e-04 9.712025e-04    0.083410    4.6697    0         0 1.074398  1.286800e-01         0
+ 0.4000 ok                         3.562540e-03 8.938348e-04 5.065735e-03 9.059884e-03    0.287332   13.4496    0         0 1.012866  7.318850e-02         0
+ 0.4250 ok                         8.799874e-03 8.319495e-03 8.929883e-03 9.237389e-03    0.430812   16.9311    0         0 1.001314  3.996745e-02         0
+ 0.4500 ok                         8.447372e-03 8.015794e-03 8.466249e-03 9.127756e-03    0.532702   18.4600    0         0 1.001274  2.504969e-02         0
+ 0.4750 ok                         8.223407e-03 7.898566e-03 8.235613e-03 8.595824e-03    0.589016   19.3547    0         0 1.001037  2.095469e-02         0
+ 0.5000 ok                         7.993988e-03 7.408331e-03 8.020692e-03 8.521490e-03    0.631518   20.3475    0         0 1.002261  2.696686e-02         0
+ 0.5250 ok                         7.841516e-03 7.402768e-03 7.846236e-03 8.311440e-03    0.658310   21.1326    0         0 1.001091  2.821333e-02         0
+ 0.5500 ok                         7.764061e-03 7.333905e-03 7.761092e-03 8.164285e-03    0.684169   21.7842    0         0 1.001238  2.371587e-02         0
+ 0.5750 ok                         7.243859e-03 6.768534e-03 7.238163e-03 7.776504e-03    0.711443   22.2839    0         0 1.000946  3.367205e-02         0
+ 0.6000 ok                         6.873759e-03 6.341470e-03 6.954787e-03 7.303705e-03    0.728594   22.6538    0         0 1.000865  2.723892e-02         0
+ 0.6250 ok                         7.011484e-03 6.738043e-03 7.009579e-03 7.492229e-03    0.741147   22.8640    0         0 1.000792  2.186209e-02         0
+ 0.6500 ok                         6.674891e-03 6.063752e-03 6.769132e-03 7.281623e-03    0.759808   23.3738    0         0 1.002377  3.014596e-02         0
+ 0.6750 ok                         6.414691e-03 5.977154e-03 6.401203e-03 6.777969e-03    0.776013   23.9464    0         0 1.001332  3.022720e-02         0
+ 0.7000 ok                         6.406979e-03 5.986941e-03 6.381844e-03 6.672695e-03    0.790040   24.3713    0         0 1.000958  1.967005e-02         0
+ 0.7250 ok                         6.423754e-03 6.067058e-03 6.404701e-03 6.720547e-03    0.804632   24.7093    0         0 1.000938  2.287030e-02         0
+ 0.7500 ok                         6.386214e-03 5.912293e-03 6.428101e-03 6.794535e-03    0.816130   24.9191    0         0 1.000797  2.632955e-02         0
+ 0.7750 ok                         6.409287e-03 5.945392e-03 6.432776e-03 6.780159e-03    0.829327   25.1043    0         0 1.001876  2.771433e-02         0
+ 0.8000 ok                         5.976881e-03 5.626503e-03 5.965717e-03 6.367501e-03    0.845327   25.3230    0         0 1.001062  2.326025e-02         0
+ 0.8250 ok                         5.723820e-03 5.440925e-03 5.663560e-03 6.311412e-03    0.864691   25.8971    0         0 1.000854  2.729746e-02         0
+ 0.8500 ok                         5.632269e-03 5.055651e-03 5.718850e-03 5.984277e-03    0.870396   26.8832    0         0 1.001615  1.961029e-02         0
+ 0.8750 ok                         5.633528e-03 5.301797e-03 5.663420e-03 6.037694e-03    0.885718   28.8178    0         0 1.001225  2.402123e-02         0
+ 0.9000 ok                         5.551718e-03 5.125638e-03 5.531146e-03 6.154331e-03    0.904901   31.6388    0         0 1.001349  3.160257e-02         0
+ 0.9250 ok                         5.083596e-03 4.699716e-03 5.110085e-03 5.391565e-03    0.926994   36.0754    0         0 1.000905  3.926169e-02         0
+ 0.9500 ok                         3.941580e-03 3.663873e-03 3.942986e-03 4.287224e-03    0.950056   42.2351    0         0 1.001804  2.620849e-02         0
+ 0.9600 ok                         3.386193e-03 3.192349e-03 3.374665e-03 3.597604e-03    0.959685   46.4697    0         0 1.001224  2.043031e-02         0
+ 0.9700 ok                         3.052440e-03 2.828830e-03 3.092863e-03 3.205017e-03    0.968168   50.8891    0         0 1.001062  2.227118e-02         0
+ 0.9800 ok                         2.684659e-03 2.285715e-03 2.698157e-03 3.042267e-03    0.977893   60.7088    0         0 1.001234  3.138898e-02         0
+ 0.9900 ok                         2.167252e-03 2.010523e-03 2.164567e-03 2.390246e-03    0.987154   79.1161    0         0 1.001208  2.939428e-02         0
+ 0.9950 ok                         1.552415e-03 1.499537e-03 1.549621e-03 1.613786e-03    0.991613   96.0374    0         0 1.000942  2.013084e-02         0
+ 0.9990 ok                         1.330017e-03 1.197421e-03 1.337635e-03 1.432191e-03    0.995274  129.7426    0         0 1.001007  2.745005e-02         0
+
+10-block geometric-mean worst-observable efficiency by delta
+delta          GM_efficiency
+ 0.1000          3.743647369901e-04
+ 0.1500          3.628932195296e-04
+ 0.2000          3.331521932226e-04
+ 0.2500          4.623056965290e-04
+ 0.3000          4.655145624509e-04
+ 0.3500          6.570752440296e-04
+ 0.4000          3.562539997580e-03
+ 0.4250          8.799874131004e-03
+ 0.4500          8.447372224473e-03
+ 0.4750          8.223407081690e-03
+ 0.5000          7.993988454243e-03
+ 0.5250          7.841515602013e-03
+ 0.5500          7.764060903121e-03
+ 0.5750          7.243858839292e-03
+ 0.6000          6.873759372824e-03
+ 0.6250          7.011484115009e-03
+ 0.6500          6.674891036786e-03
+ 0.6750          6.414691315740e-03
+ 0.7000          6.406978642769e-03
+ 0.7250          6.423753854555e-03
+ 0.7500          6.386214498313e-03
+ 0.7750          6.409286855428e-03
+ 0.8000          5.976881408342e-03
+ 0.8250          5.723820276389e-03
+ 0.8500          5.632268516645e-03
+ 0.8750          5.633528434861e-03
+ 0.9000          5.551718358351e-03
+ 0.9250          5.083596466907e-03
+ 0.9500          3.941580253249e-03
+ 0.9600          3.386192778605e-03
+ 0.9700          3.052440302416e-03
+ 0.9800          2.684658778876e-03
+ 0.9900          2.167251664984e-03
+ 0.9950          1.552415125570e-03
+ 0.9990          1.330017146042e-03
+
+ALL CONFIGURATION-BLOCK RESULTS
+----------------------------------------------------------------------------------------
+delta block status                     acc_stat grad/draw mean_steps mean_depth div depth_hit worst_obs worst_IAT block_eff max_Rhat max_moment_SD nonfinite
+ 0.1000     1 ok                          0.04599    2.4388     2.4388     1.7119 3283         0 q1         1060.691 3.865761e-04 1.140618  1.379283e-01         0
+      adapted_eps=[0.082845194727, 0.081214917605, 0.082903753633, 0.082260544102]; epsilon_search_gradients=27; warmup_gradients=17625; retained_gradients=97552
+ 0.1000     2 ok                          0.04378    2.4130     2.4130     1.6990 3610         0 q1         1462.831 2.833012e-04 1.090059  1.987515e-01         0
+      adapted_eps=[0.083117556428, 0.081175565017, 0.083560757411, 0.083117323682]; epsilon_search_gradients=26; warmup_gradients=17160; retained_gradients=96520
+ 0.1000     3 ok                          0.04278    2.3795     2.3795     1.6835 4090         0 q1         2307.344 1.821386e-04 1.139118  3.640191e-01         0
+      adapted_eps=[0.082756805419, 0.082309597316, 0.08574406125 , 0.083080634124]; epsilon_search_gradients=24; warmup_gradients=17180; retained_gradients=95180
+ 0.1000     4 ok                          0.04274    2.3866     2.3865     1.6877 3987         0 q1         704.3477 5.948978e-04 1.054177  2.678370e-01         0
+      adapted_eps=[0.082029638318, 0.083952278581, 0.082382051214, 0.085475148967]; epsilon_search_gradients=26; warmup_gradients=17373; retained_gradients=95462
+ 0.1000     5 ok                          0.04406    2.4224     2.4224     1.7043 3610         0 q1         793.8749 5.199985e-04 1.101639  1.146277e-01         0
+      adapted_eps=[0.081230467053, 0.082737178846, 0.083907714114, 0.082987844222]; epsilon_search_gradients=24; warmup_gradients=17227; retained_gradients=96896
+ 0.1000     6 ok                          0.04465    2.4378     2.4378     1.7114 3317         0 q1         1623.159 2.527208e-04 1.160362  2.181742e-01         0
+      adapted_eps=[0.083179096674, 0.082442643495, 0.083045293601, 0.08061337728 ]; epsilon_search_gradients=26; warmup_gradients=17078; retained_gradients=97512
+ 0.1000     7 ok                          0.04545    2.4383     2.4384     1.7110 3196         0 q1         864.9505 4.741467e-04 1.056310  2.632503e-01         0
+      adapted_eps=[0.083151724032, 0.080316367845, 0.085187663968, 0.080239264408]; epsilon_search_gradients=25; warmup_gradients=18088; retained_gradients=97534
+ 0.1000     8 ok                          0.04597    2.4484     2.4484     1.7155 3066         0 q1         778.7154 5.244813e-04 1.072096  1.498027e-01         0
+      adapted_eps=[0.083035611099, 0.08076255492 , 0.080353927636, 0.083716447731]; epsilon_search_gradients=24; warmup_gradients=17800; retained_gradients=97938
+ 0.1000     9 ok                          0.04506    2.4464     2.4464     1.7149 3296         0 q1         687.7726 5.943300e-04 1.044756  1.424874e-01         0
+      adapted_eps=[0.080444487202, 0.080230636952, 0.083481076244, 0.08472315454 ]; epsilon_search_gradients=25; warmup_gradients=16731; retained_gradients=97856
+ 0.1000    10 ok                          0.04367    2.3864     2.3864     1.6870 3845         0 q1         1786.276 2.345893e-04 1.187167  1.430057e-01         0
+      adapted_eps=[0.083203526724, 0.082668585021, 0.082080830934, 0.084372767566]; epsilon_search_gradients=24; warmup_gradients=17275; retained_gradients=95456
+ 0.1500     1 ok                          0.05158    2.6287     2.6287     1.7978 1149         0 q1          1095.99 3.470982e-04 1.213196  1.766442e-01         0
+      adapted_eps=[0.077425809646, 0.080879502003, 0.078549127707, 0.077435595667]; epsilon_search_gradients=27; warmup_gradients=22699; retained_gradients=105148
+ 0.1500     2 ok                          0.05092    2.5923     2.5923     1.7832 1482         0 q1          1041.84 3.702657e-04 1.088264  1.298720e-01         0
+      adapted_eps=[0.078048817723, 0.079746990633, 0.0799180998  , 0.078770991918]; epsilon_search_gradients=26; warmup_gradients=24243; retained_gradients=103692
+ 0.1500     3 ok                          0.05199    2.6272     2.6272     1.7979 1023         0 q1         1226.317 3.103874e-04 1.105911  1.114255e-01         0
+      adapted_eps=[0.078172367351, 0.078758614636, 0.078882358016, 0.077803396498]; epsilon_search_gradients=24; warmup_gradients=23413; retained_gradients=105088
+ 0.1500     4 ok                          0.04980    2.5480     2.5480     1.7620 2126         0 q1         983.1388 3.991878e-04 1.075305  1.031484e-01         0
+      adapted_eps=[0.082066188437, 0.079469260319, 0.077863968478, 0.081972942637]; epsilon_search_gradients=26; warmup_gradients=22735; retained_gradients=101922
+ 0.1500     5 ok                          0.05067    2.5679     2.5679     1.7713 1720         0 q1         738.1945 5.275348e-04 1.045088  1.756971e-01         0
+      adapted_eps=[0.079517156382, 0.080072588309, 0.081494658483, 0.077092001115]; epsilon_search_gradients=24; warmup_gradients=23967; retained_gradients=102716
+ 0.1500     6 ok                          0.04974    2.5969     2.5969     1.7848 1530         0 q1         794.6265 4.845981e-04 1.106304  2.015953e-01         0
+      adapted_eps=[0.081887096303, 0.078139331051, 0.078199860345, 0.078627207798]; epsilon_search_gradients=26; warmup_gradients=23341; retained_gradients=103876
+ 0.1500     7 ok                          0.04950    2.5606     2.5606     1.7683 1790         0 q1         1080.029 3.616023e-04 1.142158  1.611371e-01         0
+      adapted_eps=[0.079391736586, 0.07824236338 , 0.080672876936, 0.081027472546]; epsilon_search_gradients=25; warmup_gradients=22000; retained_gradients=102422
+ 0.1500     8 ok                          0.05116    2.6246     2.6246     1.7959 1195         0 q1         1062.949 3.584467e-04 1.105290  1.640364e-01         0
+      adapted_eps=[0.078294508073, 0.079949195103, 0.079447994974, 0.077191716195]; epsilon_search_gradients=24; warmup_gradients=23414; retained_gradients=104984
+ 0.1500     9 ok                          0.05192    2.5863     2.5863     1.7790 1471         0 q1         896.4476 4.313249e-04 1.056499  2.516020e-01         0
+      adapted_eps=[0.077370583503, 0.08097214812 , 0.078784396674, 0.079510650709]; epsilon_search_gradients=25; warmup_gradients=22701; retained_gradients=103450
+ 0.1500    10 ok                          0.05217    2.6181     2.6181     1.7946 1253         0 q1          2194.61 1.740397e-04 1.171093  1.259300e-01         0
+      adapted_eps=[0.079985191245, 0.079047810102, 0.078334580226, 0.077674821963]; epsilon_search_gradients=24; warmup_gradients=23179; retained_gradients=104726
+ 0.2000     1 ok                          0.05695    2.7790     2.7790     1.8650  506         0 q1           1390.1 2.588650e-04 1.202369  2.306824e-01         0
+      adapted_eps=[0.076590667682, 0.076025101207, 0.078618680526, 0.075070658675]; epsilon_search_gradients=27; warmup_gradients=28596; retained_gradients=111158
+ 0.2000     2 ok                          0.05694    2.8005     2.8005     1.8749  390         0 q1         768.6623 4.645544e-04 1.061810  8.903754e-02         0
+      adapted_eps=[0.077336049355, 0.076797529571, 0.074755620582, 0.076441825881]; epsilon_search_gradients=26; warmup_gradients=28472; retained_gradients=112018
+ 0.2000     3 ok                          0.05950    2.8919     2.8919     1.9110  136         0 q1         808.0206 4.279512e-04 1.058964  8.857552e-02         0
+      adapted_eps=[0.0748630089  , 0.075410422596, 0.073493853525, 0.076511041923]; epsilon_search_gradients=24; warmup_gradients=29754; retained_gradients=115676
+ 0.2000     4 ok                          0.05891    2.8967     2.8967     1.9138  145         0 q1         1225.408 2.817237e-04 1.093183  1.138323e-01         0
+      adapted_eps=[0.075185744632, 0.074500143375, 0.075132476614, 0.075924127141]; epsilon_search_gradients=26; warmup_gradients=30729; retained_gradients=115866
+ 0.2000     5 ok                          0.05831    2.8182     2.8182     1.8810  228         0 q1^2       784.3222 4.524035e-04 1.048520  2.334306e-01         0
+      adapted_eps=[0.075059240733, 0.075087276022, 0.077091407354, 0.076172813598]; epsilon_search_gradients=24; warmup_gradients=30211; retained_gradients=112730
+ 0.2000     6 ok                          0.05645    2.8032     2.8032     1.8752  341         0 q1         2135.528 1.670478e-04 1.203309  8.396625e-02         0
+      adapted_eps=[0.076728592531, 0.075511759063, 0.077054861592, 0.076066977705]; epsilon_search_gradients=26; warmup_gradients=29878; retained_gradients=112128
+ 0.2000     7 ok                          0.05829    2.8105     2.8105     1.8769  274         0 q1         1128.457 3.153054e-04 1.137926  1.234071e-01         0
+      adapted_eps=[0.075632302306, 0.075918579086, 0.075648425723, 0.077063308276]; epsilon_search_gradients=25; warmup_gradients=29347; retained_gradients=112420
+ 0.2000     8 ok                          0.05735    2.7866     2.7866     1.8678  335         0 q1         844.7589 4.248155e-04 1.118887  7.768223e-02         0
+      adapted_eps=[0.076862257043, 0.075483698395, 0.075416189399, 0.077236069758]; epsilon_search_gradients=24; warmup_gradients=28835; retained_gradients=111462
+ 0.2000     9 ok                          0.05876    2.8380     2.8380     1.8884  262         0 q1          828.563 4.252674e-04 1.087068  5.370702e-02         0
+      adapted_eps=[0.07773020114 , 0.074462296558, 0.075515376972, 0.075135518924]; epsilon_search_gradients=25; warmup_gradients=29614; retained_gradients=113520
+ 0.2000    10 ok                          0.05764    2.7988     2.7988     1.8729  287         0 q1         1324.004 2.698601e-04 1.079456  2.195063e-01         0
+      adapted_eps=[0.076734594001, 0.076425669722, 0.076587737782, 0.074811479808]; epsilon_search_gradients=24; warmup_gradients=29723; retained_gradients=111952
+ 0.2500     1 ok                          0.06517    3.1021     3.1021     1.9905   32         0 q1         719.1314 4.482734e-04 1.070574  1.076558e-01         0
+      adapted_eps=[0.072642775634, 0.074035610384, 0.074778210139, 0.07181251825 ]; epsilon_search_gradients=27; warmup_gradients=36356; retained_gradients=124082
+ 0.2500     2 ok                          0.06624    3.1496     3.1496     2.0099    6         0 q1          885.371 3.586075e-04 1.122997  8.822292e-02         0
+      adapted_eps=[0.072824738387, 0.072932069379, 0.073181018346, 0.07161506059 ]; epsilon_search_gradients=26; warmup_gradients=35353; retained_gradients=125984
+ 0.2500     3 ok                          0.06361    3.1141     3.1141     1.9955    6         0 q1         1295.472 2.478788e-04 1.161974  2.056118e-01         0
+      adapted_eps=[0.07256481746 , 0.073565544024, 0.072356738589, 0.073483851847]; epsilon_search_gradients=24; warmup_gradients=35487; retained_gradients=124564
+ 0.2500     4 ok                          0.06435    3.1269     3.1269     2.0006   16         0 q1         401.0877 7.973458e-04 1.023397  1.980048e-01         0
+      adapted_eps=[0.074418660785, 0.071955427897, 0.072145234299, 0.07299430052 ]; epsilon_search_gradients=26; warmup_gradients=35618; retained_gradients=125076
+ 0.2500     5 ok                          0.06241    3.0019     3.0019     1.9543   17         0 q1         711.5673 4.681452e-04 1.035877  1.874993e-01         0
+      adapted_eps=[0.072871995197, 0.074721534542, 0.074055390897, 0.073476488878]; epsilon_search_gradients=24; warmup_gradients=35358; retained_gradients=120078
+ 0.2500     6 ok                          0.06405    3.0761     3.0761     1.9806   33         0 q1          711.661 4.568003e-04 1.052113  1.306566e-01         0
+      adapted_eps=[0.074013970415, 0.07437338356 , 0.074368087185, 0.071364372102]; epsilon_search_gradients=26; warmup_gradients=34870; retained_gradients=123044
+ 0.2500     7 ok                          0.06381    3.0749     3.0750     1.9828   16         0 q1         429.5502 7.570909e-04 1.018952  2.043778e-01         0
+      adapted_eps=[0.073018670585, 0.074831098546, 0.073171957507, 0.072488406251]; epsilon_search_gradients=25; warmup_gradients=35466; retained_gradients=122998
+ 0.2500     8 ok                          0.06412    3.0652     3.0652     1.9768   17         0 q1         908.9413 3.589322e-04 1.059786  1.261881e-01         0
+      adapted_eps=[0.074056049147, 0.072231131242, 0.073366326012, 0.07392597386 ]; epsilon_search_gradients=24; warmup_gradients=35211; retained_gradients=122606
+ 0.2500     9 ok                          0.06613    3.1331     3.1331     2.0042    6         0 q1         859.8321 3.712035e-04 1.070874  5.499753e-02         0
+      adapted_eps=[0.073786597231, 0.072417177731, 0.072705893945, 0.072559898475]; epsilon_search_gradients=25; warmup_gradients=35122; retained_gradients=125324
+ 0.2500    10 ok                          0.06521    3.1736     3.1735     2.0177    6         0 q1         484.2727 6.506758e-04 1.041294  7.084671e-02         0
+      adapted_eps=[0.072633501837, 0.072553767554, 0.07196797069 , 0.07301376928 ]; epsilon_search_gradients=24; warmup_gradients=34782; retained_gradients=126942
+ 0.3000     1 ok                          0.07318    3.5878     3.5878     2.1561    0         0 q1         584.5417 4.768286e-04 1.079014  1.100998e-01         0
+      adapted_eps=[0.069740075477, 0.069915195749, 0.070771232686, 0.070989180231]; epsilon_search_gradients=27; warmup_gradients=40850; retained_gradients=143510
+ 0.3000     2 ok                          0.07505    3.6894     3.6894     2.1848    0         0 q1         492.7993 5.500146e-04 1.043082  7.266384e-02         0
+      adapted_eps=[0.069990818241, 0.071136526935, 0.070185308323, 0.069111623487]; epsilon_search_gradients=26; warmup_gradients=41335; retained_gradients=147576
+ 0.3000     3 ok                          0.07153    3.5063     3.5063     2.1284    0         0 q1         525.2775 5.429607e-04 1.028131  9.848950e-02         0
+      adapted_eps=[0.070527275003, 0.069985080505, 0.07193024852 , 0.070771558518]; epsilon_search_gradients=24; warmup_gradients=40791; retained_gradients=140250
+ 0.3000     4 ok                          0.07127    3.5214     3.5214     2.1335    0         0 q1         538.5167 5.273336e-04 1.080085  1.029334e-01         0
+      adapted_eps=[0.070369250279, 0.070271875421, 0.070149868388, 0.071959122722]; epsilon_search_gradients=26; warmup_gradients=42952; retained_gradients=140856
+ 0.3000     5 ok                          0.07165    3.5013     3.5013     2.1288    1         0 q1         605.9971 4.713029e-04 1.051275  1.141188e-01         0
+      adapted_eps=[0.070370870334, 0.071492320716, 0.070074090624, 0.070812853907]; epsilon_search_gradients=24; warmup_gradients=41459; retained_gradients=140052
+ 0.3000     6 ok                          0.07215    3.5024     3.5024     2.1305    0         0 q1         575.4346 4.961789e-04 1.055484  1.033323e-01         0
+      adapted_eps=[0.071166611526, 0.070981101356, 0.070152221599, 0.070675461479]; epsilon_search_gradients=26; warmup_gradients=41160; retained_gradients=140096
+ 0.3000     7 ok                          0.07241    3.5439     3.5439     2.1423    0         0 q1         783.3963 3.601945e-04 1.094767  7.861555e-02         0
+      adapted_eps=[0.070539019531, 0.069891890685, 0.071543711846, 0.070459616723]; epsilon_search_gradients=25; warmup_gradients=41504; retained_gradients=141756
+ 0.3000     8 ok                          0.07474    3.6768     3.6769     2.1795    0         0 q1         1515.238 1.794912e-04 1.098520  8.100050e-02         0
+      adapted_eps=[0.070194234736, 0.070502152759, 0.069533122523, 0.069862851986]; epsilon_search_gradients=24; warmup_gradients=40878; retained_gradients=147074
+ 0.3000     9 ok                          0.07190    3.4537     3.4537     2.1128    0         0 q1         451.2749 6.416053e-04 1.046223  9.028682e-02         0
+      adapted_eps=[0.070985957659, 0.071017685824, 0.070444271368, 0.071214532344]; epsilon_search_gradients=25; warmup_gradients=41611; retained_gradients=138150
+ 0.3000    10 ok                          0.07305    3.6079     3.6079     2.1592    0         0 q1         422.4698 6.560786e-04 1.072777  1.023772e-01         0
+      adapted_eps=[0.071025740004, 0.070348143607, 0.069414288499, 0.070444142644]; epsilon_search_gradients=24; warmup_gradients=41904; retained_gradients=144314
+ 0.3500     1 ok                          0.08304    4.5278     4.5278     2.4009    0         0 q1         284.4486 7.764418e-04 1.043827  1.189548e-01         0
+      adapted_eps=[0.06818443333 , 0.068199825756, 0.068197952187, 0.067984004014]; epsilon_search_gradients=27; warmup_gradients=48590; retained_gradients=181112
+ 0.3500     2 ok                          0.08474    4.7731     4.7731     2.4323    0         0 q1         330.1688 6.345464e-04 1.028889  1.028882e-01         0
+      adapted_eps=[0.066990629133, 0.068512310166, 0.068304372051, 0.068499334584]; epsilon_search_gradients=26; warmup_gradients=48073; retained_gradients=190924
+ 0.3500     3 ok                          0.08610    5.1441     5.1441     2.5145    0         0 q1         295.0209 6.589341e-04 1.035408  1.286800e-01         0
+      adapted_eps=[0.068035754268, 0.067015781099, 0.06753854613 , 0.067919677684]; epsilon_search_gradients=24; warmup_gradients=48503; retained_gradients=205762
+ 0.3500     4 ok                          0.08320    4.4923     4.4923     2.3913    0         0 q1         402.6819 5.528075e-04 1.018835  1.247265e-01         0
+      adapted_eps=[0.06850444888 , 0.068119084754, 0.068018473116, 0.068083662469]; epsilon_search_gradients=26; warmup_gradients=48165; retained_gradients=179690
+ 0.3500     5 ok                          0.08221    4.6583     4.6583     2.4191    0         0 q1         270.3702 7.939875e-04 1.015575  4.063994e-02         0
+      adapted_eps=[0.067447123588, 0.068652000558, 0.06770328848 , 0.06841288831 ]; epsilon_search_gradients=24; warmup_gradients=47009; retained_gradients=186332
+ 0.3500     6 ok                          0.08384    4.6614     4.6614     2.4256    0         0 q1         304.9437 7.034997e-04 1.038138  3.097741e-02         0
+      adapted_eps=[0.067887474907, 0.068091824294, 0.067648279756, 0.068337404592]; epsilon_search_gradients=26; warmup_gradients=47616; retained_gradients=186456
+ 0.3500     7 ok                          0.08331    4.5605     4.5604     2.4051    0         0 q1         311.2691 7.044600e-04 1.022957  3.381654e-02         0
+      adapted_eps=[0.068160256294, 0.068020933024, 0.067767726583, 0.068436456824]; epsilon_search_gradients=25; warmup_gradients=47708; retained_gradients=182418
+ 0.3500     8 ok                          0.08152    4.4586     4.4587     2.3853    0         0 q1          295.764 7.583180e-04 1.015008  5.061267e-02         0
+      adapted_eps=[0.068301667943, 0.068067501103, 0.068366232327, 0.068143686754]; epsilon_search_gradients=24; warmup_gradients=46533; retained_gradients=178346
+ 0.3500     9 ok                          0.07993    4.4554     4.4554     2.3847    0         0 q1         778.1269 2.884482e-04 1.074398  6.562891e-02         0
+      adapted_eps=[0.06815310515 , 0.068749710811, 0.067900611017, 0.068376653644]; epsilon_search_gradients=25; warmup_gradients=47547; retained_gradients=178214
+ 0.3500    10 ok                          0.08620    4.9653     4.9653     2.4782    0         0 q1         207.3715 9.712025e-04 1.032623  6.533360e-02         0
+      adapted_eps=[0.067489450465, 0.068405754728, 0.068081656348, 0.06715675349 ]; epsilon_search_gradients=24; warmup_gradients=48061; retained_gradients=198610
+ 0.4000     1 ok                          0.31149   14.6248    14.6248     3.4830    0         0 q1^2       7.804286 8.761469e-03 1.001876  1.743132e-02         0
+      adapted_eps=[0.066179070392, 0.065827178047, 0.065443612004, 0.065909061237]; epsilon_search_gradients=27; warmup_gradients=55200; retained_gradients=584992
+ 0.4000     2 ok                          0.27896   13.9578    13.9578     3.3996    0         0 q1^2       10.39525 6.892068e-03 1.003440  2.371346e-02         0
+      adapted_eps=[0.066241722265, 0.065471242596, 0.06581395802 , 0.066472153371]; epsilon_search_gradients=26; warmup_gradients=53884; retained_gradients=558310
+ 0.4000     3 ok                          0.29234   13.9983    13.9983     3.4173    0         0 q1         15.48688 4.612775e-03 1.001827  4.079553e-02         0
+      adapted_eps=[0.066385442422, 0.065068257723, 0.065201924424, 0.066587665464]; epsilon_search_gradients=24; warmup_gradients=54197; retained_gradients=559930
+ 0.4000     4 ok                          0.31449   14.4062    14.4062     3.4641    0         0 q1^2       12.57812 5.518694e-03 1.001423  3.628304e-02         0
+      adapted_eps=[0.066529504006, 0.065871216588, 0.065085308678, 0.065442231835]; epsilon_search_gradients=26; warmup_gradients=54639; retained_gradients=576246
+ 0.4000     5 ok                          0.34377   15.1102    15.1102     3.5356    0         0 q1^2       7.649533 8.651598e-03 1.000983  1.716852e-02         0
+      adapted_eps=[0.065259830598, 0.065570424969, 0.065928048793, 0.065760778046]; epsilon_search_gradients=24; warmup_gradients=54668; retained_gradients=604406
+ 0.4000     6 ok                          0.21994   11.7037    11.7037     3.1887    0         0 q1         43.15645 1.979845e-03 1.003792  2.688099e-02         0
+      adapted_eps=[0.066415845907, 0.066459757281, 0.06677578797 , 0.065490188696]; epsilon_search_gradients=26; warmup_gradients=54267; retained_gradients=468148
+ 0.4000     7 ok                          0.24404   11.4250    11.4250     3.1915    0         0 q1          95.1364 9.200196e-04 1.012866  7.318850e-02         0
+      adapted_eps=[0.065170030684, 0.065499848088, 0.067133768027, 0.066724326692]; epsilon_search_gradients=25; warmup_gradients=52789; retained_gradients=457000
+ 0.4000     8 ok                          0.27278   12.8158    12.8158     3.3163    0         0 q1         46.48216 1.678680e-03 1.002934  3.298284e-02         0
+      adapted_eps=[0.066845528656, 0.066000945617, 0.066183700898, 0.064819916327]; epsilon_search_gradients=24; warmup_gradients=52665; retained_gradients=512632
+ 0.4000     9 ok                          0.38413   15.9853    15.9853     3.6425    0         0 q3^2       6.904887 9.059884e-03 1.000678  2.079318e-02         0
+      adapted_eps=[0.064609874149, 0.065666597712, 0.065301081918, 0.065480107065]; epsilon_search_gradients=25; warmup_gradients=53840; retained_gradients=639412
+ 0.4000    10 ok                          0.21137   10.4687    10.4687     3.0707    0         0 q1         106.8686 8.938348e-04 1.004966  2.357948e-02         0
+      adapted_eps=[0.066814352259, 0.065712702369, 0.065839908555, 0.067471721766]; epsilon_search_gradients=24; warmup_gradients=54310; retained_gradients=418748
+ 0.4250     1 ok                          0.41603   16.7335    16.7335     3.7371    0         0 q1         6.655323 8.979332e-03 1.000656  2.509541e-02         0
+      adapted_eps=[0.064325675004, 0.064801384203, 0.065572585973, 0.065216098185]; epsilon_search_gradients=27; warmup_gradients=56377; retained_gradients=669340
+ 0.4250     2 ok                          0.44528   17.2062    17.2062     3.7942    0         0 q1         6.450359 9.010132e-03 1.000344  3.996745e-02         0
+      adapted_eps=[0.064823327055, 0.06464925512 , 0.064039443831, 0.065024418642]; epsilon_search_gradients=26; warmup_gradients=55799; retained_gradients=688248
+ 0.4250     3 ok                          0.40262   16.3251    16.3251     3.6871    0         0 q1         6.631263 9.237389e-03 1.001142  3.210387e-02         0
+      adapted_eps=[0.064931154095, 0.065585453884, 0.064974954068, 0.064934926005]; epsilon_search_gradients=24; warmup_gradients=57267; retained_gradients=653002
+ 0.4250     4 ok                          0.41657   16.6955    16.6955     3.7294    0         0 q1         6.639209 9.021613e-03 1.000613  1.416258e-02         0
+      adapted_eps=[0.064264714354, 0.065845170777, 0.065066600919, 0.064410140209]; epsilon_search_gradients=26; warmup_gradients=54774; retained_gradients=667820
+ 0.4250     5 ok                          0.45025   17.2928    17.2928     3.8065    0         0 q1^2       6.719149 8.606378e-03 1.001314  2.821075e-02         0
+      adapted_eps=[0.064036522339, 0.064049632443, 0.065261438648, 0.064651084963]; epsilon_search_gradients=24; warmup_gradients=57229; retained_gradients=691712
+ 0.4250     6 ok                          0.44329   17.1715    17.1715     3.7934    0         0 q1         6.557792 8.880433e-03 1.000506  3.664620e-02         0
+      adapted_eps=[0.064484367472, 0.064203278696, 0.06506954007 , 0.064774723505]; epsilon_search_gradients=26; warmup_gradients=55561; retained_gradients=686860
+ 0.4250     7 ok                          0.43994   17.0511    17.0511     3.7777    0         0 q1         7.049355 8.319495e-03 1.000693  1.365469e-02         0
+      adapted_eps=[0.064532234104, 0.064539950925, 0.064351014492, 0.065354739571]; epsilon_search_gradients=25; warmup_gradients=57450; retained_gradients=682046
+ 0.4250     8 ok                          0.43252   16.8326    16.8326     3.7494    0         0 q1          7.06328 8.410898e-03 1.000769  1.759931e-02         0
+      adapted_eps=[0.064842068215, 0.065714797955, 0.063871342447, 0.06420820109 ]; epsilon_search_gradients=24; warmup_gradients=58848; retained_gradients=673304
+ 0.4250     9 ok                          0.43407   17.0296    17.0296     3.7670    0         0 q1         6.998334 8.390753e-03 1.000595  2.113981e-02         0
+      adapted_eps=[0.064794922939, 0.064441257583, 0.065097517696, 0.06472450006 ]; epsilon_search_gradients=25; warmup_gradients=56477; retained_gradients=681184
+ 0.4250    10 ok                          0.42756   16.9729    16.9729     3.7643    0         0 q1         6.401534 9.203673e-03 1.000723  1.803813e-02         0
+      adapted_eps=[0.064731212658, 0.06501275254 , 0.064752277614, 0.064881735744]; epsilon_search_gradients=24; warmup_gradients=56006; retained_gradients=678914
+ 0.4500     1 ok                          0.53566   18.4708    18.4708     3.9493    0         0 q1         6.337172 8.543142e-03 1.001253  2.379083e-02         0
+      adapted_eps=[0.06371852887 , 0.063680353503, 0.063385518025, 0.062446871901]; epsilon_search_gradients=27; warmup_gradients=60368; retained_gradients=738834
+ 0.4500     2 ok                          0.51181   18.2370    18.2370     3.9199    0         0 q1         6.007345 9.127756e-03 1.001274  2.402842e-02         0
+      adapted_eps=[0.063879448858, 0.063010139033, 0.064071739809, 0.06390491319 ]; epsilon_search_gradients=26; warmup_gradients=59603; retained_gradients=729480
+ 0.4500     3 ok                          0.48119   17.7254    17.7254     3.8555    0         0 q1^2       6.625532 8.514972e-03 1.000646  1.936126e-02         0
+      adapted_eps=[0.064639656641, 0.064279339871, 0.063989762638, 0.063578694443]; epsilon_search_gradients=24; warmup_gradients=61792; retained_gradients=709016
+ 0.4500     4 ok                          0.54016   18.6360    18.6360     3.9719    0         0 q1         6.694249 8.015794e-03 1.000526  2.280770e-02         0
+      adapted_eps=[0.062462653839, 0.062691320063, 0.064224214362, 0.063365825497]; epsilon_search_gradients=26; warmup_gradients=59843; retained_gradients=745438
+ 0.4500     5 ok                          0.53979   18.5861    18.5861     3.9583    0         0 q1^2       6.391842 8.417527e-03 1.001199  2.328977e-02         0
+      adapted_eps=[0.063671213806, 0.063919442514, 0.062947548074, 0.062299683763]; epsilon_search_gradients=24; warmup_gradients=59049; retained_gradients=743446
+ 0.4500     6 ok                          0.53502   18.6010    18.6010     3.9642    0         0 q1         6.158564 8.729398e-03 1.000599  2.504969e-02         0
+      adapted_eps=[0.063801783833, 0.062733506414, 0.063619758683, 0.063107941   ]; epsilon_search_gradients=26; warmup_gradients=59696; retained_gradients=744040
+ 0.4500     7 ok                          0.55749   18.8241    18.8241     3.9932    0         0 q1^2       6.609047 8.037959e-03 1.000463  1.572910e-02         0
+      adapted_eps=[0.062996944164, 0.062500948857, 0.062369026075, 0.063785747727]; epsilon_search_gradients=25; warmup_gradients=60717; retained_gradients=752966
+ 0.4500     8 ok                          0.53117   18.3953    18.3953     3.9419    0         0 q1          6.70134 8.112065e-03 1.000541  1.682477e-02         0
+      adapted_eps=[0.06334701877 , 0.062803431111, 0.063534281336, 0.064037788957]; epsilon_search_gradients=24; warmup_gradients=58757; retained_gradients=735812
+ 0.4500     9 ok                          0.55875   18.7312    18.7313     3.9860    0         0 q1         6.396819 8.345823e-03 1.000850  1.420681e-02         0
+      adapted_eps=[0.06243155707 , 0.062545263744, 0.063443604704, 0.063285736982]; epsilon_search_gradients=25; warmup_gradients=61282; retained_gradients=749250
+ 0.4500    10 ok                          0.53599   18.3931    18.3931     3.9491    0         0 q1         6.253964 8.693400e-03 1.000761  1.600167e-02         0
+      adapted_eps=[0.063462962402, 0.063059636816, 0.06403433152 , 0.062738803449]; epsilon_search_gradients=24; warmup_gradients=60117; retained_gradients=735724
+ 0.4750     1 ok                          0.57160   19.0763    19.0763     4.0210    0         0 q1         6.526692 8.031797e-03 1.000554  1.728206e-02         0
+      adapted_eps=[0.062825994337, 0.062144122096, 0.063108879798, 0.062299740174]; epsilon_search_gradients=27; warmup_gradients=63455; retained_gradients=763052
+ 0.4750     2 ok                          0.59083   19.3565    19.3565     4.0489    0         0 q1         6.318115 8.176821e-03 1.000757  2.012421e-02         0
+      adapted_eps=[0.061874039907, 0.062669483357, 0.061782731134, 0.062515360629]; epsilon_search_gradients=26; warmup_gradients=64282; retained_gradients=774262
+ 0.4750     3 ok                          0.58818   19.3133    19.3133     4.0495    0         0 q1         6.264509 8.265281e-03 1.000420  1.036165e-02         0
+      adapted_eps=[0.062006837975, 0.062923296242, 0.061938196026, 0.062113603288]; epsilon_search_gradients=24; warmup_gradients=63251; retained_gradients=772530
+ 0.4750     4 ok                          0.57669   19.2343    19.2343     4.0304    0         0 q1         6.197307 8.389180e-03 1.000870  8.689689e-03         0
+      adapted_eps=[0.061845118526, 0.063222255323, 0.062746084864, 0.062026276858]; epsilon_search_gradients=26; warmup_gradients=65200; retained_gradients=769374
+ 0.4750     5 ok                          0.58917   19.2292    19.2292     4.0398    0         0 q1          6.26612 8.299295e-03 1.001037  1.705102e-02         0
+      adapted_eps=[0.062216073117, 0.061909333764, 0.062430555975, 0.062133932681]; epsilon_search_gradients=24; warmup_gradients=63703; retained_gradients=769166
+ 0.4750     6 ok                          0.57870   19.2050    19.2050     4.0328    0         0 q1         6.308349 8.254083e-03 1.000598  1.549077e-02         0
+      adapted_eps=[0.062333525354, 0.061127126605, 0.063166518158, 0.063100307928]; epsilon_search_gradients=26; warmup_gradients=64626; retained_gradients=768202
+ 0.4750     7 ok                          0.59572   19.4987    19.4987     4.0588    0         0 q1         6.493027 7.898566e-03 1.000337  1.935755e-02         0
+      adapted_eps=[0.061916443826, 0.062018835577, 0.062855847329, 0.061722950409]; epsilon_search_gradients=25; warmup_gradients=63421; retained_gradients=779946
+ 0.4750     8 ok                          0.60199   19.5607    19.5608     4.0696    0         0 q1         6.221479 8.217144e-03 1.000574  1.785764e-02         0
+      adapted_eps=[0.061579827736, 0.062272128473, 0.061362664041, 0.062882926757]; epsilon_search_gradients=24; warmup_gradients=62690; retained_gradients=782430
+ 0.4750     9 ok                          0.59955   19.5967    19.5967     4.0682    0         0 q1         5.936502 8.595824e-03 1.000552  2.095469e-02         0
+      adapted_eps=[0.062280922536, 0.061971943892, 0.061409690596, 0.062387233839]; epsilon_search_gradients=25; warmup_gradients=63058; retained_gradients=783866
+ 0.4750    10 ok                          0.59772   19.4764    19.4764     4.0630    0         0 q1         6.318507 8.126001e-03 1.000789  1.493117e-02         0
+      adapted_eps=[0.062100372294, 0.062496994935, 0.062132515802, 0.06173736166 ]; epsilon_search_gradients=24; warmup_gradients=63883; retained_gradients=779056
+ 0.5000     1 ok                          0.61019   19.8896    19.8897     4.0905    0         0 q1         6.151689 8.172944e-03 1.000873  1.269763e-02         0
+      adapted_eps=[0.061979938318, 0.061177965565, 0.060723920997, 0.062375689921]; epsilon_search_gradients=27; warmup_gradients=68242; retained_gradients=795586
+ 0.5000     2 ok                          0.63060   20.2896    20.2896     4.1366    0         0 q1         5.970249 8.255323e-03 1.000452  1.985037e-02         0
+      adapted_eps=[0.06085142711 , 0.06113004945 , 0.061103829162, 0.061249188557]; epsilon_search_gradients=26; warmup_gradients=66729; retained_gradients=811584
+ 0.5000     3 ok                          0.63051   20.3751    20.3751     4.1379    0         0 q1         6.237514 7.868441e-03 1.001091  2.696686e-02         0
+      adapted_eps=[0.061467502206, 0.061319896343, 0.060306417987, 0.061111686069]; epsilon_search_gradients=24; warmup_gradients=68227; retained_gradients=815004
+ 0.5000     4 ok                          0.63814   20.5696    20.5697     4.1566    0         0 q1         6.461335 7.524035e-03 1.000710  1.210138e-02         0
+      adapted_eps=[0.060185355695, 0.061070867614, 0.061777726378, 0.059664153332]; epsilon_search_gradients=26; warmup_gradients=67914; retained_gradients=822786
+ 0.5000     5 ok                          0.63980   20.5282    20.5282     4.1490    0         0 q1         5.716558 8.521490e-03 1.000287  1.170562e-02         0
+      adapted_eps=[0.060597317778, 0.060461259441, 0.061628064939, 0.060734634434]; epsilon_search_gradients=24; warmup_gradients=68742; retained_gradients=821126
+ 0.5000     6 ok                          0.63568   20.4476    20.4477     4.1452    0         0 q1         5.918774 8.262755e-03 1.000320  1.928879e-02         0
+      adapted_eps=[0.060221200924, 0.061322480066, 0.06063896235 , 0.061033170171]; epsilon_search_gradients=26; warmup_gradients=67996; retained_gradients=817906
+ 0.5000     7 ok                          0.63259   20.2733    20.2733     4.1277    0         0 q1         6.658191 7.408331e-03 1.000993  1.565392e-02         0
+      adapted_eps=[0.060704912771, 0.060871890558, 0.06148020645 , 0.06099865555 ]; epsilon_search_gradients=25; warmup_gradients=68763; retained_gradients=810930
+ 0.5000     8 ok                          0.63252   20.3483    20.3483     4.1351    0         0 q1         5.905245 8.322120e-03 1.000791  9.319886e-03         0
+      adapted_eps=[0.060560202135, 0.061059357003, 0.061704555343, 0.060697910729]; epsilon_search_gradients=24; warmup_gradients=67728; retained_gradients=813932
+ 0.5000     9 ok                          0.61454   19.7660    19.7660     4.0847    0         0 q1         6.455974 7.836452e-03 1.000790  1.618881e-02         0
+      adapted_eps=[0.061143809407, 0.062391649851, 0.061396863262, 0.061401589363]; epsilon_search_gradients=25; warmup_gradients=69023; retained_gradients=790640
+ 0.5000    10 ok                          0.65061   20.9879    20.9879     4.1862    0         0 q1         6.075236 7.842759e-03 1.002261  1.474068e-02         0
+      adapted_eps=[0.060143273991, 0.060691642205, 0.060030362784, 0.060473196842]; epsilon_search_gradients=24; warmup_gradients=67872; retained_gradients=839514
+ 0.5250     1 ok                          0.65574   21.0088    21.0088     4.1926    0         0 q1         6.264975 7.597634e-03 1.000751  9.980758e-03         0
+      adapted_eps=[0.059496238993, 0.060532884842, 0.059474477491, 0.060883500283]; epsilon_search_gradients=27; warmup_gradients=72767; retained_gradients=840354
+ 0.5250     2 ok                          0.66092   21.1931    21.1932     4.2095    0         0 q1         6.334819 7.448525e-03 1.000833  1.892508e-02         0
+      adapted_eps=[0.060329227703, 0.06008022255 , 0.05947657417 , 0.059865737471]; epsilon_search_gradients=26; warmup_gradients=72434; retained_gradients=847726
+ 0.5250     3 ok                          0.66326   21.1446    21.1447     4.1994    0         0 q1         5.726778 8.258271e-03 1.000432  2.314271e-02         0
+      adapted_eps=[0.060388604615, 0.059673800635, 0.059581034491, 0.059814578018]; epsilon_search_gradients=24; warmup_gradients=71162; retained_gradients=845786
+ 0.5250     4 ok                          0.65997   21.1976    21.1977     4.2053    0         0 q1^2       5.971315 7.900277e-03 1.000342  1.717858e-02         0
+      adapted_eps=[0.059225812941, 0.060055410063, 0.060772718753, 0.06004535883 ]; epsilon_search_gradients=26; warmup_gradients=72082; retained_gradients=847906
+ 0.5250     5 ok                          0.66527   21.2247    21.2247     4.2064    0         0 q1^2       5.954957 7.911882e-03 1.000757  2.187629e-02         0
+      adapted_eps=[0.060084763568, 0.060105564581, 0.059662491859, 0.059093900273]; epsilon_search_gradients=24; warmup_gradients=69813; retained_gradients=848988
+ 0.5250     6 ok                          0.65405   20.9985    20.9985     4.1896    0         0 q1         5.900084 8.071486e-03 1.001091  1.234125e-02         0
+      adapted_eps=[0.060627714288, 0.059960604881, 0.059291940294, 0.060723152699]; epsilon_search_gradients=26; warmup_gradients=72078; retained_gradients=839940
+ 0.5250     7 ok                          0.66318   21.4202    21.4203     4.2221    0         0 q1           6.0037 7.776004e-03 1.000506  1.775001e-02         0
+      adapted_eps=[0.05944890475 , 0.059921307293, 0.060466884138, 0.059214078512]; epsilon_search_gradients=25; warmup_gradients=71026; retained_gradients=856810
+ 0.5250     8 ok                          0.64361   20.7110    20.7110     4.1692    0         0 q1         6.522376 7.402768e-03 1.000552  2.821333e-02         0
+      adapted_eps=[0.060414377228, 0.059893512096, 0.060964204657, 0.060736728369]; epsilon_search_gradients=24; warmup_gradients=72501; retained_gradients=828438
+ 0.5250     9 ok                          0.65396   21.0543    21.0543     4.1962    0         0 q1         6.095346 7.792194e-03 1.000919  1.343924e-02         0
+      adapted_eps=[0.059898746119, 0.060338290229, 0.060349395368, 0.060191646507]; epsilon_search_gradients=25; warmup_gradients=73052; retained_gradients=842174
+ 0.5250    10 ok                          0.66316   21.3727    21.3727     4.2244    0         0 q1         5.629416 8.311440e-03 1.000535  1.314651e-02         0
+      adapted_eps=[0.060297064683, 0.05995214627 , 0.059507955465, 0.059621070406]; epsilon_search_gradients=24; warmup_gradients=71032; retained_gradients=854910
+ 0.5500     1 ok                          0.68081   21.8751    21.8750     4.2636    0         0 q1            5.804 7.876323e-03 1.000515  2.236632e-02         0
+      adapted_eps=[0.059022246089, 0.058563186014, 0.060115281546, 0.058973105116]; epsilon_search_gradients=27; warmup_gradients=74735; retained_gradients=875002
+ 0.5500     2 ok                          0.68249   21.6903    21.6903     4.2468    0         0 q1         6.048554 7.622244e-03 1.001057  1.463543e-02         0
+      adapted_eps=[0.05973922112 , 0.058558592667, 0.059137687135, 0.05903501737 ]; epsilon_search_gradients=26; warmup_gradients=74941; retained_gradients=867612
+ 0.5500     3 ok                          0.67711   21.6017    21.6017     4.2418    0         0 q1         5.822212 7.951042e-03 1.000962  1.588925e-02         0
+      adapted_eps=[0.059376287211, 0.059165122794, 0.059168921468, 0.059350017668]; epsilon_search_gradients=24; warmup_gradients=75381; retained_gradients=864068
+ 0.5500     4 ok                          0.69143   21.9050    21.9050     4.2690    0         0 q1         6.224744 7.333905e-03 1.000428  1.812905e-02         0
+      adapted_eps=[0.059118635279, 0.058797782498, 0.058323226061, 0.058362277102]; epsilon_search_gradients=26; warmup_gradients=76309; retained_gradients=876200
+ 0.5500     5 ok                          0.68138   21.6791    21.6791     4.2494    0         0 q1         5.966938 7.730511e-03 1.000544  1.205151e-02         0
+      adapted_eps=[0.05936854248 , 0.05962583054 , 0.059048428153, 0.058555446958]; epsilon_search_gradients=24; warmup_gradients=75907; retained_gradients=867162
+ 0.5500     6 ok                          0.69107   21.8940    21.8940     4.2627    0         0 q1         5.742514 7.953766e-03 1.000426  2.371587e-02         0
+      adapted_eps=[0.058599695927, 0.058577158989, 0.059059349669, 0.058574325145]; epsilon_search_gradients=26; warmup_gradients=74208; retained_gradients=875760
+ 0.5500     7 ok                          0.67857   21.6543    21.6543     4.2448    0         0 q1         5.931929 7.785024e-03 1.001238  2.097620e-02         0
+      adapted_eps=[0.059705004148, 0.059462721981, 0.058196831515, 0.059585552934]; epsilon_search_gradients=25; warmup_gradients=74896; retained_gradients=866172
+ 0.5500     8 ok                          0.68995   21.8896    21.8896     4.2649    0         0 q1         5.904451 7.737161e-03 1.000413  1.700026e-02         0
+      adapted_eps=[0.058258771754, 0.058901842234, 0.058614211519, 0.05919334442 ]; epsilon_search_gradients=24; warmup_gradients=74798; retained_gradients=875586
+ 0.5500     9 ok                          0.68728   21.8600    21.8600     4.2659    0         0 q1         5.603156 8.164285e-03 1.000586  2.144662e-02         0
+      adapted_eps=[0.058334308115, 0.058761835141, 0.058952084319, 0.059607401427]; epsilon_search_gradients=25; warmup_gradients=75418; retained_gradients=874398
+ 0.5500    10 ok                          0.68162   21.7929    21.7929     4.2531    0         0 q1         6.102434 7.519395e-03 1.000545  1.990850e-02         0
+      adapted_eps=[0.058674273542, 0.058977936534, 0.059561053155, 0.058887277775]; epsilon_search_gradients=24; warmup_gradients=75250; retained_gradients=871714
+ 0.5750     1 ok                          0.72119   22.5354    22.5354     4.3196    0         0 q1         6.140656 7.226383e-03 1.000474  1.363601e-02         0
+      adapted_eps=[0.057928842843, 0.057741460903, 0.057965763205, 0.057300396133]; epsilon_search_gradients=27; warmup_gradients=79527; retained_gradients=901414
+ 0.5750     2 ok                          0.69724   22.0944    22.0945     4.2797    0         0 q1         5.820126 7.776504e-03 1.000728  2.684811e-02         0
+      adapted_eps=[0.058328825462, 0.058493448344, 0.058507877648, 0.058558314417]; epsilon_search_gradients=26; warmup_gradients=78345; retained_gradients=883778
+ 0.5750     3 ok                          0.71242   22.3446    22.3446     4.3028    0         0 q1            6.612 6.768534e-03 1.000714  1.302518e-02         0
+      adapted_eps=[0.058212968161, 0.058033544955, 0.057625037254, 0.058001891988]; epsilon_search_gradients=24; warmup_gradients=77814; retained_gradients=893784
+ 0.5750     4 ok                          0.70831   22.3361    22.3361     4.3051    0         0 q1         5.806387 7.710590e-03 1.000573  1.497947e-02         0
+      adapted_eps=[0.057629905667, 0.058533200298, 0.058056549394, 0.058631613648]; epsilon_search_gradients=26; warmup_gradients=79458; retained_gradients=893442
+ 0.5750     5 ok                          0.71651   22.3435    22.3435     4.3050    0         0 q1         6.543619 6.839617e-03 1.000946  3.367205e-02         0
+      adapted_eps=[0.057515423529, 0.057229590231, 0.058344948328, 0.057932107323]; epsilon_search_gradients=24; warmup_gradients=78696; retained_gradients=893738
+ 0.5750     6 ok                          0.71924   22.3325    22.3325     4.2996    0         0 q1         6.176295 7.249943e-03 1.000619  2.252064e-02         0
+      adapted_eps=[0.058326514494, 0.057707648147, 0.057853607331, 0.057839511084]; epsilon_search_gradients=26; warmup_gradients=77706; retained_gradients=893300
+ 0.5750     7 ok                          0.70007   22.1891    22.1891     4.2880    0         0 q1          6.04042 7.460951e-03 1.000753  1.285749e-02         0
+      adapted_eps=[0.058359938597, 0.057995764183, 0.058198765519, 0.058690495167]; epsilon_search_gradients=25; warmup_gradients=77151; retained_gradients=887562
+ 0.5750     8 ok                          0.71594   22.1919    22.1919     4.2951    0         0 q1         6.375921 7.067448e-03 1.000639  1.352288e-02         0
+      adapted_eps=[0.057740505733, 0.057900974298, 0.058008853712, 0.058420243029]; epsilon_search_gradients=24; warmup_gradients=77620; retained_gradients=887676
+ 0.5750     9 ok                          0.71073   22.1861    22.1861     4.2929    0         0 q1         5.987245 7.528214e-03 1.000493  1.639788e-02         0
+      adapted_eps=[0.058510129632, 0.057644984087, 0.05775713943 , 0.058534432083]; epsilon_search_gradients=25; warmup_gradients=80870; retained_gradients=887444
+ 0.5750    10 ok                          0.71276   22.2859    22.2859     4.2999    0         0 q1         6.511376 6.891235e-03 1.000883  1.438056e-02         0
+      adapted_eps=[0.057668082979, 0.057980578362, 0.058270031984, 0.058061851461]; epsilon_search_gradients=24; warmup_gradients=78067; retained_gradients=891436
+ 0.6000     1 ok                          0.72808   22.5745    22.5746     4.3227    0         0 q1         6.324478 7.004163e-03 1.000499  1.150945e-02         0
+      adapted_eps=[0.056273469014, 0.057609069417, 0.05742889241 , 0.057488073934]; epsilon_search_gradients=27; warmup_gradients=83135; retained_gradients=902982
+ 0.6000     2 ok                          0.72876   22.6201    22.6201     4.3307    0         0 q1         6.419265 6.886827e-03 1.000675  1.591810e-02         0
+      adapted_eps=[0.057008159251, 0.057081139709, 0.056127617438, 0.056950947186]; epsilon_search_gradients=26; warmup_gradients=81796; retained_gradients=904806
+ 0.6000     3 ok                          0.72545   22.5429    22.5429     4.3220    0         0 q1         6.274311 7.070077e-03 1.000347  2.221029e-02         0
+      adapted_eps=[0.057731441185, 0.057473819316, 0.057203081428, 0.056607999523]; epsilon_search_gradients=24; warmup_gradients=81320; retained_gradients=901716
+ 0.6000     4 ok                          0.73157   22.8081    22.8081     4.3493    0         0 q1         6.287924 6.972757e-03 1.000568  1.524700e-02         0
+      adapted_eps=[0.05695315396 , 0.056481165442, 0.057256015668, 0.056296197638]; epsilon_search_gradients=26; warmup_gradients=83581; retained_gradients=912322
+ 0.6000     5 ok                          0.73193   22.7386    22.7386     4.3457    0         0 q1         6.483201 6.783390e-03 1.000853  1.574842e-02         0
+      adapted_eps=[0.056706897647, 0.056644715063, 0.057047376546, 0.056634596589]; epsilon_search_gradients=24; warmup_gradients=83253; retained_gradients=909544
+ 0.6000     6 ok                          0.72773   22.6519    22.6519     4.3295    0         0 q1         6.295918 7.011895e-03 1.000845  1.622075e-02         0
+      adapted_eps=[0.057046883442, 0.05742313496 , 0.057597915769, 0.05780695398 ]; epsilon_search_gradients=26; warmup_gradients=81448; retained_gradients=906078
+ 0.6000     7 ok                          0.73294   22.7167    22.7167     4.3390    0         0 q1         6.793479 6.479828e-03 1.000865  2.273918e-02         0
+      adapted_eps=[0.057597127   , 0.056902575933, 0.055929087773, 0.056596207969]; epsilon_search_gradients=25; warmup_gradients=81802; retained_gradients=908666
+ 0.6000     8 ok                          0.73003   22.5475    22.5475     4.3266    0         0 q1         6.072372 7.303705e-03 1.000662  2.723892e-02         0
+      adapted_eps=[0.057811178171, 0.056839432244, 0.057710615928, 0.056563251054]; epsilon_search_gradients=24; warmup_gradients=79938; retained_gradients=901900
+ 0.6000     9 ok                          0.72645   22.7503    22.7503     4.3371    0         0 q1         6.931431 6.341470e-03 1.000606  2.341588e-02         0
+      adapted_eps=[0.057083028447, 0.056818754496, 0.056843025894, 0.057504352032]; epsilon_search_gradients=25; warmup_gradients=82094; retained_gradients=910012
+ 0.6000    10 ok                          0.72299   22.5870    22.5870     4.3302    0         0 q1         6.382373 6.936817e-03 1.000527  1.392115e-02         0
+      adapted_eps=[0.056816293891, 0.058213052068, 0.057124729158, 0.056484122979]; epsilon_search_gradients=24; warmup_gradients=80121; retained_gradients=903478
+ 0.6250     1 ok                          0.74215   22.7572    22.7572     4.3446    0         0 q1         6.450187 6.812522e-03 1.000626  1.337782e-02         0
+      adapted_eps=[0.056184304555, 0.056128798893, 0.055893795147, 0.05575720428 ]; epsilon_search_gradients=27; warmup_gradients=86639; retained_gradients=910290
+ 0.6250     2 ok                          0.74102   22.7118    22.7119     4.3411    0         0 q1          6.21473 7.084762e-03 1.000326  2.186209e-02         0
+      adapted_eps=[0.056376809569, 0.056440513604, 0.055169973617, 0.056582680632]; epsilon_search_gradients=26; warmup_gradients=86246; retained_gradients=908474
+ 0.6250     3 ok                          0.74788   23.0739    23.0739     4.3678    0         0 q1         6.137345 7.061508e-03 1.000572  2.034584e-02         0
+      adapted_eps=[0.056229590582, 0.055314695203, 0.056129761096, 0.055318180386]; epsilon_search_gradients=24; warmup_gradients=85762; retained_gradients=922958
+ 0.6250     4 ok                          0.73658   22.7276    22.7276     4.3444    0         0 q1         6.188341 7.110042e-03 1.000635  1.620984e-02         0
+      adapted_eps=[0.056165465646, 0.056815917867, 0.056205438177, 0.05600787718 ]; epsilon_search_gradients=26; warmup_gradients=87582; retained_gradients=909104
+ 0.6250     5 ok                          0.75363   23.1810    23.1810     4.3771    0         0 q1         6.402271 6.738043e-03 1.000402  1.766633e-02         0
+      adapted_eps=[0.05495538333 , 0.055203391667, 0.055659782757, 0.056350063014]; epsilon_search_gradients=24; warmup_gradients=85784; retained_gradients=927240
+ 0.6250     6 ok                          0.74243   22.9517    22.9517     4.3534    0         0 q1         6.212283 7.013486e-03 1.000787  1.202586e-02         0
+      adapted_eps=[0.05686516706 , 0.056012353603, 0.055396554759, 0.055677958241]; epsilon_search_gradients=26; warmup_gradients=84551; retained_gradients=918068
+ 0.6250     7 ok                          0.73803   22.8453    22.8453     4.3537    0         0 q1         6.248178 7.005671e-03 1.000301  1.959404e-02         0
+      adapted_eps=[0.056824432362, 0.056177550654, 0.056221855389, 0.056057603604]; epsilon_search_gradients=25; warmup_gradients=86666; retained_gradients=913812
+ 0.6250     8 ok                          0.73373   22.7752    22.7752     4.3464    0         0 q1         6.427426 6.831244e-03 1.000441  1.603998e-02         0
+      adapted_eps=[0.056953148758, 0.056400659479, 0.056507439991, 0.056049645706]; epsilon_search_gradients=24; warmup_gradients=84688; retained_gradients=911010
+ 0.6250     9 ok                          0.74085   22.8560    22.8560     4.3509    0         0 q1         5.839675 7.492229e-03 1.000344  1.236803e-02         0
+      adapted_eps=[0.055585037819, 0.055784290455, 0.05678570232 , 0.056228535582]; epsilon_search_gradients=25; warmup_gradients=82962; retained_gradients=914240
+ 0.6250    10 ok                          0.73518   22.7598    22.7598     4.3395    0         0 q1         6.282957 6.993079e-03 1.000792  1.052503e-02         0
+      adapted_eps=[0.055951162516, 0.056751368039, 0.056892534901, 0.056013012955]; epsilon_search_gradients=24; warmup_gradients=85005; retained_gradients=910390
+ 0.6500     1 ok                          0.75539   23.3522    23.3522     4.3877    0         0 q1         6.149484 6.963595e-03 1.000470  1.282418e-02         0
+      adapted_eps=[0.055316242544, 0.055376779307, 0.055272156134, 0.055165577031]; epsilon_search_gradients=27; warmup_gradients=87691; retained_gradients=934088
+ 0.6500     2 ok                          0.76050   23.3890    23.3890     4.3868    0         0 q1          5.87165 7.281623e-03 1.000400  1.596376e-02         0
+      adapted_eps=[0.055560916964, 0.055358351475, 0.054639312106, 0.054952713052]; epsilon_search_gradients=26; warmup_gradients=90332; retained_gradients=935560
+ 0.6500     3 ok                          0.75646   23.3410    23.3410     4.3822    0         0 q1          6.65415 6.438548e-03 1.001376  1.428848e-02         0
+      adapted_eps=[0.055417238807, 0.05623820084 , 0.055603871718, 0.053736403793]; epsilon_search_gradients=24; warmup_gradients=90990; retained_gradients=933640
+ 0.6500     4 ok                          0.75364   23.0977    23.0977     4.3709    0         0 q1           6.7766 6.388815e-03 1.000713  1.082424e-02         0
+      adapted_eps=[0.055536033843, 0.055652601153, 0.05509489211 , 0.055126911294]; epsilon_search_gradients=26; warmup_gradients=90057; retained_gradients=923906
+ 0.6500     5 ok                          0.75993   23.2748    23.2748     4.3773    0         0 q1         6.403227 6.709886e-03 1.000845  2.141099e-02         0
+      adapted_eps=[0.054692015819, 0.055372417272, 0.054996850956, 0.05542004452 ]; epsilon_search_gradients=24; warmup_gradients=88358; retained_gradients=930992
+ 0.6500     6 ok                          0.76118   23.3359    23.3359     4.3814    0         0 q1         6.210056 6.900505e-03 1.000465  3.014596e-02         0
+      adapted_eps=[0.054693871033, 0.055192970294, 0.054742134904, 0.055496870935]; epsilon_search_gradients=26; warmup_gradients=88552; retained_gradients=933434
+ 0.6500     7 ok                          0.75986   23.4191    23.4191     4.3932    0         0 q1         6.711641 6.362095e-03 1.000495  1.578633e-02         0
+      adapted_eps=[0.05556369699 , 0.054560386059, 0.055577233445, 0.054625711284]; epsilon_search_gradients=25; warmup_gradients=90418; retained_gradients=936766
+ 0.6500     8 ok                          0.75909   23.5160    23.5160     4.3912    0         0 q1         6.227588 6.828379e-03 1.000285  1.505909e-02         0
+      adapted_eps=[0.05498150693 , 0.055748811044, 0.054574719509, 0.054759297105]; epsilon_search_gradients=24; warmup_gradients=89014; retained_gradients=940638
+ 0.6500     9 ok                          0.76500   23.3431    23.3431     4.3826    0         0 q1         6.207616 6.901073e-03 1.000476  1.616536e-02         0
+      adapted_eps=[0.054669774156, 0.055167788315, 0.054525452473, 0.054631669534]; epsilon_search_gradients=25; warmup_gradients=89967; retained_gradients=933724
+ 0.6500    10 ok                          0.76704   23.6693    23.6693     4.4101    0         0 q1         6.967438 6.063752e-03 1.002377  2.536139e-02         0
+      adapted_eps=[0.054301036469, 0.055332424904, 0.054044525546, 0.054380859862]; epsilon_search_gradients=24; warmup_gradients=88634; retained_gradients=946772
+ 0.6750     1 ok                          0.77839   24.1794    24.1794     4.4300    0         0 q1         6.252423 6.614625e-03 1.000636  1.750006e-02         0
+      adapted_eps=[0.054095333935, 0.053862305861, 0.053089053942, 0.054522951898]; epsilon_search_gradients=27; warmup_gradients=94644; retained_gradients=967178
+ 0.6750     2 ok                          0.77194   23.7277    23.7277     4.4057    0         0 q1         6.723225 6.268545e-03 1.000513  1.557058e-02         0
+      adapted_eps=[0.054462397058, 0.054256600991, 0.054267301207, 0.053798469657]; epsilon_search_gradients=26; warmup_gradients=94383; retained_gradients=949108
+ 0.6750     3 ok                          0.78336   24.2754    24.2754     4.4354    0         0 q1         6.585454 6.255296e-03 1.001332  1.832365e-02         0
+      adapted_eps=[0.053327278007, 0.053639021679, 0.053470778629, 0.053269431877]; epsilon_search_gradients=24; warmup_gradients=94069; retained_gradients=971016
+ 0.6750     4 ok                          0.77381   23.8702    23.8703     4.4146    0         0 q1         6.180782 6.777969e-03 1.000387  1.832580e-02         0
+      adapted_eps=[0.054012029953, 0.054520942482, 0.054228525753, 0.054011107298]; epsilon_search_gradients=26; warmup_gradients=95597; retained_gradients=954810
+ 0.6750     5 ok                          0.77691   23.8154    23.8154     4.4142    0         0 q1         6.455268 6.504709e-03 1.000624  1.111673e-02         0
+      adapted_eps=[0.054248776115, 0.053901694856, 0.053952648542, 0.054216379415]; epsilon_search_gradients=24; warmup_gradients=95665; retained_gradients=952616
+ 0.6750     6 ok                          0.77508   23.9595    23.9595     4.4208    0         0 q1          6.69046 6.238300e-03 1.001024  3.022720e-02         0
+      adapted_eps=[0.054171541325, 0.053636811712, 0.053527045826, 0.054560779334]; epsilon_search_gradients=26; warmup_gradients=92080; retained_gradients=958380
+ 0.6750     7 ok                          0.76866   23.7497    23.7497     4.4141    0         0 q1         6.541459 6.436746e-03 1.000674  2.011155e-02         0
+      adapted_eps=[0.054489080805, 0.054098033154, 0.055135133547, 0.054164418466]; epsilon_search_gradients=25; warmup_gradients=94288; retained_gradients=949990
+ 0.6750     8 ok                          0.77526   23.7974    23.7974     4.4109    0         0 q1         6.223442 6.752115e-03 1.000714  2.163378e-02         0
+      adapted_eps=[0.053969130612, 0.05445480716 , 0.053994185431, 0.054427957906]; epsilon_search_gradients=24; warmup_gradients=92938; retained_gradients=951896
+ 0.6750     9 ok                          0.77831   24.1094    24.1094     4.4283    0         0 q1         6.515836 6.365660e-03 1.000276  1.631801e-02         0
+      adapted_eps=[0.053959709905, 0.053145932851, 0.053692086109, 0.054545457578]; epsilon_search_gradients=25; warmup_gradients=93430; retained_gradients=964376
+ 0.6750    10 ok                          0.77841   23.9795    23.9796     4.4205    0         0 q1         6.976933 5.977154e-03 1.000481  2.606050e-02         0
+      adapted_eps=[0.053699426596, 0.053342139159, 0.054043735649, 0.053869091285]; epsilon_search_gradients=24; warmup_gradients=93613; retained_gradients=959182
+ 0.7000     1 ok                          0.79086   24.5002    24.5002     4.4462    0         0 q1          6.41526 6.362341e-03 1.000835  1.158885e-02         0
+      adapted_eps=[0.052632009678, 0.052756611   , 0.053111417796, 0.052961629792]; epsilon_search_gradients=27; warmup_gradients=97996; retained_gradients=980006
+ 0.7000     2 ok                          0.79091   24.4758    24.4758     4.4436    0         0 q1         6.122966 6.672695e-03 1.000495  1.389229e-02         0
+      adapted_eps=[0.052360925012, 0.052726261762, 0.052731981948, 0.053543559372]; epsilon_search_gradients=26; warmup_gradients=99680; retained_gradients=979032
+ 0.7000     3 ok                          0.78686   24.3336    24.3336     4.4383    0         0 q1         6.470564 6.351138e-03 1.000535  1.415739e-02         0
+      adapted_eps=[0.05262751663 , 0.053103003984, 0.053183163944, 0.053425073179]; epsilon_search_gradients=24; warmup_gradients=99690; retained_gradients=973344
+ 0.7000     4 ok                          0.79518   24.5376    24.5376     4.4527    0         0 q1          6.36644 6.401346e-03 1.000385  1.926286e-02         0
+      adapted_eps=[0.052717846487, 0.052166527263, 0.053066130062, 0.052270702054]; epsilon_search_gradients=26; warmup_gradients=98498; retained_gradients=981504
+ 0.7000     5 ok                          0.79088   24.3938    24.3938     4.4461    0         0 q1         6.600828 6.210449e-03 1.000958  1.967005e-02         0
+      adapted_eps=[0.053084619117, 0.053078289502, 0.052538420281, 0.052783178543]; epsilon_search_gradients=24; warmup_gradients=96153; retained_gradients=975750
+ 0.7000     6 ok                          0.78584   24.2979    24.2979     4.4375    0         0 q1         6.240106 6.595372e-03 1.000573  1.570610e-02         0
+      adapted_eps=[0.053805596991, 0.053021220259, 0.052861332837, 0.053567022923]; epsilon_search_gradients=26; warmup_gradients=96764; retained_gradients=971916
+ 0.7000     7 ok                          0.79273   24.3534    24.3535     4.4364    0         0 q1         6.297146 6.520723e-03 1.000333  1.443248e-02         0
+      adapted_eps=[0.051990379257, 0.053665149716, 0.053729395481, 0.051715692853]; epsilon_search_gradients=25; warmup_gradients=96704; retained_gradients=974138
+ 0.7000     8 ok                          0.78607   24.1898    24.1898     4.4306    0         0 q1         6.199453 6.668275e-03 1.000641  1.567928e-02         0
+      adapted_eps=[0.053202442586, 0.052572537052, 0.053715028761, 0.053194387301]; epsilon_search_gradients=24; warmup_gradients=100348; retained_gradients=967594
+ 0.7000     9 ok                          0.79030   24.3288    24.3288     4.4409    0         0 q1         6.490291 6.333082e-03 1.000310  1.282383e-02         0
+      adapted_eps=[0.052819437463, 0.053945575084, 0.052153140489, 0.052831447625]; epsilon_search_gradients=25; warmup_gradients=97547; retained_gradients=973152
+ 0.7000    10 ok                          0.79079   24.3018    24.3018     4.4381    0         0 q1         6.873162 5.986941e-03 1.000618  1.705274e-02         0
+      adapted_eps=[0.052420537665, 0.05310230054 , 0.053364586837, 0.052854207363]; epsilon_search_gradients=24; warmup_gradients=96175; retained_gradients=972072
+ 0.7250     1 ok                          0.80360   24.6041    24.6041     4.4487    0         0 q1         6.159086 6.598971e-03 1.000561  7.880799e-03         0
+      adapted_eps=[0.051930610708, 0.051242610948, 0.051675690607, 0.051986829209]; epsilon_search_gradients=27; warmup_gradients=99588; retained_gradients=984164
+ 0.7250     2 ok                          0.80559   24.7166    24.7166     4.4486    0         0 q1         6.061295 6.674917e-03 1.000938  2.033760e-02         0
+      adapted_eps=[0.05141134019 , 0.051719519828, 0.051126869838, 0.05229547835 ]; epsilon_search_gradients=26; warmup_gradients=102420; retained_gradients=988664
+ 0.7250     3 ok                          0.81067   24.8318    24.8318     4.4566    0         0 q1           5.9922 6.720547e-03 1.000221  1.523148e-02         0
+      adapted_eps=[0.050690903791, 0.051400431395, 0.051453377455, 0.051374008038]; epsilon_search_gradients=24; warmup_gradients=102959; retained_gradients=993274
+ 0.7250     4 ok                          0.80622   24.7710    24.7710     4.4543    0         0 q1          6.33781 6.369674e-03 1.000405  2.005047e-02         0
+      adapted_eps=[0.051222364078, 0.05188695288 , 0.051984468582, 0.051943555596]; epsilon_search_gradients=26; warmup_gradients=100968; retained_gradients=990840
+ 0.7250     5 ok                          0.80733   24.8664    24.8664     4.4572    0         0 q1         6.491931 6.194599e-03 1.000513  1.383242e-02         0
+      adapted_eps=[0.052091718375, 0.051686245851, 0.050408346452, 0.052278839356]; epsilon_search_gradients=24; warmup_gradients=101591; retained_gradients=994656
+ 0.7250     6 ok                          0.80057   24.5178    24.5178     4.4409    0         0 q1         6.371284 6.401644e-03 1.000713  1.608807e-02         0
+      adapted_eps=[0.05130341891 , 0.052622892863, 0.051892643265, 0.052745432626]; epsilon_search_gradients=26; warmup_gradients=103007; retained_gradients=980712
+ 0.7250     7 ok                          0.80582   24.7987    24.7987     4.4562    0         0 q1         6.065985 6.647674e-03 1.000779  1.929991e-02         0
+      adapted_eps=[0.051831112901, 0.052471259389, 0.051623948455, 0.051153375513]; epsilon_search_gradients=25; warmup_gradients=105032; retained_gradients=991948
+ 0.7250     8 ok                          0.80549   24.7049    24.7049     4.4494    0         0 q1         6.316999 6.407758e-03 1.000576  1.014836e-02         0
+      adapted_eps=[0.051998049044, 0.05172910129 , 0.051372457   , 0.051797186882]; epsilon_search_gradients=24; warmup_gradients=103208; retained_gradients=988196
+ 0.7250     9 ok                          0.80514   24.7615    24.7615     4.4573    0         0 q1         6.656471 6.067058e-03 1.000859  2.287030e-02         0
+      adapted_eps=[0.051733603669, 0.051610570697, 0.051400695743, 0.051934018462]; epsilon_search_gradients=25; warmup_gradients=102336; retained_gradients=990462
+ 0.7250    10 ok                          0.79589   24.5196    24.5196     4.4460    0         0 q1         6.587179 6.191363e-03 1.000527  1.091757e-02         0
+      adapted_eps=[0.052001036334, 0.052889062308, 0.052955115256, 0.052070359953]; epsilon_search_gradients=24; warmup_gradients=103810; retained_gradients=980786
+ 0.7500     1 ok                          0.81654   24.9183    24.9183     4.4526    0         0 q1          6.08755 6.592332e-03 1.000464  1.296367e-02         0
+      adapted_eps=[0.051499284314, 0.050275928771, 0.050846978121, 0.050745872085]; epsilon_search_gradients=27; warmup_gradients=105809; retained_gradients=996732
+ 0.7500     2 ok                          0.81711   25.0479    25.0479     4.4552    0         0 q1         6.316337 6.320687e-03 1.000790  1.361234e-02         0
+      adapted_eps=[0.050648093148, 0.051049260955, 0.050146231636, 0.0504504946  ]; epsilon_search_gradients=26; warmup_gradients=107518; retained_gradients=1001914
+ 0.7500     3 ok                          0.81575   24.8410    24.8410     4.4423    0         0 q1         5.993564 6.716543e-03 1.000433  1.946268e-02         0
+      adapted_eps=[0.049895383792, 0.051416465333, 0.050837869388, 0.050551360216]; epsilon_search_gradients=24; warmup_gradients=106772; retained_gradients=993640
+ 0.7500     4 ok                          0.81424   24.7522    24.7522     4.4423    0         0 q1         6.227323 6.487611e-03 1.000797  1.343673e-02         0
+      adapted_eps=[0.051394279511, 0.051121925209, 0.050884107404, 0.049934733834]; epsilon_search_gradients=26; warmup_gradients=106086; retained_gradients=990088
+ 0.7500     5 ok                          0.81724   24.8995    24.8995     4.4532    0         0 q1         6.792886 5.912293e-03 1.000392  1.639465e-02         0
+      adapted_eps=[0.050793513861, 0.050572943035, 0.050115197234, 0.050925306995]; epsilon_search_gradients=24; warmup_gradients=105602; retained_gradients=995978
+ 0.7500     6 ok                          0.81454   24.9661    24.9661     4.4583    0         0 q1         6.289341 6.368590e-03 1.000511  2.632955e-02         0
+      adapted_eps=[0.051797199793, 0.049914437723, 0.050933188967, 0.050513782447]; epsilon_search_gradients=26; warmup_gradients=106284; retained_gradients=998646
+ 0.7500     7 ok                          0.81930   24.9114    24.9114     4.4614    0         0 q1         6.087823 6.593862e-03 1.000322  1.358593e-02         0
+      adapted_eps=[0.051122967124, 0.05059596477 , 0.049569619366, 0.051201139118]; epsilon_search_gradients=25; warmup_gradients=105826; retained_gradients=996456
+ 0.7500     8 ok                          0.81480   24.9964    24.9964     4.4572    0         0 q1         5.887932 6.794535e-03 1.000472  2.266482e-02         0
+      adapted_eps=[0.050658360639, 0.051305281305, 0.051178823713, 0.050626250411]; epsilon_search_gradients=24; warmup_gradients=106519; retained_gradients=999856
+ 0.7500     9 ok                          0.81580   24.9416    24.9416     4.4525    0         0 q1         6.536722 6.133591e-03 1.000582  1.544592e-02         0
+      adapted_eps=[0.050485215448, 0.050193952416, 0.051374689542, 0.051248719733]; epsilon_search_gradients=25; warmup_gradients=106300; retained_gradients=997666
+ 0.7500    10 ok                          0.81600   24.9165    24.9165     4.4489    0         0 q1         6.682293 6.006029e-03 1.000424  2.515421e-02         0
+      adapted_eps=[0.051346818461, 0.05003838541 , 0.050455662833, 0.050846324723]; epsilon_search_gradients=24; warmup_gradients=105256; retained_gradients=996660
+ 0.7750     1 ok                          0.83963   25.3684    25.3684     4.4617    0         0 q1         6.149886 6.409732e-03 1.000898  1.130056e-02         0
+      adapted_eps=[0.047720155725, 0.048488551398, 0.049465528205, 0.048931287891]; epsilon_search_gradients=27; warmup_gradients=112072; retained_gradients=1014736
+ 0.7750     2 ok                          0.82748   24.9816    24.9816     4.4452    0         0 q1           6.0487 6.617862e-03 1.000612  2.151531e-02         0
+      adapted_eps=[0.049663881954, 0.049485591772, 0.049454546052, 0.049832748947]; epsilon_search_gradients=26; warmup_gradients=109502; retained_gradients=999264
+ 0.7750     3 ok                          0.82285   25.0340    25.0340     4.4562    0         0 q1         6.261349 6.379723e-03 1.000603  2.080698e-02         0
+      adapted_eps=[0.050105764062, 0.050127192337, 0.049373640149, 0.051024575919]; epsilon_search_gradients=24; warmup_gradients=107615; retained_gradients=1001360
+ 0.7750     4 ok                          0.82477   24.9481    24.9482     4.4419    0         0 q1         6.208837 6.455820e-03 1.000259  1.892482e-02         0
+      adapted_eps=[0.049289217929, 0.050217982004, 0.049472888847, 0.050325120119]; epsilon_search_gradients=26; warmup_gradients=110552; retained_gradients=997926
+ 0.7750     5 ok                          0.82829   25.0622    25.0622     4.4500    0         0 q1         6.154778 6.482886e-03 1.000363  1.537897e-02         0
+      adapted_eps=[0.049293565182, 0.049538280725, 0.049931259297, 0.049326554226]; epsilon_search_gradients=24; warmup_gradients=112140; retained_gradients=1002488
+ 0.7750     6 ok                          0.82794   25.0083    25.0083     4.4463    0         0 q1         6.462167 6.187820e-03 1.000938  1.678452e-02         0
+      adapted_eps=[0.049206173277, 0.049540398182, 0.050039188614, 0.049566729787]; epsilon_search_gradients=26; warmup_gradients=109630; retained_gradients=1000332
+ 0.7750     7 ok                          0.82691   25.1291    25.1291     4.4564    0         0 q1         6.270698 6.346091e-03 1.000520  1.150645e-02         0
+      adapted_eps=[0.04963336107 , 0.049876354756, 0.049307758686, 0.050112577686]; epsilon_search_gradients=25; warmup_gradients=110042; retained_gradients=1005166
+ 0.7750     8 ok                          0.83111   25.0691    25.0691     4.4448    0         0 q1         6.113751 6.524594e-03 1.001876  1.475991e-02         0
+      adapted_eps=[0.049174973172, 0.049076280696, 0.049224065622, 0.049926114269]; epsilon_search_gradients=24; warmup_gradients=110078; retained_gradients=1002764
+ 0.7750     9 ok                          0.82946   25.1911    25.1911     4.4599    0         0 q1         5.854812 6.780159e-03 1.000305  2.771433e-02         0
+      adapted_eps=[0.049047247117, 0.050058493282, 0.049043440768, 0.04967652873 ]; epsilon_search_gradients=25; warmup_gradients=109776; retained_gradients=1007644
+ 0.7750    10 ok                          0.83483   25.2508    25.2507     4.4599    0         0 q1         6.661088 5.945392e-03 1.000565  1.054639e-02         0
+      adapted_eps=[0.048007498854, 0.050105135116, 0.048990694692, 0.049138142912]; epsilon_search_gradients=24; warmup_gradients=110308; retained_gradients=1010030
+ 0.8000     1 ok                          0.85600   25.5204    25.5204     4.4653    0         0 q1         6.696986 5.851041e-03 1.000605  2.233633e-02         0
+      adapted_eps=[0.047427469351, 0.048211267459, 0.047660492186, 0.046022012255]; epsilon_search_gradients=27; warmup_gradients=115774; retained_gradients=1020816
+ 0.8000     2 ok                          0.84068   25.1555    25.1555     4.4523    0         0 q1         6.528774 6.088852e-03 1.000563  2.326025e-02         0
+      adapted_eps=[0.048524857732, 0.048702644801, 0.048448450958, 0.048378464913]; epsilon_search_gradients=26; warmup_gradients=115752; retained_gradients=1006220
+ 0.8000     3 ok                          0.83593   24.9999    25.0000     4.4408    0         0 q1         6.790021 5.891010e-03 1.000693  1.910728e-02         0
+      adapted_eps=[0.049220329068, 0.048978941443, 0.04908793355 , 0.048103322016]; epsilon_search_gradients=24; warmup_gradients=113226; retained_gradients=999998
+ 0.8000     4 ok                          0.84412   25.4282    25.4282     4.4616    0         0 q1         6.224783 6.317717e-03 1.000875  1.473636e-02         0
+      adapted_eps=[0.047375290127, 0.048618521767, 0.048481038232, 0.049067591184]; epsilon_search_gradients=26; warmup_gradients=116502; retained_gradients=1017128
+ 0.8000     5 ok                          0.84874   25.3256    25.3257     4.4603    0         0 q1         6.531168 6.045727e-03 1.000547  2.107997e-02         0
+      adapted_eps=[0.04987420255 , 0.047653684666, 0.047349337157, 0.048201945745]; epsilon_search_gradients=24; warmup_gradients=114840; retained_gradients=1013026
+ 0.8000     6 ok                          0.84645   25.3766    25.3766     4.4645    0         0 q1         6.188685 6.367501e-03 1.001062  1.612003e-02         0
+      adapted_eps=[0.048568994091, 0.047944402809, 0.048523917675, 0.047746110831]; epsilon_search_gradients=26; warmup_gradients=113406; retained_gradients=1015062
+ 0.8000     7 ok                          0.85491   25.4657    25.4657     4.4640    0         0 q1         6.979217 5.626503e-03 1.000678  2.164455e-02         0
+      adapted_eps=[0.048195648351, 0.048452393528, 0.047458603678, 0.046847889199]; epsilon_search_gradients=25; warmup_gradients=115302; retained_gradients=1018626
+ 0.8000     8 ok                          0.84619   25.1563    25.1563     4.4423    0         0 q1         6.615119 6.009173e-03 1.000539  1.935807e-02         0
+      adapted_eps=[0.048708685336, 0.047531761082, 0.048450005878, 0.048042046672]; epsilon_search_gradients=24; warmup_gradients=116178; retained_gradients=1006254
+ 0.8000     9 ok                          0.84423   25.4236    25.4236     4.4702    0         0 q1          6.64164 5.922262e-03 1.000479  1.330601e-02         0
+      adapted_eps=[0.047816548694, 0.047932362759, 0.048172007402, 0.049566340356]; epsilon_search_gradients=25; warmup_gradients=116726; retained_gradients=1016944
+ 0.8000    10 ok                          0.83601   25.3784    25.3784     4.4694    0         0 q1         6.922553 5.692060e-03 1.000776  1.917099e-02         0
+      adapted_eps=[0.049069882199, 0.04947285887 , 0.048507892935, 0.048550809366]; epsilon_search_gradients=24; warmup_gradients=113468; retained_gradients=1015136
+ 0.8250     1 ok                          0.86599   26.0652    26.0652     4.4905    0         0 q1         6.813131 5.631087e-03 1.000854  9.343784e-03         0
+      adapted_eps=[0.046366559041, 0.045625187236, 0.046760442865, 0.046743302072]; epsilon_search_gradients=27; warmup_gradients=118850; retained_gradients=1042608
+ 0.8250     2 ok                          0.86581   25.8452    25.8452     4.4741    0         0 q1         6.676057 5.795633e-03 1.000637  1.368927e-02         0
+      adapted_eps=[0.046323259888, 0.047157094874, 0.047359507007, 0.046456212099]; epsilon_search_gradients=26; warmup_gradients=119612; retained_gradients=1033806
+ 0.8250     3 ok                          0.86476   25.9125    25.9126     4.4809    0         0 q1         6.779846 5.692067e-03 1.000598  2.066947e-02         0
+      adapted_eps=[0.046509601558, 0.045334783148, 0.046822223674, 0.047555662007]; epsilon_search_gradients=24; warmup_gradients=121924; retained_gradients=1036502
+ 0.8250     4 ok                          0.86636   26.0083    26.0083     4.4851    0         0 q1          6.52802 5.889893e-03 1.000539  1.419094e-02         0
+      adapted_eps=[0.046741802626, 0.047075520891, 0.0455051406  , 0.047560584871]; epsilon_search_gradients=26; warmup_gradients=121292; retained_gradients=1040330
+ 0.8250     5 ok                          0.86364   26.0292    26.0292     4.4843    0         0 q1         6.817765 5.635053e-03 1.000593  1.880112e-02         0
+      adapted_eps=[0.046372474525, 0.044750075174, 0.046981555711, 0.047883987419]; epsilon_search_gradients=24; warmup_gradients=119610; retained_gradients=1041166
+ 0.8250     6 ok                          0.86607   25.9232    25.9232     4.4848    0         0 q1          6.11201 6.311412e-03 1.000571  1.583485e-02         0
+      adapted_eps=[0.046645088068, 0.047042213005, 0.046675476466, 0.046164186976]; epsilon_search_gradients=26; warmup_gradients=120797; retained_gradients=1036930
+ 0.8250     7 ok                          0.86830   25.8447    25.8447     4.4735    0         0 q1          7.11141 5.440925e-03 1.000432  1.787911e-02         0
+      adapted_eps=[0.046708303515, 0.046941540382, 0.046533763003, 0.047058105267]; epsilon_search_gradients=25; warmup_gradients=117418; retained_gradients=1033788
+ 0.8250     8 ok                          0.85602   25.6715    25.6715     4.4665    0         0 q1         6.704151 5.810385e-03 1.000641  2.729746e-02         0
+      adapted_eps=[0.048828263252, 0.045741439225, 0.046321160809, 0.04749967305 ]; epsilon_search_gradients=24; warmup_gradients=117380; retained_gradients=1026860
+ 0.8250     9 ok                          0.86496   25.8553    25.8553     4.4807    0         0 q1         6.974505 5.545464e-03 1.000423  1.040984e-02         0
+      adapted_eps=[0.045568918755, 0.046281805882, 0.047452514179, 0.046792842264]; epsilon_search_gradients=25; warmup_gradients=118704; retained_gradients=1034210
+ 0.8250    10 ok                          0.86499   25.8159    25.8159     4.4772    0         0 q1         7.001068 5.532855e-03 1.000709  2.195036e-02         0
+      adapted_eps=[0.047519166302, 0.046800702161, 0.046637085292, 0.045795009336]; epsilon_search_gradients=24; warmup_gradients=121274; retained_gradients=1032634
+ 0.8500     1 ok                          0.87170   26.9220    26.9221     4.5215    0         0 q1^2       6.800138 5.462282e-03 1.000735  1.940065e-02         0
+      adapted_eps=[0.045451604629, 0.044107089821, 0.044587989516, 0.044824188725]; epsilon_search_gradients=27; warmup_gradients=121666; retained_gradients=1076882
+ 0.8500     2 ok                          0.87360   27.2356    27.2356     4.5350    0         0 q1         6.427545 5.712380e-03 1.000452  1.576679e-02         0
+      adapted_eps=[0.044240365428, 0.044795306301, 0.043269972764, 0.045084166215]; epsilon_search_gradients=26; warmup_gradients=121022; retained_gradients=1089426
+ 0.8500     3 ok                          0.87087   26.7389    26.7389     4.5180    0         0 q1         6.619775 5.649542e-03 1.001615  1.707161e-02         0
+      adapted_eps=[0.046809070169, 0.044177021506, 0.045963153611, 0.044187247195]; epsilon_search_gradients=24; warmup_gradients=124450; retained_gradients=1069556
+ 0.8500     4 ok                          0.86642   26.4595    26.4595     4.5013    0         0 q1         6.444645 5.864354e-03 1.000992  1.925371e-02         0
+      adapted_eps=[0.045680683963, 0.045393195416, 0.044401021411, 0.046224860227]; epsilon_search_gradients=26; warmup_gradients=120614; retained_gradients=1058378
+ 0.8500     5 ok                          0.87024   26.7193    26.7194     4.5101    0         0 q1         6.536938 5.725320e-03 1.001238  1.396906e-02         0
+      adapted_eps=[0.046379458833, 0.043936934845, 0.046062561405, 0.044122400623]; epsilon_search_gradients=24; warmup_gradients=122818; retained_gradients=1068774
+ 0.8500     6 ok                          0.86997   26.9153    26.9153     4.5320    0         0 q1^2       6.414282 5.792322e-03 1.000550  1.630441e-02         0
+      adapted_eps=[0.045629812297, 0.04492885342 , 0.044383266615, 0.044766657502]; epsilon_search_gradients=26; warmup_gradients=121042; retained_gradients=1076612
+ 0.8500     7 ok                          0.87194   27.1169    27.1170     4.5255    0         0 q1         6.162366 5.984277e-03 1.000559  1.733408e-02         0
+      adapted_eps=[0.044513005014, 0.044315983941, 0.043696388279, 0.045440801362]; epsilon_search_gradients=25; warmup_gradients=123438; retained_gradients=1084678
+ 0.8500     8 ok                          0.86875   26.9361    26.9361     4.5258    0         0 q1         7.343248 5.055651e-03 1.000520  1.634597e-02         0
+      adapted_eps=[0.044820120093, 0.044779533933, 0.044702345986, 0.045264242109]; epsilon_search_gradients=24; warmup_gradients=121496; retained_gradients=1077444
+ 0.8500     9 ok                          0.87139   27.0506    27.0506     4.5318    0         0 q1           7.0239 5.263138e-03 1.001069  1.961029e-02         0
+      adapted_eps=[0.04503070202 , 0.044138310617, 0.045302077513, 0.044443689618]; epsilon_search_gradients=25; warmup_gradients=123088; retained_gradients=1082024
+ 0.8500    10 ok                          0.86907   26.7376    26.7376     4.5129    0         0 q1         6.355562 5.884680e-03 1.000451  1.108251e-02         0
+      adapted_eps=[0.04467227168 , 0.044692054499, 0.04572788538 , 0.044666187644]; epsilon_search_gradients=24; warmup_gradients=121572; retained_gradients=1069506
+ 0.8750     1 ok                          0.88885   29.1351    29.1352     4.6259    0         0 q1         5.828624 5.888663e-03 1.001073  1.390569e-02         0
+      adapted_eps=[0.041246260226, 0.042662304872, 0.043486662879, 0.040323497712]; epsilon_search_gradients=27; warmup_gradients=129890; retained_gradients=1165406
+ 0.8750     2 ok                          0.88431   28.5829    28.5829     4.6015    0         0 q1         6.290731 5.561518e-03 1.001225  2.136550e-02         0
+      adapted_eps=[0.042810260537, 0.043540742295, 0.042928352207, 0.041747364549]; epsilon_search_gradients=26; warmup_gradients=128234; retained_gradients=1143314
+ 0.8750     3 ok                          0.88229   28.3496    28.3496     4.5875    0         0 q1^2       6.118282 5.765322e-03 1.000466  1.534616e-02         0
+      adapted_eps=[0.043224729913, 0.043428831703, 0.04268388746 , 0.042492511749]; epsilon_search_gradients=24; warmup_gradients=128562; retained_gradients=1133984
+ 0.8750     4 ok                          0.88869   29.1915    29.1916     4.6244    0         0 q1^2       6.461297 5.301797e-03 1.000543  1.602551e-02         0
+      adapted_eps=[0.043080286953, 0.041594999324, 0.041878394056, 0.040675856424]; epsilon_search_gradients=26; warmup_gradients=128386; retained_gradients=1167662
+ 0.8750     5 ok                          0.88556   28.8300    28.8300     4.6028    0         0 q1^2       5.908145 5.870893e-03 1.001140  1.129249e-02         0
+      adapted_eps=[0.040311033433, 0.043693592854, 0.043764684908, 0.041785503783]; epsilon_search_gradients=24; warmup_gradients=129520; retained_gradients=1153200
+ 0.8750     6 ok                          0.88715   29.0998    29.0999     4.6193    0         0 q1^2       6.391551 5.376542e-03 1.000696  2.402123e-02         0
+      adapted_eps=[0.042137200729, 0.042655260691, 0.041657325165, 0.042089419009]; epsilon_search_gradients=26; warmup_gradients=128146; retained_gradients=1163994
+ 0.8750     7 ok                          0.88592   28.9470    28.9470     4.6146    0         0 q1^2       6.272264 5.507723e-03 1.000699  1.520400e-02         0
+      adapted_eps=[0.043454849473, 0.042404539898, 0.04169985944 , 0.0415926672  ]; epsilon_search_gradients=25; warmup_gradients=129588; retained_gradients=1157880
+ 0.8750     8 ok                          0.88401   28.5938    28.5938     4.6014    0         0 q1^2       6.585053 5.310908e-03 1.000644  1.135581e-02         0
+      adapted_eps=[0.04278898934 , 0.043548077485, 0.043127532043, 0.040678203283]; epsilon_search_gradients=24; warmup_gradients=124838; retained_gradients=1143752
+ 0.8750     9 ok                          0.88598   28.8553    28.8553     4.6090    0         0 q1         6.006832 5.769377e-03 1.000834  1.388390e-02         0
+      adapted_eps=[0.041812104813, 0.041320546556, 0.043052399014, 0.043427020497]; epsilon_search_gradients=25; warmup_gradients=129434; retained_gradients=1154212
+ 0.8750    10 ok                          0.88442   28.5924    28.5924     4.5992    0         0 q1^2       5.792663 6.037694e-03 1.000467  1.839222e-02         0
+      adapted_eps=[0.042816162088, 0.04232811643 , 0.042007417493, 0.042594933139]; epsilon_search_gradients=24; warmup_gradients=129022; retained_gradients=1143696
+ 0.9000     1 ok                          0.90818   32.0669    32.0670     4.7598    0         0 q1^2       5.628686 5.540326e-03 1.000428  1.387293e-02         0
+      adapted_eps=[0.040152936235, 0.037817766703, 0.038952633623, 0.037578895785]; epsilon_search_gradients=27; warmup_gradients=135622; retained_gradients=1282678
+ 0.9000     2 ok                          0.90479   31.4350    31.4350     4.7335    0         0 q1^2       6.012955 5.290531e-03 1.000620  9.721761e-03         0
+      adapted_eps=[0.038494976106, 0.039019766703, 0.039890558678, 0.039619561845]; epsilon_search_gradients=26; warmup_gradients=132306; retained_gradients=1257398
+ 0.9000     3 ok                          0.90569   31.9481    31.9481     4.7585    0         0 q1         5.733942 5.458848e-03 1.000551  2.047672e-02         0
+      adapted_eps=[0.037538225686, 0.038307835395, 0.039928994943, 0.040378059591]; epsilon_search_gradients=24; warmup_gradients=140646; retained_gradients=1277926
+ 0.9000     4 ok                          0.89890   30.8992    30.8993     4.7112    0         0 q1^2       6.313993 5.125638e-03 1.001349  3.160257e-02         0
+      adapted_eps=[0.041813404095, 0.039112743852, 0.040992407593, 0.038918394947]; epsilon_search_gradients=26; warmup_gradients=135560; retained_gradients=1235970
+ 0.9000     5 ok                          0.90267   31.1933    31.1933     4.7183    0         0 q1^2       5.377193 5.961877e-03 1.000378  1.057923e-02         0
+      adapted_eps=[0.04081137742 , 0.038714339122, 0.040269932749, 0.038601634191]; epsilon_search_gradients=24; warmup_gradients=135708; retained_gradients=1247732
+ 0.9000     6 ok                          0.90228   31.2002    31.2002     4.7158    0         0 q1^2       6.000565 5.341343e-03 1.000700  1.983826e-02         0
+      adapted_eps=[0.040722702963, 0.040265362272, 0.039266370464, 0.038380656116]; epsilon_search_gradients=26; warmup_gradients=137680; retained_gradients=1248008
+ 0.9000     7 ok                          0.90457   31.4855    31.4855     4.7297    0         0 q1^2        5.64039 5.630941e-03 1.000575  1.641265e-02         0
+      adapted_eps=[0.037881634585, 0.039124342195, 0.041586997018, 0.038418913613]; epsilon_search_gradients=25; warmup_gradients=135720; retained_gradients=1259418
+ 0.9000     8 ok                          0.90564   31.8205    31.8205     4.7471    0         0 q1^2       5.646656 5.565468e-03 1.000879  1.908441e-02         0
+      adapted_eps=[0.039934499402, 0.03660694444 , 0.039647610773, 0.039668286508]; epsilon_search_gradients=24; warmup_gradients=137846; retained_gradients=1272820
+ 0.9000     9 ok                          0.91099   32.6852    32.6852     4.7920    0         0 q1^2       5.540579 5.521965e-03 1.000571  1.229651e-02         0
+      adapted_eps=[0.036605861633, 0.03898182958 , 0.039580248578, 0.036936362711]; epsilon_search_gradients=25; warmup_gradients=134460; retained_gradients=1307408
+ 0.9000    10 ok                          0.90531   31.6542    31.6542     4.7417    0         0 q1^2       5.133195 6.154331e-03 1.000372  1.472757e-02         0
+      adapted_eps=[0.039001130016, 0.038211133493, 0.039766875079, 0.039303433291]; epsilon_search_gradients=24; warmup_gradients=135654; retained_gradients=1266168
+ 0.9250     1 ok                          0.92946   36.5937    36.5937     4.9681    0         0 q1^2         5.2835 5.172160e-03 1.000525  2.050522e-02         0
+      adapted_eps=[0.0345813071  , 0.035125024887, 0.034730373321, 0.034530685585]; epsilon_search_gradients=27; warmup_gradients=150420; retained_gradients=1463748
+ 0.9250     2 ok                          0.92641   36.0723    36.0723     4.9420    0         0 q1^2       5.410631 5.123636e-03 1.000578  1.214600e-02         0
+      adapted_eps=[0.037067075232, 0.034225674147, 0.035045056336, 0.034643087082]; epsilon_search_gradients=26; warmup_gradients=154074; retained_gradients=1442892
+ 0.9250     3 ok                          0.92924   36.4367    36.4367     4.9630    0         0 q1         5.354002 5.126053e-03 1.000703  1.396274e-02         0
+      adapted_eps=[0.034708829428, 0.035785182888, 0.033961657742, 0.034814254089]; epsilon_search_gradients=24; warmup_gradients=153088; retained_gradients=1457466
+ 0.9250     4 ok                          0.92559   35.6675    35.6675     4.9297    0         0 q1^2       5.520356 5.078797e-03 1.000577  2.152451e-02         0
+      adapted_eps=[0.034945041195, 0.036009774841, 0.035971552237, 0.034782766053]; epsilon_search_gradients=26; warmup_gradients=147218; retained_gradients=1426698
+ 0.9250     5 ok                          0.92520   35.8478    35.8478     4.9330    0         0 q1^2       5.283447 5.279833e-03 1.000905  1.267027e-02         0
+      adapted_eps=[0.034580032785, 0.036005403435, 0.036218365959, 0.035044484125]; epsilon_search_gradients=24; warmup_gradients=148068; retained_gradients=1433912
+ 0.9250     6 ok                          0.92970   36.5256    36.5256     4.9625    0         0 q1^2       5.536036 4.945426e-03 1.000546  1.810292e-02         0
+      adapted_eps=[0.034576208558, 0.035011602901, 0.035082849548, 0.033860588778]; epsilon_search_gradients=26; warmup_gradients=152276; retained_gradients=1461024
+ 0.9250     7 ok                          0.92185   35.1395    35.1395     4.9020    0         0 q1         5.278246 5.391565e-03 1.000306  1.294066e-02         0
+      adapted_eps=[0.03601450407 , 0.036840538936, 0.035109462208, 0.035901557142]; epsilon_search_gradients=25; warmup_gradients=148816; retained_gradients=1405580
+ 0.9250     8 ok                          0.92726   36.0164    36.0164     4.9357    0         0 q1^2       5.907831 4.699716e-03 1.000809  1.769415e-02         0
+      adapted_eps=[0.033344943677, 0.037090932675, 0.035310628623, 0.034487699315]; epsilon_search_gradients=24; warmup_gradients=149256; retained_gradients=1440656
+ 0.9250     9 ok                          0.93030   36.8501    36.8501     4.9794    0         0 q1^2       5.476832 4.954859e-03 1.000484  3.926169e-02         0
+      adapted_eps=[0.033943279422, 0.033907938078, 0.034756592094, 0.035605539942]; epsilon_search_gradients=25; warmup_gradients=148858; retained_gradients=1474006
+ 0.9250    10 ok                          0.92493   35.6046    35.6046     4.9195    0         0 q1^2       5.510863 5.096534e-03 1.000411  1.571387e-02         0
+      adapted_eps=[0.035430372988, 0.034651468684, 0.035074686467, 0.036543398861]; epsilon_search_gradients=24; warmup_gradients=149008; retained_gradients=1424182
+ 0.9500     1 ok                          0.95209   43.0569    43.0569     5.2255    0         0 q1         6.338943 3.663873e-03 1.000951  1.615823e-02         0
+      adapted_eps=[0.029631046482, 0.029712712698, 0.029834836509, 0.027686301007]; epsilon_search_gradients=27; warmup_gradients=170300; retained_gradients=1722276
+ 0.9500     2 ok                          0.95071   42.4029    42.4029     5.2082    0         0 q1          5.83555 4.041314e-03 1.000548  1.303558e-02         0
+      adapted_eps=[0.028632424186, 0.030944609769, 0.029140972756, 0.030284521815]; epsilon_search_gradients=26; warmup_gradients=170786; retained_gradients=1696116
+ 0.9500     3 ok                          0.95078   42.5618    42.5618     5.2111    0         0 q1         6.411312 3.664655e-03 1.001804  1.734770e-02         0
+      adapted_eps=[0.02741476968 , 0.030206178682, 0.031559529821, 0.030042528272]; epsilon_search_gradients=24; warmup_gradients=177378; retained_gradients=1702472
+ 0.9500     4 ok                          0.95011   42.3501    42.3501     5.2012    0         0 q1         6.205445 3.805157e-03 1.001088  1.940174e-02         0
+      adapted_eps=[0.030731413347, 0.028430694695, 0.03033193831 , 0.029307705976]; epsilon_search_gradients=26; warmup_gradients=175684; retained_gradients=1694004
+ 0.9500     5 ok                          0.94956   42.0335    42.0335     5.1917    0         0 q1         5.723991 4.156287e-03 1.000531  1.559144e-02         0
+      adapted_eps=[0.029764683606, 0.02934738256 , 0.031532245324, 0.029479780171]; epsilon_search_gradients=24; warmup_gradients=172084; retained_gradients=1681340
+ 0.9500     6 ok                          0.95002   42.1677    42.1677     5.1983    0         0 q1         6.043446 3.924054e-03 1.000472  1.285494e-02         0
+      adapted_eps=[0.029752226053, 0.029538836799, 0.030229073389, 0.02969219739 ]; epsilon_search_gradients=26; warmup_gradients=175074; retained_gradients=1686710
+ 0.9500     7 ok                          0.94690   41.1716    41.1716     5.1614    0         0 q1         5.836037 4.161834e-03 1.000603  1.572299e-02         0
+      adapted_eps=[0.029962873605, 0.031432631689, 0.030304662235, 0.030727697973]; epsilon_search_gradients=25; warmup_gradients=168210; retained_gradients=1646862
+ 0.9500     8 ok                          0.94970   41.9475    41.9475     5.1881    0         0 q1         6.017109 3.961919e-03 1.000322  1.253243e-02         0
+      adapted_eps=[0.029428711542, 0.03069682643 , 0.029676252668, 0.029692387747]; epsilon_search_gradients=24; warmup_gradients=173378; retained_gradients=1677902
+ 0.9500     9 ok                          0.95048   42.5914    42.5914     5.2102    0         0 q1         5.476485 4.287224e-03 1.000417  1.298454e-02         0
+      adapted_eps=[0.027578583128, 0.030591787371, 0.029795223753, 0.030445886027]; epsilon_search_gradients=25; warmup_gradients=171554; retained_gradients=1703656
+ 0.9500    10 ok                          0.95022   42.0673    42.0674     5.1987    0         0 q1         6.252112 3.802140e-03 1.000489  2.620849e-02         0
+      adapted_eps=[0.029390526891, 0.02973053633 , 0.030458416424, 0.030074400134]; epsilon_search_gradients=24; warmup_gradients=173340; retained_gradients=1682694
+ 0.9600     1 ok                          0.96127   47.0460    47.0460     5.3513    0         0 q1         6.658355 3.192349e-03 1.000596  1.197675e-02         0
+      adapted_eps=[0.025182767917, 0.027306547379, 0.026502170271, 0.026894810096]; epsilon_search_gradients=27; warmup_gradients=183924; retained_gradients=1881840
+ 0.9600     2 ok                          0.96031   46.9301    46.9302     5.3441    0         0 q1         5.930855 3.592781e-03 1.000440  1.581287e-02         0
+      adapted_eps=[0.028736188378, 0.026279975349, 0.026470131246, 0.025989381063]; epsilon_search_gradients=26; warmup_gradients=190572; retained_gradients=1877206
+ 0.9600     3 ok                          0.95980   46.1397    46.1397     5.3304    0         0 q1         6.279361 3.451511e-03 1.000506  1.945883e-02         0
+      adapted_eps=[0.027677693145, 0.026541781142, 0.026674749719, 0.026997327246]; epsilon_search_gradients=24; warmup_gradients=187476; retained_gradients=1845590
+ 0.9600     4 ok                          0.96040   47.1626    47.1626     5.3586    0         0 q1         6.505329 3.259368e-03 1.000482  1.558375e-02         0
+      adapted_eps=[0.02765905787 , 0.026296374012, 0.025781921371, 0.026853904021]; epsilon_search_gradients=26; warmup_gradients=191440; retained_gradients=1886502
+ 0.9600     5 ok                          0.96084   47.2043    47.2043     5.3626    0         0 q1         6.317594 3.353256e-03 1.001224  1.994657e-02         0
+      adapted_eps=[0.02588955928 , 0.026946093327, 0.026602385484, 0.027359140501]; epsilon_search_gradients=24; warmup_gradients=186170; retained_gradients=1888172
+ 0.9600     6 ok                          0.96002   46.7604    46.7604     5.3450    0         0 q1         6.297165 3.396074e-03 1.000538  1.613044e-02         0
+      adapted_eps=[0.026901486645, 0.026594114531, 0.027328095658, 0.026425932218]; epsilon_search_gradients=26; warmup_gradients=187224; retained_gradients=1870414
+ 0.9600     7 ok                          0.95898   45.9226    45.9226     5.3246    0         0 q1         6.520079 3.339805e-03 1.000571  8.506632e-03         0
+      adapted_eps=[0.027895652382, 0.026632630394, 0.027211120345, 0.027191816574]; epsilon_search_gradients=25; warmup_gradients=182832; retained_gradients=1836902
+ 0.9600     8 ok                          0.95820   45.8534    45.8534     5.3182    0         0 q1         6.604393 3.302141e-03 1.000791  1.179979e-02         0
+      adapted_eps=[0.025390417243, 0.028786638502, 0.027739156632, 0.027411856862]; epsilon_search_gradients=24; warmup_gradients=184036; retained_gradients=1834136
+ 0.9600     9 ok                          0.95764   45.2812    45.2812     5.2997    0         0 q1         6.138591 3.597604e-03 1.000384  1.175244e-02         0
+      adapted_eps=[0.026161461551, 0.027812293054, 0.027665238171, 0.028714017548]; epsilon_search_gradients=25; warmup_gradients=189880; retained_gradients=1811248
+ 0.9600    10 ok                          0.95939   46.3965    46.3965     5.3347    0         0 q1          6.33952 3.399843e-03 1.000465  2.043031e-02         0
+      adapted_eps=[0.027700466344, 0.028755424513, 0.026584471563, 0.025730482768]; epsilon_search_gradients=24; warmup_gradients=190880; retained_gradients=1855858
+ 0.9700     1 ok                          0.96950   51.5624    51.5624     5.4625    0         0 q1         6.284491 3.086009e-03 1.000545  2.007213e-02         0
+      adapted_eps=[0.023767868415, 0.024321930891, 0.024009716945, 0.022938550532]; epsilon_search_gradients=27; warmup_gradients=208374; retained_gradients=2062494
+ 0.9700     2 ok                          0.96827   51.1281    51.1281     5.4461    0         0 q1         6.769718 2.889148e-03 1.000636  1.651169e-02         0
+      adapted_eps=[0.023482515896, 0.023815252619, 0.02411054604 , 0.024724264387]; epsilon_search_gradients=26; warmup_gradients=203644; retained_gradients=2045124
+ 0.9700     3 ok                          0.96692   49.8235    49.8234     5.4087    0         0 q1         6.475067 3.099716e-03 1.000793  1.989001e-02         0
+      adapted_eps=[0.024389313288, 0.024907970273, 0.02392786139 , 0.024661837315]; epsilon_search_gradients=24; warmup_gradients=212552; retained_gradients=1992938
+ 0.9700     4 ok                          0.96751   50.5863    50.5863     5.4307    0         0 q1         6.988118 2.828830e-03 1.000466  8.275386e-03         0
+      adapted_eps=[0.0228616642  , 0.024350885533, 0.02402970251 , 0.025822671473]; epsilon_search_gradients=26; warmup_gradients=206684; retained_gradients=2023452
+ 0.9700     5 ok                          0.96725   50.0710    50.0710     5.4181    0         0 q1         6.232322 3.204523e-03 1.000333  1.744324e-02         0
+      adapted_eps=[0.023258644641, 0.026005244416, 0.024726952495, 0.023938733646]; epsilon_search_gradients=24; warmup_gradients=207118; retained_gradients=2002842
+ 0.9700     6 ok                          0.96958   51.8794    51.8794     5.4562    0         0 q1         6.535559 2.949320e-03 1.000508  1.950209e-02         0
+      adapted_eps=[0.022670221909, 0.023237680974, 0.02579128513 , 0.022647078947]; epsilon_search_gradients=26; warmup_gradients=204096; retained_gradients=2075178
+ 0.9700     7 ok                          0.96873   51.3736    51.3737     5.4531    0         0 q1         6.073363 3.205017e-03 1.000695  1.583888e-02         0
+      adapted_eps=[0.024454887155, 0.023638930929, 0.023146266525, 0.024353562059]; epsilon_search_gradients=25; warmup_gradients=204662; retained_gradients=2054946
+ 0.9700     8 ok                          0.96758   50.5145    50.5145     5.4302    0         0 q1         6.761647 2.927733e-03 1.000351  2.227118e-02         0
+      adapted_eps=[0.023664196966, 0.023546955991, 0.024997984285, 0.02493577759 ]; epsilon_search_gradients=24; warmup_gradients=207014; retained_gradients=2020580
+ 0.9700     9 ok                          0.96826   51.0714    51.0714     5.4493    0         0 q1         6.171506 3.172718e-03 1.001062  1.632056e-02         0
+      adapted_eps=[0.024165306716, 0.024456379888, 0.024640387353, 0.023396758241]; epsilon_search_gradients=25; warmup_gradients=204528; retained_gradients=2042854
+ 0.9700    10 ok                          0.96808   50.8811    50.8811     5.4376    0         0 q1          6.15668 3.192253e-03 1.000635  1.385271e-02         0
+      adapted_eps=[0.023738796033, 0.024073602494, 0.023326843756, 0.025169278167]; epsilon_search_gradients=24; warmup_gradients=216830; retained_gradients=2035242
+ 0.9800     1 ok                          0.97694   59.2732    59.2732     5.6174    0         0 q1         5.545545 3.042267e-03 1.000318  1.498863e-02         0
+      adapted_eps=[0.020567805047, 0.020398220876, 0.02005004794 , 0.021355461793]; epsilon_search_gradients=27; warmup_gradients=244410; retained_gradients=2370928
+ 0.9800     2 ok                          0.97745   60.1358    60.1359     5.6445    0         0 q1^2       6.023702 2.760597e-03 1.000999  1.652711e-02         0
+      adapted_eps=[0.019607098355, 0.019588247278, 0.02051840601 , 0.021722469447]; epsilon_search_gradients=26; warmup_gradients=238714; retained_gradients=2405434
+ 0.9800     3 ok                          0.97815   60.8803    60.8803     5.6647    0         0 q1^2       6.714205 2.446406e-03 1.000765  3.138898e-02         0
+      adapted_eps=[0.019850259704, 0.019945802346, 0.019544299355, 0.021112167872]; epsilon_search_gradients=24; warmup_gradients=243348; retained_gradients=2435212
+ 0.9800     4 ok                          0.97765   60.5232    60.5233     5.6483    0         0 q1         5.758317 2.869341e-03 1.000645  1.731052e-02         0
+      adapted_eps=[0.020625822293, 0.019896034278, 0.020409509326, 0.019718787494]; epsilon_search_gradients=26; warmup_gradients=242720; retained_gradients=2420930
+ 0.9800     5 ok                          0.97797   60.8879    60.8879     5.6591    0         0 q1^2       6.153276 2.669088e-03 1.000651  1.518003e-02         0
+      adapted_eps=[0.020501275299, 0.020139035579, 0.02030912593 , 0.019369459992]; epsilon_search_gradients=24; warmup_gradients=241488; retained_gradients=2435514
+ 0.9800     6 ok                          0.97887   62.4636    62.4636     5.6990    0         0 q1         5.872137 2.726320e-03 1.000465  2.211195e-02         0
+      adapted_eps=[0.019556716145, 0.019705900925, 0.020236017473, 0.01900307377 ]; epsilon_search_gradients=26; warmup_gradients=245154; retained_gradients=2498544
+ 0.9800     7 ok                          0.97746   59.9905    59.9905     5.6373    0         0 q1^2       7.292825 2.285715e-03 1.001234  1.998572e-02         0
+      adapted_eps=[0.020977332971, 0.021251514187, 0.019830205405, 0.019274717783]; epsilon_search_gradients=25; warmup_gradients=234084; retained_gradients=2399618
+ 0.9800     8 ok                          0.97840   61.4706    61.4706     5.6726    0         0 q1^2       6.176592 2.633805e-03 1.000325  1.811355e-02         0
+      adapted_eps=[0.019928046944, 0.02005910738 , 0.01923617909 , 0.019770270751]; epsilon_search_gradients=24; warmup_gradients=246272; retained_gradients=2458824
+ 0.9800     9 ok                          0.97690   59.1510    59.1511     5.6190    0         0 q1^2       5.993957 2.820486e-03 1.000594  1.319596e-02         0
+      adapted_eps=[0.021594571714, 0.020067006481, 0.020642317951, 0.020569472803]; epsilon_search_gradients=25; warmup_gradients=242350; retained_gradients=2366042
+ 0.9800    10 ok                          0.97913   62.3118    62.3118     5.6906    0         0 q1^2       6.010622 2.669994e-03 1.000421  1.233155e-02         0
+      adapted_eps=[0.018823272194, 0.020301887548, 0.019547665886, 0.01978129711 ]; epsilon_search_gradients=24; warmup_gradients=248676; retained_gradients=2492472
+ 0.9900     1 ok                          0.98733   79.9400    79.9400     6.0763    0         0 q1         6.221953 2.010523e-03 1.001162  2.939428e-02         0
+      adapted_eps=[0.014672024316, 0.016156311426, 0.015306785618, 0.015360211861]; epsilon_search_gradients=27; warmup_gradients=313520; retained_gradients=3197600
+ 0.9900     2 ok                          0.98771   81.0687    81.0687     6.1046    0         0 q1^2       5.983095 2.061679e-03 1.000428  2.036664e-02         0
+      adapted_eps=[0.015524415408, 0.014577600141, 0.014893513683, 0.01582611906 ]; epsilon_search_gradients=26; warmup_gradients=315898; retained_gradients=3242746
+ 0.9900     3 ok                          0.98699   78.7400    78.7400     6.0521    0         0 q1         5.907892 2.149670e-03 1.001208  1.974969e-02         0
+      adapted_eps=[0.015510569666, 0.015544880691, 0.016124799383, 0.015234021002]; epsilon_search_gradients=24; warmup_gradients=310142; retained_gradients=3149602
+ 0.9900     4 ok                          0.98684   77.9514    77.9514     6.0399    0         0 q1         6.092598 2.105589e-03 1.000995  1.323277e-02         0
+      adapted_eps=[0.015190313855, 0.015109004676, 0.016634047543, 0.015657450119]; epsilon_search_gradients=26; warmup_gradients=303720; retained_gradients=3118056
+ 0.9900     5 ok                          0.98667   77.5369    77.5369     6.0316    0         0 q1         5.917551 2.179465e-03 1.000555  1.444211e-02         0
+      adapted_eps=[0.015451351012, 0.016424384138, 0.015562083413, 0.015798014678]; epsilon_search_gradients=24; warmup_gradients=320004; retained_gradients=3101474
+ 0.9900     6 ok                          0.98731   78.7470    78.7470     6.0541    0         0 q1          5.92323 2.143914e-03 1.000481  1.442601e-02         0
+      adapted_eps=[0.015070834827, 0.015119778874, 0.015869841324, 0.015857552582]; epsilon_search_gradients=26; warmup_gradients=313208; retained_gradients=3149880
+ 0.9900     7 ok                          0.98737   79.6927    79.6926     6.0764    0         0 q1         5.616919 2.234002e-03 1.000872  1.344135e-02         0
+      adapted_eps=[0.015436447109, 0.015430626749, 0.015725592505, 0.015445669709]; epsilon_search_gradients=25; warmup_gradients=308356; retained_gradients=3187706
+ 0.9900     8 ok                          0.98662   77.8699    77.8699     6.0365    0         0 q1          5.37264 2.390246e-03 1.000631  1.407455e-02         0
+      adapted_eps=[0.015265978668, 0.01570312005 , 0.015523349005, 0.016486900582]; epsilon_search_gradients=24; warmup_gradients=323086; retained_gradients=3114796
+ 0.9900     9 ok                          0.98715   78.8119    78.8119     6.0534    0         0 q1         5.706634 2.223456e-03 1.000552  2.041050e-02         0
+      adapted_eps=[0.015332913277, 0.016208052702, 0.015277833882, 0.015607396804]; epsilon_search_gradients=25; warmup_gradients=306618; retained_gradients=3152474
+ 0.9900    10 ok                          0.98756   80.8029    80.8029     6.0977    0         0 q1^2       5.634652 2.196372e-03 1.000419  2.044814e-02         0
+      adapted_eps=[0.014688755009, 0.015465301924, 0.015453663144, 0.015357988397]; epsilon_search_gradients=24; warmup_gradients=310644; retained_gradients=3232116
+ 0.9950     1 ok                          0.99173   96.6612    96.6612     6.3481    0         0 q1         6.804828 1.520306e-03 1.000320  1.157647e-02         0
+      adapted_eps=[0.012087087196, 0.012461183679, 0.012991014584, 0.012477060346]; epsilon_search_gradients=27; warmup_gradients=385494; retained_gradients=3866446
+ 0.9950     2 ok                          0.99196   97.8242    97.8242     6.3580    0         0 q1         6.634908 1.540703e-03 1.000437  1.226406e-02         0
+      adapted_eps=[0.012531788784, 0.012086139394, 0.011887808388, 0.012552549257]; epsilon_search_gradients=26; warmup_gradients=368976; retained_gradients=3912966
+ 0.9950     3 ok                          0.99164   96.2608    96.2608     6.3412    0         0 q1         6.652425 1.561603e-03 1.000522  1.355251e-02         0
+      adapted_eps=[0.012428283427, 0.012803881637, 0.012383295654, 0.012754765127]; epsilon_search_gradients=24; warmup_gradients=363728; retained_gradients=3850432
+ 0.9950     4 ok                          0.99163   95.5844    95.5844     6.3328    0         0 q1         6.786491 1.541587e-03 1.000769  1.521749e-02         0
+      adapted_eps=[0.012238900183, 0.012504389703, 0.012993514812, 0.012586868381]; epsilon_search_gradients=26; warmup_gradients=368796; retained_gradients=3823374
+ 0.9950     5 ok                          0.99171   96.3525    96.3525     6.3404    0         0 q1         6.431186 1.613786e-03 1.000685  1.839413e-02         0
+      adapted_eps=[0.012360037005, 0.012281086014, 0.012676281216, 0.012613260066]; epsilon_search_gradients=24; warmup_gradients=381118; retained_gradients=3854100
+ 0.9950     6 ok                          0.99162   96.4940    96.4940     6.3505    0         0 q1         6.631978 1.562632e-03 1.000942  1.699230e-02         0
+      adapted_eps=[0.01258679751 , 0.012149998671, 0.012904156323, 0.012576545583]; epsilon_search_gradients=26; warmup_gradients=371956; retained_gradients=3859760
+ 0.9950     7 ok                          0.99103   93.0741    93.0741     6.2996    0         0 q1         6.677109 1.609099e-03 1.000671  2.013084e-02         0
+      adapted_eps=[0.013499743842, 0.013503260578, 0.012536261722, 0.012610866428]; epsilon_search_gradients=25; warmup_gradients=367494; retained_gradients=3722964
+ 0.9950     8 ok                          0.99166   96.6342    96.6342     6.3425    0         0 q1         6.900999 1.499537e-03 1.000723  1.515909e-02         0
+      adapted_eps=[0.012746497383, 0.012183870966, 0.013202743013, 0.012069103876]; epsilon_search_gradients=24; warmup_gradients=384358; retained_gradients=3865368
+ 0.9950     9 ok                          0.99143   94.8820    94.8820     6.3307    0         0 q1           6.7662 1.557656e-03 1.000571  1.576326e-02         0
+      adapted_eps=[0.012652330762, 0.012994432324, 0.01332266229 , 0.012235531928]; epsilon_search_gradients=25; warmup_gradients=365824; retained_gradients=3795278
+ 0.9950    10 ok                          0.99173   96.6066    96.6066     6.3445    0         0 q1         6.804826 1.521165e-03 1.000886  1.920935e-02         0
+      adapted_eps=[0.013094725329, 0.012140344843, 0.012123814881, 0.01267584955 ]; epsilon_search_gradients=24; warmup_gradients=365108; retained_gradients=3864264
+ 0.9990     1 ok                          0.99529  129.2524   129.2524     6.7272    0         0 q1^2       5.402075 1.432191e-03 1.000868  1.791659e-02         0
+      adapted_eps=[0.009310294411, 0.009057812329, 0.009371437003, 0.009905178122]; epsilon_search_gradients=27; warmup_gradients=472238; retained_gradients=5170094
+ 0.9990     2 ok                          0.99524  129.3028   129.3028     6.7254    0         0 q1^2       5.999754 1.289017e-03 1.000412  1.474062e-02         0
+      adapted_eps=[0.009340736313, 0.009270363722, 0.008990757599, 0.010070574762]; epsilon_search_gradients=26; warmup_gradients=475536; retained_gradients=5172112
+ 0.9990     3 ok                          0.99525  128.9724   128.9724     6.7283    0         0 q1^2       5.803347 1.336057e-03 1.000407  2.149912e-02         0
+      adapted_eps=[0.009423041494, 0.009564588685, 0.00936877922 , 0.009307310525]; epsilon_search_gradients=24; warmup_gradients=457610; retained_gradients=5158894
+ 0.9990     4 ok                          0.99536  131.5129   131.5129     6.7441    0         0 q1^2       6.024642 1.262119e-03 1.000668  1.518517e-02         0
+      adapted_eps=[0.008867998617, 0.009150698954, 0.009656387915, 0.009246443844]; epsilon_search_gradients=26; warmup_gradients=463628; retained_gradients=5260516
+ 0.9990     5 ok                          0.99511  127.2151   127.2151     6.7012    0         0 q1^2       5.841453 1.345676e-03 1.000830  2.745005e-02         0
+      adapted_eps=[0.009569158479, 0.009646705921, 0.009209153819, 0.009570717907]; epsilon_search_gradients=24; warmup_gradients=475440; retained_gradients=5088602
+ 0.9990     6 ok                          0.99542  132.0396   132.0396     6.7548    0         0 q1^2       5.796678 1.306522e-03 1.000446  2.164434e-02         0
+      adapted_eps=[0.009168186699, 0.008807759377, 0.009784021972, 0.00897107359 ]; epsilon_search_gradients=26; warmup_gradients=479624; retained_gradients=5281584
+ 0.9990     7 ok                          0.99532  129.6964   129.6964     6.7281    0         0 q1^2       6.439098 1.197421e-03 1.001007  1.628481e-02         0
+      adapted_eps=[0.009633961267, 0.009456102643, 0.009611683582, 0.008381584171]; epsilon_search_gradients=25; warmup_gradients=463160; retained_gradients=5187856
+ 0.9990     8 ok                          0.99526  129.7216   129.7216     6.7341    0         0 q1^2       5.592834 1.378338e-03 1.000749  1.983928e-02         0
+      adapted_eps=[0.009009990211, 0.009450798048, 0.009274562717, 0.010000880222]; epsilon_search_gradients=24; warmup_gradients=495414; retained_gradients=5188864
+ 0.9990     9 ok                          0.99534  130.4477   130.4477     6.7339    0         0 q1^2       5.724189 1.339213e-03 1.000580  1.134499e-02         0
+      adapted_eps=[0.008793003805, 0.009459989424, 0.009733830756, 0.009070983784]; epsilon_search_gradients=25; warmup_gradients=468432; retained_gradients=5217908
+ 0.9990    10 ok                          0.99516  129.2656   129.2656     6.7255    0         0 q1^2       5.403053 1.431785e-03 1.000510  1.165198e-02         0
+      adapted_eps=[0.009206802863, 0.009599518314, 0.009301782621, 0.009748713798]; epsilon_search_gradients=24; warmup_gradients=457020; retained_gradients=5170624
+
+SELECTED FIXED NUTS REPRESENTATIVE
+----------------------------------------------------------------------------------------
+target acceptance delta=0.425
+The representative includes the fixed Algorithm 6 adaptation rule; epsilon remains chain-specific.
+Block efficiencies=[0.008979332433, 0.009010131643, 0.0092373888  , 0.009021613284,
+ 0.008606377908, 0.008880433377, 0.008319494631, 0.008410898039,
+ 0.008390752604, 0.009203673055]
+Geometric mean=8.799874131004e-03
+Minimum=8.319494630892e-03
+Median=8.929882905104e-03
+Maximum=9.237388800461e-03
+Mean retained acceptance statistic=0.430812445117
+Mean actual retained gradients/draw=16.931075000000
+Retained divergences across tuning blocks=0
+Maximum-depth hits across tuning blocks=0
+Maximum R-hat across tuning blocks=1.001313638223
+Maximum standardized moment error across tuning blocks=3.996744644703e-02
+This representative has not seen final-comparison seeds.
+
+SELECTED REPRESENTATIVE: ALL OBSERVABLES IN ALL BLOCKS
+----------------------------------------------------------------------------------------
+block observable IAT status pairs last_lag first_excl ESS efficiency rank_Rhat fold_Rhat max_Rhat empirical_mean exact_mean raw_error moment_SD cutoff_reason
+    1 q1         6.6553234 ok_truncated_nonpositive          20       39         40   6010.226 8.9793324e-03 1.0004366 1.0005698 1.0005698  2.1517189e-03  0.0000000e+00  2.151719e-03 2.151719e-03 first_nonpositive_pair
+    1 q2         3.5149503 ok_truncated_nonpositive           8       15         16   11379.96 1.7001766e-02 1.0001435 1.0001186 1.0001435 -1.0154277e-03  0.0000000e+00 -1.015428e-03 2.376453e-03 first_nonpositive_pair
+    1 q3         1.9504206 ok_truncated_nonpositive           4        7          8    20508.4 3.0639730e-02 0.9999883 1.0002146 1.0002146  9.7639593e-04  0.0000000e+00  9.763959e-04 5.347941e-03 first_nonpositive_pair
+    1 q4         2.3706555 ok_truncated_nonpositive           4        7          8   16872.97 2.5208370e-02 0.9999421 1.0001159 1.0001159  7.4311255e-04  0.0000000e+00  7.431126e-04 9.525670e-03 first_nonpositive_pair
+    1 q5         1.6097031 ok_truncated_nonpositive           3        5          6    24849.3 3.7125084e-02 0.9999627 1.0002848 1.0002848 -6.8748468e-05  0.0000000e+00 -6.874847e-05 2.062454e-03 first_nonpositive_pair
+    1 q1^2       6.5295239 ok_truncated_nonpositive          18       35         36   6126.021 9.1523305e-03 1.0005762 1.0006564 1.0006564  9.6450973e-01  1.0000000e+00 -3.549027e-02 2.509541e-02 first_nonpositive_pair
+    1 q1*q2      4.0113336 ok_truncated_nonpositive          11       21         22   9971.746 1.4897879e-02 1.0001294 1.0002186 1.0002186 -1.6277469e-03  0.0000000e+00 -1.627747e-03 3.809493e-03 first_nonpositive_pair
+    1 q1*q3      2.1603309 ok_truncated_nonpositive           7       13         14   18515.68 2.7662596e-02 1.0002882 1.0001586 1.0002882  1.0212227e-03  0.0000000e+00  1.021223e-03 5.593467e-03 first_nonpositive_pair
+    1 q1*q4      2.1284884 ok_truncated_nonpositive           4        7          8   18792.68 2.8076433e-02 1.0002223 1.0004476 1.0004476 -3.5903421e-04  0.0000000e+00 -3.590342e-04 4.602320e-03 first_nonpositive_pair
+    1 q1*q5      1.7876407 ok_truncated_nonpositive           4        7          8   22375.86 3.3429738e-02 0.9999494 1.0004564 1.0004564  4.1679749e-04  0.0000000e+00  4.167975e-04 1.250392e-02 first_nonpositive_pair
+    1 q2^2       4.1509844 ok_truncated_nonpositive           5        9         10   9636.268 1.4396672e-02 1.0001200 1.0001160 1.0001200  1.8334602e-01  1.8257419e-01  7.718380e-04 2.989316e-03 first_nonpositive_pair
+    1 q2*q3      2.0377195 ok_truncated_nonpositive           3        5          6   19629.79 2.9327079e-02 1.0001221 1.0002472 1.0002472  1.0569180e-03  0.0000000e+00  1.056918e-03 1.354822e-02 first_nonpositive_pair
+    1 q2*q4      1.9510164 ok_truncated_nonpositive           4        7          8   20502.13 3.0630373e-02 1.0000090 1.0001146 1.0001146  3.8017804e-04  0.0000000e+00  3.801780e-04 1.140534e-02 first_nonpositive_pair
+    1 q2*q5      1.5994317 ok_truncated_nonpositive           4        7          8   25008.88 3.7363498e-02 1.0000387 1.0002127 1.0002127 -1.0535206e-04  0.0000000e+00 -1.053521e-04 7.396812e-03 first_nonpositive_pair
+    1 q3^2        5.555734 ok_truncated_nonpositive          13       25         26   7199.769 1.0756519e-02 1.0002001 1.0005269 1.0005269  3.3576166e-02  3.3333333e-02  2.428331e-04 5.151268e-03 first_nonpositive_pair
+    1 q3*q4      1.7579481 ok_truncated_nonpositive           9       17         18    22753.8 3.3994384e-02 1.0000846 1.0000619 1.0000846 -3.8974874e-05  0.0000000e+00 -3.897487e-05 2.736442e-03 first_nonpositive_pair
+    1 q3*q5      1.6158578 ok_truncated_nonpositive           3        5          6   24754.65 3.6983675e-02 1.0000016 1.0003267 1.0003267 -1.1426904e-05  0.0000000e+00 -1.142690e-05 1.877632e-03 first_nonpositive_pair
+    1 q4^2       3.3208094 ok_truncated_nonpositive           5        9         10   12045.26 1.7995721e-02 1.0001258 1.0000613 1.0001258  6.1154018e-03  6.0858062e-03  2.959558e-05 3.438696e-03 first_nonpositive_pair
+    1 q4*q5      1.5258717 ok_truncated_nonpositive           4        7          8   26214.52 3.9164734e-02 1.0001751 1.0002895 1.0002895  2.3202573e-05  0.0000000e+00  2.320257e-05 8.922742e-03 first_nonpositive_pair
+    1 q5^2       2.5620028 ok_truncated_nonpositive           3        5          6   15612.79 2.3325642e-02 1.0002805 0.9999728 1.0002805  1.1066707e-03  1.1111111e-03 -4.440388e-06 2.825845e-03 first_nonpositive_pair
+    2 q1         6.4503592 ok_truncated_nonpositive           9       17         18   6201.205 9.0101316e-03 1.0003332 1.0001612 1.0003332  3.9967446e-02  0.0000000e+00  3.996745e-02 3.996745e-02 first_nonpositive_pair
+    2 q2         3.2433252 ok_truncated_nonpositive           5        9         10   12333.02 1.7919444e-02 1.0003438 1.0000145 1.0003438 -6.6005036e-03  0.0000000e+00 -6.600504e-03 1.544747e-02 first_nonpositive_pair
+    2 q3          1.708962 ok_truncated_nonpositive           3        5          6   23406.02 3.4008120e-02 1.0000439 0.9999978 1.0000439 -1.4096917e-03  0.0000000e+00 -1.409692e-03 7.721199e-03 first_nonpositive_pair
+    2 q4          2.299196 ok_truncated_nonpositive           6       11         12   17397.39 2.5277787e-02 1.0000997 1.0002274 1.0002274 -9.0457878e-04  0.0000000e+00 -9.045788e-04 1.159544e-02 first_nonpositive_pair
+    2 q5         1.7715599 ok_truncated_nonpositive           8       15         16   22578.97 3.2806446e-02 1.0002098 1.0002258 1.0002258 -6.6445485e-05  0.0000000e+00 -6.644549e-05 1.993365e-03 first_nonpositive_pair
+    2 q1^2       5.7597908 ok_truncated_nonpositive           7       13         14   6944.697 1.0090399e-02 1.0001500 1.0002749 1.0002749  1.0012740e+00  1.0000000e+00  1.273962e-03 9.008271e-04 first_nonpositive_pair
+    2 q1*q2      3.6374692 ok_truncated_nonpositive           8       15         16   10996.66 1.5977753e-02 1.0001234 1.0001238 1.0001238  4.9700940e-04  0.0000000e+00  4.970094e-04 1.163175e-03 first_nonpositive_pair
+    2 q1*q3      1.7342187 ok_truncated_nonpositive           3        5          6   23065.14 3.3512835e-02 1.0001334 1.0000130 1.0001334  7.0474971e-04  0.0000000e+00  7.047497e-04 3.860073e-03 first_nonpositive_pair
+    2 q1*q4      2.1492019 ok_truncated_nonpositive           9       17         18   18611.56 2.7041938e-02 1.0000447 1.0000626 1.0000626 -5.1049772e-05  0.0000000e+00 -5.104977e-05 6.543871e-04 first_nonpositive_pair
+    2 q1*q5      1.6328712 ok_truncated_nonpositive           4        7          8   24496.73 3.5592879e-02 1.0000578 1.0002343 1.0002343 -1.4183424e-04  0.0000000e+00 -1.418342e-04 4.255027e-03 first_nonpositive_pair
+    2 q2^2       3.9424699 ok_truncated_nonpositive           5        9         10   10145.92 1.4741669e-02 1.0000049 0.9999658 1.0000049  1.7832423e-01  1.8257419e-01 -4.249958e-03 1.646002e-02 first_nonpositive_pair
+    2 q2*q3      1.7560682 ok_truncated_nonpositive           2        3          4   22778.16 3.3095858e-02 1.0001308 1.0000348 1.0001308 -2.4521428e-04  0.0000000e+00 -2.452143e-04 3.143306e-03 first_nonpositive_pair
+    2 q2*q4      1.8954123 ok_truncated_nonpositive           5        9         10   21103.59 3.0662767e-02 0.9999988 1.0000163 1.0000163 -9.5198637e-05  0.0000000e+00 -9.519864e-05 2.855959e-03 first_nonpositive_pair
+    2 q2*q5      1.6256064 ok_truncated_nonpositive           7       13         14    24606.2 3.5751942e-02 1.0000016 1.0000684 1.0000684 -1.7033936e-07  0.0000000e+00 -1.703394e-07 1.195960e-05 first_nonpositive_pair
+    2 q3^2        3.853199 ok_truncated_nonpositive           7       13         14   10380.98 1.5083204e-02 1.0000022 0.9999884 1.0000022  3.2549109e-02  3.3333333e-02 -7.842246e-04 1.663592e-02 first_nonpositive_pair
+    2 q3*q4      1.5277822 ok_truncated_nonpositive           3        5          6   26181.74 3.8041146e-02 0.9999811 1.0000462 1.0000462 -3.4697689e-05  0.0000000e+00 -3.469769e-05 2.436139e-03 first_nonpositive_pair
+    2 q3*q5      1.6014131 ok_truncated_nonpositive           3        5          6   24977.94 3.6292063e-02 1.0000234 1.0001611 1.0001611  6.1319654e-05  0.0000000e+00  6.131965e-05 1.007585e-02 first_nonpositive_pair
+    2 q4^2       3.2891756 ok_truncated_nonpositive           6       11         12    12161.1 1.7669651e-02 1.0002335 1.0002098 1.0002335  6.0569340e-03  6.0858062e-03 -2.887224e-05 3.354652e-03 first_nonpositive_pair
+    2 q4*q5      1.6543309 ok_truncated_nonpositive           4        7          8   24178.96 3.5131174e-02 1.0000393 1.0000511 1.0000511 -2.4596066e-06  0.0000000e+00 -2.459607e-06 9.458621e-04 first_nonpositive_pair
+    2 q5^2       2.5968529 ok_truncated_nonpositive           6       11         12   15403.26 2.2380392e-02 1.0002238 0.9999888 1.0002238  1.1246905e-03  1.1111111e-03  1.357938e-05 8.641864e-03 first_nonpositive_pair
+    3 q1         6.6312631 ok_truncated_nonpositive          11       21         22   6032.033 9.2373888e-03 1.0011416 1.0007613 1.0011416  3.2103868e-02  0.0000000e+00  3.210387e-02 3.210387e-02 first_nonpositive_pair
+    3 q2         3.4111275 ok_truncated_nonpositive           4        7          8   11726.33 1.7957568e-02 1.0002034 1.0001664 1.0002034 -2.3221029e-03  0.0000000e+00 -2.322103e-03 5.434527e-03 first_nonpositive_pair
+    3 q3         1.9180468 ok_truncated_nonpositive           4        7          8   20854.55 3.1936424e-02 1.0000469 1.0004340 1.0004340 -1.8126118e-03  0.0000000e+00 -1.812612e-03 9.928084e-03 first_nonpositive_pair
+    3 q4         2.7484299 ok_truncated_nonpositive           4        7          8   14553.76 2.2287472e-02 1.0002089 1.0002022 1.0002089  4.8307586e-04  0.0000000e+00  4.830759e-04 6.192361e-03 first_nonpositive_pair
+    3 q5         2.0577459 ok_truncated_nonpositive           6       11         12   19438.75 2.9768279e-02 1.0000067 1.0003057 1.0003057 -2.6992797e-05  0.0000000e+00 -2.699280e-05 8.097839e-04 first_nonpositive_pair
+    3 q1^2       6.6275419 ok_truncated_nonpositive           8       15         16    6035.42 9.2425753e-03 1.0008167 1.0007118 1.0008167  9.8888967e-01  1.0000000e+00 -1.111033e-02 7.856188e-03 first_nonpositive_pair
+    3 q1*q2      3.8006524 ok_truncated_nonpositive           7       13         14   10524.51 1.6117116e-02 1.0001453 1.0006938 1.0006938 -3.7858087e-03  0.0000000e+00 -3.785809e-03 8.860107e-03 first_nonpositive_pair
+    3 q1*q3      2.1723621 ok_truncated_nonpositive          11       21         22   18413.14 2.8197673e-02 1.0003185 1.0004440 1.0004440 -1.7249109e-03  0.0000000e+00 -1.724911e-03 9.447726e-03 first_nonpositive_pair
+    3 q1*q4         2.5939 ok_truncated_nonpositive          16       31         32   15420.79 2.3615233e-02 1.0001876 1.0004307 1.0004307 -6.1810332e-04  0.0000000e+00 -6.181033e-04 7.923225e-03 first_nonpositive_pair
+    3 q1*q5      1.8742539 ok_truncated_nonpositive           3        5          6   21341.83 3.2682634e-02 1.0000205 1.0002374 1.0002374 -4.7276039e-04  0.0000000e+00 -4.727604e-04 1.418281e-02 first_nonpositive_pair
+    3 q2^2       4.0605072 ok_truncated_nonpositive           7       13         14   9850.986 1.5085690e-02 1.0001645 0.9999637 1.0001645  1.8360938e-01  1.8257419e-01  1.035194e-03 4.009289e-03 first_nonpositive_pair
+    3 q2*q3      2.0979629 ok_truncated_nonpositive           6       11         12   19066.11 2.9197635e-02 1.0002852 1.0001628 1.0002852 -2.5902746e-04  0.0000000e+00 -2.590275e-04 3.320372e-03 first_nonpositive_pair
+    3 q2*q4      2.1038517 ok_truncated_nonpositive           3        5          6   19012.75 2.9115910e-02 1.0001667 1.0000950 1.0001667  1.1481004e-04  0.0000000e+00  1.148100e-04 3.444301e-03 first_nonpositive_pair
+    3 q2*q5      1.7107357 ok_truncated_nonpositive           2        3          4   23381.75 3.5806557e-02 0.9999924 1.0001887 1.0001887  6.8234432e-05  0.0000000e+00  6.823443e-05 4.790768e-03 first_nonpositive_pair
+    3 q3^2        5.301313 ok_truncated_nonpositive          15       29         30   7545.301 1.1554789e-02 1.0004501 1.0004409 1.0004501  3.3466860e-02  3.3333333e-02  1.335263e-04 2.832521e-03 first_nonpositive_pair
+    3 q3*q4      1.6014356 ok_truncated_nonpositive           4        7          8   24977.59 3.8250402e-02 1.0000771 1.0004725 1.0004725 -2.7069617e-05  0.0000000e+00 -2.706962e-05 1.900569e-03 first_nonpositive_pair
+    3 q3*q5      1.5362182 ok_truncated_nonpositive          10       19         20   26037.97 3.9874253e-02 1.0001240 1.0003663 1.0003663  4.1024658e-05  0.0000000e+00  4.102466e-05 6.741039e-03 first_nonpositive_pair
+    3 q4^2       3.6844656 ok_truncated_nonpositive           7       13         14   10856.39 1.6625357e-02 1.0002054 1.0002428 1.0002428  5.9977114e-03  6.0858062e-03 -8.809480e-05 1.023569e-02 first_nonpositive_pair
+    3 q4*q5      1.8437537 ok_truncated_nonpositive           4        7          8   21694.87 3.3223285e-02 1.0001653 1.0003865 1.0003865  9.3079102e-06  0.0000000e+00  9.307910e-06 3.579434e-03 first_nonpositive_pair
+    3 q5^2       2.5499239 ok_truncated_nonpositive           6       11         12   15686.74 2.4022504e-02 1.0003079 1.0002493 1.0003079  1.1059734e-03  1.1111111e-03 -5.137760e-06 3.269650e-03 first_nonpositive_pair
+    4 q1         6.6392093 ok_truncated_nonpositive           9       17         18   6024.814 9.0216133e-03 1.0005800 1.0002277 1.0005800  2.8235195e-03  0.0000000e+00  2.823519e-03 2.823519e-03 first_nonpositive_pair
+    4 q2         3.3594589 ok_truncated_nonpositive           7       13         14   11906.68 1.7829175e-02 1.0005737 1.0000810 1.0005737 -4.6493982e-03  0.0000000e+00 -4.649398e-03 1.088121e-02 first_nonpositive_pair
+    4 q3         1.7980593 ok_truncated_nonpositive           3        5          6   22246.21 3.3311681e-02 1.0002902 1.0002766 1.0002902  9.9382557e-04  0.0000000e+00  9.938256e-04 5.443407e-03 first_nonpositive_pair
+    4 q4         2.1308654 ok_truncated_nonpositive           4        7          8   18771.72 2.8108945e-02 1.0000358 1.0000623 1.0000623  4.9094712e-05  0.0000000e+00  4.909471e-05 6.293260e-04 first_nonpositive_pair
+    4 q5         1.5795572 ok_truncated_nonpositive           2        3          4   25323.55 3.7919729e-02 1.0001081 1.0001495 1.0001495 -7.8623735e-06  0.0000000e+00 -7.862374e-06 2.358712e-04 first_nonpositive_pair
+    4 q1^2       6.3101633 ok_truncated_nonpositive          10       19         20    6338.98 9.4920490e-03 1.0002078 1.0002442 1.0002442  9.8050501e-01  1.0000000e+00 -1.949499e-02 1.378504e-02 first_nonpositive_pair
+    4 q1*q2      3.5830196 ok_truncated_nonpositive           8       15         16   11163.77 1.6716732e-02 1.0006126 1.0001888 1.0006126  3.0111512e-03  0.0000000e+00  3.011151e-03 7.047140e-03 first_nonpositive_pair
+    4 q1*q3      2.0406764 ok_truncated_nonpositive           4        7          8   19601.34 2.9351238e-02 1.0002218 1.0001603 1.0002218  8.1146586e-04  0.0000000e+00  8.114659e-04 4.444582e-03 first_nonpositive_pair
+    4 q1*q4       1.959547 ok_truncated_nonpositive           4        7          8   20412.88 3.0566441e-02 1.0000558 0.9999688 1.0000558  9.0849163e-04  0.0000000e+00  9.084916e-04 1.164560e-02 first_nonpositive_pair
+    4 q1*q5       1.633303 ok_truncated_nonpositive           5        9         10   24490.25 3.6671934e-02 0.9999909 1.0000747 1.0000747 -4.7208600e-04  0.0000000e+00 -4.720860e-04 1.416258e-02 first_nonpositive_pair
+    4 q2^2       3.7900551 ok_truncated_nonpositive           5        9         10   10553.94 1.5803564e-02 1.0000862 1.0000686 1.0000862  1.8188982e-01  1.8257419e-01 -6.843696e-04 2.650552e-03 first_nonpositive_pair
+    4 q2*q3      1.9439882 ok_truncated_nonpositive           3        5          6   20576.26 3.0811081e-02 0.9999547 1.0002558 1.0002558  3.1547729e-04  0.0000000e+00  3.154773e-04 4.043980e-03 first_nonpositive_pair
+    4 q2*q4      1.8649955 ok_truncated_nonpositive           2        3          4   21447.77 3.2116098e-02 1.0001352 1.0000194 1.0001352 -7.0753153e-05  0.0000000e+00 -7.075315e-05 2.122595e-03 first_nonpositive_pair
+    4 q2*q5      1.5271776 ok_truncated_nonpositive           5        9         10   26192.11 3.9220310e-02 1.0000040 1.0001604 1.0001604  1.0478849e-04  0.0000000e+00  1.047885e-04 7.357244e-03 first_nonpositive_pair
+    4 q3^2       4.3061327 ok_truncated_nonpositive           9       17         18   9289.077 1.3909553e-02 1.0002615 1.0002106 1.0002615  3.2989302e-02  3.3333333e-02 -3.440312e-04 7.298003e-03 first_nonpositive_pair
+    4 q3*q4      1.7719235 ok_truncated_nonpositive           3        5          6   22574.34 3.3803027e-02 1.0002408 1.0001915 1.0002408  1.2189361e-04  0.0000000e+00  1.218936e-04 8.558201e-03 first_nonpositive_pair
+    4 q3*q5      1.7067592 ok_truncated_nonpositive           5        9         10   23436.23 3.5093633e-02 1.0000846 0.9999951 1.0000846 -1.9350535e-05  0.0000000e+00 -1.935053e-05 3.179617e-03 first_nonpositive_pair
+    4 q4^2       3.4786277 ok_truncated_nonpositive           9       17         18   11498.79 1.7218393e-02 1.0000613 0.9999877 1.0000613  6.1750644e-03  6.0858062e-03  8.925824e-05 1.037087e-02 first_nonpositive_pair
+    4 q4*q5      1.6078237 ok_truncated_nonpositive           3        5          6   24878.35 3.7253078e-02 1.0000186 1.0002520 1.0002520 -9.8706395e-06  0.0000000e+00 -9.870640e-06 3.795836e-03 first_nonpositive_pair
+    4 q5^2       2.5525412 ok_truncated_nonpositive           5        9         10   15670.66 2.3465392e-02 1.0001562 1.0001676 1.0001676  1.1040459e-03  1.1111111e-03 -7.065225e-06 4.496282e-03 first_nonpositive_pair
+    5 q1         6.7036263 ok_truncated_nonpositive           8       15         16    5966.92 8.6263065e-03 1.0008384 1.0013054 1.0013054  3.0986364e-03  0.0000000e+00  3.098636e-03 3.098636e-03 first_nonpositive_pair
+    5 q2         3.1755594 ok_truncated_nonpositive           4        7          8   12596.21 1.8210188e-02 1.0002742 1.0003934 1.0003934  4.7425379e-04  0.0000000e+00  4.742538e-04 1.109919e-03 first_nonpositive_pair
+    5 q3         1.7260382 ok_truncated_nonpositive           3        5          6   23174.46 3.3503046e-02 1.0000037 1.0002114 1.0002114 -1.1083043e-03  0.0000000e+00 -1.108304e-03 6.070433e-03 first_nonpositive_pair
+    5 q4         2.0304538 ok_truncated_nonpositive           9       17         18   19700.03 2.8480104e-02 0.9999764 1.0003368 1.0003368 -1.3529618e-05  0.0000000e+00 -1.352962e-05 1.734309e-04 first_nonpositive_pair
+    5 q5         1.5125827 ok_truncated_nonpositive           3        5          6   26444.84 3.8230991e-02 0.9999929 1.0002211 1.0002211  1.9451174e-04  0.0000000e+00  1.945117e-04 5.835352e-03 first_nonpositive_pair
+    5 q1^2        6.719149 ok_truncated_nonpositive          17       33         34   5953.135 8.6063779e-03 1.0013136 1.0005109 1.0013136  9.8495572e-01  1.0000000e+00 -1.504428e-02 1.063791e-02 first_nonpositive_pair
+    5 q1*q2      3.6821451 ok_truncated_nonpositive           5        9         10   10863.23 1.5704850e-02 1.0000417 1.0009014 1.0009014 -2.3365672e-04  0.0000000e+00 -2.336567e-04 5.468379e-04 first_nonpositive_pair
+    5 q1*q3      2.0338742 ok_truncated_nonpositive           7       13         14    19666.9 2.8432208e-02 1.0002641 1.0007277 1.0007277  7.0449180e-04  0.0000000e+00  7.044918e-04 3.858660e-03 first_nonpositive_pair
+    5 q1*q4      1.7764511 ok_truncated_nonpositive           3        5          6    22516.8 3.2552280e-02 1.0000138 1.0008579 1.0008579  5.7955175e-04  0.0000000e+00  5.795517e-04 7.429048e-03 first_nonpositive_pair
+    5 q1*q5      1.6052299 ok_truncated_nonpositive           4        7          8   24918.55 3.6024456e-02 1.0002597 1.0006778 1.0006778 -1.6021890e-04  0.0000000e+00 -1.602189e-04 4.806567e-03 first_nonpositive_pair
+    5 q2^2       4.1585862 ok_truncated_nonpositive           7       13         14   9618.654 1.3905576e-02 1.0004007 1.0003230 1.0004007  1.8776729e-01  1.8257419e-01  5.193105e-03 2.011281e-02 first_nonpositive_pair
+    5 q2*q3       1.937373 ok_truncated_nonpositive           4        7          8   20646.51 2.9848427e-02 1.0000702 1.0001598 1.0001598  2.0224975e-04  0.0000000e+00  2.022497e-04 2.592561e-03 first_nonpositive_pair
+    5 q2*q4      1.7231897 ok_truncated_nonpositive           2        3          4   23212.77 3.3558426e-02 1.0001351 1.0005653 1.0005653  3.1713821e-04  0.0000000e+00  3.171382e-04 9.514146e-03 first_nonpositive_pair
+    5 q2*q5      1.5827891 ok_truncated_nonpositive           4        7          8   25271.84 3.6535212e-02 1.0000084 1.0005859 1.0005859 -1.3576643e-04  0.0000000e+00 -1.357664e-04 9.532218e-03 first_nonpositive_pair
+    5 q3^2       4.3717574 ok_truncated_nonpositive          16       31         32   9149.638 1.3227526e-02 1.0002047 1.0006032 1.0006032  3.4663201e-02  3.3333333e-02  1.329868e-03 2.821075e-02 first_nonpositive_pair
+    5 q3*q4      1.6582676 ok_truncated_nonpositive           3        5          6   24121.56 3.4872259e-02 0.9999551 1.0001597 1.0001597 -1.0844147e-04  0.0000000e+00 -1.084415e-04 7.613721e-03 first_nonpositive_pair
+    5 q3*q5      1.7422394 ok_truncated_nonpositive           3        5          6   22958.96 3.3191498e-02 1.0001008 1.0000926 1.0001008  5.6137474e-05  0.0000000e+00  5.613747e-05 9.224328e-03 first_nonpositive_pair
+    5 q4^2        3.453458 ok_truncated_nonpositive           6       11         12   11582.59 1.6744821e-02 1.0003393 1.0001447 1.0003393  6.2333243e-03  6.0858062e-03  1.475181e-04 1.714006e-02 first_nonpositive_pair
+    5 q4*q5      1.4890012 ok_truncated_nonpositive           6       11         12   26863.64 3.8836459e-02 0.9999935 1.0004079 1.0004079  1.1470747e-05  0.0000000e+00  1.147075e-05 4.411171e-03 first_nonpositive_pair
+    5 q5^2       2.5407168 ok_truncated_nonpositive           4        7          8   15743.59 2.2760323e-02 1.0002381 1.0002231 1.0002381  1.1222330e-03  1.1111111e-03  1.112189e-05 7.077928e-03 first_nonpositive_pair
+    6 q1         6.5577915 ok_truncated_nonpositive          10       19         20   6099.614 8.8804334e-03 1.0003555 1.0002025 1.0003555  8.1526115e-03  0.0000000e+00  8.152611e-03 8.152611e-03 first_nonpositive_pair
+    6 q2           3.24552 ok_truncated_nonpositive           5        9         10   12324.68 1.7943513e-02 1.0001649 1.0005056 1.0005056 -4.5575925e-03  0.0000000e+00 -4.557592e-03 1.066635e-02 first_nonpositive_pair
+    6 q3         1.7340504 ok_truncated_nonpositive          10       19         20   23067.38 3.3583817e-02 1.0003987 1.0001597 1.0003987 -1.6795090e-03  0.0000000e+00 -1.679509e-03 9.199050e-03 first_nonpositive_pair
+    6 q4         2.1853454 ok_truncated_nonpositive           3        5          6   18303.74 2.6648433e-02 1.0000876 1.0003976 1.0003976 -1.5438754e-04  0.0000000e+00 -1.543875e-04 1.979034e-03 first_nonpositive_pair
+    6 q5         1.5345201 ok_truncated_nonpositive           2        3          4   26066.78 3.7950647e-02 1.0001672 1.0003342 1.0003342  5.0495179e-04  0.0000000e+00  5.049518e-04 1.514855e-02 first_nonpositive_pair
+    6 q1^2       6.1332238 ok_truncated_nonpositive           9       17         18   6521.856 9.4951745e-03 1.0002069 1.0001779 1.0002069  9.4817444e-01  1.0000000e+00 -5.182556e-02 3.664620e-02 first_nonpositive_pair
+    6 q1*q2      3.4567995 ok_truncated_nonpositive           4        7          8    11571.4 1.6846806e-02 1.0000764 1.0003427 1.0003427  1.2780004e-03  0.0000000e+00  1.278000e-03 2.990965e-03 first_nonpositive_pair
+    6 q1*q3      1.8376528 ok_truncated_nonpositive           3        5          6    21766.9 3.1690443e-02 1.0001593 1.0001707 1.0001707 -1.5296103e-03  0.0000000e+00 -1.529610e-03 8.378021e-03 first_nonpositive_pair
+    6 q1*q4      2.0297538 ok_truncated_nonpositive           4        7          8   19706.82 2.8691179e-02 1.0000242 1.0002807 1.0002807  1.9515711e-04  0.0000000e+00  1.951571e-04 2.501643e-03 first_nonpositive_pair
+    6 q1*q5      1.5645906 ok_truncated_nonpositive           3        5          6   25565.79 3.7221259e-02 0.9999882 1.0001851 1.0001851  1.4207916e-04  0.0000000e+00  1.420792e-04 4.262375e-03 first_nonpositive_pair
+    6 q2^2       3.9365157 ok_truncated_nonpositive           5        9         10   10161.27 1.4793801e-02 1.0004576 1.0000643 1.0004576  1.8065614e-01  1.8257419e-01 -1.918042e-03 7.428547e-03 first_nonpositive_pair
+    6 q2*q3      1.8743478 ok_truncated_nonpositive           2        3          4   21340.76 3.1070023e-02 1.0000003 1.0003739 1.0003739 -2.9510671e-04  0.0000000e+00 -2.951067e-04 3.782858e-03 first_nonpositive_pair
+    6 q2*q4      1.9148487 ok_truncated_nonpositive           3        5          6   20889.38 3.0412863e-02 0.9999528 1.0001320 1.0001320 -2.5180400e-05  0.0000000e+00 -2.518040e-05 7.554120e-04 first_nonpositive_pair
+    6 q2*q5      1.5645225 ok_truncated_nonpositive           3        5          6   25566.91 3.7222878e-02 1.0002278 1.0002925 1.0002925 -4.9247107e-05  0.0000000e+00 -4.924711e-05 3.457660e-03 first_nonpositive_pair
+    6 q3^2       3.7430961 ok_truncated_nonpositive           6       11         12   10686.34 1.5558252e-02 1.0001586 1.0002225 1.0002225  3.3048191e-02  3.3333333e-02 -2.851424e-04 6.048784e-03 first_nonpositive_pair
+    6 q3*q4      1.5259876 ok_truncated_nonpositive           2        3          4   26212.53 3.8162845e-02 1.0001242 1.0004602 1.0004602  1.2847435e-06  0.0000000e+00  1.284744e-06 9.020238e-05 first_nonpositive_pair
+    6 q3*q5      1.6498622 ok_truncated_nonpositive           5        9         10   24244.45 3.5297511e-02 1.0000151 1.0003324 1.0003324 -1.7356545e-05  0.0000000e+00 -1.735654e-05 2.851971e-03 first_nonpositive_pair
+    6 q4^2       3.3671905 ok_truncated_nonpositive           9       17         18   11879.34 1.7295140e-02 1.0003963 0.9999422 1.0003963  6.0927066e-03  6.0858062e-03  6.900371e-06 8.017507e-04 first_nonpositive_pair
+    6 q4*q5      1.4724821 ok_truncated_nonpositive           2        3          4   27165.02 3.9549567e-02 1.0001363 1.0003699 1.0003699  2.7909976e-05  0.0000000e+00  2.790998e-05 1.073301e-02 first_nonpositive_pair
+    6 q5^2       2.4771476 ok_truncated_nonpositive           3        5          6    16147.6 2.3509310e-02 1.0003176 1.0000491 1.0003176  1.0999696e-03  1.1111111e-03 -1.114155e-05 7.090436e-03 first_nonpositive_pair
+    7 q1          7.049355 ok_truncated_nonpositive          14       27         28   5674.278 8.3194946e-03 1.0003207 1.0005495 1.0005495  1.4170790e-04  0.0000000e+00  1.417079e-04 1.417079e-04 first_nonpositive_pair
+    7 q2          3.504093 ok_truncated_nonpositive           8       15         16   11415.22 1.6736734e-02 1.0002162 1.0003153 1.0003153  3.5464643e-03  0.0000000e+00  3.546464e-03 8.299958e-03 first_nonpositive_pair
+    7 q3         1.6975079 ok_truncated_nonpositive           3        5          6   23563.95 3.4548923e-02 1.0000377 1.0001907 1.0001907  5.9663968e-04  0.0000000e+00  5.966397e-04 3.267930e-03 first_nonpositive_pair
+    7 q4         1.9945614 ok_truncated_nonpositive           3        5          6   20054.53 2.9403493e-02 1.0000492 1.0000545 1.0000545  8.0221885e-04  0.0000000e+00  8.022188e-04 1.028333e-02 first_nonpositive_pair
+    7 q5         1.3951819 ok_truncated_nonpositive           2        3          4    28670.1 4.2035431e-02 1.0002297 1.0001431 1.0002297 -3.1334624e-04  0.0000000e+00 -3.133462e-04 9.400387e-03 first_nonpositive_pair
+    7 q1^2       6.5242329 ok_truncated_nonpositive           8       15         16   6130.989 8.9891136e-03 1.0005568 1.0001139 1.0005568  9.8068936e-01  1.0000000e+00 -1.931064e-02 1.365469e-02 first_nonpositive_pair
+    7 q1*q2      3.9770958 ok_truncated_nonpositive          13       25         26   10057.59 1.4746205e-02 1.0002811 1.0004541 1.0004541 -4.4135001e-03  0.0000000e+00 -4.413500e-03 1.032912e-02 first_nonpositive_pair
+    7 q1*q3      1.7551547 ok_truncated_nonpositive           2        3          4   22790.01 3.3414190e-02 1.0000375 1.0004680 1.0004680  8.7058243e-04  0.0000000e+00  8.705824e-04 4.768376e-03 first_nonpositive_pair
+    7 q1*q4       1.886455 ok_truncated_nonpositive           3        5          6   21203.79 3.1088508e-02 1.0001873 1.0003855 1.0003855 -5.1845238e-04  0.0000000e+00 -5.184524e-04 6.645839e-03 first_nonpositive_pair
+    7 q1*q5      1.5300647 ok_truncated_nonpositive           4        7          8   26142.69 3.8329798e-02 1.0000219 1.0006934 1.0006934  5.3653906e-05  0.0000000e+00  5.365391e-05 1.609617e-03 first_nonpositive_pair
+    7 q2^2       3.9864016 ok_truncated_nonpositive           5        9         10   10034.11 1.4711782e-02 1.0003233 1.0002799 1.0003233  1.8210545e-01  1.8257419e-01 -4.687393e-04 1.815419e-03 first_nonpositive_pair
+    7 q2*q3      1.8568339 ok_truncated_nonpositive           3        5          6   21542.04 3.1584446e-02 1.0001500 1.0002061 1.0002061  4.1795060e-04  0.0000000e+00  4.179506e-04 5.357546e-03 first_nonpositive_pair
+    7 q2*q4      1.9271354 ok_truncated_nonpositive           3        5          6    20756.2 3.0432252e-02 1.0001070 1.0002702 1.0002702 -3.7078153e-04  0.0000000e+00 -3.707815e-04 1.112345e-02 first_nonpositive_pair
+    7 q2*q5      1.5653752 ok_truncated_nonpositive           7       13         14   25552.98 3.7465184e-02 1.0000925 1.0003070 1.0003070 -1.4967410e-04  0.0000000e+00 -1.496741e-04 1.050868e-02 first_nonpositive_pair
+    7 q3^2       4.7263449 ok_truncated_nonpositive          12       23         24     8463.2 1.2408547e-02 1.0001813 1.0002268 1.0002268  3.3810748e-02  3.3333333e-02  4.774146e-04 1.012749e-02 first_nonpositive_pair
+    7 q3*q4      1.5433808 ok_truncated_nonpositive           3        5          6   25917.13 3.7999094e-02 1.0000812 1.0000373 1.0000812 -6.6076922e-05  0.0000000e+00 -6.607692e-05 4.639288e-03 first_nonpositive_pair
+    7 q3*q5       1.733308 ok_truncated_nonpositive           3        5          6   23077.26 3.3835342e-02 1.0000409 1.0001463 1.0001463  7.8550469e-05  0.0000000e+00  7.855047e-05 1.290716e-02 first_nonpositive_pair
+    7 q4^2       3.2677731 ok_truncated_nonpositive           5        9         10   12240.75 1.7947106e-02 1.0000564 1.0002633 1.0002633  6.1273127e-03  6.0858062e-03  4.150650e-05 4.822620e-03 first_nonpositive_pair
+    7 q4*q5      1.3960428 ok_truncated_nonpositive           2        3          4   28652.42 4.2009509e-02 1.0000934 1.0001335 1.0001335 -1.6135011e-05  0.0000000e+00 -1.613501e-05 6.204852e-03 first_nonpositive_pair
+    7 q5^2       2.6488536 ok_truncated_nonpositive           4        7          8   15100.87 2.2140548e-02 1.0001324 1.0002781 1.0002781  1.1179174e-03  1.1111111e-03  6.806322e-06 4.331517e-03 first_nonpositive_pair
+    8 q1         7.0632801 ok_truncated_nonpositive           9       17         18   5663.091 8.4108980e-03 1.0007691 1.0000607 1.0007691 -4.1246999e-03  0.0000000e+00 -4.124700e-03 4.124700e-03 first_nonpositive_pair
+    8 q2          3.488795 ok_truncated_nonpositive           6       11         12   11465.28 1.7028380e-02 1.0002584 1.0004873 1.0004873 -1.7403020e-03  0.0000000e+00 -1.740302e-03 4.072911e-03 first_nonpositive_pair
+    8 q3         1.8651286 ok_truncated_nonpositive           3        5          6   21446.24 3.1852242e-02 1.0001240 1.0004434 1.0004434  1.5502124e-03  0.0000000e+00  1.550212e-03 8.490863e-03 first_nonpositive_pair
+    8 q4         1.8943051 ok_truncated_nonpositive           3        5          6   21115.92 3.1361648e-02 1.0000361 1.0002686 1.0002686  5.2422094e-04  0.0000000e+00  5.242209e-04 6.719784e-03 first_nonpositive_pair
+    8 q5         1.7005489 ok_truncated_nonpositive           4        7          8   23521.82 3.4934914e-02 1.0000251 1.0000480 1.0000480 -1.1126694e-04  0.0000000e+00 -1.112669e-04 3.338008e-03 first_nonpositive_pair
+    8 q1^2       6.4722829 ok_truncated_nonpositive          11       21         22     6180.2 9.1789141e-03 1.0000631 1.0002801 1.0002801  9.9871888e-01  1.0000000e+00 -1.281123e-03 9.058906e-04 first_nonpositive_pair
+    8 q1*q2      4.2197813 ok_truncated_nonpositive          12       23         24   9479.164 1.4078580e-02 1.0007295 1.0001827 1.0007295  1.9568285e-03  0.0000000e+00  1.956828e-03 4.579658e-03 first_nonpositive_pair
+    8 q1*q3      2.0816427 ok_truncated_nonpositive           4        7          8   19215.59 2.8539253e-02 0.9999725 1.0001583 1.0001583  1.1530471e-03  0.0000000e+00  1.153047e-03 6.315499e-03 first_nonpositive_pair
+    8 q1*q4      1.8585762 ok_truncated_nonpositive           9       17         18   21521.85 3.1964538e-02 1.0001058 1.0002093 1.0002093  1.2986841e-04  0.0000000e+00  1.298684e-04 1.664732e-03 first_nonpositive_pair
+    8 q1*q5      1.6875997 ok_truncated_nonpositive           2        3          4    23702.3 3.5202973e-02 1.0001907 1.0000665 1.0001907  9.7844436e-05  0.0000000e+00  9.784444e-05 2.935333e-03 first_nonpositive_pair
+    8 q2^2       4.1529497 ok_truncated_nonpositive           6       11         12   9631.708 1.4305141e-02 1.0004867 1.0003024 1.0004867  1.8265581e-01  1.8257419e-01  8.162805e-05 3.161441e-04 first_nonpositive_pair
+    8 q2*q3      2.1115156 ok_truncated_nonpositive           8       15         16   18943.74 2.8135491e-02 1.0000716 1.0007146 1.0007146 -6.9884270e-04  0.0000000e+00 -6.988427e-04 8.958192e-03 first_nonpositive_pair
+    8 q2*q4      1.8157911 ok_truncated_nonpositive           3        5          6   22028.97 3.2717711e-02 1.0000737 1.0000146 1.0000737 -3.5306161e-04  0.0000000e+00 -3.530616e-04 1.059185e-02 first_nonpositive_pair
+    8 q2*q5      1.6394468 ok_truncated_nonpositive           2        3          4   24398.47 3.6236936e-02 1.0002708 1.0003117 1.0003117  1.1835217e-04  0.0000000e+00  1.183522e-04 8.309556e-03 first_nonpositive_pair
+    8 q3^2       4.6436942 ok_truncated_nonpositive          10       19         20   8613.832 1.2793377e-02 1.0004481 1.0003918 1.0004481  3.3621541e-02  3.3333333e-02  2.882074e-04 6.113802e-03 first_nonpositive_pair
+    8 q3*q4      1.7277047 ok_truncated_nonpositive           4        7          8    23152.1 3.4385812e-02 1.0002033 1.0001188 1.0002033 -1.2118830e-05  0.0000000e+00 -1.211883e-05 8.508682e-04 first_nonpositive_pair
+    8 q3*q5      1.6592618 ok_truncated_nonpositive           3        5          6   24107.11 3.5804193e-02 1.0001336 1.0003236 1.0003236  1.0710600e-04  0.0000000e+00  1.071060e-04 1.759931e-02 first_nonpositive_pair
+    8 q4^2       3.2561148 ok_truncated_nonpositive           5        9         10   12284.58 1.8245219e-02 1.0002702 1.0002517 1.0002702  6.0715532e-03  6.0858062e-03 -1.425301e-05 1.656050e-03 first_nonpositive_pair
+    8 q4*q5      1.5726558 ok_truncated_nonpositive           2        3          4   25434.68 3.7775927e-02 1.0000977 1.0000619 1.0000977  2.2838673e-06  0.0000000e+00  2.283867e-06 8.782801e-04 first_nonpositive_pair
+    8 q5^2       2.4573796 ok_truncated_nonpositive           3        5          6    16277.5 2.4175560e-02 1.0000396 1.0000277 1.0000396  1.1050375e-03  1.1111111e-03 -6.073650e-06 3.865247e-03 first_nonpositive_pair
+    9 q1         6.9983335 ok_truncated_nonpositive          30       59         60   5715.646 8.3907526e-03 1.0004317 1.0002987 1.0004317  1.4872140e-03  0.0000000e+00  1.487214e-03 1.487214e-03 first_nonpositive_pair
+    9 q2         3.3868764 ok_truncated_nonpositive           8       15         16   11810.29 1.7337888e-02 1.0001572 1.0004698 1.0004698  2.1474167e-03  0.0000000e+00  2.147417e-03 5.025701e-03 first_nonpositive_pair
+    9 q3         1.7404939 ok_truncated_nonpositive           4        7          8   22981.98 3.3738289e-02 0.9999793 1.0005119 1.0005119 -1.8385364e-03  0.0000000e+00 -1.838536e-03 1.007008e-02 first_nonpositive_pair
+    9 q4         2.3760969 ok_truncated_nonpositive           6       11         12   16834.33 2.4713338e-02 1.0002007 1.0001134 1.0002007  2.8955186e-04  0.0000000e+00  2.895519e-04 3.711652e-03 first_nonpositive_pair
+    9 q5         1.6187748 ok_truncated_nonpositive           3        5          6   24710.05 3.6275143e-02 0.9999823 1.0003264 1.0003264  1.3074545e-04  0.0000000e+00  1.307454e-04 3.922363e-03 first_nonpositive_pair
+    9 q1^2       6.2293416 ok_truncated_nonpositive           9       17         18   6421.224 9.4265636e-03 1.0002805 1.0004452 1.0004452  1.0055125e+00  1.0000000e+00  5.512457e-03 3.897895e-03 first_nonpositive_pair
+    9 q1*q2      3.7497777 ok_truncated_nonpositive           7       13         14    10667.3 1.5659938e-02 1.0004355 1.0003277 1.0004355  2.0915615e-03  0.0000000e+00  2.091561e-03 4.894980e-03 first_nonpositive_pair
+    9 q1*q3      1.9241221 ok_truncated_nonpositive           4        7          8    20788.7 3.0518482e-02 1.0000057 1.0005955 1.0005955  2.2193353e-04  0.0000000e+00  2.219335e-04 1.215580e-03 first_nonpositive_pair
+    9 q1*q4      2.1913457 ok_truncated_nonpositive           8       15         16   18253.62 2.6796906e-02 1.0001773 1.0001554 1.0001773  1.1034192e-04  0.0000000e+00  1.103419e-04 1.414430e-03 first_nonpositive_pair
+    9 q1*q5      1.6753045 ok_truncated_nonpositive           4        7          8   23876.26 3.5051112e-02 1.0000169 1.0000433 1.0000433 -4.8310477e-06  0.0000000e+00 -4.831048e-06 1.449314e-04 first_nonpositive_pair
+    9 q2^2       4.3409594 ok_truncated_nonpositive           6       11         12   9214.553 1.3527260e-02 1.0004674 1.0001602 1.0004674  1.8374542e-01  1.8257419e-01  1.171238e-03 4.536185e-03 first_nonpositive_pair
+    9 q2*q3      1.9368802 ok_truncated_nonpositive           3        5          6   20651.77 3.0317459e-02 1.0000190 1.0002160 1.0002160  1.6491503e-03  0.0000000e+00  1.649150e-03 2.113981e-02 first_nonpositive_pair
+    9 q2*q4      1.9681107 ok_truncated_nonpositive           4        7          8   20324.06 2.9836373e-02 1.0002023 1.0001235 1.0002023  6.5428189e-05  0.0000000e+00  6.542819e-05 1.962846e-03 first_nonpositive_pair
+    9 q2*q5      1.6358419 ok_truncated_nonpositive           5        9         10   24452.24 3.5896674e-02 1.0000533 1.0002167 1.0002167  3.9303060e-05  0.0000000e+00  3.930306e-05 2.759484e-03 first_nonpositive_pair
+    9 q3^2       4.0702773 ok_truncated_nonpositive           7       13         14    9827.34 1.4426851e-02 1.0005055 1.0001393 1.0005055  3.3507607e-02  3.3333333e-02  1.742732e-04 3.696893e-03 first_nonpositive_pair
+    9 q3*q4      1.4817379 ok_truncated_nonpositive           7       13         14   26995.33 3.9630009e-02 0.9999580 1.0002288 1.0002288  1.0041288e-04  0.0000000e+00  1.004129e-04 7.050031e-03 first_nonpositive_pair
+    9 q3*q5      1.6790104 ok_truncated_nonpositive           8       15         16   23823.56 3.4973746e-02 1.0001045 1.0001733 1.0001733  3.8459008e-05  0.0000000e+00  3.845901e-05 6.319460e-03 first_nonpositive_pair
+    9 q4^2       3.2780403 ok_truncated_nonpositive           5        9         10   12202.41 1.7913534e-02 1.0001137 0.9999667 1.0001137  5.9142841e-03  6.0858062e-03 -1.715221e-04 1.992907e-02 first_nonpositive_pair
+    9 q4*q5       1.595932 ok_truncated_nonpositive           3        5          6   25063.72 3.6794354e-02 1.0000375 1.0003522 1.0003522 -6.2422933e-06  0.0000000e+00 -6.242293e-06 2.400526e-03 first_nonpositive_pair
+    9 q5^2        2.552781 ok_truncated_nonpositive           4        7          8   15669.19 2.3002868e-02 1.0003255 1.0002146 1.0003255  1.1223910e-03  1.1111111e-03  1.127989e-05 7.178478e-03 first_nonpositive_pair
+   10 q1         6.4015338 ok_truncated_nonpositive          12       23         24   6248.502 9.2036731e-03 1.0002773 1.0005261 1.0005261  8.7194335e-03  0.0000000e+00  8.719434e-03 8.719434e-03 first_nonpositive_pair
+   10 q2         3.1639091 ok_truncated_nonpositive          10       19         20   12642.59 1.8621782e-02 1.0002784 1.0000031 1.0002784 -3.3152308e-03  0.0000000e+00 -3.315231e-03 7.758792e-03 first_nonpositive_pair
+   10 q3         1.8254021 ok_truncated_nonpositive           3        5          6   21912.98 3.2276518e-02 1.0000763 1.0002550 1.0002550  2.2004583e-04  0.0000000e+00  2.200458e-04 1.205241e-03 first_nonpositive_pair
+   10 q4         2.4862565 ok_truncated_nonpositive           7       13         14   16088.44 2.3697324e-02 1.0001256 1.0001745 1.0001745 -6.6258413e-04  0.0000000e+00 -6.625841e-04 8.493408e-03 first_nonpositive_pair
+   10 q5         1.7338261 ok_truncated_nonpositive           3        5          6   23070.36 3.3981277e-02 0.9999884 0.9999811 0.9999884  1.9195942e-04  0.0000000e+00  1.919594e-04 5.758782e-03 first_nonpositive_pair
+   10 q1^2       6.3712561 ok_truncated_nonpositive          12       23         24   6278.197 9.2474111e-03 1.0005101 1.0002940 1.0005101  1.0087040e+00  1.0000000e+00  8.704003e-03 6.154660e-03 first_nonpositive_pair
+   10 q1*q2      3.4931744 ok_truncated_nonpositive           4        7          8    11450.9 1.6866500e-02 1.0005270 1.0001811 1.0005270 -3.6989804e-04  0.0000000e+00 -3.698980e-04 8.656899e-04 first_nonpositive_pair
+   10 q1*q3      1.8846157 ok_truncated_nonpositive           3        5          6   21224.49 3.1262408e-02 1.0000237 1.0005235 1.0005235  1.0654108e-04  0.0000000e+00  1.065411e-04 5.835495e-04 first_nonpositive_pair
+   10 q1*q4      2.2846705 ok_truncated_nonpositive           5        9         10   17507.99 2.5788237e-02 1.0000844 1.0002403 1.0002403  3.5947628e-04  0.0000000e+00  3.594763e-04 4.607986e-03 first_nonpositive_pair
+   10 q1*q5      1.6172758 ok_truncated_nonpositive           2        3          4   24732.95 3.6430165e-02 1.0000321 1.0000955 1.0000955 -2.5778059e-04  0.0000000e+00 -2.577806e-04 7.733418e-03 first_nonpositive_pair
+   10 q2^2       3.9475313 ok_truncated_nonpositive           6       11         12   10132.92 1.4925182e-02 1.0000092 1.0000408 1.0000408  1.8723161e-01  1.8257419e-01  4.657426e-03 1.803813e-02 first_nonpositive_pair
+   10 q2*q3      1.8468217 ok_truncated_nonpositive           3        5          6   21658.83 3.1902173e-02 1.0001936 1.0001380 1.0001936 -1.3375942e-04  0.0000000e+00 -1.337594e-04 1.714610e-03 first_nonpositive_pair
+   10 q2*q4      2.1478298 ok_truncated_nonpositive           4        7          8   18623.45 2.7431236e-02 1.0000398 1.0001934 1.0001934  1.8113080e-04  0.0000000e+00  1.811308e-04 5.433924e-03 first_nonpositive_pair
+   10 q2*q5      1.7096134 ok_truncated_nonpositive           4        7          8    23397.1 3.4462542e-02 1.0001644 0.9999853 1.0001644 -5.2286999e-05  0.0000000e+00 -5.228700e-05 3.671092e-03 first_nonpositive_pair
+   10 q3^2       4.2196301 ok_truncated_nonpositive           8       15         16   9479.504 1.3962746e-02 1.0002536 1.0002346 1.0002536  3.3328469e-02  3.3333333e-02 -4.863854e-06 1.031779e-04 first_nonpositive_pair
+   10 q3*q4      1.5548717 ok_truncated_nonpositive           8       15         16   25725.59 3.7892273e-02 1.0001771 1.0003714 1.0003714  2.5868116e-05  0.0000000e+00  2.586812e-05 1.816211e-03 first_nonpositive_pair
+   10 q3*q5       1.403146 ok_truncated_nonpositive           2        3          4   28507.37 4.1989660e-02 1.0000461 1.0001206 1.0001206  1.9117243e-05  0.0000000e+00  1.911724e-05 3.141284e-03 first_nonpositive_pair
+   10 q4^2       3.6369678 ok_truncated_nonpositive           5        9         10   10998.17 1.6199655e-02 1.0001728 1.0007229 1.0007229  6.1334515e-03  6.0858062e-03  4.764533e-05 5.535887e-03 first_nonpositive_pair
+   10 q4*q5      1.8554381 ok_truncated_nonpositive           7       13         14   21558.25 3.1754022e-02 0.9999452 1.0001027 1.0001027 -2.3771538e-05  0.0000000e+00 -2.377154e-05 9.141542e-03 first_nonpositive_pair
+   10 q5^2       2.5569312 ok_truncated_nonpositive           4        7          8   15643.75 2.3042319e-02 0.9999778 0.9999722 0.9999778  1.1063369e-03  1.1111111e-03 -4.774256e-06 3.038318e-03 first_nonpositive_pair
+
+END OF REPORT
+
+FULL INPUTS AND SOURCE/RUNTIME CHECKSUMS
+{
+  "format": "expanded-NUTS-full-grid-blocks-v1",
+  "inputs": {
+    "allow_overwrite": false,
+    "beta": 1.0,
+    "delta_max": 1000.0,
+    "dual_averaging_gamma": 0.05,
+    "dual_averaging_kappa": 0.75,
+    "dual_averaging_t0": 10.0,
+    "mass_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "maximum_tree_depth": 12,
+    "n_retained": 10000,
+    "n_warmup": 1000,
+    "n_workers": 4,
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "omegas": [
+      1.0,
+      2.340347319320716,
+      5.477225575051661,
+      12.818610191887021,
+      30.0
+    ],
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/multiscale_Gaussian/2026-09-25_mixture_vs_NUTS_expanded_01/NUTS/results",
+    "output_filename": "NUTS_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt",
+    "print_progress": true,
+    "print_report": true,
+    "reasonable_epsilon_max_search_steps": 100,
+    "run_label": "PRODUCTION TUNING",
+    "run_mode": "CANONICAL",
+    "run_self_tests": true,
+    "seed_blocks": [
+      [
+        567753504,
+        3554327166,
+        2159929848,
+        2183746224
+      ],
+      [
+        3182901450,
+        2500054966,
+        2494512194,
+        1125703007
+      ],
+      [
+        3372379365,
+        3829013153,
+        2779258000,
+        3673553045
+      ],
+      [
+        1042366973,
+        555022780,
+        2234701741,
+        38076647
+      ],
+      [
+        4147003693,
+        637552847,
+        1213094654,
+        3282446157
+      ],
+      [
+        1983886449,
+        1778341926,
+        2298613957,
+        753872443
+      ],
+      [
+        1913436284,
+        580417278,
+        2885056474,
+        2371270245
+      ],
+      [
+        2021755070,
+        2190757929,
+        2004101126,
+        1738982583
+      ],
+      [
+        2993064774,
+        535236755,
+        4082694471,
+        2365720593
+      ],
+      [
+        158278125,
+        3022481575,
+        1887590644,
+        2677325223
+      ]
+    ],
+    "standardized_starts": [
+      [
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      [
+        2.0,
+        -2.0,
+        2.0,
+        -2.0,
+        2.0
+      ],
+      [
+        -2.0,
+        2.0,
+        -2.0,
+        2.0,
+        -2.0
+      ],
+      [
+        -2.0,
+        -2.0,
+        -2.0,
+        -2.0,
+        -2.0
+      ]
+    ],
+    "target_acceptance_values": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.425,
+      0.45,
+      0.475,
+      0.5,
+      0.525,
+      0.55,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.8,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.925,
+      0.95,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      0.995,
+      0.999
+    ]
+  },
+  "launcher_sha256": "96c53ca5942d7ac2267a2acf4857831a4523a16dd9dd7068c1f50cd671bc2d71",
+  "llvmlite": "0.47.0+computecanada",
+  "method": "nuts",
+  "numba": "0.65.1+computecanada",
+  "numpy": "2.2.2",
+  "python": "3.12.4",
+  "source_sha256": "55e2b1c8b2b71f134f133aed14aabe9f3911fcf9a5d68005058ffd5db299cabf"
+}
+
+Defined/tested settings: 35/35
+Equal per-setting run budgets do not imply equal total tuning compute.
+

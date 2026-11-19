@@ -1,0 +1,216 @@
+{
+  "format": "expanded-Funnel-NUTS-full-grid-strict-proposal-v1",
+  "inputs": {
+    "allow_overwrite": false,
+    "beta": 1.0,
+    "delta_max": 1000.0,
+    "dimension_x": 5,
+    "dual_averaging_gamma": 0.05,
+    "dual_averaging_kappa": 0.75,
+    "dual_averaging_t0": 10.0,
+    "funnel_starts": [
+      [
+        -5.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        -2.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0,
+        1.0
+      ],
+      [
+        2.0,
+        -1.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      [
+        5.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    ],
+    "mass_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "maximum_tree_depth": 12,
+    "n_retained": 10000,
+    "n_warmup": 1000,
+    "n_workers": 4,
+    "observable_policy": "ALL_LINEAR_AND_UNIQUE_QUADRATIC",
+    "output_directory": "/project/6021890/alireza7/THC_Experiments/Neals_funnel/2026-09-25_conditional_vs_NUTS_expanded_01/NUTS/results",
+    "output_filename": "NUTS_Neals_funnel_expanded_tuning.txt",
+    "print_progress": true,
+    "print_report": true,
+    "reasonable_epsilon_max_search_steps": 100,
+    "run_label": "CUSTOM: FUNNEL6-EXPANDED-20260925 NUTS TUNING ONLY",
+    "run_mode": "CUSTOM",
+    "run_self_tests": true,
+    "seed_blocks": [
+      [
+        3857660299,
+        1344569885,
+        2010517369,
+        2974962254
+      ],
+      [
+        2914251580,
+        2216611040,
+        1467312042,
+        1966646752
+      ],
+      [
+        26638442,
+        2162183804,
+        2288357861,
+        3874567655
+      ],
+      [
+        917698748,
+        796766395,
+        2769691025,
+        1469822251
+      ],
+      [
+        983213432,
+        4224231832,
+        2042092071,
+        4006032910
+      ],
+      [
+        306954993,
+        1851960138,
+        1222390860,
+        511853716
+      ],
+      [
+        3718421056,
+        2772099745,
+        3763693026,
+        256547044
+      ],
+      [
+        2391573843,
+        2803842399,
+        3373358596,
+        1274180913
+      ],
+      [
+        2038910636,
+        662581446,
+        1310348373,
+        3154026872
+      ],
+      [
+        3153935019,
+        480678065,
+        3919800052,
+        1225262701
+      ]
+    ],
+    "sigma_y": 3.0,
+    "target_acceptance_values": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.425,
+      0.45,
+      0.475,
+      0.5,
+      0.525,
+      0.55,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.8,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.925,
+      0.95,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      0.995,
+      0.999
+    ]
+  },
+  "launcher_sha256": "97b090eac4b23339c8cae7e2b73c46d712fd0eed18046619a2dd76e932744d76",
+  "llvmlite": "0.47.0+computecanada",
+  "method": "nuts",
+  "numba": "0.65.1+computecanada",
+  "numpy": "2.2.2",
+  "python": "3.12.4",
+  "source_sha256": "8fc6631459d7d07a138781770523806dba374bf7fa65a258832f9f0bdfbedc7b"
+}
