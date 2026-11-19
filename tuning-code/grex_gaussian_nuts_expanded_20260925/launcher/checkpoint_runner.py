@@ -1,10 +1,4 @@
-"""Block-resumable expanded original slice-NUTS tuner.
-
-Does not change the numerical kernel or diagnostic/selection formulas.
-No screening: every configuration is evaluated on every declared block.
-Completed block records are trusted local pickle data protected by SHA256.
-Each completed block is committed before starting the next block.
-"""
+"""Run tuning jobs on the five-dimensional multiscale Gaussian with checkpoints."""
 from __future__ import annotations
 
 import argparse

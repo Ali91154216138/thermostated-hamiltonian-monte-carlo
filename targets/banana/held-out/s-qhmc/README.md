@@ -1,6 +1,6 @@
 # Table 10 — Banana
 
-The [frozen protocol](frozen_protocol.txt) lists the settings, four starting positions and ten paired seed blocks. Each chain has 1,000 warm-up and 10,000 retained draws. Each method report identifies its script and protocol by SHA-256. The method summary and block results are near the top.
+The [frozen protocol](frozen_protocol.txt) lists the settings, four starting positions and ten paired seed blocks. Each chain has 1,000 warm-up and 10,000 retained draws. Each method report records the SHA-256 of its [original run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/tree/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/s-qhmc) and frozen protocol. The method summary and block results are near the top.
 
 | Manuscript method | Simulation script | Original result report |
 |---|---|---|

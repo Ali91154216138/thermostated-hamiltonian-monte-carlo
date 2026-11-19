@@ -1,45 +1,4 @@
-"""Standalone fair-playground scalar S-QHMC tuner for the 5-D Gaussian.
-
-This file implements Algorithm 2 of Liu and Zhang's scalar QHMC construction:
-once per trajectory, omega~N(mu_m,sigma_m^2), m=10**omega, M=m*M0, and
-p~N(0,M/beta).  The sampled mass is held fixed through the full leapfrog path
-and the endpoint is Metropolis corrected with that same conditional
-Hamiltonian.  The standardized algebra v=p/sqrt(m) and
-epsilon_eff=epsilon/sqrt(m) is exactly equivalent and avoids overflow.
-
-All common fair-playground inputs and every S-QHMC tuning input are in the
-single control panel at the end.  The code is self-contained for one-cell
-Grex/Jupyter execution and writes only the printed TXT report.
-
-Production target
------------------
-    d = 5, beta = 1
-    omega_j = 30**(j/4), j = 0, ..., 4
-    covariance = diag(1 / omega_j**2)
-    shared base mass M0 = I_5 (entered explicitly in the user-input block)
-
-Tuning protocol
----------------
-Every fixed (mu_m,sigma_m,epsilon,L) configuration is evaluated on the same
-ten blocks.
-Each block contains four chains, fixed dispersed physical starts, 1000 warmup
-iterations, and 10000 retained draws.  The score observables are all q_i and all
-unique q_i*q_j with i <= j (20 observables in total).
-
-For each block and observable f,
-
-    efficiency(f) = 1 / (actual target gradients per retained draw * IAT(f)).
-
-The block score is the minimum efficiency over observables.  A configuration's
-tuning score is the geometric mean of its ten block scores.  No R-hat or
-moment threshold is used.  If any required IAT is undefined, or any trajectory
-becomes nonfinite, the corresponding efficiency is undefined.
-
-The script prints the complete report and writes the same text to the location
-chosen in the final user-input block.
-
-Required packages: numpy and numba
-"""
+"""Tune S-QHMC on the five-dimensional multiscale Gaussian."""
 
 from __future__ import annotations
 
@@ -60,9 +19,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter portable native epoch.  Persistent Numba caching is disabled in
-# every execution mode.  Every compiled function has an epoch-specific name,
-# so an older notebook dispatcher cannot accidentally satisfy a call here.
 NUMBA_RUNTIME_EPOCH = "MSG5_SQHMC_GREX_PORTABLE_20260829_V1"
 NUMBA_CACHE_MODE = "persistent cache disabled in all modes"
 NUMBA_CACHE_DIRECTORY = "not used"
@@ -93,9 +49,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "MSG5-expanded-20260925-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "fair-playground-common-inputs-v1"
@@ -114,9 +67,6 @@ CANONICAL_OUTPUT_FILENAME = 'S_QHMC_multiscale_Gaussian_tuning_results_EXPANDED_
 CANONICAL_MU_M_VALUES = (-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0)
 CANONICAL_SIGMA_M_VALUES = (0.005, 0.01, 0.02, 0.03, 0.05, 0.075, 0.1, 0.2, 0.25, 0.5, 1.0, 2.0, 3.0)
 
-# These hashes seal the agreed canonical scientific inputs without creating a
-# second editable parameter block.  They are pinned from normalized values and
-# checked before any random arrays are allocated in CANONICAL mode.
 CANONICAL_COMMON_INPUT_FINGERPRINT = (
     "7feca50f9ee5abb6a7590c554b74380e276f5fd88be5ad3b662658ad789a5039"
 )
@@ -340,9 +290,7 @@ class ConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, scalar random-mass leapfrog, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=True, inline="always")
@@ -409,12 +357,7 @@ def _standardized_leapfrog_proposal_sqhmc_grex_v1(
     inverse_mass_matrix: np.ndarray,
     mass_is_identity: bool,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, float, int, bool]:
-    """Integrate at fixed sampled mass using v=p/sqrt(m).
-
-    Each of the L drift steps evaluates the target gradient once.  The final
-    gradient is returned and can be cached for the next trajectory if the
-    proposal is accepted.  A rejected proposal retains the old cached gradient.
-    """
+    """Integrate at fixed sampled mass using v=p/sqrt(m)."""
 
     proposed_q = q.copy()
     proposed_p = standardized_p.copy()
@@ -633,7 +576,6 @@ def _simulate_s_qhmc_chain_grex_v1(
     )
 
 
-# Stable aliases used by diagnostics, audits, and the final-comparison adapter.
 _potential_energy = _potential_energy_sqhmc_grex_v1
 _target_gradient = _target_gradient_sqhmc_grex_v1
 _kinetic_energy = _base_kinetic_energy_sqhmc_grex_v1
@@ -647,17 +589,7 @@ def _make_random_streams(
     total_iterations: int,
     dimension: int,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Create physical-momentum and acceptance streams from fixed substreams.
-
-    Three child SeedSequences are always spawned in this order:
-      1. physical standard-normal momenta,
-      2. thermostat standard-normal momenta (reserved for the later THC code),
-      3. Metropolis uniforms.
-
-    HMC materializes child stream 2 for future parity but does not use it in an
-    HMC transition.  The separate streams keep physical normals and uniforms
-    invariant when the THC coordinate is added.
-    """
+    """Create physical-momentum and acceptance streams from fixed substreams."""
 
     root = np.random.SeedSequence(int(seed))
     physical_sequence, thermostat_sequence, acceptance_sequence = root.spawn(3)
@@ -678,13 +610,7 @@ def _retained_standardized_momentum_second_moment(
     stream_cache: Sequence[tuple[np.ndarray, np.ndarray, np.ndarray]],
     n_warmup: int,
 ) -> float:
-    """Return pooled E[beta*p^T M^-1 p/d] from retained momentum refreshes.
-
-    For p=M^(1/2)z/sqrt(beta), beta*p^T*M^-1*p/d equals z^T*z/d, so the
-    stored physical standard-normal stream supplies this diagnostic for every
-    positive-definite mass matrix.  It is never an observable, IAT input,
-    gate, or selection score.
-    """
+    """Return pooled E[beta*p^T M^-1 p/d] from retained momentum refreshes."""
 
     sum_of_squares = 0.0
     number_of_components = 0
@@ -697,9 +623,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical fair-playground diagnostics shared by every competitor.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -719,14 +642,7 @@ def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
 
 
 def _multi_chain_geyer_iat(chains: np.ndarray) -> IATResult:
-    """Multi-chain Geyer initial-positive and initial-monotone IAT.
-
-    The autocorrelation estimate uses the between-chain variance correction
-    employed by modern multi-chain ESS estimators.  Adjacent sums
-    P_k = rho_(2k) + rho_(2k+1) are retained up to, but not including, the
-    first nonpositive pair.  Retained pair sums are monotonized by cumulative
-    minima.  No lower floor is imposed on the resulting IAT.
-    """
+    """Multi-chain Geyer initial-positive and initial-monotone IAT."""
 
     chains = np.asarray(chains, dtype=np.float64)
     if chains.ndim != 2:
@@ -1013,9 +929,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1332,9 +1246,7 @@ def _select_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3203,20 +3115,8 @@ def run_s_qhmc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives dimension, chain count,
-# omega^2, covariance, physical starts, inverse/Cholesky mass matrices, exact
-# moments, observable count, configuration count, and all fingerprints.
-#
-# CANONICAL mode accepts only the agreed fair-playground scientific values.
-# For experiments with changed scientific inputs, use CUSTOM mode, begin the
-# run label with "CUSTOM:", and choose a non-canonical output filename.
+# Tuning inputs.
 
-# Production: use the supplied block-checkpoint launcher. Direct execution
-# with False is also supported, but accumulates the report in memory and
-# does not save intermediate blocks. Keep True for an initial safety check.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = SQHMCRunInputs(

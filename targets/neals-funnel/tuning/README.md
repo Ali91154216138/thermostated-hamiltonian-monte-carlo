@@ -1,6 +1,6 @@
 # Neal’s funnel tuning
 
-Use this page for the tuning tables. Each method links to its original Python program, recorded settings and winning result. A shared tuning result is stored once. The columns below count the configurations with a defined score and all configurations evaluated.
+Use this page for the tuning tables. Each method links to its Python program, recorded settings and winning result. A shared tuning result is stored once. The columns below count the configurations with a defined score and all configurations evaluated.
 
 | Table(s) | Method | Defined / tested | Winning score |
 |---|---|---:|---:|
@@ -27,7 +27,7 @@ For numerical reruns, use a separate output directory and the production Python 
 
 ### HMC
 
-**Table 13** · [Exact sampler](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_hmc_EXPANDED_20260925.py) · [Settings and seed record](records/HMC/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 13** · [Sampler](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_hmc_EXPANDED_20260925.py) · [Settings and seed record](records/HMC/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `epsilon=0.15`, `L=30`.
 
@@ -43,7 +43,7 @@ python tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher
 
 ### Scalar bounded-scale THC
 
-**Tables 13, 16, 18** · [Exact sampler](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_scalar_EXPANDED_20260925.py) · [Settings and seed record](records/Scalar_THC/FROZEN.txt) · [Original launcher](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher/checkpoint_runner.py)
+**Tables 13, 16, 18** · [Sampler](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_scalar_EXPANDED_20260925.py) · [Settings and seed record](records/Scalar_THC/FROZEN.txt) · [Run launcher](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `lambda_value=0.004987541511038968`, `a=0.0625`, `Q=0.003125`, `epsilon=0.18`, `L=10`.
 
@@ -59,7 +59,7 @@ python tuning-code/replay_selection.py neals-funnel Scalar_THC --part 5 --config
 
 ### Conditional THC
 
-**Tables 13, 16, 18** · [Exact sampler](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_conditional_EXPANDED_20260925.py) · [Settings and seed record](records/Conditional_THC/part_000/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher/checkpoint_runner.py)
+**Tables 13, 16, 18** · [Sampler](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_conditional_EXPANDED_20260925.py) · [Settings and seed record](records/Conditional_THC/part_000/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `tau=0.375`, `Q=1.0`, `epsilon=0.3`, `L=30`.
 
@@ -77,7 +77,7 @@ done
 
 ### Periodic THC
 
-**Tables 16, 18** · [Exact sampler](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_periodic_EXPANDED_20260925.py) · [Settings and seed record](records/Periodic_THC/FROZEN.txt) · [Original launcher](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
+**Tables 16, 18** · [Sampler](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_periodic_EXPANDED_20260925.py) · [Settings and seed record](records/Periodic_THC/FROZEN.txt) · [Run launcher](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `alpha=0.75`, `phi=1.5707963267948966`, `a=0.25`, `Q=128.0`, `epsilon=0.2`, `L=5`.
 
@@ -93,7 +93,7 @@ python tuning-code/replay_selection.py neals-funnel Periodic_THC --part 6 --conf
 
 ### S-QHMC
 
-**Table 16** · [Exact sampler](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_sqhmc_EXPANDED_20260925.py) · [Settings and seed record](records/S_QHMC/part_000/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 16** · [Sampler](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_sqhmc_EXPANDED_20260925.py) · [Settings and seed record](records/S_QHMC/part_000/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `mu_m=-0.5`, `sigma_m=0.25`, `epsilon=0.12`, `L=10`.
 
@@ -111,7 +111,7 @@ done
 
 ### Original slice-NUTS
 
-**Table 18** · [Exact sampler](../../../tuning-code/grex_funnel_nuts_expanded_20260925/NUTS/code/neals_funnel_nuts_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/NUTS/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_funnel_nuts_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 18** · [Sampler](../../../tuning-code/grex_funnel_nuts_expanded_20260925/NUTS/code/neals_funnel_nuts_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/NUTS/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_funnel_nuts_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `target_acceptance=0.45`, `maximum_tree_depth=12`.
 

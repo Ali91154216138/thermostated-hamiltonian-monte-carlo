@@ -13,8 +13,8 @@ Nonfinite proposals counts events during retained sampling. All ten blocks had d
 
 ## Code, settings and results
 
-- S-QHMC · [Python script](../targets/banana/held-out/s-qhmc/S_QHMC.py) · [Original block results](../targets/banana/held-out/s-qhmc/S_QHMC_results.txt)
-- Periodic THC-v2 · [Python script](../targets/banana/held-out/s-qhmc/THC_v2.py) · [Original block results](../targets/banana/held-out/s-qhmc/THC_v2_results.txt)
+- S-QHMC · [Python script](../targets/banana/held-out/s-qhmc/S_QHMC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/s-qhmc/S_QHMC.py) · [Original block results](../targets/banana/held-out/s-qhmc/S_QHMC_results.txt)
+- Periodic THC-v2 · [Python script](../targets/banana/held-out/s-qhmc/THC_v2.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/s-qhmc/THC_v2.py) · [Original block results](../targets/banana/held-out/s-qhmc/THC_v2_results.txt)
 
 [Frozen protocol and seeds](../targets/banana/held-out/s-qhmc/frozen_protocol.txt) · [Run instructions](../targets/banana/held-out/s-qhmc/README.md)
 

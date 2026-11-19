@@ -1,6 +1,6 @@
 # Multiscale Gaussian tuning
 
-Use this page for the tuning tables. Each method links to its original Python program, recorded settings and winning result. A shared tuning result is stored once. The columns below count the configurations with a defined score and all configurations evaluated.
+Use this page for the tuning tables. Each method links to its Python program, recorded settings and winning result. A shared tuning result is stored once. The columns below count the configurations with a defined score and all configurations evaluated.
 
 | Table(s) | Method | Defined / tested | Winning score |
 |---|---|---:|---:|
@@ -26,7 +26,7 @@ For numerical reruns, use a separate output directory and the production Python 
 
 ### HMC
 
-**Table 1** · [Exact sampler](../../../tuning-code/grex_gaussian_expanded_20260925/HMC/code/multiscale_gaussian_hmc_tuner_EXPANDED_20260925_GREX_RUN.py) · [Settings and seed record](records/HMC/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_gaussian_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 1** · [Sampler](../../../tuning-code/grex_gaussian_expanded_20260925/HMC/code/multiscale_gaussian_hmc_tuner_EXPANDED_20260925_GREX_RUN.py) · [Settings and seed record](records/HMC/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_gaussian_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `epsilon=0.055`, `L=15`.
 
@@ -42,7 +42,7 @@ python tuning-code/grex_gaussian_expanded_20260925/launcher/checkpoint_runner.py
 
 ### Bounded-scale THC
 
-**Table 1** · [Exact sampler](../../../tuning-code/grex_gaussian_expanded_20260925/THC/code/multiscale_gaussian_thc_tuner_EXPANDED_20260925_GREX_RUN.py) · [Settings and seed record](records/THC_bounded/FROZEN.txt) · [Original launcher](../../../tuning-code/grex_gaussian_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 1** · [Sampler](../../../tuning-code/grex_gaussian_expanded_20260925/THC/code/multiscale_gaussian_thc_tuner_EXPANDED_20260925_GREX_RUN.py) · [Settings and seed record](records/THC_bounded/FROZEN.txt) · [Run launcher](../../../tuning-code/grex_gaussian_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `epsilon=0.04`, `L=25`, `lambda_value=0.22314355131420976`, `a=0.5`, `Q=0.25`.
 
@@ -58,7 +58,7 @@ python tuning-code/replay_selection.py multiscale-gaussian THC_bounded --part 0 
 
 ### Refreshed-mixture THC-v3
 
-**Tables 3, 5** · [Exact sampler](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/THC_mixture_v3/code/multiscale_gaussian_thc_v3_mixture_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/THC_v3/FROZEN.txt) · [Original launcher](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
+**Tables 3, 5** · [Sampler](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/THC_mixture_v3/code/multiscale_gaussian_thc_v3_mixture_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/THC_v3/FROZEN.txt) · [Run launcher](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `epsilon=0.06`, `L=30`, `delta=0.03`, `Q=150.0`, `inner_r=8`.
 
@@ -74,7 +74,7 @@ python tuning-code/replay_selection.py multiscale-gaussian THC_v3 --part 3 --con
 
 ### S-QHMC
 
-**Table 3** · [Exact sampler](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/S_QHMC/code/multiscale_gaussian_s_qhmc_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/S_QHMC/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 3** · [Sampler](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/S_QHMC/code/multiscale_gaussian_s_qhmc_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/S_QHMC/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `L=20`, `epsilon=0.05`, `mu_m=0.0`, `sigma_m=0.1`.
 
@@ -90,7 +90,7 @@ python tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/launcher/checkp
 
 ### Original slice-NUTS
 
-**Table 5** · [Exact sampler](../../../tuning-code/grex_gaussian_nuts_expanded_20260925/NUTS/code/multiscale_gaussian_nuts_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/NUTS/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_gaussian_nuts_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 5** · [Sampler](../../../tuning-code/grex_gaussian_nuts_expanded_20260925/NUTS/code/multiscale_gaussian_nuts_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/NUTS/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_gaussian_nuts_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `target_acceptance=0.425`, `maximum_tree_depth=12`.
 

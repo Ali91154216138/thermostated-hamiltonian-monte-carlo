@@ -1,7 +1,4 @@
-"""Shared expanded Banana periodic THC-v2 / S-QHMC tuning design.
-All settings use full lengths and all ten blocks. No staged search, no held-out run.
-The seed domain deliberately matches the other 2026-09-25 Banana tuning jobs.
-"""
+"""Define the common tuning settings for the Banana target."""
 from dataclasses import replace
 import hashlib
 import math

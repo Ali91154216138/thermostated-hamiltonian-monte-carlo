@@ -1,40 +1,4 @@
-"""Fair-playground HMC tuner for the five-dimensional multiscale Gaussian.
-
-This is the first self-contained program in the HMC-versus-THC workflow.  It
-does not import a shared protocol or diagnostics module.  Every independent
-user input is collected in one control panel at the end of this file.  The
-later THC tuner must use the same common inputs and diagnostic routines, and
-the reported input/source fingerprints make accidental drift visible.
-
-Production target
------------------
-    d = 5, beta = 1
-    omega_j = 30**(j/4), j = 0, ..., 4
-    covariance = diag(1 / omega_j**2)
-    physical mass M = I_5 (entered explicitly in the user-input block)
-
-Tuning protocol
----------------
-Every fixed (epsilon, L) configuration is evaluated on the same ten blocks.
-Each block contains four chains, fixed dispersed physical starts, 1000 warmup
-iterations, and 10000 retained draws.  The score observables are all q_i and all
-unique q_i*q_j with i <= j (20 observables in total).
-
-For each block and observable f,
-
-    efficiency(f) = 1 / (actual target gradients per retained draw * IAT(f)).
-
-The block score is the minimum efficiency over observables.  A configuration's
-tuning score is the geometric mean of its ten block scores.  No R-hat or
-moment threshold is used.  If any required IAT is undefined, or any trajectory
-becomes nonfinite, the corresponding efficiency is undefined.
-
-The script prints the complete report and writes the same text to the location
-chosen in the final user-input block.
-
-Required package: numpy
-Strongly recommended for the production grid: numba
-"""
+"""Tune HMC on the five-dimensional multiscale Gaussian."""
 
 from __future__ import annotations
 
@@ -54,8 +18,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Keep expanded-study Jupyter runs independent of old compiled disk caches.
-# Compilation still occurs once in memory. This does not change the sampler.
 NUMBA_DIRECT_RUN = __name__ == "__main__"
 NUMBA_CACHE_MODE = "persistent cache disabled in all execution modes"
 NUMBA_CACHE_DIRECTORY = "not used"
@@ -84,9 +46,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "MSG5-expanded-20260925-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "fair-playground-common-inputs-v1"
@@ -98,9 +57,6 @@ RANDOM_STREAM_VERSION = "seedsequence-pcg64-three-substreams-v1.0.0"
 SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 CANONICAL_OUTPUT_FILENAME = "HMC_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt"
 
-# These hashes seal the agreed canonical scientific inputs without creating a
-# second editable parameter block.  They are pinned from normalized values and
-# checked before any random arrays are allocated in CANONICAL mode.
 CANONICAL_COMMON_INPUT_FINGERPRINT = (
     "7feca50f9ee5abb6a7590c554b74380e276f5fd88be5ad3b662658ad789a5039"
 )
@@ -277,9 +233,7 @@ class ConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, leapfrog, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=True, inline="always")
@@ -562,9 +516,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical diagnostics.  These functions must be copied exactly into THC.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -878,9 +829,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1175,9 +1124,7 @@ def _select_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -2608,17 +2555,7 @@ def run_hmc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Standalone expanded study: 10 blocks x 4 chains, 1000 warmup + 10000 retained.
-# CANONICAL seals identify THIS expanded study, not the previous five-block run.
-# To change scientific settings later, use run_mode="CUSTOM", a run_label
-# beginning with "CUSTOM:", and a distinct output filename in BOTH partners.
-# Keep the common grids, starts, seeds, lengths, and diagnostics identical.
-#
-# True runs small mathematical/diagnostic tests only; no full-grid work.
-# Change to False only when ready for the production campaign.
+# Tuning inputs.
 GREX_PREFLIGHT_ONLY = False
 
 USER_INPUTS = RunInputs(

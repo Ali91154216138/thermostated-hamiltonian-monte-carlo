@@ -1,8 +1,4 @@
-"""Checkpoint-preserving, reduced-search wrapper around frozen numerical code.
-
-No sampling equations, seeds, draw counts, score gates or selectors are changed.
-The four-day request is an ETA target, NOT a termination condition.
-"""
+"""Resume or evaluate the selected THC tuning configurations."""
 from __future__ import annotations
 import argparse
 import contextlib

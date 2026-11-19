@@ -13,8 +13,8 @@ The HMC report and ten paired blocks are shared with Table 15.
 
 ## Code, settings and results
 
-- HMC · [Python script](../targets/neals-funnel/held-out/hmc/HMC.py) · [Original block results](../targets/neals-funnel/held-out/hmc/HMC_results.txt)
-- Scalar THC · [Python script](../targets/neals-funnel/held-out/hmc/Scalar_THC.py) · [Original block results](../targets/neals-funnel/held-out/hmc/Scalar_THC_results.txt)
+- HMC · [Python script](../targets/neals-funnel/held-out/hmc/HMC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/hmc/HMC.py) · [Original block results](../targets/neals-funnel/held-out/hmc/HMC_results.txt)
+- Scalar THC · [Python script](../targets/neals-funnel/held-out/hmc/Scalar_THC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/hmc/Scalar_THC.py) · [Original block results](../targets/neals-funnel/held-out/hmc/Scalar_THC_results.txt)
 
 [Frozen protocol and seeds](../targets/neals-funnel/held-out/hmc/frozen_protocol.txt) · [Run instructions](../targets/neals-funnel/held-out/hmc/README.md)
 

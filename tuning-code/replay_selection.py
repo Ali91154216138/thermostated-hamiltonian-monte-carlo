@@ -1,9 +1,4 @@
-"""Recompute a recorded THC tuning selection from its original inputs and seeds.
-
-The original worker reused partial GREX checkpoints. This entry point runs
-the identical selected indices from scratch through the archived Adapter.
-Output is one JSON record for each completed configuration.
-"""
+"""Recompute a recorded THC tuning selection from its original inputs and seeds."""
 import argparse
 import dataclasses
 import hashlib
@@ -15,6 +10,8 @@ from pathlib import Path
 SOURCE = Path(__file__).resolve().parent
 TARGETS = SOURCE.parent / "targets"
 WRAPPER = SOURCE / "grex_thc_budgeted_20260927"
+sys.path.insert(0, str(SOURCE.parent))
+from source_provenance import verify_source
 
 
 def with_original_container(template, value):
@@ -54,8 +51,14 @@ def main():
     sys.path.insert(0, str(WRAPPER))
     import budgeted_runner as original
     adapter = original.Adapter(frozen["key"], local_base=SOURCE)
-    if adapter.sources() != frozen["source_checksums"] or original.wrapper_sources() != frozen["wrapper_checksums"]:
-        raise ValueError("Original tuner or wrapper checksum differs")
+    for base, actual, expected in (
+        (adapter.old, adapter.sources(), frozen["source_checksums"]),
+        (WRAPPER, original.wrapper_sources(), frozen["wrapper_checksums"]),
+    ):
+        if actual.keys() != expected.keys():
+            raise ValueError(f"Source file list differs from the frozen record for {base.name}")
+        for name, digest in expected.items():
+            verify_source(base / name, digest, actual[name])
     # libm can round a grid endpoint such as log(1.05) differently across
     # platforms. Rebuild differing scientific inputs from the stored values.
     replacements = {}

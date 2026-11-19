@@ -1,6 +1,6 @@
 # Banana tuning
 
-Use this page for the tuning tables. Each method links to its original Python program, recorded settings and winning result. A shared tuning result is stored once. The columns below count the configurations with a defined score and all configurations evaluated.
+Use this page for the tuning tables. Each method links to its Python program, recorded settings and winning result. A shared tuning result is stored once. The columns below count the configurations with a defined score and all configurations evaluated.
 
 | Table(s) | Method | Defined / tested | Winning score |
 |---|---|---:|---:|
@@ -27,7 +27,7 @@ For numerical reruns, use a separate output directory and the production Python 
 
 ### HMC
 
-**Table 7** · [Exact sampler](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_hmc_EXPANDED_20260925.py) · [Settings and seed record](records/HMC/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 7** · [Sampler](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_hmc_EXPANDED_20260925.py) · [Settings and seed record](records/HMC/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `L=80`, `epsilon=0.04`.
 
@@ -43,7 +43,7 @@ python tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpo
 
 ### Bounded-scale THC
 
-**Table 7** · [Exact sampler](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_bounded_EXPANDED_20260925.py) · [Settings and seed record](records/THC_bounded/FROZEN.txt) · [Original launcher](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 7** · [Sampler](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_bounded_EXPANDED_20260925.py) · [Settings and seed record](records/THC_bounded/FROZEN.txt) · [Run launcher](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `lambda_value=0.5596157879354227`, `a=4.0`, `Q=0.5`, `epsilon=0.05`, `L=60`.
 
@@ -59,7 +59,7 @@ python tuning-code/replay_selection.py banana THC_bounded --part 0 --configurati
 
 ### Conditional-shear THC-v4
 
-**Table 7** · [Exact sampler](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_v4_EXPANDED_20260925.py) · [Settings and seed record](records/THC_v4/FROZEN.txt) · [Original launcher](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 7** · [Sampler](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_v4_EXPANDED_20260925.py) · [Settings and seed record](records/THC_v4/FROZEN.txt) · [Run launcher](../../../tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `kappa=0.5`, `tau=0.5`, `Q=0.1`, `a=8.0`, `epsilon=0.1`, `L=20`.
 
@@ -75,7 +75,7 @@ python tuning-code/replay_selection.py banana THC_v4 --part 0 --configuration 12
 
 ### Periodic THC-v2
 
-**Tables 9, 11** · [Exact sampler](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_periodic_EXPANDED_20260925.py) · [Settings and seed record](records/THC_v2/FROZEN.txt) · [Original launcher](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
+**Tables 9, 11** · [Sampler](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_periodic_EXPANDED_20260925.py) · [Settings and seed record](records/THC_v2/FROZEN.txt) · [Run launcher](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `a=0.5`, `Q=4.0`, `epsilon=0.05`, `L=60`, `alpha=0.025`, `phi=0.0`.
 
@@ -91,7 +91,7 @@ python tuning-code/replay_selection.py banana THC_v2 --part 0 --configuration 61
 
 ### S-QHMC
 
-**Table 9** · [Exact sampler](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_sqhmc_EXPANDED_20260925.py) · [Settings and seed record](records/S_QHMC/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 9** · [Sampler](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_sqhmc_EXPANDED_20260925.py) · [Settings and seed record](records/S_QHMC/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `L=30`, `epsilon=0.12`, `mu_m=0.5`, `sigma_m=0.0025`.
 
@@ -107,7 +107,7 @@ python tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/launcher/checkpo
 
 ### Original slice-NUTS
 
-**Table 11** · [Exact sampler](../../../tuning-code/grex_banana_nuts_expanded_20260925/NUTS/code/banana_nuts_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/NUTS/run_manifest.txt) · [Original launcher](../../../tuning-code/grex_banana_nuts_expanded_20260925/launcher/checkpoint_runner.py)
+**Table 11** · [Sampler](../../../tuning-code/grex_banana_nuts_expanded_20260925/NUTS/code/banana_nuts_tuner_EXPANDED_20260925.py) · [Settings and seed record](records/NUTS/run_manifest.txt) · [Run launcher](../../../tuning-code/grex_banana_nuts_expanded_20260925/launcher/checkpoint_runner.py)
 
 Winning settings: `target_acceptance=0.96`, `maximum_tree_depth=12`.
 

@@ -1,10 +1,4 @@
-"""Block-resumable full-grid tuner for expanded Banana HMC/bounded THC/THC-v4.
-
-Does not change either numerical kernel or diagnostic/selection formulas.
-No screening: every configuration is evaluated on every declared block.
-Completed block records are trusted local pickle data protected by SHA256.
-Results are read and reported one configuration at a time to bound memory.
-"""
+"""Run tuning jobs on the Banana target with checkpoints."""
 from __future__ import annotations
 
 import argparse

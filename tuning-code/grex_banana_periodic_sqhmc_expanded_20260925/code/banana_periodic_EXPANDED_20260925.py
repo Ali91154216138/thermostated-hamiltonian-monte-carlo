@@ -1,13 +1,4 @@
-"""Expanded 2026-09-25 Banana tuning source; original numerical kernels retained.
-
-Production uses launcher/checkpoint_runner.py: full grid, 10 common blocks,
-4 chains, 1000 warmup + 10000 retained draws. No held-out experiment.
-The older canonical driver below is retained for preflight checks only.
-Scoring follows the CURRENT manuscript: numerical rejection retains the old
-state and is counted, not automatically excluded. Nonfinite retained states,
-undefined required IAT, or invalid cost still make the full score undefined.
-See expanded_protocol.py and README.txt for the active design.
-"""
+"""Tune periodic THC-v2 on the Banana target."""
 
 from __future__ import annotations
 
@@ -28,10 +19,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter standalone native epoch.  Persistent Numba caching is disabled
-# in every execution mode, and every compiled THC function below has a new
-# epoch-specific Python name.  Consequently an older notebook dispatcher or
-# cached native helper cannot satisfy any call made by this program.
 NUMBA_RUNTIME_EPOCH = "GREX_JUPYTER_PHASE_PERIODIC_V2_20260830A"
 NUMBA_DIRECT_RUN = __name__ == "__main__"
 NUMBA_CACHE_MODE = (
@@ -66,9 +53,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "BANANA2-phase-periodic-v2-successive-halving-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "banana-fair-playground-common-inputs-v1"
@@ -87,9 +71,6 @@ SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 SUPPORTED_COUPLING_FAMILY = "PHASE_PERIODIC_COS_SHIFT"
 CANONICAL_OUTPUT_FILENAME = "THC_phase_periodic_v2_banana_tuning_results_GREX_PORTABLE_V1.txt"
 
-# Source and input SHA-256 values are computed from the live standalone cell
-# and printed in every report.  This portable v2 program never accepts a
-# platform-pinned stochastic canary or an old-family source digest.
 CANONICAL_COMMON_INPUT_FINGERPRINT = (
     "0fb7398fba5b8e8c874f498a68471df0a140a341cb289f87e8e698ea4ac26136"
 )
@@ -379,9 +360,7 @@ class FixedConfiguration:
     L: int
 
 
-# ---------------------------------------------------------------------------
 # Target, THC splitting, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=False, inline="always")
@@ -458,12 +437,7 @@ def _log_h_and_derivative_grex_phase_v2_20260830a(
     coupling_code: float,
     a: float,
 ) -> tuple[float, float]:
-    """Return log(h) and d log(h)/ds for the encoded phase family.
-
-    Positive code means ``alpha=code, phi=0`` (cosine).  Negative code means
-    ``alpha=-code, phi=pi/2`` (sine).  Code zero is retained only for the HMC
-    parity self-test.  Production inputs always satisfy 0 < alpha < 1.
-    """
+    """Return log(h) and d log(h)/ds for the encoded phase family."""
 
     if (
         not math.isfinite(s)
@@ -968,9 +942,6 @@ def _simulate_thc_chain_grex_phase_v2_20260830a(
     )
 
 
-# Compatibility aliases used by the unchanged diagnostics, self-tests, and
-# later final-comparison adapter.  Each alias points to a newly named cache-free native
-# dispatcher, never to an older notebook definition with the legacy name.
 _potential_energy = _potential_energy_grex_phase_v2_20260830a
 _target_gradient = _target_gradient_grex_phase_v2_20260830a
 _kinetic_energy = _kinetic_energy_grex_phase_v2_20260830a
@@ -1338,17 +1309,7 @@ def _make_random_streams(
     total_iterations: int,
     dimension: int,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Create physical-momentum and acceptance streams from fixed substreams.
-
-    Three child SeedSequences are always spawned in this order:
-      1. physical standard-normal momenta,
-      2. thermostat standard-normal momenta (used here; reserved by HMC),
-      3. Metropolis uniforms.
-
-    HMC materializes child stream 2 for future parity but does not use it in an
-    HMC transition.  The separate streams keep physical normals and uniforms
-    invariant when the THC coordinate is added.
-    """
+    """Create physical-momentum and acceptance streams from fixed substreams."""
 
     root = np.random.SeedSequence(int(seed))
     physical_sequence, thermostat_sequence, acceptance_sequence = root.spawn(3)
@@ -1369,13 +1330,7 @@ def _retained_standardized_momentum_second_moment(
     stream_cache: Sequence[tuple[np.ndarray, np.ndarray, np.ndarray]],
     n_warmup: int,
 ) -> float:
-    """Return pooled E[beta*p^T M^-1 p/d] from retained momentum refreshes.
-
-    For p=M^(1/2)z/sqrt(beta), beta*p^T*M^-1*p/d equals z^T*z/d, so the
-    stored physical standard-normal stream supplies this diagnostic for every
-    positive-definite mass matrix.  It is never an observable, IAT input,
-    gate, or selection score.
-    """
+    """Return pooled E[beta*p^T M^-1 p/d] from retained momentum refreshes."""
 
     sum_of_squares = 0.0
     number_of_components = 0
@@ -1388,9 +1343,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical diagnostics.  These functions must be copied exactly into HMC.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -1410,14 +1362,7 @@ def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
 
 
 def _multi_chain_geyer_iat(chains: np.ndarray) -> IATResult:
-    """Multi-chain Geyer initial-positive and initial-monotone IAT.
-
-    The autocorrelation estimate uses the between-chain variance correction
-    employed by modern multi-chain ESS estimators.  Adjacent sums
-    P_k = rho_(2k) + rho_(2k+1) are retained up to, but not including, the
-    first nonpositive pair.  Retained pair sums are monotonized by cumulative
-    minima.  No lower floor is imposed on the resulting IAT.
-    """
+    """Multi-chain Geyer initial-positive and initial-monotone IAT."""
 
     chains = np.asarray(chains, dtype=np.float64)
     if chains.ndim != 2:
@@ -1704,9 +1649,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -2142,9 +2085,7 @@ def _thc_configuration_rank_key(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3150,8 +3091,6 @@ def _format_number(value: float, specification: str = ".6g") -> str:
     return format(value, specification)
 
 
-# Phase-periodic v2 reporting is implemented below and is the only reporting
-# path in this standalone program.
 def _run_chain_job(
     standard_momenta: np.ndarray,
     thermostat_standard_momenta: np.ndarray,
@@ -3793,16 +3732,7 @@ def _first_tuning_block_stream_digest(prepared: PreparedTHCInputs) -> str:
 
 
 def _validate_portable_native_runtime(prepared: PreparedTHCInputs) -> str:
-    """Verify the live cache-free epoch without pinning a stochastic path.
-
-    Long Metropolis trajectories are not bitwise portable across operating
-    systems and math-library/compiler builds.  A one-bit difference near an
-    accept/reject boundary can legitimately change every later draw.  The
-    mathematical, reversibility, gradient-accounting, RNG, and finite-chain
-    checks are performed by ``run_self_tests`` immediately before this audit.
-    This function checks that those tests exercised the intended newly named
-    cache-free native dispatchers rather than an older notebook definition.
-    """
+    """Verify the live cache-free epoch without pinning a stochastic path."""
 
     if not NUMBA_AVAILABLE:
         raise RuntimeError(
@@ -4905,7 +4835,6 @@ def run_self_tests(
     return tuple(messages)
 
 
-# Production and preflight both enter through run_phase_periodic_tuning.
 def run_phase_periodic_tuning(
     inputs: THCRunInputs,
     *,
@@ -5256,22 +5185,8 @@ def run_phase_periodic_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives the dimension, squared
-# scales, marginal covariance, physical starts, inverse/Cholesky mass matrices,
-# exact observable moments, observable count, stage cardinalities, and all
-# fingerprints.
-#
-# CANONICAL mode accepts only the agreed fair-playground common and THC values.
-# For changed experiments, use CUSTOM mode, begin the run label with "CUSTOM:",
-# and choose a non-canonical output filename.
+# Tuning inputs.
 
-# First execution on Grex: leave True.  The cell runs only a short native
-# preflight and writes no report.  After the printed PASS and GREX PREFLIGHT
-# COMPLETE lines, change only this value to False and execute the entire cell
-# again to run the frozen three-stage successive-halving campaign.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = THCRunInputs(
@@ -5400,7 +5315,7 @@ USER_INPUTS = THCRunInputs(
 )
 
 
-# The common full-grid settings below supersede all legacy input defaults above.
+# Production tuning settings.
 from expanded_protocol import expanded_inputs
 USER_INPUTS = expanded_inputs(USER_INPUTS, "periodic")
 

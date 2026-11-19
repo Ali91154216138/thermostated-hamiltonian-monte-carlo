@@ -1,12 +1,4 @@
-"""Periodic THC on the 6D centered Neal funnel, for the enlarged S-QHMC comparison.
-
-h(s)=1+alpha*cos(s/a-phi), rho(s)=N(0,1), s persists.
-The d*log(h)/beta correction leaves the beta=1 physical target unchanged.
-Kernel source is adapted from the existing scalar funnel P/S/K/S/P implementation:
-only coupling evaluation and explicit alpha/phi arguments differ.
-Common target, diagnostics, block scoring and random streams are imported unchanged.
-Run through launcher/checkpoint_runner.py for production checkpointing.
-"""
+"""Tune periodic THC on the six-dimensional Neal's funnel."""
 from __future__ import annotations
 from dataclasses import dataclass, fields, replace
 from concurrent.futures import ThreadPoolExecutor

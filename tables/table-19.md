@@ -15,10 +15,10 @@ Each THC row counts wins over NUTS on ten matched blocks. The dash marks the sha
 
 ## Code, settings and results
 
-- NUTS · [Python script](../targets/neals-funnel/held-out/nuts/NUTS.py) · [Original block results](../targets/neals-funnel/held-out/nuts/NUTS_results.txt)
-- Scalar THC · [Python script](../targets/neals-funnel/held-out/nuts/Scalar_THC.py) · [Original block results](../targets/neals-funnel/held-out/nuts/Scalar_THC_results.txt)
-- Periodic THC · [Python script](../targets/neals-funnel/held-out/nuts/Periodic_THC.py) · [Original block results](../targets/neals-funnel/held-out/nuts/Periodic_THC_results.txt)
-- Conditional THC · [Python script](../targets/neals-funnel/held-out/nuts/Conditional_THC.py) · [Original block results](../targets/neals-funnel/held-out/nuts/Conditional_THC_results.txt)
+- NUTS · [Python script](../targets/neals-funnel/held-out/nuts/NUTS.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/nuts/NUTS.py) · [Original block results](../targets/neals-funnel/held-out/nuts/NUTS_results.txt)
+- Scalar THC · [Python script](../targets/neals-funnel/held-out/nuts/Scalar_THC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/nuts/Scalar_THC.py) · [Original block results](../targets/neals-funnel/held-out/nuts/Scalar_THC_results.txt)
+- Periodic THC · [Python script](../targets/neals-funnel/held-out/nuts/Periodic_THC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/nuts/Periodic_THC.py) · [Original block results](../targets/neals-funnel/held-out/nuts/Periodic_THC_results.txt)
+- Conditional THC · [Python script](../targets/neals-funnel/held-out/nuts/Conditional_THC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/nuts/Conditional_THC.py) · [Original block results](../targets/neals-funnel/held-out/nuts/Conditional_THC_results.txt)
 
 [Frozen protocol and seeds](../targets/neals-funnel/held-out/nuts/frozen_protocol.txt) · [Run instructions](../targets/neals-funnel/held-out/nuts/README.md)
 

@@ -1,54 +1,4 @@
-"""Fair-playground scalar-THC tuner for the centered Neal's funnel.
-
-This is a fully standalone Grex/Jupyter program.  It does not import a shared
-protocol, diagnostics module, or neighbouring sampler file.  Every independent
-common and thermostat-specific input is collected in one control panel at the
-end of this file.  The paired Neal-funnel HMC tuner uses the identical common
-target, geometry, starts, epsilon-L grid, seed blocks, run lengths, observables,
-diagnostics, and target-gradient accounting sealed here.
-
-Production target
------------------
-    q=(y,x_1,...,x_5), beta=1, sigma_y=3
-    U=y^2/(18)+(5/2)y+exp(-y)||x||^2/2
-    physical base mass M0=I_6
-
-Under exp(-beta*U), y is centered Gaussian and x_i|y is centered Gaussian
-with variance exp(y) at the canonical beta.  Starts are entered as
-(y,z_1,...,z_5), with x_i=exp(y/2)z_i.
-
-THC construction
-----------------
-The retained state is (q,s).  At every transition, only the momenta are
-refreshed from p|s ~ N(0,h(s)^2 M0/beta) and p_s ~ N(0,Q/beta).  The bounded
-coupling is h(s)=exp(lambda*tanh(s/a)), and rho(s)=N(0,sigma_s^2).  A symmetric
-exact-subflow P/S/K splitting is followed by the full-state Metropolis test.
-
-Tuning protocol
----------------
-Every fixed (lambda, a, Q, epsilon, L) configuration is evaluated on the same
-five seed blocks.  Each block contains four chains, fixed dispersed starts,
-1000 warmup iterations, and 4000 retained draws.  The score observables are
-exactly all six physical linears and all 21 unique quadratic monomials.  No
-thermostat or target-specific nonlinear quantity is a score observable.
-
-For each block and observable f,
-
-    efficiency(f) = 1 / (actual target gradients per retained draw * IAT(f)).
-
-The block score is the minimum efficiency over observables.  A configuration's
-tuning score is the geometric mean of its five block scores.  No R-hat or
-moment threshold is used.  If any required IAT is undefined, or any trajectory
-becomes nonfinite, the corresponding efficiency is undefined.
-
-The first Grex execution defaults to a short cache-free native preflight.  It
-does not simulate a tuning configuration or write a report.  Production prints
-the complete report and writes the identical text in the script/Jupyter
-working directory unless another output directory is entered.
-
-Required package: numpy
-Strongly recommended for the production grid: numba
-"""
+"""Tune scalar THC on the six-dimensional Neal's funnel."""
 
 from __future__ import annotations
 
@@ -69,10 +19,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter standalone native epoch.  Persistent Numba caching is disabled
-# in every execution mode, and every compiled THC function below has a new
-# epoch-specific Python name.  Consequently an older notebook dispatcher or
-# cached native helper cannot satisfy any call made by this program.
 NUMBA_RUNTIME_EPOCH = "FUNNEL6_THC_GREX_PORTABLE_20260829G"
 NUMBA_DIRECT_RUN = __name__ == "__main__"
 NUMBA_CACHE_MODE = (
@@ -107,9 +53,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "FUNNEL6-fair-playground-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "funnel6-fair-playground-common-inputs-v1"
@@ -128,9 +71,6 @@ SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 SUPPORTED_COUPLING_FAMILY = "EXP_TANH"
 CANONICAL_OUTPUT_FILENAME = "THC_Neals_funnel_tuning_results_GREX_PORTABLE_V1.txt"
 
-# Frozen only after the deterministic preflight and tiny non-production
-# end-to-end audit pass.  They attest to this exact standalone source and the
-# normalized bottom-block inputs.
 EXPECTED_INPUT_PREPARATION_FINGERPRINT = (
     "5b0bb03dbb52bbecb255c0b0fcf3a4bc44ef165ac698f79dacc4f05f2ea32b88"
 )
@@ -385,9 +325,7 @@ class THCConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, THC splitting, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=False, inline="always")
@@ -972,9 +910,6 @@ def _simulate_thc_chain_grex_20260829g(
     )
 
 
-# Compatibility aliases used by the unchanged diagnostics, self-tests, and
-# championship adapter.  Each alias points to a newly named cache-free native
-# dispatcher, never to an older notebook definition with the legacy name.
 _potential_energy = _potential_energy_grex_20260829g
 _target_gradient = _target_gradient_grex_20260829g
 _kinetic_energy = _kinetic_energy_grex_20260829g
@@ -1360,9 +1295,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical diagnostics.  These functions must be copied exactly into HMC.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -1676,9 +1608,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -2071,9 +2001,7 @@ def _select_thc_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3844,16 +3772,7 @@ def _first_tuning_block_stream_digest(prepared: PreparedTHCInputs) -> str:
 
 
 def _validate_portable_native_runtime(prepared: PreparedTHCInputs) -> str:
-    """Verify the live cache-free epoch without pinning a stochastic path.
-
-    Long Metropolis trajectories are not bitwise portable across operating
-    systems and math-library/compiler builds.  A one-bit difference near an
-    accept/reject boundary can legitimately change every later draw.  The
-    mathematical, reversibility, gradient-accounting, RNG, and finite-chain
-    checks are performed by ``run_self_tests`` immediately before this audit.
-    This function checks that those tests exercised the intended newly named
-    cache-free native dispatchers rather than an older notebook definition.
-    """
+    """Verify the live cache-free epoch without pinning a stochastic path."""
 
     if not NUMBA_AVAILABLE:
         raise RuntimeError(
@@ -5199,22 +5118,8 @@ def run_thc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives total dimension, squared
-# scale, marginal covariance, physical starts, inverse/Cholesky mass matrices,
-# exact observable moments, observable count, full Cartesian configuration
-# count, and all fingerprints.
-#
-# CANONICAL mode accepts only the agreed fair-playground common and THC values.
-# For changed experiments, use CUSTOM mode, begin the run label with "CUSTOM:",
-# and choose a non-canonical output filename.
+# Tuning inputs.
 
-# First execution on Grex: leave True.  The cell runs only a short native
-# preflight and writes no report.  After the printed PASS and GREX PREFLIGHT
-# COMPLETE lines, change only this value to False and execute the entire cell
-# again to run the full 972-configuration production grid.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = THCRunInputs(
@@ -5310,9 +5215,6 @@ USER_INPUTS = THCRunInputs(
 )
 
 
-# Expanded campaign: the original equations, kernels, diagnostics and source
-# seals above are unchanged. Use launcher/checkpoint_runner.py for production.
-# These are new CUSTOM tuning inputs, not the archived CANONICAL experiment.
 from shared_funnel_protocol import expanded_inputs
 USER_INPUTS = expanded_inputs(USER_INPUTS, "scalar")
 

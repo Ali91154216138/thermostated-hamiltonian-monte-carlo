@@ -1,0 +1,243 @@
+{
+  "original_commit": "0c7e37a437f917256e3425f9c80ca248b4a82ae5",
+  "hash": "SHA-256",
+  "scope": "Python simulation sources, tuning launchers and dependencies used for the manuscript benchmarks.",
+  "files": {
+    "targets/banana/held-out/hmc/HMC.py": {
+      "original_sha256": "e147752bd5270c4a966a5e7a36c852f4523406b8e4510960ffe8209e4d05ee5e",
+      "current_sha256": "ae9049a1d91f3d7b9a70d5c2be117a252d4a7a17e6adcd26d24a254272603497"
+    },
+    "targets/banana/held-out/hmc/THC_bounded.py": {
+      "original_sha256": "fc8a862d23d39ce0737b6b057407772191188f8085beb6880d99743ea40fa271",
+      "current_sha256": "ba3e0d2ecc0d4160fd2bac68a5f972b0690fb3fbc14aae03773e9aca590716ce"
+    },
+    "targets/banana/held-out/hmc/THC_v4.py": {
+      "original_sha256": "37592307e4f8d9d28a2bec3eb7fbd84233206cf57841413eb9264b8c6cade7e0",
+      "current_sha256": "638cc40674b7d675e13d9eb6a611eed8b208d2f16f0618e4bd279b5961719dfd"
+    },
+    "targets/banana/held-out/nuts/NUTS.py": {
+      "original_sha256": "532e90e228b78ced0376b3a24b4cff1ae7ac9a1481cda925e347dadec77e46d9",
+      "current_sha256": "86c93287d9583b8cba22c048461479a22b4ac343e28580f0c5266a83313f8a23"
+    },
+    "targets/banana/held-out/nuts/THC_v2.py": {
+      "original_sha256": "97d5bfbaee0405ea16422413f673ddb85e8030a5e8ae0741bb4d1a39b84bd95e",
+      "current_sha256": "208dbd3727ceb18e454b9a53a4348e78a8d065cd94dc31559b1cc97ab803debf"
+    },
+    "targets/banana/held-out/s-qhmc/S_QHMC.py": {
+      "original_sha256": "c40441bd1d7e601ad57b8a1ccaaf0e4494bd7a68db91d556ecd93a50fa77b3b8",
+      "current_sha256": "b35cf1f56532a6a5df991a39657dbd7289e59538f5f67d212aae34b51b42687c"
+    },
+    "targets/banana/held-out/s-qhmc/THC_v2.py": {
+      "original_sha256": "6b0fff2793824628569cde035bb1d8d82d2e7f4a9592439e9e7fa0b59959ff48",
+      "current_sha256": "3b82394ff7b0fbfa5d5220ee1960ef6cb00c6539ce2850cf6e52757e499f8010"
+    },
+    "targets/multiscale-gaussian/held-out/hmc/HMC.py": {
+      "original_sha256": "ef9c54e20795a73443397fe9d9a01ec42e484cf6aa48e89be8e922ed4f77740a",
+      "current_sha256": "37b04ebf85cd8ca72829819362f5ac9e4acf174320ee0a6dfcf4123616590732"
+    },
+    "targets/multiscale-gaussian/held-out/hmc/THC_bounded.py": {
+      "original_sha256": "c590ac703119fb835b2e1f4d342f05c8ebda47b0fb8d4e36a1fda52a82ac1e8b",
+      "current_sha256": "48daf195267c0022ee956b7e8c09ffb71aa38201248d10992fa39015ced57529"
+    },
+    "targets/multiscale-gaussian/held-out/nuts/NUTS.py": {
+      "original_sha256": "2f3bda59a3a9561ee23d1fe4b63f6e22cc001eb87a3589d87a01b050db736a3f",
+      "current_sha256": "a01baa604f854d3958db418aa580ed956a21ed00f13690120c46213c843165c6"
+    },
+    "targets/multiscale-gaussian/held-out/nuts/THC_v3.py": {
+      "original_sha256": "b8dc2d12c425066b84e673a75713353fae2c679f02bbf0dc92a28ea30cba5fba",
+      "current_sha256": "86cca5ddae76915cbe66caaf5a6af9bb843c79af3a35bb694dcf823b8b943f60"
+    },
+    "targets/multiscale-gaussian/held-out/s-qhmc/S_QHMC.py": {
+      "original_sha256": "3265c35beabd15962fa62759cbfaa3aaed17f9017e65cea07e8bb65f8af17e0d",
+      "current_sha256": "ef60da296bcdcf0fd9a1385eb48a07e90d06572d036041bbb584173c4ac7ee30"
+    },
+    "targets/multiscale-gaussian/held-out/s-qhmc/THC_v3.py": {
+      "original_sha256": "8a463b8da6b6fc5b4e2035bfccae52fb42914cec4e2b42f5d01541f528571674",
+      "current_sha256": "ecc3f1f252b522cded5c72cc41e66c0e7a4336a8e17d2755ec0a4aca41df65f4"
+    },
+    "targets/neals-funnel/held-out/hmc/Conditional_THC.py": {
+      "original_sha256": "5a5b36b390daec510b7fec5b84dd2874243949a3931913a2a7ee62c83f0fe6aa",
+      "current_sha256": "1a647534822fcae50d25b76fb1605b3f64f54746457fb8208171ac42ad3c5019"
+    },
+    "targets/neals-funnel/held-out/hmc/HMC.py": {
+      "original_sha256": "454f6ddc650757401c3096d7a8a53099737a252247107e57864f4ef24b0182df",
+      "current_sha256": "3f20bd425f05a612d7e660e6cfec3cc0685bae0ef993cb0b257ed1688562d0ec"
+    },
+    "targets/neals-funnel/held-out/hmc/Scalar_THC.py": {
+      "original_sha256": "688142ef99bd1ea71480f0ca61410a67ea7d4a4f1b3aad1425d99db82bc9797d",
+      "current_sha256": "ebe236a86de0f5934ceadb3b6459bdf76dc1568d1ef30d9909cb91ff9cf703d6"
+    },
+    "targets/neals-funnel/held-out/nuts/Conditional_THC.py": {
+      "original_sha256": "333c2c16cac33501b58fb0c78f11350ad86f34eab346dba6472284938de03bac",
+      "current_sha256": "ff6870a339f6800b82502b838fc0800653e5ecc245570628ff6e6f9c65c758e2"
+    },
+    "targets/neals-funnel/held-out/nuts/NUTS.py": {
+      "original_sha256": "7e540542b7f418010313f6eac0801e41afb616406c914282a304c474496655ad",
+      "current_sha256": "ea8b702e3444a47825c9c80b02f2550ebc2deb22f0eb0ab8af21785892f9c057"
+    },
+    "targets/neals-funnel/held-out/nuts/Periodic_THC.py": {
+      "original_sha256": "540e8d74e37aef9abb32939c604330fd3e7870058655d9aa9cc15fd55dfc4218",
+      "current_sha256": "28af5d49e02c00be8d7e8deea0ff3bad42219e9f1e0042095a41f3ddf2ff770b"
+    },
+    "targets/neals-funnel/held-out/nuts/Scalar_THC.py": {
+      "original_sha256": "220fa310b46a8744b777c0d5afaa331b782912ffa3f98ad9270dfdf83a0bfd21",
+      "current_sha256": "c53f76c221757194ae69a76f329db878c89e23efb03d30e84b784e90e89bb7ad"
+    },
+    "targets/neals-funnel/held-out/s-qhmc/Conditional_THC.py": {
+      "original_sha256": "d3685d28af53050036f1c2920c89ca7c50939bd90220d96dd2ba479bd25aa58d",
+      "current_sha256": "db79249fddf8494107f0a26a281cc93abaf2fad3274ff1b48d029355baf34ca1"
+    },
+    "targets/neals-funnel/held-out/s-qhmc/Periodic_THC.py": {
+      "original_sha256": "a8842124720e43d4749f5136cd2f84cb6618466831da2fe76c27c0774a07dac9",
+      "current_sha256": "1c7547988b821264104dc12b051ccb4ce38521b22349f7200bdd87393c65a3a7"
+    },
+    "targets/neals-funnel/held-out/s-qhmc/S_QHMC.py": {
+      "original_sha256": "9c8f9f56a7d5b73e9990e563d41dd72e8e77e4e17bb418bd55d3a0a92f11db58",
+      "current_sha256": "47da69bba0feefb408d386f698c134c32c4dbf34d440b5fd008f877d961f3138"
+    },
+    "targets/neals-funnel/held-out/s-qhmc/Scalar_THC.py": {
+      "original_sha256": "7ade2feacd8c0d036a96ca7752c0e807b4a96d7b6f8995479718e82ca6f837a3",
+      "current_sha256": "a82252c031022b5341f8837ead8ef22a8ffe90c0f028e521565d632b9fc70a5d"
+    },
+    "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_bounded_EXPANDED_20260925.py": {
+      "original_sha256": "1f870e92b4b73938aadf3a0f27436802d5d2a1bf56c59f36fd41c96b489a1b43",
+      "current_sha256": "cad297021a3404662de4f6ad16079a937c072980ca4a84ecdd7cf9c2b9a6d831"
+    },
+    "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_hmc_EXPANDED_20260925.py": {
+      "original_sha256": "e72350e0c0ff79621ca8ced7768d9ff1829558d4bd2a04a5f3c0e4c8d6be32fd",
+      "current_sha256": "5ae76bae308d6e40fbd9a845e27b0d4b20e57cc19264c1aa44394743d0ac04d5"
+    },
+    "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/banana_v4_EXPANDED_20260925.py": {
+      "original_sha256": "cd4aeca59e2bfaa460907b75d290bcafd1c38a3cba6b8694a7347811a930e22c",
+      "current_sha256": "cf01a419d5fbf01c5dd5820372d2fc3bd0e6e2a67252b54d5194b777bcf4043c"
+    },
+    "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/code/expanded_protocol.py": {
+      "original_sha256": "cbfa02ac82e2fcbee1b3ac5c905b9551dfd7680bbb16d705e0267d5197a34421",
+      "current_sha256": "0193b7909f2ee654aeb88f896e733a5ee92d3f2948d205a7e8cf5c206218f20c"
+    },
+    "tuning-code/grex_banana_hmc_bounded_v4_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "c392c635e8a303973a8047e75db96e9cd80711239719c3f558bc0c4b6677eca4",
+      "current_sha256": "2c7efc970bec4cee97a9bf7e39094421d9a8f5ba9acc241c7ee5aaca4a1b574a"
+    },
+    "tuning-code/grex_banana_nuts_expanded_20260925/NUTS/code/banana_nuts_tuner_EXPANDED_20260925.py": {
+      "original_sha256": "c8672091b1d709d2fc4008e6f1ac0f8d35b78ce416965c8a53174cd24a3a37dd",
+      "current_sha256": "021b725df953f2a7a053a37013480fe3b0f816be17e707b09f3523c097e5689b"
+    },
+    "tuning-code/grex_banana_nuts_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "8756a581679b520eda321527cae6962ab05fe84620d3f1b67d6a52e56dbeed86",
+      "current_sha256": "a64cab5df4272a7a8cf6643bc3a32e1e211ffc8885054e568800a500aa715dc8"
+    },
+    "tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_periodic_EXPANDED_20260925.py": {
+      "original_sha256": "fcaf9b268fdad16818595c3460de4d09c407d37a87e17a183489a996bd752ed9",
+      "current_sha256": "5403fe79963e744ed0a25ba49cb6cc1f5e46f7d5e9580303a397aba740f55231"
+    },
+    "tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/banana_sqhmc_EXPANDED_20260925.py": {
+      "original_sha256": "faf3832419a10ec16ccea5afd0258222dfa617fce45401ffede1115e7110b2af",
+      "current_sha256": "0e0fb3befa94cdbf408b009c6d082dd8c7b63ce4db67c7bca02fcf8bef80c62f"
+    },
+    "tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/code/expanded_protocol.py": {
+      "original_sha256": "d26504146a5b6dd78a3b37dec0af310481e103f1bfeff6662ef69039d4a41fa3",
+      "current_sha256": "e06b70e950b70de60710e4fe472928074bdccad7dfed2042c010ced2615ddb52"
+    },
+    "tuning-code/grex_banana_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "538ab049ed6ef914840aed1106ec25b3cf8c6da4b28a0bf57643b59fb20b2941",
+      "current_sha256": "cc6d4cbfc37dc6522fbf4130894c543f59c22f6bf01c834ad0b20fb5eaf2b23a"
+    },
+    "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/expanded_protocol.py": {
+      "original_sha256": "1ceb7447d185dd8e34d66194df0fdd2d7a89fa662d2591829df9d3e997e345c8",
+      "current_sha256": "b43d2fe3eedf76d2476e7462fda31945fd76e3f4df94bcac5282bb9d4bf365f1"
+    },
+    "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_conditional_EXPANDED_20260925.py": {
+      "original_sha256": "803bba03ad251987ab52f7c0b43b6bc36fda64b28c8d26b05e6f12ef82223d26",
+      "current_sha256": "ed10d15cf6b477f9dbf2f13bf6b6f828d535a6f50063cbfed96c6d4d9aa61f5b"
+    },
+    "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_hmc_EXPANDED_20260925.py": {
+      "original_sha256": "2b73a6ec95400e23271b87fdcfa234875be6c441981981bab261ba896f95cbd7",
+      "current_sha256": "f4c1ff20a650a70ef1aa53f683435ba6fb023a22e488d45fec51a6a36ae8c795"
+    },
+    "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/code/funnel_scalar_EXPANDED_20260925.py": {
+      "original_sha256": "c1a77df8474c66cb247cf95b9ee2a143476926a10975ec7c45db20f6a5734be4",
+      "current_sha256": "f24849b759ea51c67655c678828551733834b3b4df99e89602e896e8f63cc7c5"
+    },
+    "tuning-code/grex_funnel_hmc_scalar_conditional_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "cf95023a28f31c72189fbd88a61591a8d8b73d4abab62f77070bd89d34b88039",
+      "current_sha256": "a40cf3624051bc544c47337d200c28dfb830783555429346cd271d28a1b63d39"
+    },
+    "tuning-code/grex_funnel_nuts_expanded_20260925/NUTS/code/neals_funnel_nuts_tuner_EXPANDED_20260925.py": {
+      "original_sha256": "8fc6631459d7d07a138781770523806dba374bf7fa65a258832f9f0bdfbedc7b",
+      "current_sha256": "136d74e4b95e6bb1ecc786ef46d1ed8e902d2f71bdc8230025d321ff80f2e5eb"
+    },
+    "tuning-code/grex_funnel_nuts_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "97b090eac4b23339c8cae7e2b73c46d712fd0eed18046619a2dd76e932744d76",
+      "current_sha256": "b3dfc11ad17bc4819a5d316fdce33376595a584252183e238027c46404e3a354"
+    },
+    "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/expanded_protocol.py": {
+      "original_sha256": "9467973cad92889c17dae8faee8b811e528f9babf539f03d4bb8a63045b24ef3",
+      "current_sha256": "8a8ad527c0c3c9e61100c94325a2a8f2f13d4543c2a49ba23afa6721e7028bce"
+    },
+    "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_periodic_EXPANDED_20260925.py": {
+      "original_sha256": "71b96ce01cee6080abc72c8c68f5b49528b2cdd0479230f729847585c1f715e6",
+      "current_sha256": "af3629131184104e0e08728448fdf32ba20de79245dd0d0178737db0e1549072"
+    },
+    "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/funnel_sqhmc_EXPANDED_20260925.py": {
+      "original_sha256": "2b89fed7eecce3566d0a9340d5220b52f90e00042d36b5e1331aef5a1a66c938",
+      "current_sha256": "4b2a7c55cc09f10e2d063d0c571b58e10a270b35859469118746d6f0f36b0713"
+    },
+    "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/periodic_validation.py": {
+      "original_sha256": "50348d2516ec0b8d41bfc1c0d5f634e4e00d5fc5192382508498f2389ae9b068",
+      "current_sha256": "a62ac2fcb96cb35d10ccbbdd013b7a977c04a6df5fa925b1dd8f0c69ec142742"
+    },
+    "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/shared_funnel_protocol.py": {
+      "original_sha256": "1ceb7447d185dd8e34d66194df0fdd2d7a89fa662d2591829df9d3e997e345c8",
+      "current_sha256": "b43d2fe3eedf76d2476e7462fda31945fd76e3f4df94bcac5282bb9d4bf365f1"
+    },
+    "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/code/shared_scalar_base.py": {
+      "original_sha256": "4cbd4c8128d1cc8561832ad5dde653c295e148b83eede3e30a11d20e37236347",
+      "current_sha256": "6bfd39e479022af9a8c5c80d6d939298e2e46d5c9a04499a3b46286a6358f0a3"
+    },
+    "tuning-code/grex_funnel_periodic_sqhmc_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "1a9a56033d7757e163131ca3a4dab6051b861fb87fcc63cd309296da598b5953",
+      "current_sha256": "5309a63ed6bbf03a45845dc57358e73d5c80e77fd6cfe893f3a3a42ea3d6143b"
+    },
+    "tuning-code/grex_gaussian_expanded_20260925/HMC/code/multiscale_gaussian_hmc_tuner_EXPANDED_20260925_GREX_RUN.py": {
+      "original_sha256": "bbd02b487b0e3fe5082edb140d6553ae841b5e16964b6df2ad9fd5c87a915d29",
+      "current_sha256": "56df1a5c86dacaa49e4a8bc13e63922774d9b59f114259d7ebc670f9e403b578"
+    },
+    "tuning-code/grex_gaussian_expanded_20260925/THC/code/multiscale_gaussian_thc_tuner_EXPANDED_20260925_GREX_RUN.py": {
+      "original_sha256": "9c2e846ccc8c4a939a91937b12de45755c369f3863eea61fe2ba609201e3a708",
+      "current_sha256": "a2984e364877a8ff50d26a842b0dbe2cbd3b0921b996b260e0d9023146d8efb3"
+    },
+    "tuning-code/grex_gaussian_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "d11e8d3cf0485ee8a056e23ecfbcd7c11a616f0554a5b795f8db5c4b45e4749f",
+      "current_sha256": "5b0ae244a1055ca1359d201f335b6c5deb0a6c468e1422c9af80a8a0911cbf2b"
+    },
+    "tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/S_QHMC/code/multiscale_gaussian_s_qhmc_tuner_EXPANDED_20260925.py": {
+      "original_sha256": "9bf45c3152ab96c080ec9d7b4f870eb0b57f84c3784501f926485d28a263fb9e",
+      "current_sha256": "ebce3c118227d11f5e7255e9f2d4935e1eb621224a32a7dfae8ca3b3ef43e424"
+    },
+    "tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/THC_mixture_v3/code/multiscale_gaussian_thc_v3_mixture_tuner_EXPANDED_20260925.py": {
+      "original_sha256": "f21b6cf546d7828205b407e4f5b964443255aaae33ee0e249f4bfa98e62627a4",
+      "current_sha256": "0e096f4d907d7db493e54321ae0747a62ad6f6c8b190a0d2638fc99a30963b26"
+    },
+    "tuning-code/grex_gaussian_mixture_sqhmc_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "1e2a8894108c9cc871f476a2684e7b7a7926ed478b995edc80c5acd997cb9094",
+      "current_sha256": "aaa658fd0f3c660b1c9d887ecd51b94bd3c2ba1e72c74b9c65d045ae04f05890"
+    },
+    "tuning-code/grex_gaussian_nuts_expanded_20260925/NUTS/code/multiscale_gaussian_nuts_tuner_EXPANDED_20260925.py": {
+      "original_sha256": "55e2b1c8b2b71f134f133aed14aabe9f3911fcf9a5d68005058ffd5db299cabf",
+      "current_sha256": "eda1a03d4a457d0223e86acf2573d71bc4408ab0f359f01c7e710d0bc48a4dd8"
+    },
+    "tuning-code/grex_gaussian_nuts_expanded_20260925/launcher/checkpoint_runner.py": {
+      "original_sha256": "96c53ca5942d7ac2267a2acf4857831a4523a16dd9dd7068c1f50cd671bc2d71",
+      "current_sha256": "6cc7c26ed3bef104ec7ede7d862dab028c145b07cf77b7ccb7d81abe0637f7ec"
+    },
+    "tuning-code/grex_thc_budgeted_20260927/budgeted_runner.py": {
+      "original_sha256": "4a7ab2ec86ad78419539f48b02bdb1fd9549f285e607dde47a8caaba14bf9f27",
+      "current_sha256": "58dad3ce43ed1fd6914aa92f231a2f82a17c12f9637b01e3d3706a523e20fff2"
+    },
+    "tuning-code/grex_thc_budgeted_20260927/campaigns.py": {
+      "original_sha256": "a7a484bde0e13cfdf99bcf79b118d6fdbf58dad5e2b71354b95d6d70b3079d61",
+      "current_sha256": "cde798f9338163a8849177319220c55e836da9272bcfb68496c7d7954c3dc48c"
+    }
+  }
+}

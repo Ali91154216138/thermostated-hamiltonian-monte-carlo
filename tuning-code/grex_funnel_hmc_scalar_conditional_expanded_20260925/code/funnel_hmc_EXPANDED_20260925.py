@@ -1,47 +1,4 @@
-"""Fair-playground HMC tuner for the six-coordinate centered Neal's funnel.
-
-This is the first self-contained program in the HMC-versus-THC workflow.  It
-does not import a shared protocol or diagnostics module.  Every independent
-user input is collected in one control panel at the end of this file.  The
-later THC tuner must use the same common inputs and diagnostic routines, and
-the reported input/source fingerprints make accidental drift visible.
-
-Production target
------------------
-    q = (y,x_1,...,x_5), beta = 1, sigma_y = 3
-    y ~ N(0,sigma_y^2),  x_i | y ~ N(0,exp(y))
-    U(y,x) = y^2/(2*sigma_y^2) + (5/2)y + exp(-y)||x||^2/2
-    physical mass M0 = I_6
-
-Chain starts are entered as (y,z_1,...,z_5), where x_i=exp(y/2)z_i.
-Thus every chain has the same conditional standardized radius while the four
-y starts cover both the neck and mouth of the funnel.
-
-Tuning protocol
----------------
-Every fixed (epsilon, L) configuration is evaluated on the same five blocks.
-Each block contains four chains, fixed dispersed physical starts, 1000 warmup
-iterations, and 4000 retained draws.  The score observables are exactly all six
-linear coordinates and all 21 unique quadratic monomials.  No momentum,
-thermostat, or target-specific nonlinear diagnostic enters the score.
-
-For each block and observable f,
-
-    efficiency(f) = 1 / (actual target gradients per retained draw * IAT(f)).
-
-The block score is the minimum efficiency over observables.  A configuration's
-tuning score is the geometric mean of its five block scores.  No R-hat or
-moment threshold is used.  If any required IAT is undefined, or any trajectory
-becomes nonfinite, the corresponding efficiency is undefined.
-
-The first Grex execution defaults to a short cache-free native preflight.  It
-does not simulate a tuning configuration or write a report.  Production prints
-the complete report and writes identical TXT to the location chosen in the
-final user-input block.
-
-Required package: numpy
-Strongly recommended for the production grid: numba
-"""
+"""Tune HMC on the six-dimensional Neal's funnel."""
 
 from __future__ import annotations
 
@@ -62,8 +19,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter standalone native epoch. Persistent Numba caching is disabled
-# in every mode, and every compiled function has an epoch-specific Python name.
 NUMBA_RUNTIME_EPOCH = "FUNNEL6_HMC_GREX_PORTABLE_20260829F"
 NUMBA_DIRECT_RUN = __name__ == "__main__"
 NUMBA_CACHE_MODE = (
@@ -97,9 +52,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "FUNNEL6-fair-playground-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "funnel6-fair-playground-common-inputs-v1"
@@ -116,9 +68,6 @@ HMC_RUNTIME_PREFLIGHT_VERSION = (
 SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 CANONICAL_OUTPUT_FILENAME = "HMC_Neals_funnel_tuning_results_GREX_PORTABLE_V1.txt"
 
-# These hashes seal the agreed canonical scientific inputs without creating a
-# second editable parameter block.  They are pinned from normalized values and
-# checked before any random arrays are allocated in CANONICAL mode.
 EXPECTED_INPUT_PREPARATION_FINGERPRINT = (
     "5b0bb03dbb52bbecb255c0b0fcf3a4bc44ef165ac698f79dacc4f05f2ea32b88"
 )
@@ -312,9 +261,7 @@ class ConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, leapfrog, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=False, inline="always")
@@ -423,12 +370,7 @@ def _leapfrog_proposal_grex_20260829f(
     inverse_mass_matrix: np.ndarray,
     mass_is_identity: bool,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, float, int, bool]:
-    """Integrate one HMC proposal using a cached starting gradient.
-
-    Each of the L drift steps evaluates the target gradient once.  The final
-    gradient is returned and can be cached for the next trajectory if the
-    proposal is accepted.  A rejected proposal retains the old cached gradient.
-    """
+    """Integrate one HMC proposal using a cached starting gradient."""
 
     proposed_q = q.copy()
     proposed_p = p.copy()
@@ -604,9 +546,6 @@ def _simulate_hmc_chain_grex_20260829f(
     )
 
 
-# Public internal aliases.  The aliases make the rest of the standalone file
-# readable while the epoch-specific dispatcher names prevent stale Jupyter
-# machine code from masquerading as the active sampler.
 _potential_energy = _potential_energy_grex_20260829f
 _target_gradient = _target_gradient_grex_20260829f
 _kinetic_energy = _kinetic_energy_grex_20260829f
@@ -670,9 +609,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical diagnostics.  These functions must be copied exactly into THC.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -986,9 +922,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1334,9 +1268,7 @@ def _select_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3070,21 +3002,8 @@ def run_hmc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives total dimension, squared
-# scale, marginal covariance, physical starts, inverse/Cholesky mass matrices, exact
-# moments, observable count, configuration count, and all fingerprints.
-#
-# CANONICAL mode accepts only the agreed fair-playground scientific values.
-# For experiments with changed scientific inputs, use CUSTOM mode, begin the
-# run label with "CUSTOM:", and choose a non-canonical output filename.
+# Tuning inputs.
 
-# First execution on Grex: leave True.  This runs only a short cache-free
-# native preflight and writes no report.  After the PASS and GREX PREFLIGHT
-# COMPLETE lines, change only
-# this value to False and execute the entire cell again for production tuning.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = RunInputs(
@@ -3146,9 +3065,6 @@ USER_INPUTS = RunInputs(
 )
 
 
-# Expanded campaign: the original equations, kernels, diagnostics and source
-# seals above are unchanged. Use launcher/checkpoint_runner.py for production.
-# These are new CUSTOM tuning inputs, not the archived CANONICAL experiment.
 from expanded_protocol import expanded_inputs
 USER_INPUTS = expanded_inputs(USER_INPUTS, "hmc")
 

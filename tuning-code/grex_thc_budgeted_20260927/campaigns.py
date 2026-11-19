@@ -1,4 +1,4 @@
-"""Approved reduced-search design. No four-day termination deadline."""
+"""Define the recorded THC tuning searches."""
 from pathlib import Path
 import math
 

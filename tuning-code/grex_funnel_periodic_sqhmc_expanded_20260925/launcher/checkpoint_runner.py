@@ -1,9 +1,4 @@
-"""Full-grid, block-resumable 6D funnel tuning with disjoint parallel parts.
-
-Original numerical kernels, diagnostics and strict nonfinite score rule remain
-unchanged. Every setting receives ALL ten full blocks. No held-out runs.
-Only load the checksum-protected pickle checkpoints produced by this campaign.
-"""
+"""Run tuning jobs on the six-dimensional Neal's funnel with checkpoints."""
 from __future__ import annotations
 import argparse
 import contextlib

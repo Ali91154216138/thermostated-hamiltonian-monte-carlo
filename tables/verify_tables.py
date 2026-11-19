@@ -1,9 +1,9 @@
 """Recompute the manuscript table entries from the distributed numerical results."""
 
 import argparse
-import hashlib
 import json
 import math
+import sys
 from decimal import Decimal
 from functools import lru_cache
 from pathlib import Path
@@ -11,6 +11,8 @@ from statistics import fmean
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from source_provenance import verify_source
 
 # Each comparison has its own held-out blocks, including comparisons that
 # reuse a winner from an earlier tuning search.
@@ -50,9 +52,7 @@ def heldout_report(folder, method):
     report = (folder / f"{method}_results.txt").read_text(encoding="utf-8")
     data = json.loads(report.split("BEGIN COMPARISON_JSON\n", 1)[1]
                       .split("\nEND COMPARISON_JSON", 1)[0])
-    source = (folder / f"{method}.py").read_bytes()
-    if hashlib.sha256(source).hexdigest() != data["metadata"]["script_sha256"]:
-        raise ValueError(f"{folder.name}/{method}.py does not match its report")
+    verify_source(folder / f"{method}.py", data["metadata"]["script_sha256"])
     if data["metadata"]["testing"] or method != data["metadata"]["method"]:
         raise ValueError(f"Expected a final {method} report in {folder}")
     blocks = sorted(data["blocks"], key=lambda block: block["block_index"])
@@ -147,6 +147,16 @@ def check_table(number, show=False):
         for row in rows:
             method = METHODS[row["Method"]]
             winner = winners[method]
+            script = ROOT / winner["script"]
+            manifest = json.loads((ROOT / winner["manifest"]).read_text(encoding="utf-8"))
+            if "source_checksums" in manifest:
+                original_path = Path(*Path(winner["script"]).parts[2:]).as_posix()
+                recorded = manifest["source_checksums"][original_path]
+            else:
+                recorded = manifest["source_sha256"]
+            if recorded != winner["script_sha256"]:
+                raise ValueError(f"{method}: winner and tuning manifest disagree on source checksum")
+            verify_source(script, recorded)
             check_value(number, method, "score", row["Tuning score"], winner["score"])
             if "Defined/tested" in row:
                 counts = f'{winner["defined"]}/{winner["tested"]}'

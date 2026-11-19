@@ -1,4 +1,4 @@
-"""Frozen expanded TUNING inputs. No held-out sampling or result-dependent changes."""
+"""Define the common tuning settings for the six-dimensional Neal's funnel."""
 from dataclasses import replace
 import hashlib
 import math

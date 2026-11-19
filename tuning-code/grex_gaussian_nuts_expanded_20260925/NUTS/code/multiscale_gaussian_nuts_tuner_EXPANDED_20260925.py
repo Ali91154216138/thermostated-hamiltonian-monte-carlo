@@ -1,47 +1,4 @@
-"""Expanded original slice-NUTS tuner for the 5D multiscale Gaussian.
-
-This is a self-contained implementation of Hoffman--Gelman Algorithm 6.  It
-uses the original slice-based candidate rule, recursive balanced-tree U-turn
-checks, Algorithm 4 reasonable-epsilon search, and dual averaging.  It is not
-the later multinomial NUTS variant.
-
-Every independent input is collected in one control panel at the end of this
-file.  The program prints one complete report and saves the identical text to
-one TXT file.  It does not create CSV, JSON, or NPZ output.
-
-Production target
------------------
-    d = 5, beta = 1
-    omega_j = 30**(j/4), j = 0, ..., 4
-    covariance = diag(1 / omega_j**2)
-    physical mass M = I_5 (entered explicitly in the user-input block)
-
-Tuning protocol
----------------
-Every fixed target-acceptance delta is evaluated on the same ten blocks.
-Each block contains four chains, fixed dispersed physical starts, 1000 warmup
-iterations, and 10000 retained draws.  The score observables are all q_i and all
-unique q_i*q_j with i <= j (20 observables in total).
-
-For each chain, Algorithm 4 first finds a reasonable epsilon.  Dual averaging
-then adapts epsilon only during warmup.  The averaged warmup value is frozen
-before the first retained draw.  The mass matrix is never adapted.
-
-For each block and observable f,
-
-    efficiency(f) = 1 / (actual target gradients per retained draw * IAT(f)).
-
-The block score is the minimum efficiency over observables.  A configuration's
-tuning score is the geometric mean of its ten block scores.  No R-hat or
-moment threshold is used. Undefined required IATs or nonfinite retained samples
-make the score undefined. Divergences and depth hits are reported, not gates.
-
-The script prints the complete report and writes the same text to the location
-chosen in the final user-input block.
-
-Required package: numpy
-Strongly recommended for production: numba
-"""
+"""Tune slice-NUTS on the five-dimensional multiscale Gaussian."""
 
 from __future__ import annotations
 
@@ -61,10 +18,6 @@ from typing import Sequence
 
 import numpy as np
 
-# A directly executed script or pasted Jupyter cell must never reuse a Numba
-# cache whose top-level compiled kernel may still embed an older helper body.
-# A later frozen final-comparison importer may supply its own cache directory;
-# ordinary imports without one also receive a fresh private directory.
 NUMBA_DIRECT_RUN = __name__ == "__main__"
 if NUMBA_DIRECT_RUN:
     # Numba's IPython cache locator ignores NUMBA_CACHE_DIR.  Disable only
@@ -108,9 +61,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "MSG5-expanded-10blocks-20260925"
 COMMON_INPUT_SCHEMA_VERSION = "expanded-NUTS-inputs-20260925"
@@ -122,12 +72,6 @@ RANDOM_STREAM_VERSION = "numba-chain-local-numpy-rng-v1.0.0"
 SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 CANONICAL_OUTPUT_FILENAME = "NUTS_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt"
 
-# These hashes seal the agreed canonical scientific inputs without creating a
-# second editable parameter block.  They are pinned from normalized values and
-# checked before any random arrays are allocated in CANONICAL mode.
-# Canonical scientific values are checked directly in _validate_run_mode.
-# The normalized input fingerprint is reported, but no machine-specific random
-# output is hard-coded into a canary.
 
 
 @dataclass(frozen=True)
@@ -312,9 +256,7 @@ class ConfigurationResult:
     total_nonfinite_samples: int
 
 
-# ---------------------------------------------------------------------------
 # Target, leapfrog, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=True, inline="always")
@@ -475,12 +417,7 @@ def _build_tree(
     mass_is_identity: bool,
     delta_max: float,
 ):
-    """Recursive memory-efficient BuildTree from original Algorithm 3/6.
-
-    Return layout:
-      q-,p-,grad-,U-, q+,p+,grad+,U+, q*,grad*,U*,
-      n_valid, continue, alpha_sum, n_alpha, leapfrog_steps, divergences.
-    """
+    """Recursive memory-efficient BuildTree from original Algorithm 3/6."""
 
     if depth == 0:
         new_q, new_p, new_gradient, new_potential, finite = _leapfrog_one(
@@ -1006,9 +943,6 @@ def _simulate_nuts_chain(
     )
 
 
-# ---------------------------------------------------------------------------
-# Canonical diagnostics shared with the frozen THC comparison protocol.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -1028,14 +962,7 @@ def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
 
 
 def _multi_chain_geyer_iat(chains: np.ndarray) -> IATResult:
-    """Multi-chain Geyer initial-positive and initial-monotone IAT.
-
-    The autocorrelation estimate uses the between-chain variance correction
-    employed by modern multi-chain ESS estimators.  Adjacent sums
-    P_k = rho_(2k) + rho_(2k+1) are retained up to, but not including, the
-    first nonpositive pair.  Retained pair sums are monotonized by cumulative
-    minima.  No lower floor is imposed on the resulting IAT.
-    """
+    """Multi-chain Geyer initial-positive and initial-monotone IAT."""
 
     chains = np.asarray(chains, dtype=np.float64)
     if chains.ndim != 2:
@@ -1322,9 +1249,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1637,9 +1562,7 @@ def _select_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3123,20 +3046,8 @@ def run_nuts_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives dimension, chain count,
-# omega^2, covariance, physical starts, inverse/Cholesky mass matrices, exact
-# moments, observable count, configuration count, and all fingerprints.
-#
-# CANONICAL mode accepts only the agreed fair-playground scientific values.
-# For experiments with changed scientific inputs, use CUSTOM mode, begin the
-# run label with "CUSTOM:", and choose a non-canonical output filename.
+# Tuning inputs.
 
-# First Grex/Jupyter execution: leave True.  This runs only the short native
-# preflight and writes no report.  After PASS, change only this value to False
-# and execute the entire cell again for production tuning.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = RunInputs(

@@ -1,4 +1,4 @@
-"""Independent periodic-funnel mathematical checks, run on every compute worker."""
+"""Check the periodic THC integrator on Neal's funnel."""
 import itertools
 import math
 import numpy as np

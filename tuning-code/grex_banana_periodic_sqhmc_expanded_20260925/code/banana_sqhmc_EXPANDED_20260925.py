@@ -1,13 +1,4 @@
-"""Expanded 2026-09-25 Banana tuning source; original numerical kernels retained.
-
-Production uses launcher/checkpoint_runner.py: full grid, 10 common blocks,
-4 chains, 1000 warmup + 10000 retained draws. No held-out experiment.
-The older canonical driver below is retained for preflight checks only.
-Scoring follows the CURRENT manuscript: numerical rejection retains the old
-state and is counted, not automatically excluded. Nonfinite retained states,
-undefined required IAT, or invalid cost still make the full score undefined.
-See expanded_protocol.py and README.txt for the active design.
-"""
+"""Tune S-QHMC on the Banana target."""
 
 
 from __future__ import annotations
@@ -29,9 +20,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter portable native epoch.  Persistent Numba caching is disabled in
-# every execution mode.  Every compiled function has an epoch-specific name,
-# so an older notebook dispatcher cannot accidentally satisfy a call here.
 NUMBA_RUNTIME_EPOCH = "BANANA2_SQHMC_GREX_PORTABLE_20260830_V1"
 NUMBA_CACHE_MODE = "persistent cache disabled in all modes"
 NUMBA_CACHE_DIRECTORY = "not used"
@@ -62,9 +50,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "BANANA2-fair-playground-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "banana-fair-playground-common-inputs-v1"
@@ -82,7 +67,6 @@ RANDOM_STREAM_VERSION = "seedsequence-pcg64-three-substreams-v1.0.0"
 SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 CANONICAL_OUTPUT_FILENAME = "S_QHMC_banana_tuning_results_GREX_PORTABLE_V1.txt"
 
-# The 27 random-mass choices match the 27 method-specific Banana THC choices.
 CANONICAL_MU_M_VALUES = (-1.0, 0.0, 1.0)
 CANONICAL_SIGMA_M_VALUES = (
     0.005,
@@ -344,9 +328,7 @@ class ConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, scalar random-mass leapfrog, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 
@@ -628,7 +610,6 @@ def _simulate_s_qhmc_chain_sqhmc_banana_grex_v1(
     )
 
 
-# Stable aliases used by diagnostics, audits, and the final-comparison adapter.
 _potential_energy = _potential_energy_sqhmc_banana_grex_v1
 _target_gradient = _target_gradient_sqhmc_banana_grex_v1
 _kinetic_energy = _base_kinetic_energy_sqhmc_banana_grex_v1
@@ -691,9 +672,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical fair-playground diagnostics shared by every competitor.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -1007,9 +985,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1406,9 +1382,7 @@ def _select_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3668,15 +3642,8 @@ def run_s_qhmc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives total dimension, physical
-# starts, target moments, observable count, configuration count, and all hashes.
-# CANONICAL mode accepts only this agreed fair-playground design.
+# Tuning inputs.
 
-# First Grex execution: leave True.  After the PASS and GREX PREFLIGHT COMPLETE
-# lines, change only this value to False and execute the entire cell again.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = SQHMCRunInputs(
@@ -3760,7 +3727,7 @@ USER_INPUTS = SQHMCRunInputs(
 )
 
 
-# The common full-grid settings below supersede all legacy input defaults above.
+# Production tuning settings.
 from expanded_protocol import expanded_inputs
 USER_INPUTS = expanded_inputs(USER_INPUTS, "sqhmc")
 

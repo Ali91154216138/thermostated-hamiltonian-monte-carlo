@@ -1,9 +1,4 @@
-"""Resume the frozen Gaussian tuners without changing their numerical kernels.
-
-Internal SQLite checkpoints contain trusted, locally generated Python records.
-Every completed seed block is committed before the next block starts. A restart
-repeats only an unfinished block with its original, fixed random streams.
-"""
+"""Run tuning jobs on the five-dimensional multiscale Gaussian with checkpoints."""
 
 from __future__ import annotations
 

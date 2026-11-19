@@ -1,7 +1,4 @@
-"""Frozen standalone THC_v2 on the 2D Banana.
-Default: separate-seed software preflight only. Use --run for final sampling.
-No tuning or scientific overrides. TXT reports beside this file.
-"""
+"""Run held-out periodic THC-v2 on the Banana target."""
 # HELDOUT_ENGINE_BEGIN
 from __future__ import annotations
 
@@ -444,12 +441,7 @@ def _log_h_and_derivative_grex_phase_v2_20260830a(
     coupling_code: float,
     a: float,
 ) -> tuple[float, float]:
-    """Return log(h) and d log(h)/ds for the encoded phase family.
-
-    Positive code means ``alpha=code, phi=0`` (cosine).  Negative code means
-    ``alpha=-code, phi=pi/2`` (sine).  Code zero is retained only for the HMC
-    parity self-test.  Production inputs always satisfy 0 < alpha < 1.
-    """
+    """Return log(h) and d log(h)/ds for the encoded phase family."""
 
     if (
         not math.isfinite(s)
@@ -1318,17 +1310,7 @@ def _make_random_streams(
     total_iterations: int,
     dimension: int,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Create physical-momentum and acceptance streams from fixed substreams.
-
-    Three child SeedSequences are always spawned in this order:
-      1. physical standard-normal momenta,
-      2. thermostat standard-normal momenta (used here; reserved by HMC),
-      3. Metropolis uniforms.
-
-    HMC materializes child stream 2 for future parity but does not use it in an
-    HMC transition.  The separate streams keep physical normals and uniforms
-    invariant when the THC coordinate is added.
-    """
+    """Create physical-momentum and acceptance streams from fixed substreams."""
 
     root = np.random.SeedSequence(int(seed))
     physical_sequence, thermostat_sequence, acceptance_sequence = root.spawn(3)
@@ -1348,13 +1330,7 @@ def _retained_standardized_momentum_second_moment(
     stream_cache: Sequence[tuple[np.ndarray, np.ndarray, np.ndarray]],
     n_warmup: int,
 ) -> float:
-    """Return pooled E[beta*p^T M^-1 p/d] from retained momentum refreshes.
-
-    For p=M^(1/2)z/sqrt(beta), beta*p^T*M^-1*p/d equals z^T*z/d, so the
-    stored physical standard-normal stream supplies this diagnostic for every
-    positive-definite mass matrix.  It is never an observable, IAT input,
-    gate, or selection score.
-    """
+    """Return pooled E[beta*p^T M^-1 p/d] from retained momentum refreshes."""
 
     sum_of_squares = 0.0
     number_of_components = 0
@@ -1382,14 +1358,7 @@ def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
     return autocovariance / n_draws
 
 def _multi_chain_geyer_iat(chains: np.ndarray) -> IATResult:
-    """Multi-chain Geyer initial-positive and initial-monotone IAT.
-
-    The autocorrelation estimate uses the between-chain variance correction
-    employed by modern multi-chain ESS estimators.  Adjacent sums
-    P_k = rho_(2k) + rho_(2k+1) are retained up to, but not including, the
-    first nonpositive pair.  Retained pair sums are monotonized by cumulative
-    minima.  No lower floor is imposed on the resulting IAT.
-    """
+    """Multi-chain Geyer initial-positive and initial-monotone IAT."""
 
     chains = np.asarray(chains, dtype=np.float64)
     if chains.ndim != 2:
@@ -3701,16 +3670,7 @@ def _first_tuning_block_stream_digest(prepared: PreparedTHCInputs) -> str:
     return digest.hexdigest()
 
 def _validate_portable_native_runtime(prepared: PreparedTHCInputs) -> str:
-    """Verify the live cache-free epoch without pinning a stochastic path.
-
-    Long Metropolis trajectories are not bitwise portable across operating
-    systems and math-library/compiler builds.  A one-bit difference near an
-    accept/reject boundary can legitimately change every later draw.  The
-    mathematical, reversibility, gradient-accounting, RNG, and finite-chain
-    checks are performed by ``run_self_tests`` immediately before this audit.
-    This function checks that those tests exercised the intended newly named
-    cache-free native dispatchers rather than an older notebook definition.
-    """
+    """Verify the live cache-free epoch without pinning a stochastic path."""
 
     if not NUMBA_AVAILABLE:
         raise RuntimeError(
@@ -5167,9 +5127,6 @@ HELDOUT_METHOD = 'THC_v2'
 HELDOUT_PROTOCOL = json.loads('{"IAT":"Original multi-chain Geyer initial-positive then initial-monotone sequence; biased autocovariance denominator N, no floor or hand-set lag cutoff.","NUTS_adaptation":"Original slice-NUTS Algorithm 6. Algorithm 4 finds an initial epsilon separately for each chain; dual averaging adapts epsilon only during 1000 discarded warmup transitions, then freezes it for retention. No mass adaptation. Maximum tree depth 12.","Rhat":"Maximum of rank-normalized split and folded rank-normalized split R-hat; descriptive, no threshold.","THC_refresh":"h(s)=1+0.025*cos(s/0.5), alpha=0.025, phi=0, a=0.5, Q=4, rho(s)=N(0,1). s persists, starting at (-1,1,1,-1). Only p|s~N(0,h(s)^2*M0/beta) and p_s~N(0,Q/beta) refresh each trajectory. Rejection restores q and s.","acceptance_reporting":"The NUTS mean adaptation statistic is NOT a Metropolis acceptance probability and is reported separately from THC acceptance.","comparison_id":"BANANA2_NUTS_PERIODIC_THC_V2_HELDOUT_20261012_v1","date_frozen":"2026-10-12","exact_means":[0.0,0.0,4.0,0.0,2.04],"failure_rules":{"NUTS":"Preserve the completed Banana tuner: nonfinite retained states, undefined required IAT, or invalid gradient cost make the full score undefined. Nonfinite attempted leaves stop their tree expansion and cannot be selected; an earlier valid candidate can still be selected, so the whole transition is not forcibly rejected. Leaf/transition counts, finite-energy divergences and depth hits are reported separately, not score gates.","THC_v2":"Preserve the completed periodic tuner: rejected nonfinite proposals are counted, but finite retained states including rejection repeats are scored. Nonfinite retained states, undefined required IAT or invalid gradient cost make the full score undefined. No dropped or replacement blocks."},"gradient_cost":"Actual newly executed target-gradient calls during retained transitions. For NUTS count every executed leapfrog leaf, including discarded, divergent and nonfinite leaves; exclude cached reuse, initial epsilon search and warmup. For THC complete proposals cost L=60, while an aborted proposal can cost less; exclude thermostat-only operations. This is not wall-clock cost.","input_templates":{"NUTS":{"allow_overwrite":false,"banana_b":0.25,"beta":1.0,"delta_max":1000.0,"dual_averaging_gamma":0.05,"dual_averaging_kappa":0.75,"dual_averaging_t0":10.0,"mass_matrix":[[0.25,0.0],[0.0,0.49019607843137253]],"maximum_tree_depth":12,"n_retained":10000,"n_warmup":1000,"n_workers":4,"observable_policy":"ALL_LINEAR_AND_UNIQUE_QUADRATIC","output_directory":null,"output_filename":"NUTS_results.txt","print_progress":false,"print_report":false,"reasonable_epsilon_max_search_steps":100,"run_label":"CUSTOM: FROZEN HELD-OUT","run_mode":"CUSTOM","run_self_tests":true,"seed_blocks":[[643438670,854717319,2774127967,2545194941],[917268235,3723316457,1505916582,1224709022],[3963908595,2265365618,4091171824,1691439646],[2169937467,206082466,1961744135,3807319088],[1862858497,612454368,3473300478,4112471906],[1371720443,2175642134,2135335316,2027636776],[15155228,3542955260,2685544053,3910947546],[2760536257,3275127738,675635077,763831123],[3837446131,2621232227,320166949,4026661953],[3200751904,4191378215,2023365418,166892031]],"sigma_x":2.0,"sigma_y":0.2,"standardized_starts":[[-2.0,-2.0],[-2.0,2.0],[2.0,-2.0],[2.0,2.0]],"target_acceptance_values":[0.96]},"THC_v2":{"L_values":[60],"Q_values":[4.0],"a_values":[0.5],"allow_overwrite":false,"alpha_values":[0.025],"automatic_boundary_expansion":false,"banana_b":0.25,"beta":1.0,"boundary_Q_lower":0.003125,"boundary_Q_upper":16.0,"boundary_a_lower":0.0625,"boundary_a_upper":8.0,"boundary_alpha_lower":0.0125,"boundary_alpha_upper":0.975,"boundary_keep_fixed_configurations":1,"coupling_family":"PHASE_PERIODIC_COS_SHIFT","epsilon_values":[0.05],"mass_matrix":[[0.25,0.0],[0.0,0.49019607843137253]],"n_retained":10000,"n_warmup":1000,"n_workers":4,"observable_policy":"ALL_LINEAR_AND_UNIQUE_QUADRATIC","output_directory":null,"output_filename":"THC_v2_results.txt","phi_values":[0.0],"print_progress":false,"print_report":false,"run_label":"CUSTOM: FROZEN HELD-OUT","run_mode":"CUSTOM","run_self_tests":true,"seed_blocks":[[643438670,854717319,2774127967,2545194941],[917268235,3723316457,1505916582,1224709022],[3963908595,2265365618,4091171824,1691439646],[2169937467,206082466,1961744135,3807319088],[1862858497,612454368,3473300478,4112471906],[1371720443,2175642134,2135335316,2027636776],[15155228,3542955260,2685544053,3910947546],[2760536257,3275127738,675635077,763831123],[3837446131,2621232227,320166949,4026661953],[3200751904,4191378215,2023365418,166892031]],"sigma_x":2.0,"sigma_y":0.2,"stage1_anchor_pairs":[[0.05,60]],"stage1_block_indices":[1],"stage1_keep_method_tuples":1,"stage1_n_retained":4,"stage1_n_warmup":1,"stage2_block_indices":[2],"stage2_keep_fixed_configurations":1,"stage2_n_retained":4,"stage2_n_warmup":1,"standardized_starts":[[-2.0,-2.0],[-2.0,2.0],[2.0,-2.0],[2.0,2.0]],"thermostat_sigma":1.0,"thermostat_starts":[-1.0,1.0,1.0,-1.0]}},"legacy_stage_fields":"Periodic stage/boundary fields only satisfy original validation; the held-out driver never calls a search.","methods":{"NUTS":{"delta_max":1000.0,"dual_averaging_gamma":0.05,"dual_averaging_kappa":0.75,"dual_averaging_t0":10.0,"maximum_tree_depth":12,"reasonable_epsilon_max_search_steps":100,"target_acceptance":0.96},"THC_v2":{"L":60,"Q":4.0,"a":0.5,"coupling_code":0.025,"epsilon":0.05}},"n_blocks":10,"n_chains":4,"n_retained":10000,"n_warmup":1000,"no_retuning":true,"paired_comparison":"THC-v2/NUTS score ratio and paired efficiency wins; approximate 95% Student-t interval on the ten paired log-efficiency ratios, exponentiated, only if all required scores are defined.","physical_observables":["x","y","x^2","x*y","y^2"],"physical_starts":[[-4.0,2.6],[-4.0,3.4],[4.0,2.6],[4.0,3.4]],"provenance":{"NUTS":{"engine_sha256":"316c9f3faa4b0c60c6675dd240561eae52af5c252a6f6b64648477b6cc9e3b8b","source_path":"grex_banana_nuts_expanded_20260925\\\\NUTS\\\\code\\\\banana_nuts_tuner_EXPANDED_20260925.py","source_sha256":"c8672091b1d709d2fc4008e6f1ac0f8d35b78ce416965c8a53174cd24a3a37dd","tested_configurations":35,"tuning_report":"results\\\\GREX_tuning_2026-10-07\\\\Banana\\\\NUTS\\\\results\\\\NUTS_Banana_expanded_tuning_20260925.txt","tuning_report_sha256":"dd427c918246b0d6bd7d3f657e7b4a09b10155e80da9b6c5209ed2ccb3d6e7f0","tuning_score":0.0025955660717584535},"THC_v2":{"engine_sha256":"19a50c6511623e9f26239e208871df09337ba79896cc85433a4a9284214b0814","source_path":"grex_banana_periodic_sqhmc_expanded_20260925\\\\code\\\\banana_periodic_EXPANDED_20260925.py","source_sha256":"fcaf9b268fdad16818595c3460de4d09c407d37a87e17a183489a996bd752ed9","tested_configurations":41533,"tuning_report":"results\\\\GREX_tuning_2026-10-07\\\\Banana\\\\Periodic_THC_v2\\\\results\\\\FINAL_TUNING_REPORT.txt","tuning_report_sha256":"225e1b65614bc9b4a952842532a58019bca89c936d339a28bca48ba049e6a9e0","tuning_score":0.0055055523899574625}},"random_stream_pairing":"Same seed identifiers, physical starts and lengths in corresponding blocks. Original RNGs are preserved: NUTS uses Numba thread-local legacy NumPy RNG; THC uses SeedSequence child streams. Individual random draws are NOT claimed to match. Pairing hashes seal seeds, starts and lengths only.","score":"E_b=1/(actual retained gradients per draw * worst physical-observable IAT); S is the geometric mean of ALL ten block efficiencies. Never omit or replace an undefined block.","secondary_outcomes":"Maximum and descriptive geometric mean of worst IAT; maximum R-hat; exact/estimated moments; numerical-event counts. No final-data reselection.","seed_audit":{"derivation":"First four SHA256 bytes (big endian) of DOMAIN|PHASE|block=BB|chain=CC|counter=K; counters change only for recorded collisions, never scores.","domain":"paper-on-thc|BANANA2|NUTS-periodic-THC-v2|held-out|20261012|v1","overlaps_after_audit":0,"path_size_inventory_sha256":"d42e8b78075df2cef9c901146869e69446820245672dd03c6b13a5e433014db9","rejected_candidate_values":[],"scope":"Recorded integer occurrences in local project sources/reports, including downloaded tuning and previous held-out files; unknown remote-only seeds cannot be audited.","text_bytes_scanned":3054436641,"text_files_scanned":2683},"seed_blocks":[[643438670,854717319,2774127967,2545194941],[917268235,3723316457,1505916582,1224709022],[3963908595,2265365618,4091171824,1691439646],[2169937467,206082466,1961744135,3807319088],[1862858497,612454368,3473300478,4112471906],[1371720443,2175642134,2135335316,2027636776],[15155228,3542955260,2685544053,3910947546],[2760536257,3275127738,675635077,763831123],[3837446131,2621232227,320166949,4026661953],[3200751904,4191378215,2023365418,166892031]],"selection":"Best-tested geometric-mean gradient-normalized-efficiency setting per method, selected only from completed expanded tuning. No IAT reselection or further tuning.","target":"2D centered Banana","target_definition":"U=x^2/(2*sigma_x^2)+(y-b*(x^2-sigma_x^2))^2/(2*sigma_y^2); beta=1, sigma_x=2, sigma_y=0.2, b=0.25; base mass diag(0.25,1/2.04)."}')
 HELDOUT_PROTOCOL_SHA256 = 'd6568ad5e6293355fd4fc50a9c9ceb523961398a076baab74888bc9171279f12'
 SOFTWARE_TEST_SEEDS = [[394658453, 2181494572, 4268813184, 528206136], [4180850286, 1539193071, 1298117042, 972376541], [1771911296, 3740864889, 4094793721, 2163203412], [3755422320, 240871093, 3901732535, 3273113181], [578024984, 2039791412, 1103819792, 2566218814], [1474701114, 388869733, 2939831695, 2359819389], [3146013272, 2659135663, 2087481879, 3507970371], [3500798951, 66057547, 1099388905, 1526687296], [2768459118, 1114171252, 509151082, 2336892128], [326242267, 1417586257, 2061743265, 1608848244]]
-# ---------------------------------------------------------------------------
-# Fixed held-out driver. No parameter search or selection is performed here.
-# ---------------------------------------------------------------------------
 import argparse
 from contextlib import contextmanager
 from dataclasses import asdict
@@ -5193,7 +5150,11 @@ def _heldout_guard():
     text = Path(__file__).read_text(encoding='utf-8')
     engine = text.split('# HELDOUT_ENGINE_' + 'BEGIN\n', 1)[1].split('# HELDOUT_ENGINE_' + 'END\n', 1)[0]
     expected = HELDOUT_PROTOCOL['provenance'][HELDOUT_METHOD]['engine_sha256']
-    if hashlib.sha256(engine.encode()).hexdigest() != expected:
+    actual = hashlib.sha256(engine.encode()).hexdigest()
+    if (expected, actual) != (
+        '19a50c6511623e9f26239e208871df09337ba79896cc85433a4a9284214b0814',  # Original archived engine
+        '1342beb96a0ac4c3d6fbb2612f776daae0017419b64d53e23c73f7f2e918463b',  # Documentation-edited engine
+    ):
         raise RuntimeError('Scientific engine differs from the completed tuning source.')
     final = [s for b in HELDOUT_PROTOCOL['seed_blocks'] for s in b]
     test = [s for b in SOFTWARE_TEST_SEEDS for s in b]

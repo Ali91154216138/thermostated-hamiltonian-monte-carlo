@@ -1,48 +1,4 @@
-"""Fair-playground HMC tuner for the two-dimensional centered Banana target.
-
-This is the first self-contained program in the HMC-versus-THC workflow.  It
-does not import a shared protocol or diagnostics module.  Every independent
-user input is collected in one control panel at the end of this file.  The
-later THC tuner must use the same common inputs and diagnostic routines, and
-the reported input/source fingerprints make accidental drift visible.
-
-Production target
------------------
-    d = 2, beta = 1
-    r(x,y) = y - b*(x^2 - sigma_x^2)
-    U(x,y) = x^2/(2*sigma_x^2) + r(x,y)^2/(2*sigma_y^2)
-    sigma_x = 2, sigma_y = 0.2, b = 0.25
-    physical mass M0 = diag(1/4, 1/2.04)
-
-Under exp(-beta*U), x and r are independent centered Gaussians with variances
-sigma_x^2/beta and sigma_y^2/beta.  Chain starts are entered in standardized
-latent (z_x,z_r) coordinates and mapped exactly to physical (x,y).
-
-Tuning protocol
----------------
-Every fixed (epsilon, L) configuration is evaluated on the same five blocks.
-Each block contains four chains, fixed dispersed physical starts, 1000 warmup
-iterations, and 4000 retained draws.  The score observables are exactly x, y,
-x^2, x*y, and y^2.  The latent residual r is used only for target validation;
-it is not an observable, IAT input, or score.
-
-For each block and observable f,
-
-    efficiency(f) = 1 / (actual target gradients per retained draw * IAT(f)).
-
-The block score is the minimum efficiency over observables.  A configuration's
-tuning score is the geometric mean of its five block scores.  No R-hat or
-moment threshold is used.  If any required IAT is undefined, or any trajectory
-becomes nonfinite, the corresponding efficiency is undefined.
-
-The first Grex execution defaults to a short cache-free native preflight.  It
-does not simulate a tuning configuration or write a report.  Production prints
-the complete report and writes identical TXT to the location chosen in the
-final user-input block.
-
-Required package: numpy
-Strongly recommended for the production grid: numba
-"""
+"""Tune HMC on the Banana target."""
 
 from __future__ import annotations
 
@@ -63,8 +19,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter standalone native epoch. Persistent Numba caching is disabled
-# in every mode, and every compiled function has an epoch-specific Python name.
 NUMBA_RUNTIME_EPOCH = "BANANA_HMC_GREX_PORTABLE_20260829D"
 NUMBA_DIRECT_RUN = __name__ == "__main__"
 NUMBA_CACHE_MODE = (
@@ -98,9 +52,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "BANANA2-fair-playground-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "banana-fair-playground-common-inputs-v1"
@@ -117,9 +68,6 @@ HMC_RUNTIME_PREFLIGHT_VERSION = (
 SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 CANONICAL_OUTPUT_FILENAME = "HMC_banana_tuning_results_GREX_PORTABLE_V1.txt"
 
-# These hashes seal the agreed canonical scientific inputs without creating a
-# second editable parameter block.  They are pinned from normalized values and
-# checked before any random arrays are allocated in CANONICAL mode.
 EXPECTED_INPUT_PREPARATION_FINGERPRINT = (
     "8e6767f332cf26810005489774bc928995cea9f20b3ebf9b36aadbde48c438cf"
 )
@@ -312,9 +260,7 @@ class ConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, leapfrog, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=False, inline="always")
@@ -398,12 +344,7 @@ def _leapfrog_proposal_grex_20260829d(
     inverse_mass_matrix: np.ndarray,
     mass_is_identity: bool,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, float, int, bool]:
-    """Integrate one HMC proposal using a cached starting gradient.
-
-    Each of the L drift steps evaluates the target gradient once.  The final
-    gradient is returned and can be cached for the next trajectory if the
-    proposal is accepted.  A rejected proposal retains the old cached gradient.
-    """
+    """Integrate one HMC proposal using a cached starting gradient."""
 
     proposed_q = q.copy()
     proposed_p = p.copy()
@@ -579,9 +520,6 @@ def _simulate_hmc_chain_grex_20260829d(
     )
 
 
-# Public internal aliases.  The aliases make the rest of the standalone file
-# readable while the epoch-specific dispatcher names prevent stale Jupyter
-# machine code from masquerading as the active sampler.
 _potential_energy = _potential_energy_grex_20260829d
 _target_gradient = _target_gradient_grex_20260829d
 _kinetic_energy = _kinetic_energy_grex_20260829d
@@ -645,9 +583,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical diagnostics.  These functions must be copied exactly into THC.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -961,9 +896,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1338,9 +1271,7 @@ def _select_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -2938,20 +2869,8 @@ def run_hmc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives dimension, squared scales,
-# marginal covariance, physical starts, inverse/Cholesky mass matrices, exact
-# moments, observable count, configuration count, and all fingerprints.
-#
-# CANONICAL mode accepts only the agreed fair-playground scientific values.
-# For experiments with changed scientific inputs, use CUSTOM mode, begin the
-# run label with "CUSTOM:", and choose a non-canonical output filename.
+# Tuning inputs.
 
-# First execution on Grex: leave True.  This runs only a short cache-free
-# native preflight and writes no report.  After both PASS lines, change only
-# this value to False and execute the entire cell again for production tuning.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = RunInputs(
@@ -3023,8 +2942,7 @@ USER_INPUTS = RunInputs(
 
 
 
-# Expanded campaign inputs replace the archived defaults above.
-# CUSTOM distinguishes this new sealed experiment from the old five-block one.
+# Production tuning settings.
 from expanded_protocol import expanded_inputs
 USER_INPUTS = expanded_inputs(USER_INPUTS, 'hmc')
 

@@ -1,41 +1,4 @@
-# Expanded TUNING copy: 10 common blocks, 1000+10000 draws; see expanded_protocol.py.
-# Archived documentation below describes the original input block;
-# the override at EOF is authoritative.
-"""Standalone fair-playground scalar S-QHMC tuner for Neal's funnel.
-
-This file implements Liu and Zhang's scalar S-QHMC construction: once per
-trajectory, omega~N(mu_m,sigma_m^2), m=10**omega, M=m*M0, and
-p~N(0,M/beta).  The sampled mass is held fixed through the complete leapfrog
-path and the endpoint is Metropolis corrected with that same conditional
-Hamiltonian.  The standardized algebra v=p/sqrt(m) and
-epsilon_eff=epsilon/sqrt(m) is exactly equivalent and avoids overflow.
-
-The common Neal-funnel target, identity base mass, physical starts,
-epsilon-L grid, five tuning seed blocks, run lengths, observables, diagnostics,
-and target-gradient accounting are byte-identical to the frozen HMC and
-conditional-THC tuners.  Child random stream 2 supplies the S-QHMC mass normal;
-the physical momentum normals and Metropolis uniforms retain their common
-positions.
-
-Production target
------------------
-    q=(y,x_1,...,x_5), beta=1, sigma_y=3
-    y~N(0,sigma_y^2), x_i|y~N(0,exp(y))
-    U=y^2/(2*sigma_y^2)+(5/2)y+exp(-y)||x||^2/2
-    shared base mass M0=I_6
-
-Every fixed (mu_m,sigma_m,epsilon,L) configuration is evaluated on the same
-five blocks.  Each block contains four chains, 1000 warmup iterations, and
-4000 retained draws.  The score observables are all six coordinates and all
-21 unique quadratic monomials.  The block score is the worst observable
-efficiency, and the tuning score is its geometric mean across the five blocks.
-
-The first Grex execution defaults to a short cache-free native preflight.  It
-does not simulate a tuning configuration or write a report.  Production
-prints the complete report and writes the identical TXT report.
-
-Required packages: numpy, numba
-"""
+"""Tune S-QHMC on the six-dimensional Neal's funnel."""
 
 
 from __future__ import annotations
@@ -57,9 +20,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter portable native epoch.  Persistent Numba caching is disabled in
-# every execution mode.  Every compiled function has an epoch-specific name,
-# so an older notebook dispatcher cannot accidentally satisfy a call here.
 NUMBA_RUNTIME_EPOCH = "FUNNEL6_SQHMC_GREX_PORTABLE_20260830_V1"
 NUMBA_CACHE_MODE = "persistent cache disabled in all modes"
 NUMBA_CACHE_DIRECTORY = "not used"
@@ -90,9 +50,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "FUNNEL6-fair-playground-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "funnel6-fair-playground-common-inputs-v1"
@@ -110,9 +67,6 @@ RANDOM_STREAM_VERSION = "seedsequence-pcg64-three-substreams-v1.0.0"
 SUPPORTED_OBSERVABLE_POLICY = "ALL_LINEAR_AND_UNIQUE_QUADRATIC"
 CANONICAL_OUTPUT_FILENAME = "S_QHMC_Neals_funnel_tuning_results_GREX_PORTABLE_V1.txt"
 
-# The random-mass grid is fixed before any current-protocol funnel result is
-# observed.  It includes the very small spreads that were numerically useful
-# in earlier exploratory funnel work, plus the broader Liu--Zhang range.
 CANONICAL_MU_M_VALUES = (-1.0, 0.0, 1.0)
 CANONICAL_SIGMA_M_VALUES = (
     0.001,
@@ -376,9 +330,7 @@ class ConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, scalar random-mass leapfrog, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=False, inline="always")
@@ -683,7 +635,6 @@ def _simulate_s_qhmc_chain_sqhmc_funnel_grex_v1(
     )
 
 
-# Stable aliases used by diagnostics, audits, and the final-comparison adapter.
 _potential_energy = _potential_energy_sqhmc_funnel_grex_v1
 _target_gradient = _target_gradient_sqhmc_funnel_grex_v1
 _kinetic_energy = _base_kinetic_energy_sqhmc_funnel_grex_v1
@@ -746,9 +697,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical fair-playground diagnostics shared by every competitor.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -1062,9 +1010,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1430,9 +1376,7 @@ def _select_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3654,15 +3598,8 @@ def run_s_qhmc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Enter only independent choices.  The code derives total dimension, physical
-# starts, target moments, observable count, configuration count, and all hashes.
-# CANONICAL mode accepts only this agreed fair-playground design.
+# Tuning inputs.
 
-# First Grex execution: leave True.  After the PASS and GREX PREFLIGHT COMPLETE
-# lines, change only this value to False and execute the entire cell again.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = SQHMCRunInputs(

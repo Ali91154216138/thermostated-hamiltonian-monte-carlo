@@ -1,11 +1,4 @@
-"""Block-resumable expanded original slice-NUTS tuner.
-
-NUTS dynamics and diagnostic formulas are preserved; observational nonfinite
-leaf counters match the already-frozen expanded funnel scoring policy.
-No screening: every configuration is evaluated on every declared block.
-Completed block records are trusted local pickle data protected by SHA256.
-Each completed block is committed before starting the next block.
-"""
+"""Run tuning jobs on the six-dimensional Neal's funnel with checkpoints."""
 from __future__ import annotations
 
 import argparse

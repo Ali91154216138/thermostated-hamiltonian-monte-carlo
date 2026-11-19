@@ -1,45 +1,4 @@
-"""Standalone production tuner for conditional-shear THC-v4 on the 2D Banana.
-
-The physical target and fair-playground diagnostics are identical to the
-frozen Banana HMC and phase-periodic THC-v2 tuners.  The new extended target is
-
-    pi(q,s) propto exp[-beta U(q)] exp[-(s-x)^2/(2 tau^2)],
-
-and its metric is
-
-    c(s) = kappa*a*tanh(s/a),
-    A(s) = [[1,0],[-c(s),1]],          G(s) = A(s)^T M0 A(s).
-
-Because det A(s)=1, det G(s)=det M0 is constant.  Integrating out s and the
-momenta therefore leaves exactly the original Banana marginal.  The extended
-Hamiltonian used by the code is
-
-    H = U(q) + (s-x)^2/(2 beta tau^2)
-        + p^T G(s)^(-1) p / 2 + p_s^2/(2Q).
-
-One trajectory uses the symmetric exact-subflow P/T/K/T/P split.  The complete
-state is momentum-flipped and Metropolis corrected.  Only evaluations of the
-physical target gradient are charged.  The score is the minimum, over x, y,
-x^2, x*y, y^2, of 1/(gradients per retained draw times Geyer IAT).  Fixed
-configurations are aggregated by the geometric mean over five tuning blocks.
-
-The bounded shear gives |c(s)|<kappa*a and keeps the metric uniformly
-well-conditioned.  The staged search is smaller than the phase-periodic
-THC-v2 search.  The derived control
-(kappa,tau,Q,a,epsilon,L)=(0.5,0.5,0.1,8,0.05,40) is always evaluated on all
-five full-length blocks even if halving removes it.
-
-After base five-block selection, one automatic predeclared boundary layer is
-allowed.  If the winner is on a method-grid boundary, each active coordinate
-is moved alone to its outward value, the common epsilon-L grid is searched on
-the stage-2 blocks, and at most four boundary finalists receive five-block
-evaluation.  Joint corners and a second layer are forbidden.
-
-This file is self-contained: it imports no neighbouring sampler.  Every user
-input is in the final control panel.  Its first execution is preflight-only,
-uses cache-free native compilation, writes nothing, and never constructs or
-mentions a final-comparison random seed.
-"""
+"""Tune conditional-shear THC-v4 on the Banana target."""
 
 from __future__ import annotations
 
@@ -339,9 +298,7 @@ class ConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, extended Hamiltonian, exact split map, and Metropolis chain.
-# ---------------------------------------------------------------------------
 
 
 @njit(inline="always")
@@ -620,9 +577,6 @@ def _simulate_chain(
     )
 
 
-# ---------------------------------------------------------------------------
-# Random streams and method-neutral fair-playground diagnostics.
-# ---------------------------------------------------------------------------
 
 
 def _make_random_streams(
@@ -1073,9 +1027,7 @@ def _conditional_diagnostic(eta_samples: np.ndarray, tau: float) -> ConditionalD
     )
 
 
-# ---------------------------------------------------------------------------
 # Input validation and deterministic preparation.
-# ---------------------------------------------------------------------------
 
 
 def _finite_float(name: str, value: object, *, positive: bool = False) -> float:
@@ -1546,9 +1498,6 @@ def _resolve_output_destination(prepared: PreparedInputs) -> Path:
     return destination
 
 
-# ---------------------------------------------------------------------------
-# Block execution, staged halving, and fixed-representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _run_chain_job(
@@ -1719,9 +1668,6 @@ def _boundary_method_layer(
     return tuple(candidates), tuple(labels)
 
 
-# ---------------------------------------------------------------------------
-# Independent mathematical/native preflight oracles.
-# ---------------------------------------------------------------------------
 
 
 def _reference_potential(q: np.ndarray, parameters: np.ndarray) -> float:
@@ -2189,9 +2135,6 @@ def run_self_tests(prepared: PreparedInputs) -> tuple[str, ...]:
     return tuple(messages)
 
 
-# ---------------------------------------------------------------------------
-# Plain-text production report.
-# ---------------------------------------------------------------------------
 
 
 def _number(value: float, specification: str = ".12g") -> str:
@@ -2485,9 +2428,6 @@ def _stream_second_moment(
     return total/count if count else math.nan
 
 
-# ---------------------------------------------------------------------------
-# Public preflight/production entry point.
-# ---------------------------------------------------------------------------
 
 
 def run_conditional_shear_tuning(
@@ -2775,12 +2715,7 @@ def run_conditional_shear_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Leave GREX_PREFLIGHT_ONLY=True for the first complete execution.  It performs
-# only the cache-free preflight and writes nothing.  After PASS, change only it
-# to False and execute the entire cell again for production tuning.
+# Tuning inputs.
 
 GREX_PREFLIGHT_ONLY = True
 
@@ -2873,8 +2808,7 @@ USER_INPUTS = THCRunInputs(
 
 
 
-# Expanded campaign inputs replace the archived defaults above.
-# CUSTOM distinguishes this new sealed experiment from the old five-block one.
+# Production tuning settings.
 from expanded_protocol import expanded_inputs
 USER_INPUTS = expanded_inputs(USER_INPUTS, 'v4')
 

@@ -1,10 +1,4 @@
-"""Block-resumable full-grid tuner for Banana periodic THC-v2 and S-QHMC.
-
-Uses unchanged kernels and IAT/R-hat formulas; scores finite retained states.
-No screening: every configuration is evaluated on every declared block.
-Completed block records are trusted local pickle data protected by SHA256.
-Results are read and reported one configuration at a time to bound memory.
-"""
+"""Run tuning jobs on the Banana target with checkpoints."""
 from __future__ import annotations
 
 import argparse

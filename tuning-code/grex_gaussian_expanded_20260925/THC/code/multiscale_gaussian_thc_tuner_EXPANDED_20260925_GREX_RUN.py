@@ -1,49 +1,4 @@
-"""Fair-playground THC tuner for the five-dimensional multiscale Gaussian.
-
-This is the self-contained THC partner of ``multiscale_gaussian_hmc_tuner_EXPANDED_20260925.py``.
-It does not import a shared protocol or diagnostics module.  Every independent
-common and thermostat-specific input is collected in one control panel at the
-end of this file.  The common input preparation, random streams, observables,
-diagnostics, and block aggregation are copied byte-for-byte from the frozen HMC
-tuner; their matching source fingerprints make accidental drift visible.
-
-Production target
------------------
-    d = 5, beta = 1
-    omega_j = 30**(j/4), j = 0, ..., 4
-    covariance = diag(1 / omega_j**2)
-    physical mass M = I_5 (entered explicitly in the user-input block)
-
-THC construction
-----------------
-The retained state is (q,s).  At every transition, only the momenta are
-refreshed from p|s ~ N(0,h(s)^2 M/beta) and p_s ~ N(0,Q/beta).  The bounded
-coupling is h(s)=exp(lambda*tanh(s/a)), and rho(s)=N(0,sigma_s^2).  A symmetric
-exact-subflow P/S/K splitting is followed by the full-state Metropolis test.
-
-Tuning protocol
----------------
-Every fixed (lambda, a, Q, epsilon, L) configuration is evaluated on the same
-ten blocks.
-Each block contains four chains, fixed dispersed physical starts, 1000 warmup
-iterations, and 10000 retained draws.  The score observables are all q_i and all
-unique q_i*q_j with i <= j (20 observables in total).
-
-For each block and observable f,
-
-    efficiency(f) = 1 / (actual target gradients per retained draw * IAT(f)).
-
-The block score is the minimum efficiency over observables.  A configuration's
-tuning score is the geometric mean of its ten block scores.  No R-hat or
-moment threshold is used.  If any required IAT is undefined, or any trajectory
-becomes nonfinite, the corresponding efficiency is undefined.
-
-The script prints the complete report and writes the same text to the location
-chosen in the final user-input block.
-
-Required package: numpy
-Strongly recommended for the production grid: numba
-"""
+"""Tune bounded-scale THC on the five-dimensional multiscale Gaussian."""
 
 from __future__ import annotations
 
@@ -64,10 +19,6 @@ from typing import Sequence
 
 import numpy as np
 
-# Grex/Jupyter standalone native epoch.  Persistent Numba caching is disabled
-# in every execution mode, and every compiled THC function below has a new
-# epoch-specific Python name.  Consequently an older notebook dispatcher or
-# cached native helper cannot satisfy any call made by this program.
 NUMBA_RUNTIME_EPOCH = "GREX_JUPYTER_PORTABLE_20260829B"
 NUMBA_DIRECT_RUN = __name__ == "__main__"
 NUMBA_CACHE_MODE = (
@@ -102,9 +53,6 @@ except ImportError:  # pragma: no cover - only exercised without Numba
         return decorator
 
 
-# ---------------------------------------------------------------------------
-# Internal protocol metadata and integrity seals -- not user inputs.
-# ---------------------------------------------------------------------------
 
 SHARED_PROTOCOL_VERSION = "MSG5-expanded-20260925-v1.0.0"
 COMMON_INPUT_SCHEMA_VERSION = "fair-playground-common-inputs-v1"
@@ -138,8 +86,6 @@ EXPECTED_SHARED_PROTOCOL_FINGERPRINT = (
     "29d4ece93a4c6dd3f0b8bab97605c342cbdd71359a80f00a850266f022f2287f"
 )
 
-# Filled from the normalized thermostat-only values in the final USER_INPUTS
-# block.  It is deliberately separate from the shared HMC/THC input seal.
 CANONICAL_THC_METHOD_INPUT_FINGERPRINT = (
     "d6201ef92a6da8708455dbf4b9a5f8e058b97fe1d62864adcc973cf5e02f6db9"
 )
@@ -151,9 +97,6 @@ CANONICAL_THC_COMPONENT_FINGERPRINTS = {
     "thermostat_density_and_starts": "0a17290bf500dff228b2ae99b7158e7aec1e671460fa2d0559a878dd21a432ca"
 }
 
-# These hashes seal the agreed canonical scientific inputs without creating a
-# second editable parameter block.  They are pinned from normalized values and
-# checked before any random arrays are allocated in CANONICAL mode.
 CANONICAL_COMMON_INPUT_FINGERPRINT = (
     "7feca50f9ee5abb6a7590c554b74380e276f5fd88be5ad3b662658ad789a5039"
 )
@@ -381,9 +324,7 @@ class THCConfigurationResult:
     total_nonfinite_trajectories: int
 
 
-# ---------------------------------------------------------------------------
 # Target, THC splitting, and chain simulation.
-# ---------------------------------------------------------------------------
 
 
 @njit(cache=True, inline="always")
@@ -924,9 +865,6 @@ def _simulate_thc_chain_grex_20260829b(
     )
 
 
-# Compatibility aliases used by the unchanged diagnostics, self-tests, and
-# championship adapter.  Each alias points to a newly named cache-free native
-# dispatcher, never to an older notebook definition with the legacy name.
 _potential_energy = _potential_energy_grex_20260829b
 _target_gradient = _target_gradient_grex_20260829b
 _kinetic_energy = _kinetic_energy_grex_20260829b
@@ -1237,9 +1175,6 @@ def _retained_standardized_momentum_second_moment(
     return sum_of_squares / number_of_components
 
 
-# ---------------------------------------------------------------------------
-# Canonical diagnostics.  These functions must be copied exactly into THC.
-# ---------------------------------------------------------------------------
 
 
 def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
@@ -1553,9 +1488,7 @@ def _rank_normalized_split_folded_rhat(chains: np.ndarray) -> RhatResult:
     return RhatResult(rank_rhat, folded_rhat, max(rank_rhat, folded_rhat), status)
 
 
-# ---------------------------------------------------------------------------
 # Observables, block analysis, and representative selection.
-# ---------------------------------------------------------------------------
 
 
 def _observable_specification(
@@ -1897,9 +1830,7 @@ def _select_thc_representative(
     )
 
 
-# ---------------------------------------------------------------------------
 # Validation, execution, and reporting.
-# ---------------------------------------------------------------------------
 
 
 def _normalize_grid(
@@ -3585,16 +3516,7 @@ def _first_tuning_block_stream_digest(prepared: PreparedTHCInputs) -> str:
 
 
 def _validate_portable_native_runtime(prepared: PreparedTHCInputs) -> str:
-    """Verify the live cache-free epoch without pinning a stochastic path.
-
-    Long Metropolis trajectories are not bitwise portable across operating
-    systems and math-library/compiler builds.  A one-bit difference near an
-    accept/reject boundary can legitimately change every later draw.  The
-    mathematical, reversibility, gradient-accounting, RNG, and finite-chain
-    checks are performed by ``run_self_tests`` immediately before this audit.
-    This function checks that those tests exercised the intended newly named
-    cache-free native dispatchers rather than an older notebook definition.
-    """
+    """Verify the live cache-free epoch without pinning a stochastic path."""
 
     if not NUMBA_AVAILABLE:
         raise RuntimeError(
@@ -4834,17 +4756,7 @@ def run_thc_tuning(
     }
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
-# Standalone expanded study: 10 blocks x 4 chains, 1000 warmup + 10000 retained.
-# CANONICAL seals identify THIS expanded study, not the previous five-block run.
-# To change scientific settings later, use run_mode="CUSTOM", a run_label
-# beginning with "CUSTOM:", and a distinct output filename in BOTH partners.
-# Keep the common grids, starts, seeds, lengths, and diagnostics identical.
-#
-# True runs small mathematical/diagnostic tests only; no full-grid work.
-# Change to False only when ready for the production campaign.
+# Tuning inputs.
 GREX_PREFLIGHT_ONLY = False
 
 USER_INPUTS = THCRunInputs(

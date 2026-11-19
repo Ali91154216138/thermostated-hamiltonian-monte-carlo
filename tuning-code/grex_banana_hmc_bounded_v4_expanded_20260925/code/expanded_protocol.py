@@ -1,9 +1,4 @@
-"""Editable, shared Banana tuning design. No held-out experiments are run.
-
-The scientific kernels in the three supplied tuners are retained. This file
-sets the new full-grid campaign. Legacy staged-search fields in the v4 input
-dataclass are compatibility fields only; checkpoint_runner never uses them.
-"""
+"""Define the common tuning settings for the Banana target."""
 from dataclasses import replace
 import hashlib
 import math
@@ -21,9 +16,6 @@ N_WARMUP = 1000
 N_RETAINED = 10000
 N_WORKERS = 4
 
-# Keep the old five TUNING blocks, then add five disjoint tuning blocks.
-# Held-out seeds are not used here. The added labels are deterministic SHA256
-# prefixes of the domain below and are checked against the local seed ledger.
 SEED_DOMAIN = 'BANANA-HMC-BOUNDED-V4-EXPANDED-20260925-TUNING'
 OLD_BLOCKS = (
     (123, 456, 789, 101112),

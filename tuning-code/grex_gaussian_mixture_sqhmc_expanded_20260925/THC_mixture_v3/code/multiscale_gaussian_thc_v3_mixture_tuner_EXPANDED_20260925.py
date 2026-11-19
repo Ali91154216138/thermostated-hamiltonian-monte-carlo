@@ -1,17 +1,4 @@
-"""Expanded full-grid refreshed-mixture THC-v3 tuner for the 5D Gaussian.
-
-h(s)=exp(s); the three Gaussian-mixture weights and centers stay fixed.
-At every trajectory, refresh s from the mixture, then p|s and p_s exactly.
-The Hamiltonian and eight-substep exact-B/W integrator are unchanged.
-Every configuration uses all ten common four-chain blocks, 1000 warmup and
-10000 retained draws per chain. There is no short screening, successive
-halving, or automatic boundary expansion. All inputs are editable below.
-Geyer IAT, rank-normalized split/folded R-hat, and gradient-normalized scores
-use the same diagnostic routines as the expanded S-QHMC/HMC scripts.
-Original source SHA256: d365de686e4784d5e91cbc8b677cb50a0b50d9d8bae97a8d93a05832df18cabe
-Required: numpy, numba. This file runs independently of the other tuner.
-For long jobs use the separately supplied checkpoint launcher.
-"""
+"""Tune refreshed-mixture THC-v3 on the five-dimensional multiscale Gaussian."""
 
 from __future__ import annotations
 
@@ -38,8 +25,6 @@ RANDOM_STREAM_VERSION = "seedsequence-pcg64-five-substreams-v1.0.0"
 DIAGNOSTICS_VERSION = "multichain-geyer-ims-rank-rhat-v1.0.0"
 CANONICAL_OUTPUT_FILENAME = 'THC_v3_mixture_multiscale_Gaussian_tuning_results_EXPANDED_20260925.txt'
 
-# Canonical seals.  The user-facing values themselves are entered only in the
-# bottom input block.  The centers imply phase_radius_k=1.8/exp(center_k).
 CANONICAL_INNER_R = 8
 CANONICAL_MIXTURE_WEIGHTS = np.asarray(
     [0.5641470, 0.1084317, 0.3274213], dtype=np.float64
@@ -358,7 +343,6 @@ def _hamiltonian(
     )
 
 
-# Stable exact-B implementation is inlined below.
 _LOG_MAX_FLOAT64 = 709.782712893384
 _LOG_MIN_SUBNORMAL_FLOAT64 = -744.4400719213812
 _LOG_TWO = 0.6931471805599453
@@ -866,14 +850,7 @@ def _autocovariance_fft(chains: np.ndarray) -> np.ndarray:
 
 
 def _multi_chain_geyer_iat(chains: np.ndarray) -> IATResult:
-    """Multi-chain Geyer initial-positive and initial-monotone IAT.
-
-    The autocorrelation estimate uses the between-chain variance correction
-    employed by modern multi-chain ESS estimators.  Adjacent sums
-    P_k = rho_(2k) + rho_(2k+1) are retained up to, but not including, the
-    first nonpositive pair.  Retained pair sums are monotonized by cumulative
-    minima.  No lower floor is imposed on the resulting IAT.
-    """
+    """Multi-chain Geyer initial-positive and initial-monotone IAT."""
 
     chains = np.asarray(chains, dtype=np.float64)
     if chains.ndim != 2:
@@ -1436,9 +1413,6 @@ def _aggregate_configuration(
     )
 
 
-# ---------------------------------------------------------------------------
-# Frozen tuning-only protocol and input validation.
-# ---------------------------------------------------------------------------
 
 CANONICAL_TUNING_SEED_BLOCKS = ((567753504, 3554327166, 2159929848, 2183746224), (3182901450, 2500054966, 2494512194, 1125703007), (3372379365, 3829013153, 2779258000, 3673553045), (1042366973, 555022780, 2234701741, 38076647), (4147003693, 637552847, 1213094654, 3282446157), (1983886449, 1778341926, 2298613957, 753872443), (1913436284, 580417278, 2885056474, 2371270245), (2021755070, 2190757929, 2004101126, 1738982583), (2993064774, 535236755, 4082694471, 2365720593), (158278125, 3022481575, 1887590644, 2677325223))
 CANONICAL_DELTAS = (0.0025, 0.005, 0.0075, 0.01, 0.0125, 0.015, 0.0175, 0.02, 0.025, 0.03, 0.04, 0.05, 0.06, 0.08, 0.1, 0.15, 0.2, 0.3, 0.5, 0.75, 1.0)
@@ -1465,10 +1439,6 @@ CANONICAL_OMEGAS = np.asarray(
     dtype=np.float64,
 )
 
-# Sealed first-chain signatures for the audited Windows and GREX runtimes.
-# Only the p_s normal stream differs by floating-point rounding on GREX.
-# The native audit checks its difference and exact physical/MH stream pairing.
-# No generated values are rounded, replaced, or otherwise changed.
 EXPECTED_FIRST_STREAM_SHA256 = '39d70cf94657cce45d02760f6ce2b9e5438382649a2af8beb281dea897127dca'
 EXPECTED_GREX_FIRST_STREAM_SHA256 = 'b369498ff054229c57a98f0bddc05b77f312d34e2e672d50afcaf7e692d2a90b'
 
@@ -1728,9 +1698,6 @@ def _prepare_inputs(inputs: TuningInputs) -> PreparedInputs:
     )
 
 
-# ---------------------------------------------------------------------------
-# Random streams, exact configuration evaluation, and deterministic ranking.
-# ---------------------------------------------------------------------------
 
 RandomStreams = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
@@ -1740,16 +1707,7 @@ def _make_random_streams(
     total_iterations: int,
     dimension: int,
 ) -> RandomStreams:
-    """Create the five fixed PCG64 substreams under the parity contract.
-
-    SeedSequence child roles are: child 0 physical normal; child 1
-    thermostat-position/shared auxiliary normal; child 2 MH uniform; child 3
-    mixture-component uniform; and child 4 thermostat-momentum ``p_s`` normal.
-
-    The returned simulator-argument order is intentionally different:
-    ``(physical normals, p_s normals, mixture uniforms, thermostat-position
-    normals, MH uniforms)``.
-    """
+    """Create the five fixed PCG64 substreams under the parity contract."""
 
     root = np.random.SeedSequence(int(seed))
     children = root.spawn(5)
@@ -1956,9 +1914,6 @@ def _base_configurations(prepared: PreparedInputs) -> tuple[Configuration, ...]:
 
 
 
-# ---------------------------------------------------------------------------
-# Cache-free portable native preflight.
-# ---------------------------------------------------------------------------
 
 def _B_invariant(
     p: np.ndarray,
@@ -2181,9 +2136,6 @@ def _production_self_tests(prepared: PreparedInputs) -> list[str]:
     return messages
 
 
-# ---------------------------------------------------------------------------
-# Full-grid evaluation and complete TXT report.
-# ---------------------------------------------------------------------------
 
 def _format_number(value: float, specification: str = ".8g") -> str:
     return format(value, specification) if math.isfinite(value) else str(value)
@@ -2391,17 +2343,8 @@ def run_mixture_thc_tuning(inputs: TuningInputs, *, preflight_only: bool = False
 
 
 
-# ===========================================================================
-#                         ALL USER INPUTS ARE HERE
-# ===========================================================================
+# Tuning inputs.
 
-# First execution: keep True. Preflight does not launch the tuning grid.
-# The full default grid has 156,492 settings and 1,564,920 seed-block runs.
-# Use the supplied checkpoint launcher for production; it saves each block
-# and writes the large report without keeping all results in memory.
-# Direct execution with False is available for smaller CUSTOM experiments.
-# To edit scientific values, use run_mode='CUSTOM', a 'CUSTOM:' run_label,
-# and a different output_filename. All inputs remain editable.
 GREX_PREFLIGHT_ONLY = True
 
 USER_INPUTS = TuningInputs(

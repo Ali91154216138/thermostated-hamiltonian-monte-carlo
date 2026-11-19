@@ -1,4 +1,4 @@
-"""Frozen four-method funnel tuning extension. No held-out draws or screening."""
+"""Define the common tuning settings for the six-dimensional Neal's funnel."""
 from dataclasses import replace
 import math
 from shared_funnel_protocol import EPSILON, LEAPFROG, A, Q, SEED_BLOCKS
