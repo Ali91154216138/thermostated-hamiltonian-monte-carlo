@@ -32,4 +32,4 @@ Each table page gives the corresponding command and links to the original experi
 
 Tuning selected the parameters. Held-out runs then evaluated those settings on fresh seed blocks. Methods in the same comparison use paired blocks. Some tuning winners appear in more than one comparison, with a separate held-out report for each run. Tables 14 and 15 share the same HMC run.
 
-The repository contains 17 tuning campaigns and 24 held-out method reports. The [data guide](data/README.md) identifies the three full tuning archives and their checksums. It also records their current availability.
+The repository contains 17 tuning campaigns and 24 held-out method reports. The [three full tuning archives](https://doi.org/10.5281/zenodo.24380090) are available on Zenodo. The [data guide](data/README.md) gives a download link and checksum for each archive.
