@@ -14,9 +14,9 @@ The bounded-scale THC run recorded nonfinite proposals. Under the rule fixed bef
 
 ## Code, settings and results
 
-- HMC · [Python script](../targets/banana/held-out/hmc/HMC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/hmc/HMC.py) · [Original block results](../targets/banana/held-out/hmc/HMC_results.txt)
-- THC (bounded scale) · [Python script](../targets/banana/held-out/hmc/THC_bounded.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/hmc/THC_bounded.py) · [Original block results](../targets/banana/held-out/hmc/THC_bounded_results.txt)
-- THC-v4 · [Python script](../targets/banana/held-out/hmc/THC_v4.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/hmc/THC_v4.py) · [Original block results](../targets/banana/held-out/hmc/THC_v4_results.txt)
+- HMC · [Python script](../targets/banana/held-out/hmc/HMC.py) · [Original block results](../targets/banana/held-out/hmc/HMC_results.txt)
+- THC (bounded scale) · [Python script](../targets/banana/held-out/hmc/THC_bounded.py) · [Original block results](../targets/banana/held-out/hmc/THC_bounded_results.txt)
+- THC-v4 · [Python script](../targets/banana/held-out/hmc/THC_v4.py) · [Original block results](../targets/banana/held-out/hmc/THC_v4_results.txt)
 
 [Frozen protocol and seeds](../targets/banana/held-out/hmc/frozen_protocol.txt) · [Run instructions](../targets/banana/held-out/hmc/README.md)
 

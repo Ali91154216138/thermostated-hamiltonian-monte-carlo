@@ -11,8 +11,8 @@ The held-out score is the geometric mean of the ten blockwise worst-observable e
 
 ## Code, settings and results
 
-- HMC · [Python script](../targets/multiscale-gaussian/held-out/hmc/HMC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/multiscale-gaussian/held-out/hmc/HMC.py) · [Original block results](../targets/multiscale-gaussian/held-out/hmc/HMC_results.txt)
-- THC · [Python script](../targets/multiscale-gaussian/held-out/hmc/THC_bounded.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/multiscale-gaussian/held-out/hmc/THC_bounded.py) · [Original block results](../targets/multiscale-gaussian/held-out/hmc/THC_bounded_results.txt)
+- HMC · [Python script](../targets/multiscale-gaussian/held-out/hmc/HMC.py) · [Original block results](../targets/multiscale-gaussian/held-out/hmc/HMC_results.txt)
+- THC · [Python script](../targets/multiscale-gaussian/held-out/hmc/THC_bounded.py) · [Original block results](../targets/multiscale-gaussian/held-out/hmc/THC_bounded_results.txt)
 
 [Frozen protocol and seeds](../targets/multiscale-gaussian/held-out/hmc/frozen_protocol.txt) · [Run instructions](../targets/multiscale-gaussian/held-out/hmc/README.md)
 

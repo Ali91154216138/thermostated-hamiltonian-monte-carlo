@@ -13,8 +13,8 @@ Wins count the blocks in which a method had greater efficiency than the other me
 
 ## Code, settings and results
 
-- NUTS · [Python script](../targets/banana/held-out/nuts/NUTS.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/nuts/NUTS.py) · [Original block results](../targets/banana/held-out/nuts/NUTS_results.txt)
-- Periodic THC-v2 · [Python script](../targets/banana/held-out/nuts/THC_v2.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/banana/held-out/nuts/THC_v2.py) · [Original block results](../targets/banana/held-out/nuts/THC_v2_results.txt)
+- NUTS · [Python script](../targets/banana/held-out/nuts/NUTS.py) · [Original block results](../targets/banana/held-out/nuts/NUTS_results.txt)
+- Periodic THC-v2 · [Python script](../targets/banana/held-out/nuts/THC_v2.py) · [Original block results](../targets/banana/held-out/nuts/THC_v2_results.txt)
 
 [Frozen protocol and seeds](../targets/banana/held-out/nuts/frozen_protocol.txt) · [Run instructions](../targets/banana/held-out/nuts/README.md)
 

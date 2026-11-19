@@ -13,8 +13,8 @@ The THC-v3 held-out results here use the blocks paired with S-QHMC. Table 6 uses
 
 ## Code, settings and results
 
-- S-QHMC · [Python script](../targets/multiscale-gaussian/held-out/s-qhmc/S_QHMC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/multiscale-gaussian/held-out/s-qhmc/S_QHMC.py) · [Original block results](../targets/multiscale-gaussian/held-out/s-qhmc/S_QHMC_results.txt)
-- Refreshed-mixture THC-v3 · [Python script](../targets/multiscale-gaussian/held-out/s-qhmc/THC_v3.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/multiscale-gaussian/held-out/s-qhmc/THC_v3.py) · [Original block results](../targets/multiscale-gaussian/held-out/s-qhmc/THC_v3_results.txt)
+- S-QHMC · [Python script](../targets/multiscale-gaussian/held-out/s-qhmc/S_QHMC.py) · [Original block results](../targets/multiscale-gaussian/held-out/s-qhmc/S_QHMC_results.txt)
+- Refreshed-mixture THC-v3 · [Python script](../targets/multiscale-gaussian/held-out/s-qhmc/THC_v3.py) · [Original block results](../targets/multiscale-gaussian/held-out/s-qhmc/THC_v3_results.txt)
 
 [Frozen protocol and seeds](../targets/multiscale-gaussian/held-out/s-qhmc/frozen_protocol.txt) · [Run instructions](../targets/multiscale-gaussian/held-out/s-qhmc/README.md)
 

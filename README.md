@@ -18,8 +18,6 @@ Select a table to find its simulation code, settings and numerical results. Tabl
 
 For example, [Table 10](tables/table-10.md) compares S-QHMC and periodic THC-v2 on the Banana target. Its [comparison folder](targets/banana/held-out/s-qhmc/README.md) links each script to its original result report. Its [frozen protocol](targets/banana/held-out/s-qhmc/frozen_protocol.txt) records the parameters, starts and seed blocks used for both methods.
 
-Each table page offers two links for each method. **Python script** opens the shorter version for reading or rerunning the simulation. **Exact run file** opens the file used on GREX, including its original comments and documentation. The recorded results correspond to the [original source snapshot](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/tree/0c7e37a437f917256e3425f9c80ca248b4a82ae5).
-
 ## Check a table
 
 With Python 3.10 or later installed, run the following command from the repository root to check Table 10 against the saved method outputs.

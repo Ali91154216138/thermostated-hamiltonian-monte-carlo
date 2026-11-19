@@ -14,7 +14,7 @@ The tables use the original GREX output. [extract_winners.py](extract_winners.py
 
 ## Rerun a tuning experiment
 
-The GREX environment used Linux, Python 3.12.4, NumPy 2.2.2, Numba 0.65.1 and llvmlite 0.47.0. Some version strings include the Compute Canada build suffix. Each run manifest records the versions for that method. Use a fresh output directory for a new run. To resume an original GREX checkpoint, use the [original source snapshot](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/tree/0c7e37a437f917256e3425f9c80ca248b4a82ae5) with its recorded software versions.
+The GREX environment used Linux, Python 3.12.4, NumPy 2.2.2, Numba 0.65.1 and llvmlite 0.47.0. Some version strings include the Compute Canada build suffix. Each run manifest records the versions for that method. Use a fresh output directory for a new run. To resume an original GREX checkpoint, use the source revision in the [checksum record](../data/source-checksums.json) with its recorded software versions.
 
 Seven campaigns moved from an initial grid to a set of configurations fixed before the remaining runs. For Banana bounded-scale THC, that set was the whole grid. The original continuation worker read partial results from GREX checkpoint databases. The transferred data include the frozen configuration lists and completed reports. For each campaign, [replay_selection.py](replay_selection.py) can rerun any saved worker part from its seeds using the archived simulation, aggregation and diagnostic code. It checks the selected configurations and verifies the source files against the recorded checksums for both versions. It recomputes all ten blocks for each requested configuration. Add `--check-only` to test the scientific inputs without sampling.
 

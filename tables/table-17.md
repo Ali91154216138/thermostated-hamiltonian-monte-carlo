@@ -15,10 +15,10 @@ All three THC comparisons use the same S-QHMC run. The held-out THC runs for Tab
 
 ## Code, settings and results
 
-- S-QHMC · [Python script](../targets/neals-funnel/held-out/s-qhmc/S_QHMC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/s-qhmc/S_QHMC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/S_QHMC_results.txt)
-- Scalar THC · [Python script](../targets/neals-funnel/held-out/s-qhmc/Scalar_THC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/s-qhmc/Scalar_THC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/Scalar_THC_results.txt)
-- Periodic THC · [Python script](../targets/neals-funnel/held-out/s-qhmc/Periodic_THC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/s-qhmc/Periodic_THC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/Periodic_THC_results.txt)
-- Conditional THC · [Python script](../targets/neals-funnel/held-out/s-qhmc/Conditional_THC.py) · [Exact run file](https://github.com/Ali91154216138/thermostated-hamiltonian-monte-carlo/blob/0c7e37a437f917256e3425f9c80ca248b4a82ae5/targets/neals-funnel/held-out/s-qhmc/Conditional_THC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/Conditional_THC_results.txt)
+- S-QHMC · [Python script](../targets/neals-funnel/held-out/s-qhmc/S_QHMC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/S_QHMC_results.txt)
+- Scalar THC · [Python script](../targets/neals-funnel/held-out/s-qhmc/Scalar_THC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/Scalar_THC_results.txt)
+- Periodic THC · [Python script](../targets/neals-funnel/held-out/s-qhmc/Periodic_THC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/Periodic_THC_results.txt)
+- Conditional THC · [Python script](../targets/neals-funnel/held-out/s-qhmc/Conditional_THC.py) · [Original block results](../targets/neals-funnel/held-out/s-qhmc/Conditional_THC_results.txt)
 
 [Frozen protocol and seeds](../targets/neals-funnel/held-out/s-qhmc/frozen_protocol.txt) · [Run instructions](../targets/neals-funnel/held-out/s-qhmc/README.md)
 

@@ -13,3 +13,5 @@ The three ZIP files contain the GREX tuning records for the simulations in the m
 Each ZIP expands to a directory named for the target, with separate folders for each method and a transfer manifest. The archive records include configuration-level outcomes, available block reports, and run settings. Individual simulation draws and restart databases are outside the scope of these archives.
 
 To verify a downloaded archive, compare its SHA-256 checksum with the value above. Use `sha256sum filename.zip` on Linux, `shasum -a 256 filename.zip` on macOS, or `Get-FileHash filename.zip -Algorithm SHA256` in PowerShell.
+
+The [source checksum record](source-checksums.json) identifies the version of each script used on GREX and the version with shorter documentation.
